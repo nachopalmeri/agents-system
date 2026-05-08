@@ -1,0 +1,46 @@
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporal
+*.tmp
+*.temp
+*~
+
+# Never commit these (security)
+.env
+.env.local
+.env.*
+*.key
+*.pem
+secrets/
+credentials/
+
+# Node (si algún día se usa para docs)
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# Runtime
+*.pid
+*.seed
+*.pid.lock

@@ -1,0 +1,295 @@
+#!/bin/bash
+# Uso: nuevo-proyecto <nombre> [stack]
+# Ejemplo: nuevo-proyecto mi-landing astro
+
+if [ -z "$1" ]; then
+  echo "Uso: nuevo-proyecto <nombre> [stack]"
+  exit 1
+fi
+
+nombre="$1"
+stack="${2:-html-css-js}"
+base=~/"$nombre"
+
+mkdir -p "$base" && cd "$base"
+git init && git commit --allow-empty -m "chore: init"
+
+if [ "$stack" = "ai-prod" ]; then
+  mkdir -p app/components services prompts agents/tools security evaluation/eval_results observability data/raw data/processed data/index_config scripts frontend/static tests docs .claude/rules .github tasks
+
+  cat > app/main.py << 'HEREDOC'
+"""FastAPI entrypoint for the AI production app."""
+HEREDOC
+  cat > app/config.py << 'HEREDOC'
+"""Application configuration."""
+HEREDOC
+  cat > app/models.py << 'HEREDOC'
+"""Shared API and domain models."""
+HEREDOC
+  cat > app/Dockerfile << 'HEREDOC'
+FROM python:3.12-slim
+HEREDOC
+  cat > app/components/hybrid_retriever.py << 'HEREDOC'
+"""Hybrid retrieval: keyword/vector search orchestration."""
+HEREDOC
+  cat > app/components/reranker.py << 'HEREDOC'
+"""Document reranking component."""
+HEREDOC
+
+  for file in services/rag_pipeline.py services/semantic_cache.py services/conversation.py services/query_rewriter.py services/query_router.py prompts/templates.py prompts/registry.py agents/document_grader.py agents/query_decomposer.py agents/adaptive_router.py agents/tools/vector_search.py agents/tools/web_search.py agents/tools/code_search.py security/input_guard.py security/content_filter.py security/output_filter.py evaluation/offline_eval.py evaluation/online_monitor.py observability/tracer.py observability/feedback.py observability/cost_tracker.py scripts/seed.py scripts/migrate.py scripts/healthcheck.py frontend/app.py tests/test_retrieval.py tests/test_cache.py tests/test_routing.py; do
+    echo '"""TODO: implement."""' > "$file"
+  done
+
+  cat > evaluation/golden_dataset.json << 'HEREDOC'
+{
+  "cases": []
+}
+HEREDOC
+  echo "" > frontend/requirements.txt
+  echo "FROM python:3.12-slim" > frontend/Dockerfile
+  cat > docs/architecture.md << 'HEREDOC'
+# Architecture
+
+AI production architecture: services, agents, prompts, security, evaluation and observability.
+HEREDOC
+  echo "# API Reference" > docs/api-reference.md
+  echo "# Deployment" > docs/deployment.md
+  cat > .claude/rules/code-style.md << 'HEREDOC'
+# Code Style
+
+Follow project AGENTS.md and global ~/.agents/rules/code-style.md.
+HEREDOC
+  cat > .claude/rules/testing.md << 'HEREDOC'
+# Testing
+
+Follow project AGENTS.md and global ~/.agents/rules/testing.md.
+HEREDOC
+  cat > docker-compose.yml << 'HEREDOC'
+services:
+  app:
+    build: ./app
+HEREDOC
+  cat > pyproject.toml << HEREDOC
+[project]
+name = "$nombre"
+version = "0.1.0"
+requires-python = ">=3.12"
+HEREDOC
+  cat > README.md << HEREDOC
+# $nombre
+
+AI production-ready project scaffold.
+HEREDOC
+  cat > tasks/todo.md << 'HEREDOC'
+# Todo
+
+## En progreso
+(vacío)
+
+## Pendiente
+- [ ] Definir golden dataset inicial
+- [ ] Implementar RAG pipeline mínimo
+- [ ] Agregar tracing y cost tracking
+
+## Completado
+(vacío)
+HEREDOC
+  cat > tasks/lessons.md << 'HEREDOC'
+# Lecciones Aprendidas
+
+## Reglas
+(vacío por ahora)
+HEREDOC
+  cat > feature_list.json << HEREDOC
+{
+  "proyecto": "$nombre",
+  "stack": "ai-prod",
+  "features": []
+}
+HEREDOC
+  cat > .gitignore << 'HEREDOC'
+node_modules/
+.env
+.env.local
+dist/
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+HEREDOC
+
+  cat > AGENTS.md << HEREDOC
+# $nombre
+
+## Stack
+ai-prod — AI/RAG production architecture
+
+## Arquitectura
+- app/ → entrypoint, config, models, Dockerfile
+- services/ → RAG pipeline, semantic cache, conversation memory, query rewriting, routing
+- prompts/ → templates versionados y registry
+- agents/ → document grading, query decomposition, adaptive routing, tools
+- security/ → input/content/output guards
+- evaluation/ → golden dataset, offline eval, online monitor
+- observability/ → tracing, feedback, cost tracking
+- data/ → raw, processed, index_config
+
+## Reglas Inmutables
+1. Nunca hardcodear prompts en services: usar prompts/registry.py
+2. Toda feature AI debe tener evaluación mínima o justificar por qué no
+3. Toda llamada LLM debe ser trazable y tener cost tracking
+4. Input/content/output guards antes de producción
+5. No declarar production-ready sin golden dataset y offline eval
+6. Commits en español: feat | fix | chore | docs | test
+HEREDOC
+
+  cat > .github/copilot-instructions.md << HEREDOC
+# $nombre — Instrucciones para Copilot
+
+Proyecto AI/RAG production-ready. Mantener separadas las capas:
+services, agents, prompts, security, evaluation, observability.
+
+Reglas:
+1. No hardcodear prompts: usar prompts/registry.py
+2. No saltear evaluación para cambios AI importantes
+3. Agregar tracing y cost tracking a llamadas LLM
+4. Validar input/content/output antes de producción
+5. Tests mínimos: retrieval, cache, routing
+HEREDOC
+
+  git add -A && git commit -m "chore: estructura ai production del proyecto"
+  git worktree add ~/agente-1-"$nombre" -b agente/feature
+  git worktree add ~/agente-2-"$nombre" -b agente/design
+  git worktree add ~/agente-3-"$nombre" -b agente/tests
+  echo "✓ Proyecto AI production '$nombre' listo"
+  exit 0
+fi
+
+# ── AGENTS.md (instrucciones globales del proyecto) ──
+cat > AGENTS.md << HEREDOC
+# $nombre
+
+## Stack
+$stack
+
+## Reglas Inmutables
+1. Leer AGENTS.md y tasks/todo.md antes de cualquier acción
+2. Plan Mode obligatorio para cualquier tarea de más de 3 pasos
+3. Commits en español: feat | fix | chore | style | docs
+4. Nunca marcar tarea como "passing" sin demostrar que funciona
+5. No tocar archivos fuera de tu scope de worktree
+6. No instalar dependencias sin confirmar con el director
+7. Tras cualquier corrección: actualizar tasks/lessons.md
+
+## Archivos Sagrados (NO editar sin confirmación explícita)
+- AGENTS.md
+- package.json / package-lock.json
+- .env / .env.local
+- archivos de config raíz (astro.config, next.config, etc)
+
+## Validación Obligatoria Antes de Commit
+1. git diff --stat → revisar exactamente qué tocaste
+2. Correr tests: npm run test (si existen)
+3. Verificar visualmente que nada se rompió
+4. Solo entonces: commit + actualizar tasks/todo.md
+
+## Convenciones de Commit
+- feat: nueva funcionalidad
+- fix: corrección de bug
+- chore: mantenimiento sin lógica
+- style: estilos sin lógica
+- docs: documentación
+HEREDOC
+
+# ── Estructura de tasks/ ──
+mkdir -p tasks
+
+cat > tasks/todo.md << 'HEREDOC'
+# Todo
+
+## En progreso
+(vacío)
+
+## Pendiente
+(agregar tareas acá)
+
+## Completado
+(vacío)
+HEREDOC
+
+cat > tasks/lessons.md << 'HEREDOC'
+# Lecciones Aprendidas
+
+Tras cualquier corrección del director, agregar una regla acá.
+Formato: "Siempre X" o "Nunca Y"
+
+## Reglas
+(vacío por ahora)
+HEREDOC
+
+# ── feature_list.json ──
+cat > feature_list.json << 'HEREDOC'
+{
+  "proyecto": "",
+  "features": []
+}
+HEREDOC
+
+# ── .github/copilot-instructions.md (para GitHub Copilot) ──
+mkdir -p .github
+cat > .github/copilot-instructions.md << HEREDOC
+# $nombre — Instrucciones para Copilot
+
+## Stack
+$stack
+
+## Reglas
+1. Plan Mode obligatorio para tareas no triviales (>3 pasos)
+2. Nunca marcar tarea como completada sin demostrar que funciona
+3. Commits en español: feat | fix | chore | style | docs
+4. No instalar dependencias sin confirmar
+5. Tras cualquier corrección: actualizar tasks/lessons.md
+6. Preguntarse: ¿Aprobaría esto un Staff Engineer?
+7. Corregir errores autónomamente, no pedir ayuda
+
+## Archivos Sagrados
+- AGENTS.md, package.json, .env, archivos de config raíz
+
+## Validación antes de commit
+1. git diff --stat
+2. Correr tests si existen
+3. Verificar visualmente
+HEREDOC
+
+# ── .gitignore base ──
+cat > .gitignore << 'HEREDOC'
+node_modules/
+.env
+.env.local
+dist/
+.DS_Store
+*.log
+HEREDOC
+
+# ── Worktrees para agentes ──
+git add -A && git commit -m "chore: estructura base del proyecto"
+git worktree add ~/agente-1-"$nombre" -b agente/feature
+git worktree add ~/agente-2-"$nombre" -b agente/design
+git worktree add ~/agente-3-"$nombre" -b agente/tests
+
+echo ""
+echo "✓ Proyecto '$nombre' listo con stack '$stack'"
+echo ""
+echo "Estructura creada:"
+echo "  ~/$nombre/AGENTS.md"
+echo "  ~/$nombre/tasks/todo.md"
+echo "  ~/$nombre/tasks/lessons.md"
+echo "  ~/$nombre/feature_list.json"
+echo "  ~/$nombre/.github/copilot-instructions.md"
+echo ""
+echo "Worktrees:"
+echo "  ~/agente-1-$nombre → agente/feature"
+echo "  ~/agente-2-$nombre → agente/design"
+echo "  ~/agente-3-$nombre → agente/tests"
+echo ""
+echo "Próximo paso: completar AGENTS.md con el stack real del proyecto."
