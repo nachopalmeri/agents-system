@@ -133,6 +133,7 @@ Antes de crear una web desde cero, landing, presentación web, pitch o demo visu
 |---|---|
 | `subagent-driven-development` | Ejecutar planes con varias tareas independientes |
 | `executing-plans` | Seguir un plan ya escrito |
+| `spec-kit` | Spec-Driven Development para proyectos/features medianas-grandes con constitution, spec, plan, tasks e implementación |
 | `webapp-testing` | Probar apps web |
 | `remembering-conversations` | Buscar contexto previo útil |
 | `find-skills` | Descubrir skills apropiadas |
@@ -142,6 +143,20 @@ Antes de crear una web desde cero, landing, presentación web, pitch o demo visu
 | `teach-impeccable` | Configurar lineamientos persistentes de diseño |
 | `claude-opus-4-5-migration` | Migraciones específicas de Claude |
 | `web-artifacts-builder` | Artifacts web más complejos |
+
+### Spec-Driven Development opcional
+
+Usar `spec-kit` cuando:
+- La tarea sea medium/large
+- Haya varios requisitos o incertidumbre de producto
+- Se necesite trazabilidad entre spec, plan, tasks e implementación
+- Se trabaje en apps AI/RAG complejas junto con `ai-production-architecture`
+
+No usar `spec-kit` para:
+- fixes chicos
+- SEO puntual
+- cambios visuales simples
+- tareas de menos de 3 pasos
 
 ## Rarely-Use
 

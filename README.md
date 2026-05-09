@@ -150,6 +150,25 @@ nuevo-proyecto mi-landing astro
 nuevo-proyecto mi-ai-app ai-prod
 ```
 
+### Crear proyecto Spec-Driven Development
+
+```bash
+nuevo-proyecto mi-app-compleja spec-kit
+```
+
+Crea el scaffold base más `.specify/`:
+
+```text
+.specify/
+├── memory/
+│   └── constitution.md
+├── specs/
+├── templates/
+└── README.md
+```
+
+Usarlo para features/proyectos medianos o grandes. No usarlo para fixes chicos.
+
 ### Crear proyecto web premium (con briefing)
 
 ```bash

@@ -169,6 +169,141 @@ Reglas:
     exit 0
 }
 
+if ($Stack -eq "spec-kit") {
+    $dirs = @(
+        "tasks",
+        ".github",
+        ".specify/memory",
+        ".specify/specs",
+        ".specify/templates"
+    )
+
+    foreach ($dir in $dirs) {
+        New-Item -ItemType Directory -Path (Join-Path $base $dir) -Force | Out-Null
+    }
+
+    $agentsContent = @"
+# $Nombre
+
+## Stack
+spec-kit — Spec-Driven Development opcional
+
+## Modo de Trabajo
+Este proyecto usa el scaffold base con una capa opcional `.specify/` para features medianas o grandes.
+
+Para cambios chicos:
+1. Leer AGENTS.md y tasks/todo.md
+2. Plan Mode si hay más de 3 pasos
+3. Implementar y validar
+
+Para features medianas/grandes:
+1. Revisar `.specify/memory/constitution.md`
+2. Definir spec: qué y por qué
+3. Crear plan técnico: cómo
+4. Generar tasks verificables
+5. Implementar contra criterios de aceptación
+
+## Reglas Inmutables
+1. No usar Spec Kit para fixes chicos
+2. No implementar features grandes sin spec/plan/tasks
+3. Commits en espanol: feat | fix | chore | docs | test
+4. Nunca marcar tarea como completada sin demostrar que funciona
+5. Tras cualquier correccion: actualizar tasks/lessons.md
+
+## Validación
+1. git diff --stat
+2. Correr tests si existen
+3. Validar criterios de aceptación de `.specify/specs/` si aplica
+"@
+    Set-Content -Path (Join-Path $base "AGENTS.md") -Value $agentsContent -Encoding UTF8
+
+    $constitutionContent = @"
+# Constitution
+
+## Principios
+1. La especificación define el qué y el por qué antes del cómo.
+2. El plan técnico debe respetar `AGENTS.md`.
+3. Las tareas deben ser atómicas, verificables y ordenadas por dependencia.
+4. No se declara completado sin validación.
+5. Los cambios chicos pueden usar el flujo simple sin Spec Kit.
+
+## Calidad
+- Código simple y mantenible.
+- Tests cuando exista lógica con riesgo.
+- UX clara si hay interfaz.
+- Performance razonable para el stack elegido.
+
+## Gobernanza
+Esta constitution complementa, no reemplaza, `AGENTS.md`.
+"@
+    Set-Content -Path (Join-Path $base ".specify/memory/constitution.md") -Value $constitutionContent -Encoding UTF8
+
+    $specifyReadme = @"
+# .specify/
+
+Carpeta para Spec-Driven Development opcional.
+
+## Flujo
+1. Constitution: `.specify/memory/constitution.md`
+2. Specify: crear spec en `.specify/specs/`
+3. Plan: definir implementación técnica
+4. Tasks: desglosar tareas verificables
+5. Implement: ejecutar y validar
+
+Usar solo para features medianas o grandes.
+"@
+    Set-Content -Path (Join-Path $base ".specify/README.md") -Value $specifyReadme -Encoding UTF8
+
+    Set-Content -Path (Join-Path $base ".specify/templates/spec-template.md") -Value "# Spec`n`n## Problema`n`n## Usuarios`n`n## Requisitos`n`n## Criterios de aceptación`n`n## No objetivos`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base ".specify/templates/plan-template.md") -Value "# Plan`n`n## Stack`n`n## Arquitectura`n`n## Archivos a tocar`n`n## Riesgos`n`n## Validación`n`n## Qué NO se toca`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base ".specify/templates/tasks-template.md") -Value "# Tasks`n`n- [ ] Tarea verificable 1`n" -Encoding UTF8
+
+    $todoContent = @"
+# Todo
+
+## En progreso
+(vacio)
+
+## Pendiente
+- [ ] Definir primera spec si la feature lo amerita
+
+## Completado
+(vacio)
+"@
+    Set-Content -Path (Join-Path $base "tasks/todo.md") -Value $todoContent -Encoding UTF8
+    Set-Content -Path (Join-Path $base "tasks/lessons.md") -Value "# Lecciones Aprendidas`n`n## Reglas`n(vacio por ahora)`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "feature_list.json") -Value "{`n  `"proyecto`": `"$Nombre`",`n  `"stack`": `"spec-kit`",`n  `"features`": []`n}" -Encoding UTF8
+    Set-Content -Path (Join-Path $base ".gitignore") -Value "node_modules/`n.env`n.env.local`ndist/`n.DS_Store`n*.log`n" -Encoding UTF8
+
+    $copilotContent = @"
+# $Nombre — Instrucciones para Copilot
+
+Proyecto con Spec-Driven Development opcional.
+
+Reglas:
+1. Para features medianas/grandes, usar `.specify/` antes de implementar
+2. Para cambios chicos, usar el flujo simple de `AGENTS.md`
+3. No marcar completado sin validar criterios de aceptación
+4. No instalar dependencias sin confirmar
+"@
+    Set-Content -Path (Join-Path $base ".github/copilot-instructions.md") -Value $copilotContent -Encoding UTF8
+
+    git add -A
+    git commit -m "chore: estructura spec kit del proyecto"
+
+    $wt1 = Join-Path $HOME "agente-1-$Nombre"
+    $wt2 = Join-Path $HOME "agente-2-$Nombre"
+    $wt3 = Join-Path $HOME "agente-3-$Nombre"
+    git worktree add $wt1 -b agente/feature
+    git worktree add $wt2 -b agente/design
+    git worktree add $wt3 -b agente/tests
+
+    Write-Host ""
+    Write-Host "Proyecto Spec Kit '$Nombre' listo" -ForegroundColor Green
+    Write-Host "Estructura creada con .specify/, AGENTS.md, tasks/ y Copilot instructions"
+    exit 0
+}
+
 # ── AGENTS.md (instrucciones globales del proyecto) ──
 $agentsContent = @"
 # $Nombre

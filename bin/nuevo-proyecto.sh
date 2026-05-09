@@ -165,6 +165,171 @@ HEREDOC
   exit 0
 fi
 
+if [ "$stack" = "spec-kit" ]; then
+  mkdir -p tasks .github .specify/memory .specify/specs .specify/templates
+
+  cat > AGENTS.md << HEREDOC
+# $nombre
+
+## Stack
+spec-kit — Spec-Driven Development opcional
+
+## Modo de Trabajo
+Este proyecto usa el scaffold base con una capa opcional \`.specify/\` para features medianas o grandes.
+
+Para cambios chicos:
+1. Leer AGENTS.md y tasks/todo.md
+2. Plan Mode si hay más de 3 pasos
+3. Implementar y validar
+
+Para features medianas/grandes:
+1. Revisar \`.specify/memory/constitution.md\`
+2. Definir spec: qué y por qué
+3. Crear plan técnico: cómo
+4. Generar tasks verificables
+5. Implementar contra criterios de aceptación
+
+## Reglas Inmutables
+1. No usar Spec Kit para fixes chicos
+2. No implementar features grandes sin spec/plan/tasks
+3. Commits en español: feat | fix | chore | docs | test
+4. Nunca marcar tarea como completada sin demostrar que funciona
+5. Tras cualquier corrección: actualizar tasks/lessons.md
+
+## Validación
+1. git diff --stat
+2. Correr tests si existen
+3. Validar criterios de aceptación de \`.specify/specs/\` si aplica
+HEREDOC
+
+  cat > .specify/memory/constitution.md << 'HEREDOC'
+# Constitution
+
+## Principios
+1. La especificación define el qué y el por qué antes del cómo.
+2. El plan técnico debe respetar `AGENTS.md`.
+3. Las tareas deben ser atómicas, verificables y ordenadas por dependencia.
+4. No se declara completado sin validación.
+5. Los cambios chicos pueden usar el flujo simple sin Spec Kit.
+
+## Calidad
+- Código simple y mantenible.
+- Tests cuando exista lógica con riesgo.
+- UX clara si hay interfaz.
+- Performance razonable para el stack elegido.
+
+## Gobernanza
+Esta constitution complementa, no reemplaza, `AGENTS.md`.
+HEREDOC
+
+  cat > .specify/README.md << 'HEREDOC'
+# .specify/
+
+Carpeta para Spec-Driven Development opcional.
+
+## Flujo
+1. Constitution: `.specify/memory/constitution.md`
+2. Specify: crear spec en `.specify/specs/`
+3. Plan: definir implementación técnica
+4. Tasks: desglosar tareas verificables
+5. Implement: ejecutar y validar
+
+Usar solo para features medianas o grandes.
+HEREDOC
+
+  cat > .specify/templates/spec-template.md << 'HEREDOC'
+# Spec
+
+## Problema
+
+## Usuarios
+
+## Requisitos
+
+## Criterios de aceptación
+
+## No objetivos
+HEREDOC
+
+  cat > .specify/templates/plan-template.md << 'HEREDOC'
+# Plan
+
+## Stack
+
+## Arquitectura
+
+## Archivos a tocar
+
+## Riesgos
+
+## Validación
+
+## Qué NO se toca
+HEREDOC
+
+  cat > .specify/templates/tasks-template.md << 'HEREDOC'
+# Tasks
+
+- [ ] Tarea verificable 1
+HEREDOC
+
+  cat > tasks/todo.md << 'HEREDOC'
+# Todo
+
+## En progreso
+(vacío)
+
+## Pendiente
+- [ ] Definir primera spec si la feature lo amerita
+
+## Completado
+(vacío)
+HEREDOC
+
+  cat > tasks/lessons.md << 'HEREDOC'
+# Lecciones Aprendidas
+
+## Reglas
+(vacío por ahora)
+HEREDOC
+
+  cat > feature_list.json << HEREDOC
+{
+  "proyecto": "$nombre",
+  "stack": "spec-kit",
+  "features": []
+}
+HEREDOC
+
+  cat > .gitignore << 'HEREDOC'
+node_modules/
+.env
+.env.local
+dist/
+.DS_Store
+*.log
+HEREDOC
+
+  cat > .github/copilot-instructions.md << HEREDOC
+# $nombre — Instrucciones para Copilot
+
+Proyecto con Spec-Driven Development opcional.
+
+Reglas:
+1. Para features medianas/grandes, usar \`.specify/\` antes de implementar
+2. Para cambios chicos, usar el flujo simple de \`AGENTS.md\`
+3. No marcar completado sin validar criterios de aceptación
+4. No instalar dependencias sin confirmar
+HEREDOC
+
+  git add -A && git commit -m "chore: estructura spec kit del proyecto"
+  git worktree add ~/agente-1-"$nombre" -b agente/feature
+  git worktree add ~/agente-2-"$nombre" -b agente/design
+  git worktree add ~/agente-3-"$nombre" -b agente/tests
+  echo "✓ Proyecto Spec Kit '$nombre' listo"
+  exit 0
+fi
+
 # ── AGENTS.md (instrucciones globales del proyecto) ──
 cat > AGENTS.md << HEREDOC
 # $nombre
