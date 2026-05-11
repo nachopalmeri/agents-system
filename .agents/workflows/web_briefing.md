@@ -8,6 +8,7 @@ description: Briefing obligatorio antes de crear una web, landing, presentación
 Antes de crear una web desde cero o rediseñar una experiencia completa, preguntar qué busca el usuario si el objetivo no está explícito.
 
 No empezar por código. Empezar por intención.
+Si el usuario ya dio objetivo, audiencia, tono y contenido suficiente, no hacer preguntas innecesarias.
 
 ## Preguntas mínimas
 
@@ -77,3 +78,4 @@ Validación:
 
 ## Regla final
 La web tiene que responder a una intención clara. Si no se sabe qué busca el usuario, preguntar antes de diseñar o codear.
+Para cierre y QA web, usar `workflows/validation.md`.

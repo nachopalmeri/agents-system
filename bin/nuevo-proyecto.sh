@@ -2,8 +2,23 @@
 # Uso: nuevo-proyecto <nombre> [stack]
 # Ejemplo: nuevo-proyecto mi-landing astro
 
-if [ -z "$1" ]; then
-  echo "Uso: nuevo-proyecto <nombre> [stack]"
+if [ -z "$1" ] || [ "$1" = "help" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+  cat << 'HEREDOC'
+Uso: nuevo-proyecto <nombre> [stack]
+
+Stacks:
+- html-css-js     proyecto simple
+- astro           landing estatica/SEO
+- next            app web React/Next
+- python          proyecto Python/CLI
+- ai-prod         AI/RAG production-ready
+- spec-kit        Spec-Driven Development opcional
+
+Ejemplos:
+- nuevo-proyecto landing astro
+- nuevo-proyecto jobbot-ai ai-prod
+- nuevo-proyecto app-compleja spec-kit
+HEREDOC
   exit 1
 fi
 

@@ -16,10 +16,15 @@
   },
   "instructions": [
     "~/.agents/AGENTS.md",
+    "~/.agents/rules/chat-first.md",
     "~/.agents/workflows/start.md",
+    "~/.agents/workflows/index.md",
     "~/.agents/workflows/phases.md",
     "~/.agents/workflows/skills_routing.md",
     "~/.agents/workflows/spec_kit.md",
+    "~/.agents/workflows/validation.md",
+    "~/.agents/workflows/session_checkpoint.md",
+    "~/.agents/workflows/project_types.md",
     "~/.agents/rules/code-style.md",
     "~/.agents/rules/testing.md",
     "~/.agents/rules/git.md"

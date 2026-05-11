@@ -5,6 +5,7 @@ description: Guía práctica para decidir qué skills usar por defecto, cuáles 
 # Skills Routing
 
 Esta guía ordena la colección de skills para que el agente no tenga que "pensar entre 59 opciones" en cada tarea.
+La primera decisión de workflow vive en `workflows/index.md`; este archivo solo ayuda a elegir skills.
 
 ## Regla Base
 
@@ -78,6 +79,18 @@ Estas están buenas, pero solo para tipos de trabajo concretos.
 | `skill-creator` | Crear o rediseñar una skill |
 | `writing-hookify-rules` | Escribir reglas hookify |
 
+### Marketing y Growth
+
+| Skill | Cuándo usarla |
+|---|---|
+| `internal-comms` | Escribir comunicación interna |
+| `mcp-integration` | Evaluar e integrar MCPs de marketing (Meta, Instagram, scrapers) |
+
+Reglas:
+- No instalar MCPs de paid media o DMs sin evaluación previa (`marketing_mcp_eval.md`).
+- Nunca ejecutar gasto publicitario automáticamente.
+- Los DMs y social selling empiezan en modo draft/handoff humano.
+
 ### Diseño y frontend
 
 | Skill | Cuándo usarla |
@@ -143,20 +156,6 @@ Antes de crear una web desde cero, landing, presentación web, pitch o demo visu
 | `teach-impeccable` | Configurar lineamientos persistentes de diseño |
 | `claude-opus-4-5-migration` | Migraciones específicas de Claude |
 | `web-artifacts-builder` | Artifacts web más complejos |
-
-### Spec-Driven Development opcional
-
-Usar `spec-kit` cuando:
-- La tarea sea medium/large
-- Haya varios requisitos o incertidumbre de producto
-- Se necesite trazabilidad entre spec, plan, tasks e implementación
-- Se trabaje en apps AI/RAG complejas junto con `ai-production-architecture`
-
-No usar `spec-kit` para:
-- fixes chicos
-- SEO puntual
-- cambios visuales simples
-- tareas de menos de 3 pasos
 
 ## Rarely-Use
 

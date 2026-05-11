@@ -104,6 +104,7 @@ Tiene que crear:
 │   ├── agente-docs.md
 │   ├── agente-obsidian-brain.md
 │   ├── agente-ai-architect.md
+│   ├── agente-marketing-strategist.md
 │   ├── kickoff-architect.md
 │   └── workflow-pruner.md
 ├── workflows/                # Workflows reutilizables
@@ -112,6 +113,8 @@ Tiene que crear:
 │   ├── skills_routing.md
 │   ├── ai_production.md
 │   ├── web_briefing.md
+│   ├── marketing.md
+│   ├── marketing_mcp_eval.md
 │   └── ...
 ├── skills/                   # Skills del sistema
 │   ├── astro/
@@ -174,6 +177,28 @@ Usarlo para features/proyectos medianos o grandes. No usarlo para fixes chicos.
 ```bash
 nuevo-proyecto mi-pitch next
 # La IA preguntará: ¿qué buscás? objetivo, audiencia, tono...
+```
+
+### Marketing AI opcional
+
+El sistema puede enrutar pedidos de marketing internamente sin que recuerdes workflows:
+
+- Estrategia de lanzamiento, posicionamiento, GTM
+- Research de audiencia, competencia, Category Entry Points
+- SEO/GEO/AEO técnico (auditoría + quick wins)
+- Evaluación de MCPs para ads, Meta, Instagram, scrapers
+
+**Reglas de seguridad:**
+- Nunca ejecuta gasto publicitario automáticamente.
+- Los DMs y social selling empiezan en modo draft/handoff humano.
+- Todo MCP de marketing se evalúa con `marketing_mcp_eval.md` antes de instalar.
+
+Ejemplos de prompts naturales:
+```text
+"armame una estrategia de lanzamiento para JobBot"
+"auditá el SEO y decime quick wins"
+"quiero investigar anuncios de competidores"
+"evaluá si conviene conectar Meta Ads MCP"
 ```
 
 ## Actualizar el sistema

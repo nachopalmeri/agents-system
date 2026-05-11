@@ -2,17 +2,20 @@
 
 ## Fuente Principal de Reglas
 Leer ~/.agents/AGENTS.md para las reglas completas del sistema de agentes.
-Los archivos detallados están en:
-- workflows/: start.md, phases.md, skills_routing.md
-- rules/: code-style.md, testing.md, git.md
-- skills/: astro/, python/, next/, html-vanilla/
-- agents/: agente-principal, agente-seo, agente-design, agente-tests, agente-docs
+Archivos clave:
+- rules/chat-first.md → UX chat-first y workflows invisibles
+- workflows/index.md → router principal
+- workflows/validation.md → cierre con evidencia
+- workflows/session_checkpoint.md → continuidad en sesiones largas
+- workflows/project_types.md → simple, web premium, ai-prod, spec-kit
+- workflows/skills_routing.md → selección de skills
+- rules/code-style.md, testing.md, git.md → reglas base
 
 ## Reglas Mínimas (resumen)
-1. Plan Mode obligatorio para tareas no triviales (>3 pasos)
-2. Nunca marcar tarea como completada sin demostrar que funciona
-3. Tras cualquier corrección: actualizar tasks/lessons.md
-4. Preguntarse: "¿Aprobaría esto un Staff Engineer?"
-5. Corrección autónoma de errores: no pedir ayuda, simplemente arreglar
-6. Commits en español: feat | fix | chore | style | docs
-7. No tocar archivos fuera de tu scope de worktree
+1. El usuario habla normal; el agente enruta internamente
+2. Usar el menor workflow suficiente
+3. No usar Spec Kit ni AI production para cambios chicos
+4. Nunca marcar completado sin evidencia de validación
+5. En sesiones largas, crear checkpoints compactos
+6. Tras correcciones importantes, actualizar tasks/lessons.md
+7. Commits en español: feat | fix | chore | style | docs

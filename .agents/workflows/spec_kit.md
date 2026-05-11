@@ -7,6 +7,8 @@ description: Workflow opcional para usar GitHub Spec Kit / Spec-Driven Developme
 ## Regla principal
 No usar Spec Kit para todo. Primero clasificar la tarea.
 
+El usuario no necesita pedir slash commands. Si la tarea es compleja o incierta, activar este flujo internamente y explicar la decisión en una frase.
+
 ## FASE 1 — Clasificar tamaño
 
 ### Small
@@ -72,11 +74,9 @@ Durante implementación:
 - No marcar completado sin validación.
 
 ## FASE 7 — Validate
-Antes de cerrar:
-- Revisar diff.
-- Correr tests si existen.
-- Validar criterios de aceptación.
-- Registrar lecciones si hubo correcciones.
+Usar `workflows/validation.md` como fuente única de validación.
+
+Si existe `.specify/`, validar explícitamente contra criterios de aceptación.
 
 ## Integración con AI production
 Para apps AI/RAG complejas:

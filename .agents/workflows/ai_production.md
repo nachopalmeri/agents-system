@@ -11,6 +11,7 @@ Definir si el proyecto es:
 - **Producción:** usuarios reales, costos, monitoreo y calidad medible
 
 No aplicar arquitectura completa si el proyecto es demo.
+Si además hay incertidumbre de producto o feature compleja, combinar con `spec_kit.md`.
 
 ## FASE 2 — Definir capas necesarias
 Evaluar si hacen falta:
@@ -55,6 +56,8 @@ Validar:
 - README + docs de arquitectura/deploy
 
 ## FASE 7 — Reporte final
+Antes de reportar, usar `workflows/validation.md` como cierre central.
+
 Reportar:
 - Capas creadas
 - Capas omitidas por YAGNI

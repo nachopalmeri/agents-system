@@ -6,8 +6,23 @@ param(
     [Parameter(Position=1)][string]$Stack = "html-css-js"
 )
 
-if (-not $Nombre) {
-    Write-Host "Uso: nuevo-proyecto <nombre> [stack]"
+if (-not $Nombre -or $Nombre -in @("help", "--help", "-h")) {
+    Write-Host @"
+Uso: nuevo-proyecto <nombre> [stack]
+
+Stacks:
+- html-css-js     proyecto simple
+- astro           landing estatica/SEO
+- next            app web React/Next
+- python          proyecto Python/CLI
+- ai-prod         AI/RAG production-ready
+- spec-kit        Spec-Driven Development opcional
+
+Ejemplos:
+- nuevo-proyecto landing astro
+- nuevo-proyecto jobbot-ai ai-prod
+- nuevo-proyecto app-compleja spec-kit
+"@
     exit 1
 }
 

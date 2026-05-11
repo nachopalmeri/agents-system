@@ -2,6 +2,13 @@
 
 ## Orquestación del Flujo de Trabajo
 
+### 0. Interfaz Chat-First
+- El usuario habla normal; no exigirle recordar workflows ni comandos internos
+- Usar `rules/chat-first.md` como política de UX
+- Usar `workflows/index.md` para enrutar internamente al menor workflow suficiente
+- Usar `workflows/validation.md` antes de declarar una tarea lista
+- Usar `workflows/session_checkpoint.md` para sesiones largas o mucho contexto acumulado
+
 ### 1. Modo Planificación por Defecto
 - Entrar en Plan Mode para CUALQUIER tarea no trivial (más de 3 pasos)
 - Si algo sale mal, PARAR y volver a planificar de inmediato
@@ -57,6 +64,7 @@
 - agente-design    → CSS, responsive, animaciones, UI
 - agente-tests     → tests unitarios y E2E
 - agente-docs      → README, comentarios, documentación
+- agente-marketing-strategist → estrategia, GTM, posicionamiento, research de audiencia (no ejecuta gasto ni DMs)
 
 ## Regla de Oro
 Nunca declarés victoria antes de validar.
