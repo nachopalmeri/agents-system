@@ -7,7 +7,7 @@
 - Usar `rules/chat-first.md` como política de UX
 - Usar `workflows/index.md` para enrutar internamente al menor workflow suficiente
 - Usar `docs/world-class-workflow.md` como referencia canónica para el workflow maestro cuando haya tensión entre reglas, workflows y documentación
-- Usar `workflows/task_ledger.md` cuando haya coordinación, handoffs, kanban, tracking o recibos finales
+- Usar `workflows/task_ledger.md` cuando haya coordinación, handoffs, kanban, tracking, Telegram/Discord/Hermes o recibos finales
 - Usar `workflows/validation.md` antes de declarar una tarea lista
 - Usar `workflows/session_checkpoint.md` para sesiones largas o mucho contexto acumulado
 

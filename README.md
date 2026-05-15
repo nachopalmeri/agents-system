@@ -353,6 +353,21 @@ pedido en lenguaje natural
 
 Puede usarse con `tasks/todo.md`, Obsidian, GitHub Projects, Kanban local, Discord/Hermes u otra herramienta. No debe crear tarjetas por cada conversación: solo cuando hay acción real, handoff, tracking o continuidad.
 
+Para setups móviles tipo Jumperz/Juan:
+
+```text
+Telegram/chat móvil
+→ Discord coordinador organizado
+→ Hermes Kanban como ledger
+→ agente correcto
+→ progress card durante el run
+→ evidencia en canal del agente
+→ recibo final en results channel
+→ Obsidian para decisiones/aprendizajes durables
+```
+
+Discord/Hermes/Telegram son una capa opcional de orquestación. Si fallan o no están configurados, el sistema debe seguir funcionando con chat local, `tasks/todo.md`, Obsidian y git.
+
 ### SEO/GEO/AEO Growth
 
 El agente `agente-growth-seo-geo` aplica el loop:

@@ -33,7 +33,7 @@ La documentación nunca debe contradecir a los workflows. Si se detecta contradi
 start.md
 → index.md
 → phases.md si no trivial
-→ modo: simple / plan / /loop / Routine / multiagent review / Venture Loop
+→ modo: simple / plan / /loop / Routine / Task Ledger / multiagent review / Venture Loop
 → agente o skill especializado
 → tools con matriz de riesgo
 → validation.md
@@ -160,8 +160,24 @@ Ledger posible:
 - GitHub Issues/Projects.
 - Kanban local.
 - Discord/Hermes u otra capa externa.
+- Telegram como entrada móvil opcional.
 
 Regla clave: no crear una tarjeta por cada conversación. Crear task solo si hay resultado esperado, tracking necesario o handoff real.
+
+Para setups tipo Jumperz/Juan:
+
+```text
+Telegram/chat móvil
+→ Discord coordinador
+→ Hermes Kanban como ledger
+→ agente correcto
+→ progress card
+→ evidencia
+→ recibo final
+→ Obsidian si hay decisión o aprendizaje durable
+```
+
+Este patrón es una capa de orquestación, no una dependencia obligatoria. Si Discord, Telegram o Hermes fallan, usar chat local, `tasks/todo.md`, Obsidian y git.
 
 ## Checkpoint y documentación
 

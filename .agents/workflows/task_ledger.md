@@ -26,7 +26,7 @@ El chat es la interfaz. El kanban/ledger es la fuente de verdad operativa.
 - Brainstorming temprano donde crear tasks generaría ruido.
 - Cada mensaje del usuario: no todo diálogo merece tarjeta.
 
-## Flujo
+## Flujo base
 
 ```text
 Pedido en lenguaje natural
@@ -41,6 +41,38 @@ Pedido en lenguaje natural
 → recibo final se publica
 → task queda done o blocked
 ```
+
+## Patrón Jumperz/Juan
+
+Usar este patrón cuando el usuario quiera operar lejos del desktop, coordinar varios proyectos o mantener visibilidad completa en canales externos.
+
+```text
+Telegram o chat principal
+→ Discord coordinador organizado
+→ Hermes lee el pedido en lenguaje natural
+→ coordinador interpreta intención
+→ crea task solo si corresponde
+→ enruta al agente correcto
+→ task aparece en Discord task-board
+→ misma task aparece en Hermes Kanban
+→ agente recibe tarea en su canal
+→ progress card se actualiza durante la ejecución
+→ Kanban avanza con el run
+→ evidencia se publica en canal del agente
+→ recibo final limpio va a results channel
+→ coordinador recibe update
+→ task-board queda done
+→ Obsidian documenta decisión, evidencia o aprendizaje si aporta continuidad
+```
+
+Roles:
+
+- **Telegram/chat móvil:** entrada rápida cuando el usuario está lejos del desktop.
+- **Discord:** interfaz conversacional y tablero visible para scrollback operativo.
+- **Hermes Kanban:** ledger/fuente de verdad para estado, dueño y evidencia.
+- **Obsidian:** memoria duradera para decisiones, roadmap, riesgos y aprendizajes.
+- **Modelos locales/frontiers:** rutas opcionales de ejecución según privacidad, costo, latencia y complejidad.
+- **Fallback local:** si fallan integraciones externas, usar `tasks/todo.md` o nota Obsidian y no bloquear el trabajo.
 
 ## Ledger recomendado
 
@@ -124,7 +156,7 @@ Próximo paso:
 
 ## Integración con herramientas externas
 
-Discord, Hermes, GitHub Projects, Notion, Linear o cualquier tablero externo son opcionales.
+Telegram, Discord, Hermes, GitHub Projects, Notion, Linear o cualquier tablero externo son opcionales.
 
 Guardrails:
 
@@ -133,6 +165,8 @@ Guardrails:
 - No conectar bots con permisos amplios sin `mcp_security.md`.
 - No exponer secretos, rutas sensibles o datos personales en canales públicos.
 - No crear ruido: el tablero debe aclarar, no duplicar conversación.
+- No usar Discord/Hermes como dependencia obligatoria: el sistema debe seguir funcionando con chat local + Obsidian + git.
+- No ejecutar acciones sensibles desde teléfono sin confirmación explícita y recibo de permisos.
 
 ## Regla final
 
