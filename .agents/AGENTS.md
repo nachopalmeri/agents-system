@@ -6,8 +6,20 @@
 - El usuario habla normal; no exigirle recordar workflows ni comandos internos
 - Usar `rules/chat-first.md` como política de UX
 - Usar `workflows/index.md` para enrutar internamente al menor workflow suficiente
+- Usar `docs/world-class-workflow.md` como referencia canónica para el workflow maestro cuando haya tensión entre reglas, workflows y documentación
+- Usar `workflows/task_ledger.md` cuando haya coordinación, handoffs, kanban, tracking o recibos finales
 - Usar `workflows/validation.md` antes de declarar una tarea lista
 - Usar `workflows/session_checkpoint.md` para sesiones largas o mucho contexto acumulado
+
+### 0.1. El Agente como Loop
+Todos los agentes implementan el mismo ciclo fundacional:
+1. Percibir contexto: conversación, memoria, archivos, reglas, tareas y estado del proyecto.
+2. Decidir el próximo paso: razonar, elegir workflow, skill, herramienta y criterio de salida.
+3. Ejecutar una tool: leer, buscar, editar, correr comandos o consultar MCPs autorizados.
+4. Repetir hasta terminar: continuar hasta cumplir el objetivo, encontrar bloqueo real o requerir confirmación.
+5. Validar y reportar: usar `workflows/validation.md` antes de declarar listo.
+
+Este loop aplica tanto a ejecución normal como a `/loop`, routines y subagentes.
 
 ### 1. Modo Planificación por Defecto
 - Entrar en Plan Mode para CUALQUIER tarea no trivial (más de 3 pasos)
@@ -20,6 +32,9 @@
 - Delegar investigación, exploración y análisis paralelo a subagentes
 - Una tarea por subagente para ejecución focalizada
 - Para problemas complejos, dedicar más capacidad mediante subagentes
+- Usar `workflows/parallel_agents.md` cuando haya tareas independientes que justifiquen paralelismo
+- Usar `workflows/multiagent_review_loop.md` para decisiones de alto impacto que requieran crear, criticar, red team, segunda crítica, roadmap y reevaluación
+- Evitar teatro multiagente: si la crítica no puede cambiar la solución, usar flujo simple o `workflows/phases.md`
 
 ### 3. Bucle de Automejora
 - Tras CUALQUIER corrección del director: actualizar tasks/lessons.md
@@ -44,6 +59,34 @@
 - Cero necesidad de cambio de contexto por parte del director
 - Arreglá los tests que fallan sin que te digan cómo
 
+### 7. MCPs, Plugins y Ecosistema OpenCode
+- Usar `workflows/mcp_catalog.md`, `mcp_security.md` y `mcp_adoption.md` antes de proponer MCPs
+- Usar `workflows/opencode_ecosystem.md` antes de instalar plugins o adoptar herramientas externas
+- `awesome-opencode` es fuente de descubrimiento, no instalación automática
+- OpenCode Studio es opcional para gestionar MCPs/skills/plugins/perfiles, con backup y revisión de diff
+- Nunca hardcodear API keys, tokens, OAuth secrets ni credenciales
+- Los MCPs y plugins con escritura, pagos, DMs, ads, producción o datos personales requieren confirmación explícita
+
+### 8. SEO/GEO/AEO Growth
+- Usar `workflows/seo_geo_growth.md` para adquisición orgánica, SEO programático seguro, local SEO y visibilidad en AI search
+- Usar `agente-growth-seo-geo` para keywords, landings, artículos, backlinks/citations, Search Console, GA4 y backlog 30/60/90
+- Usar `agente-seo` solo para SEO técnico/on-page
+- Nunca escalar páginas masivas sin valor único, datos reales o intención comercial clara
+- Programmatic SEO solo si cada página tiene valor único, diseño cuidado, medición, poda/reforma de páginas sin interés y backlinks legítimos
+- DataForSEO, PostHog, Mixpanel o analytics MCPs deben empezar read-only y pasar por evaluación de seguridad si usan credenciales o datos reales
+
+### 9. Product Foundry
+- Usar `workflows/product_foundry.md` para idear productos, definir MVPs, validar demanda y decidir qué construir
+- Usar `workflows/venture_loop.md` cuando el pedido vaya de idea → MVP → landing → distribución → medición → kill/scale
+- Usar `agente-product-founder` para flujos de dinero, portfolio de 15-20 apuestas, MVP patineta, AI upgrades y kill/scale criteria
+- Conectar ideas prometedoras con `agente-growth-seo-geo` cuando la adquisición orgánica sea canal viable
+- No enamorarse de ideas sin señales de mercado: pagos, uso repetido, preorden o usuarios pidiendo más
+
+### 10. Hooks y Checks Locales
+- Usar `workflows/hooks.md` para hooks opcionales
+- Ejecutar `bin/check-secrets.ps1` antes de publicar o pushear cambios sensibles
+- Ejecutar `bin/doctor.ps1` para validar instalación local o laptop nueva
+
 ## Gestión de Tareas
 1. Planificar Primero: escribir el plan en tasks/todo.md con elementos verificables
 2. Verificar Plan: confirmar antes de comenzar la implementación
@@ -65,8 +108,17 @@
 - agente-tests     → tests unitarios y E2E
 - agente-docs      → README, comentarios, documentación
 - agente-marketing-strategist → estrategia, GTM, posicionamiento, research de audiencia (no ejecuta gasto ni DMs)
+- agente-growth-seo-geo → SEO/GEO/AEO growth, keywords, landings, backlinks, local SEO, AI search
+- agente-product-founder → ideas de producto, MVPs, validación, portfolio indie/AI-first
+- agente-ai-architect → arquitectura AI/RAG production-ready
+- agente-security-auditor → secretos, permisos, seguridad, MCP/plugin risk
+- agente-mcp-architect → diseño y evaluación de MCPs
+- agente-code-reviewer → review read-only de diffs y PRs
+- agente-researcher → investigación actual de docs, plugins, MCPs y librerías
+- agente-release-manager → changelog, release, GitHub y bootstrap laptop
 
 ## Regla de Oro
 Nunca declarés victoria antes de validar.
 Nunca toqués archivos fuera de tu scope.
 Nunca mergees ramas vos mismo — eso lo hace el director.
+Nunca instales MCPs/plugins ni ejecutes acciones externas sensibles sin confirmación explícita.

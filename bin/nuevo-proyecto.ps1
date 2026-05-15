@@ -17,11 +17,17 @@ Stacks:
 - python          proyecto Python/CLI
 - ai-prod         AI/RAG production-ready
 - spec-kit        Spec-Driven Development opcional
+- saas-mvp        producto SaaS validable con Venture Loop
+- local-business  negocio local con oferta, landing y SEO local
+- seo-growth      proyecto centrado en SEO/GEO/AEO growth
+- product-foundry ideas, MVPs y validacion indie/AI-first
 
 Ejemplos:
 - nuevo-proyecto landing astro
 - nuevo-proyecto jobbot-ai ai-prod
 - nuevo-proyecto app-compleja spec-kit
+- nuevo-proyecto mini-saas saas-mvp
+- nuevo-proyecto dulces-creaciones local-business
 "@
     exit 1
 }
@@ -316,6 +322,123 @@ Reglas:
     Write-Host ""
     Write-Host "Proyecto Spec Kit '$Nombre' listo" -ForegroundColor Green
     Write-Host "Estructura creada con .specify/, AGENTS.md, tasks/ y Copilot instructions"
+    exit 0
+}
+
+if ($Stack -in @("saas-mvp", "local-business", "seo-growth", "product-foundry")) {
+    $dirs = @(
+        "product",
+        "growth",
+        "landing",
+        "metrics",
+        "docs",
+        "tasks",
+        ".github"
+    )
+
+    foreach ($dir in $dirs) {
+        New-Item -ItemType Directory -Path (Join-Path $base $dir) -Force | Out-Null
+    }
+
+    $presetTitle = switch ($Stack) {
+        "saas-mvp" { "SaaS MVP" }
+        "local-business" { "Local Business" }
+        "seo-growth" { "SEO/GEO Growth" }
+        "product-foundry" { "Product Foundry" }
+    }
+
+    $primaryWorkflow = switch ($Stack) {
+        "saas-mvp" { "venture_loop.md + product_foundry.md + web_briefing.md" }
+        "local-business" { "venture_loop.md + seo_geo_growth.md + marketing.md" }
+        "seo-growth" { "seo_geo_growth.md + validation.md" }
+        "product-foundry" { "product_foundry.md + venture_loop.md" }
+    }
+
+    $primaryAgents = switch ($Stack) {
+        "saas-mvp" { "agente-product-founder, agente-principal, agente-design, agente-growth-seo-geo" }
+        "local-business" { "agente-product-founder, agente-growth-seo-geo, agente-marketing-strategist, agente-seo" }
+        "seo-growth" { "agente-growth-seo-geo, agente-seo, agente-marketing-strategist" }
+        "product-foundry" { "agente-product-founder, kickoff-architect, agente-growth-seo-geo" }
+    }
+
+    $agentsContent = @"
+# $Nombre
+
+## Preset
+$presetTitle
+
+## Workflow principal
+$primaryWorkflow
+
+## Workflow maestro
+Seguir docs/world-class-workflow.md del sistema global si existe. Si no está disponible, usar AGENTS.md + start.md + index.md + phases.md + validation.md.
+
+## Agentes sugeridos
+$primaryAgents
+
+## Reglas Inmutables
+1. El usuario habla normal; enrutar internamente al menor workflow suficiente.
+2. Usar venture_loop.md si el objetivo va de idea a producto validado.
+3. Usar product_foundry.md para ideas, flujos de dinero, MVP patineta y kill/scale.
+4. Usar seo_geo_growth.md si hay demanda buscable, landings, backlinks, GSC/GA4 o GEO/AEO.
+5. Usar web_briefing.md antes de crear landing o web.
+6. Programmatic SEO solo con páginas útiles, diferenciadas, medibles y con criterio de poda.
+7. DataForSEO, PostHog, Mixpanel o analytics MCPs empiezan read-only/draft si usan credenciales o datos reales.
+8. Nunca ejecutar gasto publicitario ni responder DMs sin confirmación explícita.
+9. No declarar listo sin validation.md.
+10. Mantener tasks/todo.md y tasks/lessons.md actualizados si aplica.
+
+## Validación
+1. Revisar scope y archivos tocados.
+2. Ejecutar tests/build si existen.
+3. Validar JSON/config si aplica.
+4. Correr secret scan antes de publicar o conectar servicios externos.
+5. Reportar riesgos y próximos pasos.
+"@
+    Set-Content -Path (Join-Path $base "AGENTS.md") -Value $agentsContent -Encoding UTF8
+
+    Set-Content -Path (Join-Path $base "product/idea-scorecard.md") -Value "# Idea Scorecard`n`n## Ideas`n`n| Idea | Money flow | Pain | Buyer | Reachability | MVP | Channel | AI leverage | Retention | Founder fit | Total | Veredicto |`n|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "product/mvp.md") -Value "# MVP Patineta`n`n## Usuario`n`n## Dolor`n`n## Promesa`n`n## Flujo feliz mínimo`n`n## Qué se hace manualmente`n`n## Qué NO se construye todavía`n`n## Pricing hypothesis`n`n## Kill/scale criteria`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "growth/seo-backlog.md") -Value "# SEO/GEO Backlog`n`n## Keyword map`n`n| Keyword | Intent | Page type | Priority | Status |`n|---|---|---|---:|---|`n`n## Backlinks/Citations`n`n## GSC/GA4 learnings`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "growth/content-pruning.md") -Value "# Content Pruning`n`n## Regla`n`nReformar, fusionar, noindexar o borrar páginas sin interés real.`n`n## Revisión mensual`n`n| URL | Señal | Problema | Decisión | Próxima acción |`n|---|---|---|---|---|`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "growth/backlinks.md") -Value "# Backlinks & Authority`n`n## Principios`n`n- Backlinks legítimos, no spam.`n- Proyectos propios relacionados pueden ayudar.`n- Priorizar partnerships, directorios relevantes, PR real, casos y assets linkables.`n`n## Backlog`n`n| Fuente | Tipo | Prioridad | Estado | Nota |`n|---|---|---:|---|---|`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "landing/brief.md") -Value "# Landing Brief`n`n## ICP`n`n## Pain`n`n## Promise`n`n## Headline`n`n## CTA`n`n## Sections`n`n## Proof`n`n## SEO/GEO angle`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "metrics/validation.md") -Value "# Validation Metrics`n`n## Strong signals`n`n- Payment`n- Preorder`n- Repeated usage`n- Qualified lead`n`n## Weak signals`n`n- Likes`n- Compliments`n- Traffic without conversion`n`n## Decision`n`nKILL / KEEP / SCALE`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "metrics/events.md") -Value "# Product Events`n`n## Eventos críticos`n`n| Event | User intent | Success signal | Notes |`n|---|---|---|---|`n| visit | Usuario llega | Página vista | |`n| signup | Usuario se registra | Cuenta creada | |`n| activation | Usuario logra valor | Acción core completada | |`n| repeat_usage | Usuario vuelve | Uso repetido | |`n| payment | Usuario paga | Pago/preorden | |`n`n## Analytics`n`nUsar PostHog, Mixpanel, GA4 o base propia si ya existe. MCPs con credenciales empiezan read-only/draft y requieren confirmación.`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "docs/venture-loop.md") -Value "# Venture Loop`n`nIdea → MVP → landing → distribution → measurement → kill/scale.`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "tasks/todo.md") -Value "# Todo`n`n## En progreso`n(vacio)`n`n## Pendiente`n- [ ] Completar idea scorecard`n- [ ] Definir MVP patineta`n- [ ] Crear landing brief`n- [ ] Definir canal inicial`n- [ ] Definir métricas de validación`n- [ ] Definir eventos críticos de producto`n- [ ] Definir estrategia de backlinks/citations`n- [ ] Definir criterio de poda SEO`n`n## Completado`n(vacio)`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "tasks/lessons.md") -Value "# Lecciones Aprendidas`n`n## Reglas`n(vacio por ahora)`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "feature_list.json") -Value "{`n  `"proyecto`": `"$Nombre`",`n  `"stack`": `"$Stack`",`n  `"features`": []`n}" -Encoding UTF8
+    Set-Content -Path (Join-Path $base ".gitignore") -Value "node_modules/`n.env`n.env.local`ndist/`n.DS_Store`n*.log`n" -Encoding UTF8
+
+    $copilotContent = @"
+# $Nombre — Instrucciones para Copilot
+
+Preset: $presetTitle
+
+Reglas:
+1. Seguir AGENTS.md.
+2. No sobredimensionar antes de validación.
+3. No instalar dependencias sin confirmar.
+4. No declarar listo sin evidencia.
+5. Nunca hardcodear credenciales.
+"@
+    Set-Content -Path (Join-Path $base ".github/copilot-instructions.md") -Value $copilotContent -Encoding UTF8
+
+    git add -A
+    git commit -m "chore: estructura $Stack del proyecto"
+
+    $wt1 = Join-Path $HOME "agente-1-$Nombre"
+    $wt2 = Join-Path $HOME "agente-2-$Nombre"
+    $wt3 = Join-Path $HOME "agente-3-$Nombre"
+
+    git worktree add $wt1 -b agente/feature
+    git worktree add $wt2 -b agente/design
+    git worktree add $wt3 -b agente/tests
+
+    Write-Host ""
+    Write-Host "Proyecto '$Nombre' listo con preset '$Stack'" -ForegroundColor Green
+    Write-Host "Estructura creada con product/, growth/, landing/, metrics/, docs/ y tasks/"
     exit 0
 }
 

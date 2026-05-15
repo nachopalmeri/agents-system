@@ -61,6 +61,11 @@ Estas son las más útiles como capa general.
 | `receiving-code-review` | Cuando llegan comentarios de review y hay que evaluarlos bien | automática |
 | `using-git-worktrees` | Al iniciar trabajo que conviene aislar | automática o explícita |
 
+### Workflow review y red team
+
+Para mejoras de workflows, agentes, arquitectura o estrategia con alto impacto, usar primero `workflows/multiagent_review_loop.md`.
+No usarlo para fixes chicos: si no hay una crítica capaz de cambiar la solución, usar `workflows/phases.md` o flujo simple.
+
 ## Specialized
 
 Estas están buenas, pero solo para tipos de trabajo concretos.
@@ -79,12 +84,19 @@ Estas están buenas, pero solo para tipos de trabajo concretos.
 | `skill-creator` | Crear o rediseñar una skill |
 | `writing-hookify-rules` | Escribir reglas hookify |
 
+Reglas:
+- Antes de adoptar plugins externos, usar `opencode_ecosystem.md`.
+- Antes de integrar MCPs, usar `mcp_adoption.md` + `mcp_security.md`.
+- No instalar plugins/MCPs con auth, escritura o procesos background sin confirmación explícita.
+
 ### Marketing y Growth
 
 | Skill | Cuándo usarla |
 |---|---|
 | `internal-comms` | Escribir comunicación interna |
 | `mcp-integration` | Evaluar e integrar MCPs de marketing (Meta, Instagram, scrapers) |
+| `product-foundry` | Ideas de producto, MVPs, indie hacking, validación, flujos de dinero |
+| `seo-geo-growth` | SEO/GEO/AEO growth, programmatic SEO seguro, local SEO, keywords, backlinks, Search Console |
 
 Reglas:
 - No instalar MCPs de paid media o DMs sin evaluación previa (`marketing_mcp_eval.md`).
@@ -208,6 +220,18 @@ Worktree: agente/seo
 Skill a leer: no requiere skill específico
 NO hacer: JavaScript funcional, lógica, estilos de diseño
 
+### agente-growth-seo-geo
+Activar cuando: SEO growth, GEO/AEO, aparecer en ChatGPT/Perplexity/Gemini, keyword research, Ahrefs/Semrush/DataForSEO, landings por rubro/ciudad, backlinks, citations, GSC/GA4, local SEO
+Worktree: agente/seo-growth o agente/marketing
+Skill a leer: seo-geo-growth; mcp-integration si propone MCPs
+NO hacer: SEO técnico aislado, ads/gasto pago, scraping inseguro, páginas masivas sin valor único
+
+### agente-product-founder
+Activar cuando: ideas de producto, qué construir, indie hacking, MVP, product validation, portfolio de lanzamientos, AI-first SaaS, flujos de dinero
+Worktree: agente/product o main para docs/planes
+Skill a leer: product-foundry; lean-project-kickoff si se pasa a proyecto
+NO hacer: implementar features, arquitectura pesada, ads/gasto, declarar PMF sin evidencia
+
 ### agente-design
 Activar cuando: CSS, Tailwind, responsive design, animaciones, accesibilidad visual, dark mode, componentes UI sin lógica
 Worktree: agente/design
@@ -230,6 +254,36 @@ Activar cuando: apps AI/RAG, LLM apps, agentes, semantic cache, prompt registry,
 Worktree: agente/feature o agente/architecture
 Skill a leer: ai-production-architecture
 NO hacer: CSS/UI, SEO, tests detallados, notas Obsidian
+
+### agente-security-auditor
+Activar cuando: secretos, permisos, publicación de repos, instalación de plugins/MCPs, auth, datos personales, comandos destructivos
+Worktree: main o agente/security
+Skill a leer: systematic-debugging si hay incidente; mcp-integration si hay MCP
+NO hacer: implementar features o instalar herramientas
+
+### agente-mcp-architect
+Activar cuando: diseñar catálogo MCP, evaluar integración externa, configurar MCPs, definir permisos por agente
+Worktree: agente/architecture o main para docs
+Skill a leer: mcp-integration
+NO hacer: conectar cuentas reales, hardcodear API keys, activar gasto/escritura
+
+### agente-code-reviewer
+Activar cuando: revisar diffs, PRs, cambios antes de merge/push, calidad de implementación
+Worktree: no aplica; modo read-only
+Skill a leer: requesting-code-review
+NO hacer: editar código salvo pedido explícito
+
+### agente-researcher
+Activar cuando: buscar documentación actual, comparar plugins/MCPs, investigar librerías o enfoques
+Worktree: no aplica
+Skill a leer: remembering-conversations si hace falta contexto previo
+NO hacer: instalar herramientas ni modificar repo
+
+### agente-release-manager
+Activar cuando: preparar commits, changelog, publicación a GitHub, bootstrap laptop, checklist release
+Worktree: main
+Skill a leer: finishing-a-development-branch
+NO hacer: mergear ramas sin director, pushear sin validación
 
 ### agente-obsidian-brain
 Activar cuando: notas Obsidian, clases, flashcards, MOCs, Dataview, Zettelkasten, triaje de inbox del vault

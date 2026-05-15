@@ -8,16 +8,29 @@ Sistema global de agentes, workflows, skills y scaffolding para desarrollo con I
 - `bin/` — Scripts `nuevo-proyecto.ps1` y `nuevo-proyecto.sh`
 - `config/opencode/` — Configuración de OpenCode (`AGENTS.md`, `opencode.jsonc`)
 - `config/windsurf/` — Estructura local de Windsurf (planes, etc)
+- `docs/` — Guías de instalación privada, laptop bootstrap y ecosistema OpenCode
 
 ## Requisitos previos
 
 - Git instalado
 - PowerShell (Windows) o Bash (Linux/Mac)
+- GitHub CLI (`gh`) para instalar desde repo privado
 - Opcional: OpenCode, Zed, Obsidian
 
 ## Instalación rápida (PC nueva)
 
-### Windows (PowerShell como Admin)
+### Repo privado (recomendado)
+
+```powershell
+winget install --id GitHub.cli
+gh auth login
+gh repo clone nachopalmeri/agents-system $env:USERPROFILE\agents-system
+& "$env:USERPROFILE\agents-system\install-private.ps1"
+```
+
+Ver guía completa en `docs/private-repo-install.md` y `docs/bootstrap-laptop.md`.
+
+### Repo público (si algún día se publica)
 
 ```powershell
 iwr https://raw.githubusercontent.com/nachopalmeri/agents-system/main/install.ps1 | iex
@@ -82,6 +95,18 @@ source ~/.bashrc
 
 Ejecutar en terminal:
 
+```powershell
+.\bin\doctor.ps1
+```
+
+Para validar secretos antes de publicar:
+
+```powershell
+.\bin\check-secrets.ps1
+```
+
+Para validar scaffolding:
+
 ```bash
 nuevo-proyecto test-install astro
 ```
@@ -105,16 +130,29 @@ Tiene que crear:
 │   ├── agente-obsidian-brain.md
 │   ├── agente-ai-architect.md
 │   ├── agente-marketing-strategist.md
+│   ├── agente-growth-seo-geo.md
+│   ├── agente-product-founder.md
 │   ├── kickoff-architect.md
 │   └── workflow-pruner.md
 ├── workflows/                # Workflows reutilizables
 │   ├── start.md
 │   ├── phases.md
 │   ├── skills_routing.md
+│   ├── task_ledger.md
+│   ├── multiagent_review_loop.md
 │   ├── ai_production.md
 │   ├── web_briefing.md
 │   ├── marketing.md
 │   ├── marketing_mcp_eval.md
+│   ├── venture_loop.md
+│   ├── product_foundry.md
+│   ├── seo_geo_growth.md
+│   ├── mcp_catalog.md
+│   ├── mcp_security.md
+│   ├── mcp_adoption.md
+│   ├── opencode_ecosystem.md
+│   ├── parallel_agents.md
+│   ├── hooks.md
 │   └── ...
 ├── skills/                   # Skills del sistema
 │   ├── astro/
@@ -122,6 +160,8 @@ Tiene que crear:
 │   ├── python/
 │   ├── html-vanilla/
 │   ├── obsidian-vault/
+│   ├── product-foundry/
+│   ├── seo-geo-growth/
 │   ├── ai-production-architecture/
 │   ├── web-presentation-premium/
 │   └── ...
@@ -132,14 +172,39 @@ Tiene que crear:
 
 bin/
 ├── nuevo-proyecto.ps1        # Scaffolding Windows
-└── nuevo-proyecto.sh         # Scaffolding Linux/Mac
+├── nuevo-proyecto.sh         # Scaffolding Linux/Mac
+├── doctor.ps1                # Diagnóstico de instalación
+├── check-secrets.ps1         # Scanner simple de secretos
+└── install-hooks.ps1         # Hooks locales opcionales
 
 config/opencode/
 ├── AGENTS.md                 # Resumen global para OpenCode
 └── opencode.jsonc            # Config con instructions
+
+docs/
+├── world-class-workflow.md    # Workflow maestro chat-first
+├── architecture.md            # Capas Input → Model → Memory → Tools → Output
+└── how-to-use-the-agent-system.md
 ```
 
 ## Uso diario
+
+### Workflow maestro
+
+Ver `docs/world-class-workflow.md`.
+
+El flujo base es:
+
+```text
+start.md
+→ index.md
+→ phases.md si no trivial
+→ modo simple / plan / /loop / Routine / multiagent review / Venture Loop
+→ agente o skill especializado
+→ tools seguras
+→ validation.md
+→ checkpoint/docs si aporta continuidad
+```
 
 ### Crear proyecto simple
 
@@ -172,6 +237,17 @@ Crea el scaffold base más `.specify/`:
 
 Usarlo para features/proyectos medianos o grandes. No usarlo para fixes chicos.
 
+### Crear proyecto SaaS MVP / negocio local / SEO growth
+
+```bash
+nuevo-proyecto mi-saas saas-mvp
+nuevo-proyecto dulces-creaciones local-business
+nuevo-proyecto seo-site seo-growth
+nuevo-proyecto ideas-ai product-foundry
+```
+
+Estos presets crean carpetas para `product/`, `growth/`, `landing/`, `metrics/`, `docs/` y `tasks/`.
+
 ### Crear proyecto web premium (con briefing)
 
 ```bash
@@ -183,9 +259,11 @@ nuevo-proyecto mi-pitch next
 
 El sistema puede enrutar pedidos de marketing internamente sin que recuerdes workflows:
 
+- Ideas de producto, MVPs, indie hacking y validación
 - Estrategia de lanzamiento, posicionamiento, GTM
 - Research de audiencia, competencia, Category Entry Points
-- SEO/GEO/AEO técnico (auditoría + quick wins)
+- SEO/GEO/AEO growth: keywords, landings, backlinks, local SEO, AI search
+- SEO técnico/on-page: auditoría, metadata, sitemap, schema, canonicals
 - Evaluación de MCPs para ads, Meta, Instagram, scrapers
 
 **Reglas de seguridad:**
@@ -196,21 +274,157 @@ El sistema puede enrutar pedidos de marketing internamente sin que recuerdes wor
 Ejemplos de prompts naturales:
 ```text
 "armame una estrategia de lanzamiento para JobBot"
+"no sé qué producto crear, ayudame a encontrar ideas"
+"quiero lanzar 12 productos chicos con AI"
+"evaluá esta idea con MVP patineta y kill/scale criteria"
 "auditá el SEO y decime quick wins"
+"armame una estrategia SEO para mi SaaS en Argentina"
+"tengo una pastelería de barrio, quiero mejores clientes por Google"
+"qué keywords buscarías en Ahrefs y qué landings crearías?"
+"quiero aparecer en ChatGPT cuando preguntan por mi categoría"
 "quiero investigar anuncios de competidores"
 "evaluá si conviene conectar Meta Ads MCP"
 ```
+
+### Product Foundry
+
+El agente `agente-product-founder` aplica el framework:
+
+```text
+flujos de dinero → fricción real → MVP patineta → lanzamiento rápido → validación → kill/keep/scale
+```
+
+Sirve para:
+
+- Pensar ideas de producto.
+- Armar una cartera de 15-20 apuestas pequeñas.
+- Definir MVPs de 1-2 semanas.
+- Actualizar productos existentes con AI.
+- Simplificar productos grandes para nichos.
+- Detectar procesos que la gente ya resuelve mal con Sheets, WhatsApp, email o copy-paste.
+- Conectar ideas prometedoras con SEO/GEO/AEO si hay demanda buscable.
+
+Reglas:
+
+- No enamorarse de una idea sin señales.
+- No construir el auto completo: empezar por la patineta.
+- Evidencia fuerte: pago, preorden, uso repetido, usuario pidiendo más.
+- Evidencia débil: likes, elogios y tráfico sin conversión.
+
+### Venture Loop
+
+El workflow `venture_loop.md` conecta:
+
+```text
+idea → MVP patineta → landing/oferta → distribución → medición → kill/keep/scale
+```
+
+Integra:
+
+- `product_foundry.md`
+- `web_briefing.md`
+- `seo_geo_growth.md`
+- `marketing.md`
+- `validation.md`
+
+### Multiagent Review Loop
+
+El workflow `multiagent_review_loop.md` se usa para decisiones de alto impacto:
+
+```text
+crear → criticar → red team → segunda crítica → plan de mejora → roadmap → reevaluación
+```
+
+No se usa para fixes chicos. Si la crítica no puede cambiar la solución, usar flujo simple o `phases.md`.
+
+### Task Ledger / Kanban
+
+El workflow `task_ledger.md` aplica el patrón:
+
+```text
+pedido en lenguaje natural
+→ coordinador interpreta intención
+→ task trazable si corresponde
+→ agente correcto
+→ progreso visible
+→ evidencia
+→ recibo final
+```
+
+Puede usarse con `tasks/todo.md`, Obsidian, GitHub Projects, Kanban local, Discord/Hermes u otra herramienta. No debe crear tarjetas por cada conversación: solo cuando hay acción real, handoff, tracking o continuidad.
+
+### SEO/GEO/AEO Growth
+
+El agente `agente-growth-seo-geo` aplica el loop:
+
+```text
+Ahrefs/Semrush/DataForSEO → landings/blog/tools → backlinks/citations → Search Console/GA4 → registros/leads/clientes
+```
+
+Sirve para:
+
+- SaaS Argentina/LATAM.
+- Negocios locales como pastelerías, ferreterías, clínicas o estudios.
+- Webs de servicios.
+- Estrategias para aparecer en ChatGPT, Perplexity, Gemini y Google AI Overviews.
+
+Reglas:
+
+- Mejor 5-10 páginas buenas por mes que 100 páginas thin.
+- No crear doorway pages ni páginas que solo cambian una keyword.
+- No instalar Ahrefs, GSC, GA4, Semrush o DataForSEO MCP sin confirmación.
+- Medir conversiones y calidad del tráfico, no solo visitas.
+- Programmatic SEO solo si cada página tiene valor único, front cuidado, medición y criterio de poda.
+- Páginas sin interés se reforman, fusionan, noindexan o borran.
+- Backlinks importan: proyectos propios, partnerships, directorios relevantes, PR real y assets linkables.
+- Product analytics conecta demanda con comportamiento: búsqueda → página → evento → mejora → poda/escala.
+- DataForSEO, PostHog, Mixpanel o base de eventos empiezan read-only/draft si hay credenciales o datos reales.
+- No monetizar antes de tiempo si reduce aprendizaje, confianza, UX o velocidad de iteración.
+
+### MCPs y plugins opcionales
+
+El sistema incluye workflows para evaluar MCPs y plugins, pero no instala integraciones externas automáticamente.
+
+- `mcp_catalog.md` clasifica MCPs por riesgo.
+- `mcp_security.md` define reglas de seguridad.
+- `mcp_adoption.md` guía adopciones con veredicto GO/NO-GO/PIVOT.
+- `opencode_ecosystem.md` usa `awesome-opencode` como fuente de descubrimiento.
+
+Reglas:
+
+- Empezar read-only.
+- No hardcodear API keys.
+- No conectar pagos, ads, DMs, producción ni datos personales sin confirmación explícita.
+- OpenCode Studio es opcional y debe usarse con backup/diff de config.
+
+### OpenCode Studio opcional
+
+Ver `docs/opencode-studio.md`.
+
+Uso recomendado:
+
+- Gestionar MCPs, skills, plugins y perfiles.
+- Hacer backup/restore.
+- Revisar usage.
+
+No es dependencia obligatoria del sistema.
 
 ## Actualizar el sistema
 
 Como es un repo Git, simplemente:
 
 ```bash
-cd ~/agents-system
 git pull origin main
 ```
 
 Los symlinks apuntan automáticamente al contenido actualizado.
+
+En Windows:
+
+```powershell
+.\update.ps1
+.\bin\doctor.ps1
+```
 
 ## Contribuciones
 
@@ -221,6 +435,7 @@ Este es tu sistema personal. Modificá reglas, agregá skills, experimentá. Cua
 - El vault de Obsidian (`Q1-2026-UADE`) se sincroniza vía OneDrive, no está en este repo
 - Las API keys y `.env` nunca deben commitearse (están en `.gitignore` global)
 - Cada proyecto creado con `nuevo-proyecto` hereda las reglas pero tiene su propio `AGENTS.md` local
+- `awesome-opencode` y OpenCode Studio son opcionales: evaluar antes de instalar o importar
 
 ## Contacto
 

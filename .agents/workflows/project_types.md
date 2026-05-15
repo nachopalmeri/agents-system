@@ -57,6 +57,81 @@ Comando típico:
 nuevo-proyecto app-compleja spec-kit
 ```
 
+## SaaS MVP
+
+Usar para:
+- Validar un SaaS pequeño.
+- Definir MVP patineta, landing, canal inicial y métricas.
+- Conectar Product Foundry con ejecución técnica.
+
+Comando típico:
+
+```powershell
+nuevo-proyecto mi-saas saas-mvp
+```
+
+Workflow interno:
+
+```text
+venture_loop.md + product_foundry.md + web_briefing.md
+```
+
+## Local Business
+
+Usar para:
+- Negocios locales que necesitan oferta, web, SEO local y clientes de mejor calidad.
+- Casos como pastelería, ferretería, clínica, estudio o servicio local.
+
+Comando típico:
+
+```powershell
+nuevo-proyecto dulces-creaciones local-business
+```
+
+Workflow interno:
+
+```text
+venture_loop.md + seo_geo_growth.md + marketing.md
+```
+
+## SEO/GEO Growth
+
+Usar para:
+- Proyectos centrados en adquisición orgánica.
+- Keyword maps, landings, backlinks, GSC/GA4 y AI search.
+
+Comando típico:
+
+```powershell
+nuevo-proyecto seo-site seo-growth
+```
+
+Workflow interno:
+
+```text
+seo_geo_growth.md + validation.md
+```
+
+## Product Foundry
+
+Usar para:
+- Pensar ideas de producto.
+- Rankear oportunidades.
+- Definir MVPs de 1-2 semanas.
+- Decidir kill / keep / scale.
+
+Comando típico:
+
+```powershell
+nuevo-proyecto ideas-ai product-foundry
+```
+
+Workflow interno:
+
+```text
+product_foundry.md + venture_loop.md
+```
+
 ## AI Production + Spec Kit
 
 Usar para:

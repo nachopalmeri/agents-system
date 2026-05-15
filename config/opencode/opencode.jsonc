@@ -14,6 +14,55 @@
       }
     }
   },
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      ".git/**",
+      "logs/**",
+      "*.log"
+    ]
+  },
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git log*": "allow",
+      "git diff*": "allow",
+      "git branch --show-current*": "allow",
+      "git push*": "ask",
+      "git remote*": "ask",
+      "git branch*": "ask",
+      "Remove-Item*": "ask",
+      "rm *": "ask",
+      "del *": "ask",
+      "winget install*": "ask"
+    }
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": false
+    },
+    "gh_grep": {
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": false
+    },
+    "sentry": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "oauth": {},
+      "enabled": false
+    }
+  },
+  "tools": {
+    "context7_*": false,
+    "gh_grep_*": false,
+    "sentry_*": false
+  },
   "instructions": [
     "~/.agents/AGENTS.md",
     "~/.agents/rules/chat-first.md",
@@ -21,6 +70,17 @@
     "~/.agents/workflows/index.md",
     "~/.agents/workflows/phases.md",
     "~/.agents/workflows/skills_routing.md",
+    "~/.agents/workflows/task_ledger.md",
+    "~/.agents/workflows/multiagent_review_loop.md",
+    "~/.agents/workflows/venture_loop.md",
+    "~/.agents/workflows/product_foundry.md",
+    "~/.agents/workflows/seo_geo_growth.md",
+    "~/.agents/workflows/mcp_catalog.md",
+    "~/.agents/workflows/mcp_security.md",
+    "~/.agents/workflows/mcp_adoption.md",
+    "~/.agents/workflows/opencode_ecosystem.md",
+    "~/.agents/workflows/parallel_agents.md",
+    "~/.agents/workflows/hooks.md",
     "~/.agents/workflows/spec_kit.md",
     "~/.agents/workflows/validation.md",
     "~/.agents/workflows/session_checkpoint.md",

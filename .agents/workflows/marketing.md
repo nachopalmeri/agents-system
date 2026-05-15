@@ -14,6 +14,7 @@ El usuario habla normal. Si el pedido es de marketing, el agente enruta internam
 - Ajustar pricing o monetización.
 - Research de audiencia, competencia o Category Entry Points.
 - Go-To-Market para productos AI/RAG.
+- SEO/GEO/AEO growth cuando se conecta con adquisición, contenido, landings o demanda orgánica.
 
 ## Cuándo NO usar
 - Cambiar CTA de un botón o copy puntual → hacer directo.
@@ -34,7 +35,8 @@ El agente extrae del pedido en lenguaje natural o pregunta brevemente:
 | Tipo de pedido | Enfoque interno | Salida esperada |
 |---|---|---|
 | Estrategia, posicionamiento, GTM | Subagentes paralelos (mercado + narrativa + crecimiento) | Veredicto GO / NO-GO / PIVOT |
-| SEO/GEO/AEO técnico | Agente SEO + breve análisis de estrategia | Auditoría + prioridades |
+| SEO técnico/on-page | Agente SEO | Auditoría + prioridades |
+| SEO/GEO/AEO growth | `agente-growth-seo-geo` + `seo_geo_growth.md` | Keyword map + backlog + quality gates |
 | Paid media, ads, Meta, LinkedIn | Marketing workflow + evaluación MCP | Plan + riesgos + datos necesarios |
 | Social selling, DMs, leads | Marketing workflow + evaluación MCP | Flujo + handoff humano + seguridad |
 | Research de competencia | Subagente exploración | Mapa + gaps + CEP |
@@ -50,7 +52,8 @@ Usar subagentes paralelos:
 El agente principal sintetiza, detecta tensiones y emite veredicto con playbook en horizontes temporales.
 
 #### SEO/GEO/AEO
-Usar `agente-seo` para auditoría técnica. Si además hay estrategia de contenido, pasar a marketing.
+Usar `agente-growth-seo-geo` para estrategia orgánica: keywords, landings, artículos, backlinks, local SEO, GEO/AEO, Search Console y medición.
+Usar `agente-seo` solo para auditoría técnica/on-page: metadata, headings, sitemap, robots, schema, canonical y alt text.
 
 #### Paid media / Ads / Social
 1. Evaluar si se necesita MCP externo (ver `marketing_mcp_eval.md`).
