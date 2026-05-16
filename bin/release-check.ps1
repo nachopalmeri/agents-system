@@ -1,0 +1,138 @@
+#!/usr/bin/env pwsh
+$ErrorActionPreference = "Stop"
+
+$repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+Push-Location $repoRoot
+try {
+    Write-Host "Agents System Release Check" -ForegroundColor Cyan
+    Write-Host "Repo: $repoRoot"
+    Write-Host ""
+
+    $failures = @()
+
+    function Add-Failure {
+        param([string]$Message)
+        $script:failures += $Message
+        Write-Host "[FAIL] $Message" -ForegroundColor Red
+    }
+
+    function Add-Ok {
+        param([string]$Message)
+        Write-Host "[OK] $Message" -ForegroundColor Green
+    }
+
+    $psFiles = @(
+        "bin\nuevo-proyecto.ps1",
+        "bin\check-agents-system.ps1",
+        "bin\check-secrets.ps1",
+        "bin\doctor.ps1",
+        "bin\release-check.ps1",
+        "install.ps1",
+        "install-private.ps1",
+        "setup-local.ps1",
+        "update.ps1"
+    )
+
+    foreach ($file in $psFiles) {
+        if (-not (Test-Path $file)) {
+            Add-Failure "Missing PowerShell script: $file"
+            continue
+        }
+
+        $tokens = $null
+        $parseErrors = $null
+        [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $file), [ref]$tokens, [ref]$parseErrors) | Out-Null
+        if ($parseErrors.Count -gt 0) {
+            Add-Failure "PowerShell parse failed: $file :: $($parseErrors[0].Message)"
+        } else {
+            Add-Ok "PowerShell parse: $file"
+        }
+    }
+
+    $bashFiles = @("install.sh", "update.sh", "bin/nuevo-proyecto.sh")
+    $bash = Get-Command bash -ErrorAction SilentlyContinue
+    if ($bash) {
+        foreach ($file in $bashFiles) {
+            if (-not (Test-Path $file)) {
+                Add-Failure "Missing Bash script: $file"
+                continue
+            }
+
+            & bash -n $file
+            if ($LASTEXITCODE -ne 0) {
+                Add-Failure "Bash syntax failed: $file"
+            } else {
+                Add-Ok "Bash syntax: $file"
+            }
+        }
+    } else {
+        Write-Host "[WARN] bash not available; skipped Bash syntax checks" -ForegroundColor Yellow
+    }
+
+    try {
+        Get-Content "config\opencode\opencode.jsonc" -Raw | ConvertFrom-Json | Out-Null
+        Add-Ok "JSON parse: config/opencode/opencode.jsonc"
+    } catch {
+        Add-Failure "JSON parse failed: config/opencode/opencode.jsonc :: $($_.Exception.Message)"
+    }
+
+    $required = @(
+        ".agents\AGENTS.md",
+        ".agents\rules\chat-first.md",
+        ".agents\workflows\index.md",
+        ".agents\workflows\validation.md",
+        ".agents\workflows\session_checkpoint.md",
+        ".agents\workflows\task_ledger.md",
+        ".agents\workflows\multiagent_review_loop.md",
+        ".agents\workflows\venture_loop.md",
+        ".agents\workflows\seo_geo_growth.md",
+        ".agents\workflows\product_foundry.md",
+        "docs\world-class-workflow.md",
+        "README.md",
+        "bin\nuevo-proyecto.ps1",
+        "bin\check-agents-system.ps1",
+        "bin\release-check.ps1",
+        "config\opencode\opencode.jsonc"
+    )
+
+    foreach ($file in $required) {
+        if (Test-Path $file) {
+            Add-Ok "Required file: $file"
+        } else {
+            Add-Failure "Missing required file: $file"
+        }
+    }
+
+    $name = git config user.name
+    $email = git config user.email
+    if ($name -eq "nachopalmeri" -and $email -eq "ipalmeri@uade.edu.ar") {
+        Add-Ok "Git identity: $name <$email>"
+    } else {
+        Add-Failure "Git identity mismatch: $name <$email>"
+    }
+
+    $badEmailMatches = Select-String -Path (Get-ChildItem -Recurse -File -Include *.md,*.ps1,*.sh,*.jsonc,*.txt | Select-Object -ExpandProperty FullName) -Pattern "uade\.edu\.com\.ar|ipalmeri@uade\.edu\.com" -ErrorAction SilentlyContinue
+    if ($badEmailMatches) {
+        Add-Failure "Incorrect email variant found in repository"
+    } else {
+        Add-Ok "No incorrect email variant found"
+    }
+
+    & "$PSScriptRoot\check-secrets.ps1"
+    if ($LASTEXITCODE -ne 0) {
+        Add-Failure "Secret scan found critical issues"
+    } else {
+        Add-Ok "Secret scan: no critical findings"
+    }
+
+    Write-Host ""
+    if ($failures.Count -gt 0) {
+        Write-Host "Release check failed with $($failures.Count) issue(s)." -ForegroundColor Red
+        exit 1
+    }
+
+    Write-Host "Release check passed." -ForegroundColor Green
+    exit 0
+} finally {
+    Pop-Location
+}

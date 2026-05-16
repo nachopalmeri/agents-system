@@ -105,6 +105,12 @@ Para validar secretos antes de publicar:
 .\bin\check-secrets.ps1
 ```
 
+Para validar el repo antes de commitear o pushear:
+
+```powershell
+.\bin\release-check.ps1
+```
+
 Para validar scaffolding:
 
 ```bash
