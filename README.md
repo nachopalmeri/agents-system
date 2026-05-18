@@ -99,7 +99,27 @@ source ~/.bashrc
 .\bin\setup-ide-pointers.ps1
 ```
 
-Esto crea symlinks (o copias si no hay permisos) para Windsurf, OpenCode, Cursor, Claude Code, Gemini, Zed y más. Ver `docs/multi-ide-setup.md` para detalles.
+Crea symlinks (con admin/Developer Mode) o copias para Windsurf, OpenCode, Claude Code, Gemini CLI, Cursor (legacy) y Codex. Ver `docs/multi-ide-setup.md` para detalles y `docs/rollback.md` para revertir cambios.
+
+## Pipeline de actualización (uso diario)
+
+Para sincronizar cambios del repo a `~/.agents/` y todos los IDEs en un solo paso:
+
+```powershell
+.\bin\update-system.ps1
+```
+
+Hace: `git pull` → resync `~/.agents/` → re-correr `setup-ide-pointers.ps1` → `doctor.ps1`.
+
+Si no hay symlinks (sin Developer Mode), usa copias y avisa cómo migrar a symlinks reales.
+
+## Test de integridad
+
+```powershell
+.\bin\test-system.ps1
+```
+
+Valida: archivos requeridos, referencias internas no rotas, frontmatter de reglas/agentes, workflows con contenido, ratio skills llenas/vacías, prompts portables existentes.
 
 ## Verificación post-instalación
 

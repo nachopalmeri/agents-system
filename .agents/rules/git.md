@@ -26,18 +26,20 @@ Formato: tipo: descripción en español
 - git add -p antes de cada commit (revisar cambio por cambio)
 - git diff --stat antes de cualquier commit
 
-## Push obligatorio (regla inquebrantable)
+## Push obligatorio (regla durable, no de cada minuto)
 
-> Todo cambio relacionado con agentes, skills, workflows, prompts, templates, configuración del sistema, código o infraestructura DEBE pushearse a GitHub.
+> Todo cambio relacionado con agentes, skills, workflows, prompts, templates, configuración del sistema, código o infraestructura DEBE pushearse a GitHub. La regla aplica al cierre de la sesión o cambio de contexto, no a cada cambio individual.
 
 - **Usuario:** `nachopalmeri`
 - **Email:** `ipalmeri@uade.edu.ar`
-- **Flujo obligatorio:**
-  1. `git add -A` (o `git add -p` si querés revisar)
-  2. `git commit -m "tipo: descripción clara"`
-  3. `git push origin main`
-- **Sin excepciones.** Ni "después lo commiteo", ni "es un cambio chico", ni "es temporal".
+- **Flujo:**
+  1. `git add -p` o `git add -A` (revisar con `git diff --cached --stat`)
+  2. `git commit -m "tipo: descripción clara"` (commits agrupados por intención, no por edit)
+  3. `git push origin main` antes de cerrar la sesión, cambiar de contexto o terminar el día
+- **No aceptable:** dejar trabajo sin pushear de un día para otro, "ya lo commiteo después" como excusa permanente, ni "es chiquito" como motivo para no versionarlo.
+- **Aceptable:** agrupar 5-10 micro-edits en un commit coherente durante una sesión de iteración rápida.
 - **Backup antes de operaciones riesgosas:** crear rama `backup/pre-cambio-YYYYMMDD-HHMMSS`.
+- **Antes de push:** correr `bin/check-secrets.ps1` o `git diff --cached` para evitar leakear credenciales.
 
 ### Qué cuenta como "cambio del sistema"
 - Agentes, skills, workflows, prompts, templates nuevos o modificados.

@@ -16,8 +16,8 @@ El usuario habla normal. El agente enruta internamente y no le exige recordar no
 | Tarea larga/iterativa con objetivo verificable | `/loop` + workflow correspondiente | Seguir iterando hasta cumplir el criterio de salida o reportar bloqueo real |
 | Tarea recurrente/automática | Routine + workflow correspondiente | Rutina documentada, segura, idempotente y con límites claros |
 | Coordinación, handoffs, tablero, kanban, task tracking o recibos finales | `task_ledger.md` + workflow correspondiente | Task trazable con dueño, estado, evidencia y recibo final |
-| Mejorar workflows, agentes, arquitectura o estrategia con crítica fuerte | `multiagent_review_loop.md` | Crear → criticar → red team → segunda crítica → plan → roadmap → reevaluación |
-| Decidir entre opciones, evaluar oportunidad o contrastar perspectivas | `llm_council.md` | 5 asesores + peer review anónima + Chairman ≤200 palabras |
+| **Decidir entre opciones / evaluar oportunidad** (input es una pregunta) | `llm_council.md` | 5 asesores + peer review anónima + Chairman ≤200 palabras |
+| **Mejorar/atacar una solución existente** (input es un sistema/diseño/workflow) | `multiagent_review_loop.md` | Crear → criticar → red team → segunda crítica → plan → roadmap → reevaluación |
 | Web, landing, pitch o demo visual | `web_briefing.md` | Objetivo, audiencia, tono, stack y plan breve |
 | Web memorable/premium/frontend senior | `web_briefing.md` + `web-presentation-premium` | Briefing + dirección visual premium |
 | AI/RAG demo | Flujo simple + YAGNI | Evitar arquitectura pesada |

@@ -1,28 +1,20 @@
 # setup-ide-pointers.ps1
 # Crea punteros (symlinks o copias) desde cada IDE a ~/.agents/AGENTS.md
-# para que cualquier herramienta (Windsurf, Zed, VS Code, Cursor, OpenCode, Claude Code, Gemini)
-# use la misma fuente de verdad sin duplicar contenido.
+# Paths verificados contra docs oficiales de cada IDE (2026-05).
 
 [CmdletBinding()]
 param(
     [string]$AgentsRoot = "$env:USERPROFILE\.agents",
     [switch]$DryRun,
-    [switch]$ForceCopy  # Si symlink falla (sin admin), usar copia
+    [switch]$ForceCopy
 )
 
 $ErrorActionPreference = "Stop"
 
-function Write-Step($msg) {
-    Write-Host "-> $msg" -ForegroundColor Cyan
-}
-
-function Write-OK($msg) {
-    Write-Host "  [OK] $msg" -ForegroundColor Green
-}
-
-function Write-Warn($msg) {
-    Write-Host "  [WARN] $msg" -ForegroundColor Yellow
-}
+function Write-Step($msg) { Write-Host "-> $msg" -ForegroundColor Cyan }
+function Write-OK($msg)   { Write-Host "  [OK] $msg" -ForegroundColor Green }
+function Write-Warn($msg) { Write-Host "  [WARN] $msg" -ForegroundColor Yellow }
+function Write-Skip($msg) { Write-Host "  [SKIP] $msg" -ForegroundColor DarkGray }
 
 function New-Pointer {
     param(
@@ -35,7 +27,7 @@ function New-Pointer {
         return
     }
     if (-not (Test-Path $Source)) {
-        Write-Warn "Source no existe: $Source - skipping $Description"
+        Write-Warn "Source no existe: $Source"
         return
     }
     $parent = Split-Path $Target -Parent
@@ -48,8 +40,7 @@ function New-Pointer {
             Remove-Item $Target -Force
         } else {
             $backup = "$Target.backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')"
-            Move-Item $Target $backup
-            Write-Warn "Backup existente: $backup"
+            Move-Item $Target $backup -ErrorAction SilentlyContinue
         }
     }
     try {
@@ -61,7 +52,6 @@ function New-Pointer {
             Write-OK "$Description (copy)"
         }
     } catch {
-        Write-Warn "Symlink fallo (necesita admin o Developer Mode), usando copia: $Description"
         Copy-Item $Source $Target -Force
         Write-OK "$Description (copy fallback)"
     }
@@ -71,56 +61,70 @@ Write-Step "Setup IDE pointers - fuente: $AgentsRoot"
 
 if (-not (Test-Path "$AgentsRoot\AGENTS.md")) {
     Write-Host "ERROR: No existe $AgentsRoot\AGENTS.md" -ForegroundColor Red
-    Write-Host "Asegurate de tener el repo agents-system instalado en ~/.agents primero." -ForegroundColor Red
     exit 1
 }
 
 $source = "$AgentsRoot\AGENTS.md"
 
 # 1. Windsurf / Cascade - global rules
+# https://docs.windsurf.com/windsurf/cascade/memories#global-rules-file
 Write-Step "Windsurf / Cascade"
 New-Pointer -Source $source -Target "$env:USERPROFILE\.windsurf\global-rules.md" -Description "Windsurf global rules"
 
-# 2. OpenCode (si existe la config)
+# 2. OpenCode - convencion AGENTS.md
 Write-Step "OpenCode"
 $openCodeDir = "$env:USERPROFILE\.config\opencode"
 if (Test-Path $openCodeDir) {
     New-Pointer -Source $source -Target "$openCodeDir\AGENTS.md" -Description "OpenCode AGENTS"
 } else {
-    Write-Warn "OpenCode no instalado - skip"
+    Write-Skip "OpenCode no instalado"
 }
 
-# 3. Cursor (rules globales en home)
-Write-Step "Cursor (global rules en home)"
-New-Pointer -Source $source -Target "$env:USERPROFILE\.cursorrules" -Description "Cursor global rules"
+# 3. Claude Code - ~/.claude/CLAUDE.md (memoria global)
+# https://code.claude.com/docs/en/claude-directory
+Write-Step "Claude Code"
+$claudeDir = "$env:USERPROFILE\.claude"
+if (-not (Test-Path $claudeDir)) {
+    New-Item -ItemType Directory -Path $claudeDir -Force | Out-Null
+}
+New-Pointer -Source $source -Target "$claudeDir\CLAUDE.md" -Description "Claude Code global memory"
 
-# 4. Claude Code (en home)
-Write-Step "Claude Code (en home)"
-New-Pointer -Source $source -Target "$env:USERPROFILE\CLAUDE.md" -Description "Claude Code home"
-
-# 5. Gemini CLI (en home)
-Write-Step "Gemini CLI (en home)"
-New-Pointer -Source $source -Target "$env:USERPROFILE\GEMINI.md" -Description "Gemini CLI home"
-
-# 6. Zed (config global)
-Write-Step "Zed (config global)"
-$zedDir = "$env:USERPROFILE\AppData\Roaming\Zed"
-if (Test-Path $zedDir) {
-    New-Pointer -Source $source -Target "$zedDir\AGENTS.md" -Description "Zed global"
+# 4. Gemini CLI - ~/.gemini/GEMINI.md (global context)
+# https://geminicli.com/docs/cli/gemini-md/
+Write-Step "Gemini CLI"
+$geminiDir = "$env:USERPROFILE\.gemini"
+if (Test-Path $geminiDir) {
+    New-Pointer -Source $source -Target "$geminiDir\GEMINI.md" -Description "Gemini CLI global context"
 } else {
-    Write-Warn "Zed no instalado - skip"
+    Write-Skip "Gemini CLI no instalado (no existe ~/.gemini/)"
 }
 
-# 7. VS Code / Copilot (instrucciones globales en home, opcional)
-Write-Step "Copilot (placeholder en home)"
-New-Pointer -Source $source -Target "$env:USERPROFILE\copilot-instructions.md" -Description "Copilot home reference"
+# 5. Cursor - .cursorrules legacy en home (best-effort, Cursor prefiere UI Settings)
+# https://docs.cursor.com/context/rules
+Write-Step "Cursor (legacy .cursorrules)"
+Write-Warn "Cursor user-level rules viven en Settings UI. Este archivo es fallback legacy."
+New-Pointer -Source $source -Target "$env:USERPROFILE\.cursorrules" -Description "Cursor legacy rules (home)"
+
+# 6. Codex CLI - convencion AGENTS.md en home
+Write-Step "Codex CLI"
+New-Pointer -Source $source -Target "$env:USERPROFILE\AGENTS.md" -Description "Codex CLI / AGENTS home convention"
 
 Write-Host ""
-Write-Host "Setup completo." -ForegroundColor Green
+Write-Step "IDEs que requieren config manual:"
+Write-Host "  Cursor User Rules:" -ForegroundColor Yellow
+Write-Host "    1. Cursor -> Settings -> Cursor Settings -> Rules -> User Rules" -ForegroundColor Gray
+Write-Host "    2. Pegar contenido de: $source" -ForegroundColor Gray
 Write-Host ""
-Write-Host "Notas:" -ForegroundColor Yellow
-Write-Host "  - Para Cursor/Copilot por proyecto: copiar manualmente ~/.cursorrules a .cursorrules del repo"
-Write-Host "  - Para ChatGPT web: pegar contenido de $source en Custom Instructions"
-Write-Host "  - Para repos individuales con CLAUDE.md / AGENTS.md: copiar desde home cuando hagas clone"
+Write-Host "  ChatGPT (web):" -ForegroundColor Yellow
+Write-Host "    1. Custom Instructions del proyecto/cuenta" -ForegroundColor Gray
+Write-Host "    2. Pegar contenido de: $source" -ForegroundColor Gray
 Write-Host ""
+Write-Host "  VS Code Copilot (per-repo):" -ForegroundColor Yellow
+Write-Host "    En cada repo: cp `"$source`" .github/copilot-instructions.md" -ForegroundColor Gray
+Write-Host ""
+Write-Host "  Zed:" -ForegroundColor Yellow
+Write-Host "    Zed no carga AGENTS.md global. Usar configuracion del Assistant en settings.json." -ForegroundColor Gray
+Write-Host ""
+
+Write-Step "Setup completo"
 Write-Host "Verificar con: bin\doctor.ps1" -ForegroundColor Cyan

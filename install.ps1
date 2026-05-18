@@ -5,7 +5,18 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$installDir = Join-Path $env:USERPROFILE "agents-system"
+
+# Detectar repo existente en ubicaciones conocidas
+$candidates = @(
+    (Join-Path $env:USERPROFILE "agents-system"),
+    (Join-Path $env:USERPROFILE "CascadeProjects\agents-system")
+)
+$installDir = $null
+foreach ($c in $candidates) {
+    if (Test-Path "$c\.git") { $installDir = $c; break }
+}
+if (-not $installDir) { $installDir = $candidates[0] }  # default a ~/agents-system
+
 $agentsDir = Join-Path $env:USERPROFILE ".agents"
 $binDir = Join-Path $env:USERPROFILE "bin"
 $opencodeDir = Join-Path $env:USERPROFILE ".config\opencode"
@@ -140,5 +151,18 @@ if ($allOk) {
 }
 
 Write-Host ""
+Write-Host "=== Configurando punteros multi-IDE ===" -ForegroundColor Cyan
+$setupScript = Join-Path $installDir "bin\setup-ide-pointers.ps1"
+if (Test-Path $setupScript) {
+    if ($useSymlinks) {
+        & $setupScript -AgentsRoot $agentsDir
+    } else {
+        & $setupScript -AgentsRoot $agentsDir -ForceCopy
+    }
+} else {
+    Write-Warning "setup-ide-pointers.ps1 no encontrado, skip multi-IDE setup"
+}
+
+Write-Host ""
 Write-Host "Repository location: $installDir" -ForegroundColor Gray
-Write-Host "To update later: git -C <repo> pull origin $Branch" -ForegroundColor Gray
+Write-Host "To update later: $installDir\bin\update-system.ps1" -ForegroundColor Gray
