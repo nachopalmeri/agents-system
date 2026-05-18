@@ -13,15 +13,15 @@ param(
 $ErrorActionPreference = "Stop"
 
 function Write-Step($msg) {
-    Write-Host "→ $msg" -ForegroundColor Cyan
+    Write-Host "-> $msg" -ForegroundColor Cyan
 }
 
 function Write-OK($msg) {
-    Write-Host "  ✓ $msg" -ForegroundColor Green
+    Write-Host "  [OK] $msg" -ForegroundColor Green
 }
 
 function Write-Warn($msg) {
-    Write-Host "  ⚠ $msg" -ForegroundColor Yellow
+    Write-Host "  [WARN] $msg" -ForegroundColor Yellow
 }
 
 function New-Pointer {
@@ -35,7 +35,7 @@ function New-Pointer {
         return
     }
     if (-not (Test-Path $Source)) {
-        Write-Warn "Source no existe: $Source — skipping $Description"
+        Write-Warn "Source no existe: $Source - skipping $Description"
         return
     }
     $parent = Split-Path $Target -Parent
@@ -61,13 +61,13 @@ function New-Pointer {
             Write-OK "$Description (copy)"
         }
     } catch {
-        Write-Warn "Symlink falló (necesita admin o Developer Mode), usando copia: $Description"
+        Write-Warn "Symlink fallo (necesita admin o Developer Mode), usando copia: $Description"
         Copy-Item $Source $Target -Force
         Write-OK "$Description (copy fallback)"
     }
 }
 
-Write-Step "Setup IDE pointers — fuente: $AgentsRoot"
+Write-Step "Setup IDE pointers - fuente: $AgentsRoot"
 
 if (-not (Test-Path "$AgentsRoot\AGENTS.md")) {
     Write-Host "ERROR: No existe $AgentsRoot\AGENTS.md" -ForegroundColor Red
@@ -77,7 +77,7 @@ if (-not (Test-Path "$AgentsRoot\AGENTS.md")) {
 
 $source = "$AgentsRoot\AGENTS.md"
 
-# 1. Windsurf / Cascade — global rules
+# 1. Windsurf / Cascade - global rules
 Write-Step "Windsurf / Cascade"
 New-Pointer -Source $source -Target "$env:USERPROFILE\.windsurf\global-rules.md" -Description "Windsurf global rules"
 
@@ -87,7 +87,7 @@ $openCodeDir = "$env:USERPROFILE\.config\opencode"
 if (Test-Path $openCodeDir) {
     New-Pointer -Source $source -Target "$openCodeDir\AGENTS.md" -Description "OpenCode AGENTS"
 } else {
-    Write-Warn "OpenCode no instalado — skip"
+    Write-Warn "OpenCode no instalado - skip"
 }
 
 # 3. Cursor (rules globales en home)
@@ -108,7 +108,7 @@ $zedDir = "$env:USERPROFILE\AppData\Roaming\Zed"
 if (Test-Path $zedDir) {
     New-Pointer -Source $source -Target "$zedDir\AGENTS.md" -Description "Zed global"
 } else {
-    Write-Warn "Zed no instalado — skip"
+    Write-Warn "Zed no instalado - skip"
 }
 
 # 7. VS Code / Copilot (instrucciones globales en home, opcional)
