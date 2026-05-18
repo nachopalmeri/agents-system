@@ -91,6 +91,16 @@ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
+## Setup multi-IDE (un solo archivo, todos los IDEs)
+
+`~/.agents/AGENTS.md` es la única fuente de verdad. Configurá punteros para cada IDE:
+
+```powershell
+.\bin\setup-ide-pointers.ps1
+```
+
+Esto crea symlinks (o copias si no hay permisos) para Windsurf, OpenCode, Cursor, Claude Code, Gemini, Zed y más. Ver `docs/multi-ide-setup.md` para detalles.
+
 ## Verificación post-instalación
 
 Ejecutar en terminal:

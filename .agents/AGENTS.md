@@ -1,5 +1,24 @@
 # Sistema de Agentes — Nacho Palmeri / Pisculichi Labs
 
+## Identidad
+
+- **Usuario:** Nacho Palmeri (`nachopalmeri`)
+- **Email:** ipalmeri@uade.edu.ar
+- **Lab:** Pisculichi Labs
+- Detalles completos en `rules/identity.md`.
+
+## Reglas globales (leer primero)
+
+| Regla | Archivo |
+|---|---|
+| Identidad y datos del usuario | `rules/identity.md` |
+| Push obligatorio a GitHub | `rules/git.md` |
+| Permisos de IA y flags humanos | `rules/ai-permissions.md` |
+| Anti-cementerio / anti-sludge | `rules/anti-cemetery.md` |
+| Chat-first (no exigir nombrar workflows) | `rules/chat-first.md` |
+| Code style | `rules/code-style.md` |
+| Testing | `rules/testing.md` |
+
 ## Orquestación del Flujo de Trabajo
 
 ### 0. Interfaz Chat-First
@@ -34,6 +53,8 @@ Este loop aplica tanto a ejecución normal como a `/loop`, routines y subagentes
 - Para problemas complejos, dedicar más capacidad mediante subagentes
 - Usar `workflows/parallel_agents.md` cuando haya tareas independientes que justifiquen paralelismo
 - Usar `workflows/multiagent_review_loop.md` para decisiones de alto impacto que requieran crear, criticar, red team, segunda crítica, roadmap y reevaluación
+- Usar `workflows/llm_council.md` para decidir entre opciones, evaluar oportunidades o contrastar perspectivas con 5 asesores + peer review + Chairman ≤200 palabras
+- Para usar el Council fuera del IDE, copiar `prompts/llm-council-portable.md` a cualquier chat (ChatGPT, Claude web, Gemini, etc.)
 - Evitar teatro multiagente: si la crítica no puede cambiar la solución, usar flujo simple o `workflows/phases.md`
 
 ### 3. Bucle de Automejora
