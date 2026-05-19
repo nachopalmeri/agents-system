@@ -9,6 +9,7 @@ $checks = @(
     @{ Name = "Chat-first rule"; Path = "$env:USERPROFILE\.agents\rules\chat-first.md" },
     @{ Name = "Workflow index"; Path = "$env:USERPROFILE\.agents\workflows\index.md" },
     @{ Name = "Validation workflow"; Path = "$env:USERPROFILE\.agents\workflows\validation.md" },
+    @{ Name = "Feedback loop workflow"; Path = "$env:USERPROFILE\.agents\workflows\feedback_loop.md" },
     @{ Name = "Session checkpoint workflow"; Path = "$env:USERPROFILE\.agents\workflows\session_checkpoint.md" },
     @{ Name = "Project types workflow"; Path = "$env:USERPROFILE\.agents\workflows\project_types.md" },
     @{ Name = "Task ledger workflow"; Path = "$env:USERPROFILE\.agents\workflows\task_ledger.md" },

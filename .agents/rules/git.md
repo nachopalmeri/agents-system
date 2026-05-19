@@ -31,6 +31,7 @@ Formato: tipo: descripción en español
 > Todo cambio relacionado con agentes, skills, workflows, prompts, templates, configuración del sistema, código o infraestructura DEBE pushearse a GitHub. La regla aplica al cierre de la sesión o cambio de contexto, no a cada cambio individual.
 
 - **Usuario:** `nachopalmeri`
+- **Responsabilidad:** si el entorno no permite pushear, dejar commit/diff listo y reportar el comando exacto pendiente; no decir que esta sincronizado si el push no ocurrio.
 - **Email:** `ipalmeri@uade.edu.ar`
 - **Flujo:**
   1. `git add -p` o `git add -A` (revisar con `git diff --cached --stat`)

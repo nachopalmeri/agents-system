@@ -4,6 +4,8 @@ description: LLM Council — 5 asesores con lentes opuestas, peer review anónim
 
 # LLM Council
 
+Limitacion honesta: si corre dentro de un unico modelo/contexto, el desacuerdo es simulado. Sirve para forzar lentes y detectar puntos ciegos, no como evidencia independiente. Para decisiones de alto costo, contrastar con datos, usuarios, tests, fuentes externas o revisores humanos.
+
 ## Principio
 
 Para decisiones complejas con múltiples ángulos, una sola perspectiva miente. El Council te da 5 lentes radicalmente distintas, una peer review anónima que detecta sesgos, y un Chairman que sintetiza todo en una recomendación accionable ≤200 palabras.

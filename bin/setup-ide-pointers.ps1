@@ -76,6 +76,12 @@ Write-Step "OpenCode"
 $openCodeDir = "$env:USERPROFILE\.config\opencode"
 if (Test-Path $openCodeDir) {
     New-Pointer -Source $source -Target "$openCodeDir\AGENTS.md" -Description "OpenCode AGENTS"
+    $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+    $openCodeConfigSource = Join-Path $repoRoot "config\opencode\opencode.jsonc"
+    if (Test-Path $openCodeConfigSource) {
+        Copy-Item $openCodeConfigSource "$openCodeDir\opencode.jsonc" -Force
+        Write-OK "OpenCode config (copy)"
+    }
 } else {
     Write-Skip "OpenCode no instalado"
 }

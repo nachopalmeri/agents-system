@@ -17,6 +17,9 @@ El usuario no debe recordar workflows, comandos ni nombres internos. El agente d
    - Clasificar intención, tamaño y riesgo internamente.
    - Mostrar solo la decisión útil cuando aporte claridad.
 
+   - Si hay ambiguedad real entre workflows, explicar la eleccion en una linea.
+   - Si el usuario corrige el routing, no defenderlo: aplicar `workflows/feedback_loop.md`.
+
 3. **Menor workflow suficiente**
    - Para cambios chicos, hacer el cambio directo y validar.
    - Para tareas medianas/grandes, planificar lo mínimo necesario.
@@ -34,6 +37,10 @@ El usuario no debe recordar workflows, comandos ni nombres internos. El agente d
 6. **Salida concisa**
    - Evitar explicar todos los workflows internos.
    - Reportar qué se hará, qué no se tocará y cómo se validará.
+
+7. **Rigor contextual**
+   - TDAH-friendly no significa incompleto.
+   - Para specs, arquitectura o decisiones de alto impacto, usar estructura corta pero incluir criterios, riesgos y evidencia.
 
 ## Regla final
 La interfaz es chat. Los workflows son motor interno.

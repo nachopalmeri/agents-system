@@ -24,10 +24,11 @@
 ### 0. Interfaz Chat-First
 - El usuario habla normal; no exigirle recordar workflows ni comandos internos
 - Usar `rules/chat-first.md` como política de UX
-- Usar `workflows/index.md` para enrutar internamente al menor workflow suficiente
+- Usar `workflows/index.md` para enrutar internamente al menor workflow suficiente y poder explicar la decision si hay ambiguedad
 - Usar `docs/world-class-workflow.md` como referencia canónica para el workflow maestro cuando haya tensión entre reglas, workflows y documentación
 - Usar `workflows/task_ledger.md` cuando haya coordinación, handoffs, kanban, tracking, Telegram/Discord/Hermes o recibos finales
 - Usar `workflows/validation.md` antes de declarar una tarea lista
+- Usar `workflows/feedback_loop.md` cuando el routing, la validacion o el output fallen y haya que corregir el sistema
 - Usar `workflows/session_checkpoint.md` para sesiones largas o mucho contexto acumulado
 
 ### 0.1. El Agente como Loop
@@ -59,9 +60,10 @@ Este loop aplica tanto a ejecución normal como a `/loop`, routines y subagentes
 
 ### 3. Bucle de Automejora
 - Tras CUALQUIER corrección del director: actualizar tasks/lessons.md
-- Escribir reglas para evitar el mismo error en el futuro
+- Convertir errores repetidos en cambios concretos: routing, validacion, regla, test o poda
+- Usar `workflows/feedback_loop.md` antes de tocar reglas durables; no guardar ruido como politica
 - Revisar tasks/lessons.md al inicio de cada sesión
-- Formato de regla: "Siempre X" o "Nunca Y"
+- Formato de regla durable: "Siempre X" o "Nunca Y", con evidencia del incidente
 
 ### 4. Verificación antes de Finalizar
 - Nunca marcar una tarea como completada sin demostrar que funciona

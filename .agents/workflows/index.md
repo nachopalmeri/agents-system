@@ -7,6 +7,25 @@ description: Router invisible para decidir el menor workflow suficiente según i
 ## Regla principal
 El usuario habla normal. El agente enruta internamente y no le exige recordar nombres de workflows.
 
+## Contrato de routing
+
+Antes de actuar, clasificar internamente:
+
+1. **Intencion:** construir, arreglar, decidir, investigar, revisar, validar o coordinar.
+2. **Tamano:** small, medium o large.
+3. **Riesgo:** bajo, medio o alto segun impacto, datos, dinero, produccion, credenciales o dificultad de revertir.
+4. **Evidencia disponible:** archivos cargados, repo accesible, docs existentes, tests, metricas o solo descripcion del usuario.
+5. **Criterio de salida:** que tiene que ser verdadero para cerrar sin fingir validacion.
+
+Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y decir una linea de razonamiento cuando afecte el resultado. Ejemplo: "Lo tomo como `web_briefing`, no `product_foundry`, porque ya hay producto definido y solo falta landing".
+
+## Fallback cuando falta contexto
+
+- Si un workflow nombrado no existe o no esta cargado, no simularlo: pedir acceso al archivo o usar flujo simple con alcance declarado.
+- Si no hay repo, archivos, tests o datos para validar, marcarlo como limitacion y proponer la validacion externa necesaria.
+- Si la decision depende de informacion actual o cambiante, buscar fuentes actuales antes de recomendar.
+- Si el usuario corrige el routing, aplicar `feedback_loop.md`.
+
 ## Router
 
 | Si el pedido parece | Usar internamente | Salida esperada |
@@ -42,6 +61,7 @@ El usuario habla normal. El agente enruta internamente y no le exige recordar no
 ## Criterio de tamaño
 
 - **Small:** pocos archivos, bajo riesgo, objetivo claro.
+- **Escalar si:** el pedido toca seguridad, pagos, datos personales, produccion, ads, DMs, credenciales, contradicciones entre reglas, decisiones dificiles de revertir o falta de evidencia para validar.
 - **Medium:** varios pasos, más de un módulo, requiere plan breve.
 - **Large:** incertidumbre, arquitectura, múltiples agentes, specs o validación compleja.
 

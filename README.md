@@ -10,6 +10,13 @@ Sistema global de agentes, workflows, skills y scaffolding para desarrollo con I
 - `config/windsurf/` — Estructura local de Windsurf (planes, etc)
 - `docs/` — Guías de instalación privada, laptop bootstrap y ecosistema OpenCode
 
+## Principios operativos
+
+- La interfaz es chat; los workflows son motor interno.
+- El agente debe elegir el menor workflow suficiente y explicar la eleccion cuando haya ambiguedad real.
+- Validar significa aportar evidencia observable o declarar la limitacion.
+- Cuando el routing o el output fallan, usar `.agents/workflows/feedback_loop.md` para convertir el error en una regla, checklist, test o poda concreta.
+
 ## Requisitos previos
 
 - Git instalado
@@ -239,6 +246,7 @@ start.md
 → agente o skill especializado
 → tools seguras
 → validation.md
+→ feedback_loop.md si hubo correccion del enfoque/routing/output
 → checkpoint/docs si aporta continuidad
 ```
 

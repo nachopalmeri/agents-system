@@ -51,7 +51,8 @@ try {
 
     $bashFiles = @("install.sh", "update.sh", "bin/nuevo-proyecto.sh")
     $bash = Get-Command bash -ErrorAction SilentlyContinue
-    if ($bash) {
+    $isWslLauncher = $bash -and $bash.Source -like "$env:WINDIR\system32\bash.exe"
+    if ($bash -and -not $isWslLauncher) {
         foreach ($file in $bashFiles) {
             if (-not (Test-Path $file)) {
                 Add-Failure "Missing Bash script: $file"
@@ -66,7 +67,7 @@ try {
             }
         }
     } else {
-        Write-Host "[WARN] bash not available; skipped Bash syntax checks" -ForegroundColor Yellow
+        Write-Host "[WARN] bash not available or WSL launcher detected; skipped Bash syntax checks" -ForegroundColor Yellow
     }
 
     try {
@@ -81,6 +82,7 @@ try {
         ".agents\rules\chat-first.md",
         ".agents\workflows\index.md",
         ".agents\workflows\validation.md",
+        ".agents\workflows\feedback_loop.md",
         ".agents\workflows\session_checkpoint.md",
         ".agents\workflows\task_ledger.md",
         ".agents\workflows\multiagent_review_loop.md",
@@ -111,11 +113,14 @@ try {
         Add-Failure "Git identity mismatch: $name <$email>"
     }
 
-    $badEmailMatches = Select-String -Path (Get-ChildItem -Recurse -File -Include *.md,*.ps1,*.sh,*.jsonc,*.txt | Select-Object -ExpandProperty FullName) -Pattern "uade\.edu\.com\.ar|ipalmeri@uade\.edu\.com" -ErrorAction SilentlyContinue
-    if ($badEmailMatches) {
+    $badEmailPattern = "uade\.edu\.com\.ar|ipalmeri@uade\.edu\.com"
+    $badEmailMatches = & git grep -n -I -E $badEmailPattern -- "*.md" "*.ps1" "*.sh" "*.jsonc" "*.txt" 2>$null
+    if ($LASTEXITCODE -eq 0 -and $badEmailMatches) {
         Add-Failure "Incorrect email variant found in repository"
-    } else {
+    } elseif ($LASTEXITCODE -eq 1) {
         Add-Ok "No incorrect email variant found"
+    } else {
+        Add-Failure "Email scan failed"
     }
 
     & "$PSScriptRoot\check-secrets.ps1"
