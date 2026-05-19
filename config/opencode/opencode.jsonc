@@ -83,6 +83,7 @@
     "~/.agents/workflows/hooks.md",
     "~/.agents/workflows/spec_kit.md",
     "~/.agents/workflows/validation.md",
+    "~/.agents/workflows/context_check.md",
     "~/.agents/workflows/session_checkpoint.md",
     "~/.agents/workflows/project_types.md",
     "~/.agents/rules/code-style.md",

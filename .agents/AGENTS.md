@@ -29,6 +29,7 @@
 - Usar `workflows/task_ledger.md` cuando haya coordinación, handoffs, kanban, tracking, Telegram/Discord/Hermes o recibos finales
 - Usar `workflows/validation.md` antes de declarar una tarea lista
 - Usar `workflows/feedback_loop.md` cuando el routing, la validacion o el output fallen y haya que corregir el sistema
+- Usar `workflows/context_check.md` cuando haya senales de degradacion de contexto
 - Usar `workflows/session_checkpoint.md` para sesiones largas o mucho contexto acumulado
 
 ### 0.1. El Agente como Loop
@@ -64,6 +65,7 @@ Este loop aplica tanto a ejecución normal como a `/loop`, routines y subagentes
 - Usar `workflows/feedback_loop.md` antes de tocar reglas durables; no guardar ruido como politica
 - Revisar tasks/lessons.md al inicio de cada sesión
 - Formato de regla durable: "Siempre X" o "Nunca Y", con evidencia del incidente
+- Las lecciones globales viven en `.agents/memory/lessons-global.md` y se promueven con confirmacion humana usando `workflows/promote_lesson.md`
 
 ### 4. Verificación antes de Finalizar
 - Nunca marcar una tarea como completada sin demostrar que funciona

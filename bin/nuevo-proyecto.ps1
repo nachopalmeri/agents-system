@@ -6,6 +6,94 @@ param(
     [Parameter(Position=1)][string]$Stack = "html-css-js"
 )
 
+function Write-Utf8File {
+    param(
+        [string]$Path,
+        [string]$Content
+    )
+    Set-Content -Path $Path -Value $Content -Encoding UTF8
+}
+
+function Initialize-StandardTaskFiles {
+    param(
+        [string]$ProjectRoot,
+        [string]$ProjectName
+    )
+
+    $tasksDir = Join-Path $ProjectRoot "tasks"
+    New-Item -ItemType Directory -Path $tasksDir -Force | Out-Null
+
+    Write-Utf8File (Join-Path $tasksDir "todo.md") @"
+# Todo
+
+## En progreso
+(vacio)
+
+## Pendiente
+(agregar tareas aca)
+
+## Completado
+(vacio)
+"@
+
+    Write-Utf8File (Join-Path $tasksDir "lessons.md") @"
+# Lecciones Aprendidas
+
+Tras cualquier correccion del director, agregar una regla aca.
+Formato: "Siempre X" o "Nunca Y"
+
+## Reglas
+(vacio por ahora)
+"@
+
+    Write-Utf8File (Join-Path $tasksDir "handoff.md") @"
+# Handoff - $ProjectName
+
+> Este archivo esta escrito para vos-del-futuro que no tiene contexto.
+> El agente lo actualiza al cierre de cada sesion importante.
+
+## Estado actual
+
+## Ultima sesion
+Fecha:
+Que se hizo:
+Que quedo sin terminar:
+
+## Decisiones pendientes
+
+## Proximo paso concreto
+
+## Que NO tocar
+
+## Contexto que no esta en el codigo
+"@
+
+    Write-Utf8File (Join-Path $tasksDir "decisions.md") @"
+# Decisiones del Proyecto
+
+## Formato
+| Fecha | Decision | Alternativas evaluadas | Por que esta | Costo si me equivoque |
+|---|---|---|---|---|
+"@
+
+    Write-Utf8File (Join-Path $tasksDir "tech-debt.md") @"
+# Tech Debt
+
+## Formato
+Cada deuda tiene:
+- Que es (una linea)
+- Por que se tomo conscientemente (contexto de la decision)
+- Costo si no se paga (impacto real)
+- Cuando tiene sentido pagarla (trigger, no fecha)
+- Prioridad: CRITICA / ALTA / MEDIA / BAJA
+
+## Deudas activas
+
+## Deudas pagadas
+(mantener registro de que se resolvio y cuando)
+"@
+}
+
 if (-not $Nombre -or $Nombre -in @("help", "--help", "-h")) {
     Write-Host @"
 Uso: nuevo-proyecto <nombre> [stack]
@@ -21,6 +109,7 @@ Stacks:
 - local-business  negocio local con oferta, landing y SEO local
 - seo-growth      proyecto centrado en SEO/GEO/AEO growth
 - product-foundry ideas, MVPs y validacion indie/AI-first
+- client-work     trabajo de cliente con brief, propuesta, entrega y feedback
 
 Ejemplos:
 - nuevo-proyecto landing astro
@@ -28,6 +117,7 @@ Ejemplos:
 - nuevo-proyecto app-compleja spec-kit
 - nuevo-proyecto mini-saas saas-mvp
 - nuevo-proyecto dulces-creaciones local-business
+- nuevo-proyecto defesfiesta client-work
 "@
     exit 1
 }
@@ -64,6 +154,8 @@ if ($Stack -eq "ai-prod") {
     foreach ($dir in $dirs) {
         New-Item -ItemType Directory -Path (Join-Path $base $dir) -Force | Out-Null
     }
+
+    Initialize-StandardTaskFiles -ProjectRoot $base -ProjectName $Nombre
 
     $files = @{
         "app/main.py" = '"""FastAPI entrypoint for the AI production app."""'
@@ -144,6 +236,7 @@ ai-prod — AI/RAG production architecture
 4. Input/content/output guards antes de producción
 5. No declarar production-ready sin golden dataset y offline eval
 6. Commits en espanol: feat | fix | chore | docs | test
+7. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md
 
 ## Agentes
 - agente-ai-architect → arquitectura AI/RAG y capas production-ready
@@ -203,6 +296,8 @@ if ($Stack -eq "spec-kit") {
         New-Item -ItemType Directory -Path (Join-Path $base $dir) -Force | Out-Null
     }
 
+    Initialize-StandardTaskFiles -ProjectRoot $base -ProjectName $Nombre
+
     $agentsContent = @"
 # $Nombre
 
@@ -230,6 +325,7 @@ Para features medianas/grandes:
 3. Commits en espanol: feat | fix | chore | docs | test
 4. Nunca marcar tarea como completada sin demostrar que funciona
 5. Tras cualquier correccion: actualizar tasks/lessons.md
+6. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md
 
 ## Validación
 1. git diff --stat
@@ -340,6 +436,8 @@ if ($Stack -in @("saas-mvp", "local-business", "seo-growth", "product-foundry"))
         New-Item -ItemType Directory -Path (Join-Path $base $dir) -Force | Out-Null
     }
 
+    Initialize-StandardTaskFiles -ProjectRoot $base -ProjectName $Nombre
+
     $presetTitle = switch ($Stack) {
         "saas-mvp" { "SaaS MVP" }
         "local-business" { "Local Business" }
@@ -387,6 +485,7 @@ $primaryAgents
 8. Nunca ejecutar gasto publicitario ni responder DMs sin confirmación explícita.
 9. No declarar listo sin validation.md.
 10. Mantener tasks/todo.md y tasks/lessons.md actualizados si aplica.
+11. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md.
 
 ## Validación
 1. Revisar scope y archivos tocados.
@@ -442,6 +541,79 @@ Reglas:
     exit 0
 }
 
+if ($Stack -eq "client-work") {
+    $dirs = @(
+        "brief",
+        "propuesta",
+        "entregas",
+        "feedback",
+        "tasks",
+        ".github"
+    )
+
+    foreach ($dir in $dirs) {
+        New-Item -ItemType Directory -Path (Join-Path $base $dir) -Force | Out-Null
+    }
+
+    Initialize-StandardTaskFiles -ProjectRoot $base -ProjectName $Nombre
+
+    $agentsContent = @"
+# $Nombre
+
+## Preset
+client-work
+
+## Workflow principal
+client_workflow.md
+
+## Reglas especificas de client work
+1. No hacer cambios de scope sin registrarlos en propuesta/.
+2. Todo feedback del cliente va a feedback/ antes de implementar.
+3. Al cierre generar retro con lecciones para el proximo cliente.
+4. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md.
+5. Si una decision comercial o tecnica es dificil de revertir, usar tasks/decisions.md.
+"@
+    Set-Content -Path (Join-Path $base "AGENTS.md") -Value $agentsContent -Encoding UTF8
+
+    Set-Content -Path (Join-Path $base "brief/brief-template.md") -Value "# Brief del Cliente`n`n## Cliente`n`n## Negocio`n`n## Objetivo`n`n## Audiencia`n`n## Tono`n`n## Referencias`n`n## Restricciones`n`n## Deadline`n`n## Presupuesto acordado`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "propuesta/pricing.md") -Value "# Pricing de referencia`n`nTomar estructura y categorias de `.agents/skills/client-work/pricing.md` antes de completar esta propuesta.`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "propuesta/v1.md") -Value "# Propuesta v1`n`n## Alcance`n`n## Incluye`n`n## No incluye`n`n## Precio`n`n## Timeline`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "feedback/iteracion-1.md") -Value "# Feedback - Iteracion 1`n`n## Pedido del cliente`n`n## En scope?`n`n## Accion`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "tasks/todo.md") -Value "# Todo`n`n## En progreso`n(vacio)`n`n## Pendiente`n- [ ] Completar brief inicial`n- [ ] Generar propuesta v1`n- [ ] Definir primera entrega`n- [ ] Registrar feedback del cliente`n`n## Completado`n(vacio)`n" -Encoding UTF8
+    Set-Content -Path (Join-Path $base "feature_list.json") -Value "{`n  `"proyecto`": `"$Nombre`",`n  `"stack`": `"client-work`",`n  `"features`": []`n}" -Encoding UTF8
+    Set-Content -Path (Join-Path $base ".gitignore") -Value "node_modules/`n.env`n.env.local`ndist/`n.DS_Store`n*.log`n" -Encoding UTF8
+
+    $copilotContent = @"
+# $Nombre — Instrucciones para Copilot
+
+Preset: client-work
+
+Reglas:
+1. No cambiar scope sin registrarlo en propuesta/.
+2. Todo feedback del cliente entra primero en feedback/.
+3. No sobreescribir propuestas anteriores; versionar.
+4. Registrar deuda intencional en tasks/tech-debt.md.
+5. Registrar decisiones dificiles de revertir en tasks/decisions.md.
+"@
+    Set-Content -Path (Join-Path $base ".github/copilot-instructions.md") -Value $copilotContent -Encoding UTF8
+
+    git add -A
+    git commit -m "chore: estructura client work del proyecto"
+
+    $wt1 = Join-Path $HOME "agente-1-$Nombre"
+    $wt2 = Join-Path $HOME "agente-2-$Nombre"
+    $wt3 = Join-Path $HOME "agente-3-$Nombre"
+
+    git worktree add $wt1 -b agente/feature
+    git worktree add $wt2 -b agente/design
+    git worktree add $wt3 -b agente/tests
+
+    Write-Host ""
+    Write-Host "Proyecto '$Nombre' listo con preset 'client-work'" -ForegroundColor Green
+    Write-Host "Estructura creada con brief/, propuesta/, entregas/, feedback/ y tasks/"
+    exit 0
+}
+
 # ── AGENTS.md (instrucciones globales del proyecto) ──
 $agentsContent = @"
 # $Nombre
@@ -457,6 +629,7 @@ $Stack
 5. No tocar archivos fuera de tu scope de worktree
 6. No instalar dependencias sin confirmar con el director
 7. Tras cualquier correccion: actualizar tasks/lessons.md
+8. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md
 
 ## Archivos Sagrados (NO editar sin confirmacion explicita)
 - AGENTS.md
@@ -507,6 +680,7 @@ Formato: "Siempre X" o "Nunca Y"
 (vacio por ahora)
 "@
 Set-Content -Path (Join-Path $tasksDir "lessons.md") -Value $lessonsContent -Encoding UTF8
+Initialize-StandardTaskFiles -ProjectRoot $base -ProjectName $Nombre
 
 # ── feature_list.json ──
 $featureContent = @"
@@ -535,6 +709,7 @@ $Stack
 5. Tras cualquier correccion: actualizar tasks/lessons.md
 6. Preguntarse: Aprobaria esto un Staff Engineer?
 7. Corregir errores autonomamente, no pedir ayuda
+8. Registrar deuda intencional en tasks/tech-debt.md
 
 ## Archivos Sagrados
 - AGENTS.md, package.json, .env, archivos de config raiz

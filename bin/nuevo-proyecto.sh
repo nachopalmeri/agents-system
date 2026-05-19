@@ -13,6 +13,7 @@ Stacks:
 - python          proyecto Python/CLI
 - ai-prod         AI/RAG production-ready
 - spec-kit        Spec-Driven Development opcional
+- client-work     trabajo de cliente con brief, propuesta, entrega y feedback
 
 Ejemplos:
 - nuevo-proyecto landing astro
@@ -21,6 +22,82 @@ Ejemplos:
 HEREDOC
   exit 1
 fi
+
+initialize_standard_tasks() {
+  local project_root="$1"
+  local project_name="$2"
+  mkdir -p "$project_root/tasks"
+
+  cat > "$project_root/tasks/todo.md" << 'HEREDOC'
+# Todo
+
+## En progreso
+(vacio)
+
+## Pendiente
+(agregar tareas aca)
+
+## Completado
+(vacio)
+HEREDOC
+
+  cat > "$project_root/tasks/lessons.md" << 'HEREDOC'
+# Lecciones Aprendidas
+
+Tras cualquier correccion del director, agregar una regla aca.
+Formato: "Siempre X" o "Nunca Y"
+
+## Reglas
+(vacio por ahora)
+HEREDOC
+
+  cat > "$project_root/tasks/handoff.md" << HEREDOC
+# Handoff - $project_name
+
+> Este archivo esta escrito para vos-del-futuro que no tiene contexto.
+> El agente lo actualiza al cierre de cada sesion importante.
+
+## Estado actual
+
+## Ultima sesion
+Fecha:
+Que se hizo:
+Que quedo sin terminar:
+
+## Decisiones pendientes
+
+## Proximo paso concreto
+
+## Que NO tocar
+
+## Contexto que no esta en el codigo
+HEREDOC
+
+  cat > "$project_root/tasks/decisions.md" << 'HEREDOC'
+# Decisiones del Proyecto
+
+## Formato
+| Fecha | Decision | Alternativas evaluadas | Por que esta | Costo si me equivoque |
+|---|---|---|---|---|
+HEREDOC
+
+  cat > "$project_root/tasks/tech-debt.md" << 'HEREDOC'
+# Tech Debt
+
+## Formato
+Cada deuda tiene:
+- Que es (una linea)
+- Por que se tomo conscientemente (contexto de la decision)
+- Costo si no se paga (impacto real)
+- Cuando tiene sentido pagarla (trigger, no fecha)
+- Prioridad: CRITICA / ALTA / MEDIA / BAJA
+
+## Deudas activas
+
+## Deudas pagadas
+(mantener registro de que se resolvio y cuando)
+HEREDOC
+}
 
 nombre="$1"
 stack="${2:-html-css-js}"
@@ -31,6 +108,7 @@ git init && git commit --allow-empty -m "chore: init"
 
 if [ "$stack" = "ai-prod" ]; then
   mkdir -p app/components services prompts agents/tools security evaluation/eval_results observability data/raw data/processed data/index_config scripts frontend/static tests docs .claude/rules .github tasks
+  initialize_standard_tasks "$base" "$nombre"
 
   cat > app/main.py << 'HEREDOC'
 """FastAPI entrypoint for the AI production app."""
@@ -156,6 +234,7 @@ ai-prod — AI/RAG production architecture
 4. Input/content/output guards antes de producción
 5. No declarar production-ready sin golden dataset y offline eval
 6. Commits en español: feat | fix | chore | docs | test
+7. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md
 HEREDOC
 
   cat > .github/copilot-instructions.md << HEREDOC
@@ -182,6 +261,7 @@ fi
 
 if [ "$stack" = "spec-kit" ]; then
   mkdir -p tasks .github .specify/memory .specify/specs .specify/templates
+  initialize_standard_tasks "$base" "$nombre"
 
   cat > AGENTS.md << HEREDOC
 # $nombre
@@ -210,6 +290,7 @@ Para features medianas/grandes:
 3. Commits en español: feat | fix | chore | docs | test
 4. Nunca marcar tarea como completada sin demostrar que funciona
 5. Tras cualquier corrección: actualizar tasks/lessons.md
+6. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md
 
 ## Validación
 1. git diff --stat
@@ -345,6 +426,133 @@ HEREDOC
   exit 0
 fi
 
+if [ "$stack" = "client-work" ]; then
+  mkdir -p brief propuesta entregas feedback tasks .github
+  initialize_standard_tasks "$base" "$nombre"
+
+  cat > AGENTS.md << HEREDOC
+# $nombre
+
+## Preset
+client-work
+
+## Workflow principal
+client_workflow.md
+
+## Reglas especificas de client work
+1. No hacer cambios de scope sin registrarlos en propuesta/.
+2. Todo feedback del cliente va a feedback/ antes de implementar.
+3. Al cierre generar retro con lecciones para el proximo cliente.
+4. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md.
+5. Si una decision comercial o tecnica es dificil de revertir, usar tasks/decisions.md.
+HEREDOC
+
+  cat > brief/brief-template.md << 'HEREDOC'
+# Brief del Cliente
+
+## Cliente
+
+## Negocio
+
+## Objetivo
+
+## Audiencia
+
+## Tono
+
+## Referencias
+
+## Restricciones
+
+## Deadline
+
+## Presupuesto acordado
+HEREDOC
+
+  cat > propuesta/pricing.md << 'HEREDOC'
+# Pricing de referencia
+
+Tomar estructura y categorias de `.agents/skills/client-work/pricing.md` antes de completar esta propuesta.
+HEREDOC
+
+  cat > propuesta/v1.md << 'HEREDOC'
+# Propuesta v1
+
+## Alcance
+
+## Incluye
+
+## No incluye
+
+## Precio
+
+## Timeline
+HEREDOC
+
+  cat > feedback/iteracion-1.md << 'HEREDOC'
+# Feedback - Iteracion 1
+
+## Pedido del cliente
+
+## En scope?
+
+## Accion
+HEREDOC
+
+  cat > tasks/todo.md << 'HEREDOC'
+# Todo
+
+## En progreso
+(vacio)
+
+## Pendiente
+- [ ] Completar brief inicial
+- [ ] Generar propuesta v1
+- [ ] Definir primera entrega
+- [ ] Registrar feedback del cliente
+
+## Completado
+(vacio)
+HEREDOC
+
+  cat > feature_list.json << HEREDOC
+{
+  "proyecto": "$nombre",
+  "stack": "client-work",
+  "features": []
+}
+HEREDOC
+
+  cat > .gitignore << 'HEREDOC'
+node_modules/
+.env
+.env.local
+dist/
+.DS_Store
+*.log
+HEREDOC
+
+  cat > .github/copilot-instructions.md << 'HEREDOC'
+# Instrucciones para Copilot
+
+Preset: client-work
+
+Reglas:
+1. No cambiar scope sin registrarlo en propuesta/.
+2. Todo feedback del cliente entra primero en feedback/.
+3. No sobreescribir propuestas anteriores; versionar.
+4. Registrar deuda intencional en tasks/tech-debt.md.
+5. Registrar decisiones dificiles de revertir en tasks/decisions.md.
+HEREDOC
+
+  git add -A && git commit -m "chore: estructura client work del proyecto"
+  git worktree add ~/agente-1-"$nombre" -b agente/feature
+  git worktree add ~/agente-2-"$nombre" -b agente/design
+  git worktree add ~/agente-3-"$nombre" -b agente/tests
+  echo "Proyecto client-work '$nombre' listo"
+  exit 0
+fi
+
 # ── AGENTS.md (instrucciones globales del proyecto) ──
 cat > AGENTS.md << HEREDOC
 # $nombre
@@ -360,6 +568,7 @@ $stack
 5. No tocar archivos fuera de tu scope de worktree
 6. No instalar dependencias sin confirmar con el director
 7. Tras cualquier corrección: actualizar tasks/lessons.md
+8. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md
 
 ## Archivos Sagrados (NO editar sin confirmación explícita)
 - AGENTS.md
@@ -406,6 +615,8 @@ Formato: "Siempre X" o "Nunca Y"
 ## Reglas
 (vacío por ahora)
 HEREDOC
+
+initialize_standard_tasks "$base" "$nombre"
 
 # ── feature_list.json ──
 cat > feature_list.json << 'HEREDOC'
