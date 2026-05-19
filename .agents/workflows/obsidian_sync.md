@@ -32,6 +32,7 @@ Si la estructura no existe, crear solo la carpeta necesaria para la nota pedida.
 - Fin de sesion larga con decisiones relevantes.
 - El usuario pide "guarda esto en el vault".
 - `growth_update.md` necesita dejar evidencia de crecimiento.
+- Cierre de proyecto con ADRs en `docs/adr/`: sincronizar ADRs aceptados como decisiones tecnicas en el vault.
 
 ## Modo de escritura
 

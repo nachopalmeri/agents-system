@@ -13,11 +13,11 @@ Cuando hay 3 o más agentes/worktrees trabajando en paralelo en el mismo proyect
 Cada agente activo debe tener un contrato explícito registrado en `tasks/agents-active.md`:
 
 ```markdown
-| Agente | Worktree | Produce | Consume | Estado |
-|---|---|---|---|---|
-| agente-design | agente/design | componentes UI, design system | nada | activo |
-| agente-feature | agente/feature | páginas y lógica | design system (de agente-design) | esperando |
-| agente-tests | agente/tests | tests E2E | feature completa (de agente-feature) | esperando |
+| Agente | Worktree | Produce | Consume | Interfaz | Bloqueo | Estado |
+|---|---|---|---|---|---|---|
+| agente-design | agente/design | componentes UI, design system | nada | commit `ready: design system` | — | activo |
+| agente-feature | agente/feature | páginas y lógica | design system (de agente-design) | commit `ready: feature` | espera a agente-design | esperando |
+| agente-tests | agente/tests | tests E2E | feature completa (de agente-feature) | commit `ready: tests` | espera a agente-feature | esperando |
 ```
 
 ### Campos del contrato
@@ -73,8 +73,8 @@ Formato estándar que se crea en presets `ai-prod` y `spec-kit`:
 ```markdown
 # Agentes Activos
 
-| Agente | Worktree | Produce | Consume | Estado |
-|---|---|---|---|---|
+| Agente | Worktree | Produce | Consume | Interfaz | Bloqueo | Estado |
+|---|---|---|---|---|---|---|
 ```
 
 Estados posibles: `pendiente`, `activo`, `esperando`, `bloqueado`, `completado`.

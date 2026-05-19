@@ -54,10 +54,12 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Integrar MCP o herramienta externa | `mcp_adoption.md` + `mcp_security.md` | Veredicto GO/NO-GO/PIVOT + config segura |
 | Plugin, theme, OpenCode Studio o awesome-opencode | `opencode_ecosystem.md` | Evaluación + instalación opt-in |
 | Trabajo para cliente real con brief, propuesta y entregas | `client_workflow.md` | Brief -> propuesta versionada -> entrega -> feedback -> retro |
-| Decisión de alto costo de reversión | `irreversible_decision.md` | Checklist mínima + registro en decisions + vault |
 | Review semanal de proyectos activos | `weekly_review.md` | Resumen semanal + candidatos globales + nota en vault |
 | Seguridad, secretos o publicación de repo | `agente-security-auditor` + `validation.md` | Riesgos + mitigaciones + evidencia |
 | Tareas independientes en paralelo | `parallel_agents.md` | División por rol + integración final |
+| 3+ agentes con dependencias entre outputs | `agent_coordination.md` | Contratos + fases + integración |
+| Decisión de alto costo de reversión | `irreversible_decision.md` | Checklist mínima + registro en decisions + vault |
+| Decisión arquitectónica en proyecto > 2 semanas | `irreversible_decision.md` + `adr.md` | ADR + registro en decisions |
 | Sesión larga o mucho contexto | `session_checkpoint.md` | Estado compacto para continuidad |
 | Cierre de trabajo | `validation.md` | Evidencia antes de declarar listo |
 

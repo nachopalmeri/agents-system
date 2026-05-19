@@ -15,6 +15,8 @@ Stacks:
 - spec-kit        Spec-Driven Development opcional
 - client-work     trabajo de cliente con brief, propuesta, entrega y feedback
 
+Nota: saas-mvp, local-business, seo-growth y product-foundry solo estan disponibles en la version PowerShell (nuevo-proyecto.ps1).
+
 Ejemplos:
 - nuevo-proyecto landing astro
 - nuevo-proyecto jobbot-ai ai-prod
@@ -101,8 +103,8 @@ HEREDOC
   cat > "$project_root/tasks/agents-active.md" << 'HEREDOC'
 # Agentes Activos
 
-| Agente | Worktree | Produce | Consume | Estado |
-|---|---|---|---|---|
+| Agente | Worktree | Produce | Consume | Interfaz | Bloqueo | Estado |
+|---|---|---|---|---|---|---|
 HEREDOC
 }
 

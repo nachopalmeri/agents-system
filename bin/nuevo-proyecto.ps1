@@ -96,8 +96,8 @@ Cada deuda tiene:
     Write-Utf8File (Join-Path $tasksDir "agents-active.md") @"
 # Agentes Activos
 
-| Agente | Worktree | Produce | Consume | Estado |
-|---|---|---|---|---|
+| Agente | Worktree | Produce | Consume | Interfaz | Bloqueo | Estado |
+|---|---|---|---|---|---|---|
 "@
 }
 
@@ -213,7 +213,7 @@ if ($Stack -eq "ai-prod") {
         "README.md" = "# $Nombre`n`nAI production-ready project scaffold."
         "tasks/todo.md" = "# Todo`n`n## En progreso`n(vacio)`n`n## Pendiente`n- [ ] Definir golden dataset inicial`n- [ ] Implementar RAG pipeline mínimo`n- [ ] Agregar tracing y cost tracking`n`n## Completado`n(vacio)`n"
         "tasks/lessons.md" = "# Lecciones Aprendidas`n`n## Reglas`n(vacio por ahora)`n"
-        "tasks/agents-active.md" = "# Agentes Activos`n`n| Agente | Worktree | Produce | Consume | Estado |`n|---|---|---|---|---|`n"
+        "tasks/agents-active.md" = "# Agentes Activos`n`n| Agente | Worktree | Produce | Consume | Interfaz | Bloqueo | Estado |`n|---|---|---|---|---|---|---|`n"
         "feature_list.json" = "{`n  `"proyecto`": `"$Nombre`",`n  `"stack`": `"ai-prod`",`n  `"features`": []`n}"
         ".gitignore" = "node_modules/`n.env`n.env.local`ndist/`n__pycache__/`n*.pyc`n.DS_Store`n*.log`n"
     }

@@ -31,6 +31,7 @@
 - Usar `workflows/feedback_loop.md` cuando el routing, la validacion o el output fallen y haya que corregir el sistema
 - Usar `workflows/context_check.md` cuando haya senales de degradacion de contexto
 - Usar `workflows/session_checkpoint.md` para sesiones largas o mucho contexto acumulado
+- Usar `memory/tech_radar.md` antes de proponer stacks, librerias o herramientas nuevas
 
 ### 0.1. El Agente como Loop
 Todos los agentes implementan el mismo ciclo fundacional:
