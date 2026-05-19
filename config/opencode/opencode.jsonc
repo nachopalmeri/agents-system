@@ -86,6 +86,7 @@
     "~/.agents/workflows/context_check.md",
     "~/.agents/workflows/session_checkpoint.md",
     "~/.agents/workflows/project_types.md",
+    "~/.agents/memory/tech_radar.md",
     "~/.agents/rules/code-style.md",
     "~/.agents/rules/testing.md",
     "~/.agents/rules/git.md"

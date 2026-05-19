@@ -33,8 +33,9 @@ Antes de continuar:
    - [ ] No falta informacion critica que deberiamos tener.
    - [ ] Esta decision no bloquea algo importante hacia adelante sin plan.
 4. Registrar en `tasks/decisions.md` del proyecto.
-5. Registrar en el vault via `obsidian_sync.md` como decision tecnica si aplica.
-6. Solo entonces ejecutar.
+5. Si el proyecto dura mas de 2 semanas, crear ADR en `docs/adr/` ademas del registro en `decisions.md`. Usar `adr.md` para el formato.
+6. Registrar en el vault via `obsidian_sync.md` como decision tecnica si aplica.
+7. Solo entonces ejecutar.
 
 ## Formato para `tasks/decisions.md`
 

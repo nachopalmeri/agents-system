@@ -49,6 +49,10 @@ Usar subagentes o worktrees paralelos cuando:
 - Ningún subagente declara listo sin evidencia.
 - El agente principal sintetiza y decide.
 
+## Para proyectos con mas de 2 agentes simultaneos
+
+Si hay 3 o mas agentes trabajando en paralelo con dependencias entre sus outputs, usar `agent_coordination.md` en lugar de este workflow. El coordination protocol agrega contratos explicitos, fases de integracion y signals (`ready:`, `blocked:`) que este workflow no cubre.
+
 ## Regla final
 
 Paralelizar para reducir riesgo/contexto, no para sumar teatro.

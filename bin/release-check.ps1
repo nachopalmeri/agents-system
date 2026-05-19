@@ -51,7 +51,7 @@ try {
 
     $bashFiles = @("install.sh", "update.sh", "bin/nuevo-proyecto.sh")
     $bash = Get-Command bash -ErrorAction SilentlyContinue
-    $isWslLauncher = $bash -and $bash.Source -like "$env:WINDIR\system32\bash.exe"
+    $isWslLauncher = $bash -and ($bash.Source -like "$env:WINDIR\system32\bash.exe" -or $bash.Source -like "$env:WINDIR\SysWOW64\bash.exe")
     if ($bash -and -not $isWslLauncher) {
         foreach ($file in $bashFiles) {
             if (-not (Test-Path $file)) {
@@ -59,15 +59,17 @@ try {
                 continue
             }
 
-            & bash -n $file
+            & bash -n $file 2>$null
             if ($LASTEXITCODE -ne 0) {
                 Add-Failure "Bash syntax failed: $file"
             } else {
                 Add-Ok "Bash syntax: $file"
             }
         }
+    } elseif ($isWslLauncher) {
+        Write-Host "[SKIP] Bash syntax: solo WSL launcher disponible. Validar manualmente o instalar Git for Windows." -ForegroundColor DarkGray
     } else {
-        Write-Host "[WARN] bash not available or WSL launcher detected; skipped Bash syntax checks" -ForegroundColor Yellow
+        Write-Host "[SKIP] Bash syntax: bash no disponible" -ForegroundColor DarkGray
     }
 
     try {
@@ -97,9 +99,12 @@ try {
         ".agents\workflows\venture_loop.md",
         ".agents\workflows\seo_geo_growth.md",
         ".agents\workflows\product_foundry.md",
+        ".agents\workflows\adr.md",
+        ".agents\workflows\agent_coordination.md",
         ".agents\memory\README.md",
         ".agents\memory\lessons-global.md",
         ".agents\memory\developer_growth.md",
+        ".agents\memory\tech_radar.md",
         ".agents\skills\client-work\SKILL.md",
         ".agents\skills\client-work\pricing.md",
         "docs\world-class-workflow.md",

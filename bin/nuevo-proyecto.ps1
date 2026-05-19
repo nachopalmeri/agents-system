@@ -92,6 +92,13 @@ Cada deuda tiene:
 ## Deudas pagadas
 (mantener registro de que se resolvio y cuando)
 "@
+
+    Write-Utf8File (Join-Path $tasksDir "agents-active.md") @"
+# Agentes Activos
+
+| Agente | Worktree | Produce | Consume | Estado |
+|---|---|---|---|---|
+"@
 }
 
 if (-not $Nombre -or $Nombre -in @("help", "--help", "-h")) {
@@ -146,6 +153,7 @@ if ($Stack -eq "ai-prod") {
         "frontend/static",
         "tests",
         "docs",
+        "docs/adr",
         ".claude/rules",
         ".github",
         "tasks"
@@ -205,6 +213,7 @@ if ($Stack -eq "ai-prod") {
         "README.md" = "# $Nombre`n`nAI production-ready project scaffold."
         "tasks/todo.md" = "# Todo`n`n## En progreso`n(vacio)`n`n## Pendiente`n- [ ] Definir golden dataset inicial`n- [ ] Implementar RAG pipeline mínimo`n- [ ] Agregar tracing y cost tracking`n`n## Completado`n(vacio)`n"
         "tasks/lessons.md" = "# Lecciones Aprendidas`n`n## Reglas`n(vacio por ahora)`n"
+        "tasks/agents-active.md" = "# Agentes Activos`n`n| Agente | Worktree | Produce | Consume | Estado |`n|---|---|---|---|---|`n"
         "feature_list.json" = "{`n  `"proyecto`": `"$Nombre`",`n  `"stack`": `"ai-prod`",`n  `"features`": []`n}"
         ".gitignore" = "node_modules/`n.env`n.env.local`ndist/`n__pycache__/`n*.pyc`n.DS_Store`n*.log`n"
     }
@@ -289,7 +298,8 @@ if ($Stack -eq "spec-kit") {
         ".github",
         ".specify/memory",
         ".specify/specs",
-        ".specify/templates"
+        ".specify/templates",
+        "docs/adr"
     )
 
     foreach ($dir in $dirs) {
@@ -428,6 +438,7 @@ if ($Stack -in @("saas-mvp", "local-business", "seo-growth", "product-foundry"))
         "landing",
         "metrics",
         "docs",
+        "docs/adr",
         "tasks",
         ".github"
     )

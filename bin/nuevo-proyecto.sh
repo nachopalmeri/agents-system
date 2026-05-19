@@ -97,6 +97,13 @@ Cada deuda tiene:
 ## Deudas pagadas
 (mantener registro de que se resolvio y cuando)
 HEREDOC
+
+  cat > "$project_root/tasks/agents-active.md" << 'HEREDOC'
+# Agentes Activos
+
+| Agente | Worktree | Produce | Consume | Estado |
+|---|---|---|---|---|
+HEREDOC
 }
 
 nombre="$1"
@@ -107,7 +114,7 @@ mkdir -p "$base" && cd "$base"
 git init && git commit --allow-empty -m "chore: init"
 
 if [ "$stack" = "ai-prod" ]; then
-  mkdir -p app/components services prompts agents/tools security evaluation/eval_results observability data/raw data/processed data/index_config scripts frontend/static tests docs .claude/rules .github tasks
+  mkdir -p app/components services prompts agents/tools security evaluation/eval_results observability data/raw data/processed data/index_config scripts frontend/static tests docs docs/adr .claude/rules .github tasks
   initialize_standard_tasks "$base" "$nombre"
 
   cat > app/main.py << 'HEREDOC'
@@ -260,7 +267,7 @@ HEREDOC
 fi
 
 if [ "$stack" = "spec-kit" ]; then
-  mkdir -p tasks .github .specify/memory .specify/specs .specify/templates
+  mkdir -p tasks .github .specify/memory .specify/specs .specify/templates docs/adr
   initialize_standard_tasks "$base" "$nombre"
 
   cat > AGENTS.md << HEREDOC
