@@ -1,5 +1,5 @@
 ---
-description: Router invisible para decidir el menor workflow suficiente según intención, tamaño y riesgo
+﻿description: Router invisible para decidir el menor workflow suficiente según intención, tamaño y riesgo
 ---
 
 # Workflow Index
@@ -54,12 +54,13 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Integrar MCP o herramienta externa | `mcp_adoption.md` + `mcp_security.md` | Veredicto GO/NO-GO/PIVOT + config segura |
 | Plugin, theme, OpenCode Studio o awesome-opencode | `opencode_ecosystem.md` | Evaluación + instalación opt-in |
 | Trabajo para cliente real con brief, propuesta y entregas | `client_workflow.md` | Brief -> propuesta versionada -> entrega -> feedback -> retro |
+| Decisión de alto costo de reversión | `irreversible_decision.md` | Checklist mínima + registro en decisions + vault |
 | Review semanal de proyectos activos | `weekly_review.md` | Resumen semanal + candidatos globales + nota en vault |
 | Seguridad, secretos o publicación de repo | `agente-security-auditor` + `validation.md` | Riesgos + mitigaciones + evidencia |
 | Tareas independientes en paralelo | `parallel_agents.md` | División por rol + integración final |
-| 3+ agentes con dependencias entre outputs | `agent_coordination.md` | Contratos + fases + integración |
-| Decisión de alto costo de reversión | `irreversible_decision.md` | Checklist mínima + registro en decisions + vault |
-| Decisión arquitectónica en proyecto > 2 semanas | `irreversible_decision.md` + `adr.md` | ADR + registro en decisions |
+| Web 3D/immersiva con Three.js/WebGPU/GSAP | `$world-class-web.md` | Pipeline 10 etapas + quality gates |
+| Web con perfil especifico (luxury-3d, portfolio-3d) | `$world-class-web.md` + `$profiles/[perfil].md` | Brief -> concepto -> 3D -> gates |
+| AI/RAG serio + web 3D inmersiva | `$world-class-web.md` + `$ai_production.md` | Pipeline visual + capas AI |
 | Sesión larga o mucho contexto | `session_checkpoint.md` | Estado compacto para continuidad |
 | Cierre de trabajo | `validation.md` | Evidencia antes de declarar listo |
 

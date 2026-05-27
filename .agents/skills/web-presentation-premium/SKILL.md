@@ -1,98 +1,64 @@
 ---
-name: web-presentation-premium
-description: Crear webs/presentaciones premium para facultad, pitches, demos y proyectos usando storytelling visual, animaciones, GSAP, Three.js o frontend moderno. Usar cuando el usuario pida una presentación web, landing interactiva, pitch deck web, demo visual, sitio con animaciones, Three.js, GSAP o una web digna de frontend senior.
+description: Crear presentaciones web premium, pitch decks web, demos visuales, landings interactivas con Three.js/GSAP
 ---
 
 # Web Presentation Premium
 
-## Objetivo
-Transformar una presentación normal, entrega de facultad, pitch o demo en una experiencia web memorable con narrativa, diseño, animación y claridad.
+## Cuándo NO alcanza (usar world-class-web)
 
-## Antes de crear cualquier web
-Siempre preguntar qué busca el usuario si no está claro:
+Si el proyecto necesita cualquiera de estos, usar `workflows/world-class-web.md` en lugar de este skill:
 
-1. ¿Cuál es el objetivo? (vender, explicar, impresionar, enseñar, presentar TP, portfolio)
-2. ¿Quién es la audiencia? (profesor, cliente, recruiter, usuario final, inversor)
-3. ¿Qué tono quiere? (premium, divertido, académico, startup, técnico, minimalista)
-4. ¿Qué stack prefiere? (HTML/CSS/JS, Astro, Next, React/Vite)
-5. ¿Qué nivel de animación? (simple, scroll storytelling, GSAP, Three.js)
-6. ¿Qué contenido base existe? (Obsidian, README, PDF, texto, repo, imágenes)
-7. ¿Qué deadline y formato final necesita? (deploy, zip, GitHub, Vercel)
+- 3 escenas 3D o mas (alcoves narrativos)
+- OffscreenCanvas + Web Worker para render 3D
+- Pipeline de assets con Blender + Draco + KTX2
+- 4 quality gates obligatorios (performance, accesibilidad, responsive, anti-slop)
+- Budgets de performance concretos (Lighthouse >= 90, LCP < 2.5s)
+- Perfiles predefinidos (luxury-3d, portfolio-3d)
+- Scroll storytelling con camera path narrativo
 
-Si el usuario dice “lo que vos digas”, elegir la opción más simple que logre impacto.
+Este skill es el entry point para webs premium de alcance contenido. `workflows/world-class-web.md` es el pipeline completo para proyectos ambiciosos.
 
-## Cuándo usar HTML/CSS/JS
-Usar para:
-- Presentaciones rápidas
-- Entregas de facultad
-- Demos offline
-- Sitios de una sola página
-- Cuando no hace falta routing ni estado complejo
+---
 
-Estructura:
+## Qué es
 
-```text
-presentation/
-├── index.html
-├── styles.css
-├── app.js
-├── assets/
-└── README.md
-```
+Webs que se sienten premium. No ruidosas, no genéricas.
+Cada elemento tiene intención: animación al servicio del mensaje, narrativa visual, microinteracciones.
 
-## Cuándo usar Astro
-Usar para:
-- Landings estáticas premium
-- SEO importante
-- Contenido principalmente estático
-- Sitios rápidos y deployables
+El resultado debe verse como si un diseñador senior y un frontend senior hubieran trabajado juntos.
 
-## Cuándo usar Next/React/Vite
-Usar para:
-- Interacciones complejas
-- Componentes reutilizables
-- Demos con estado
-- Dashboards o prototipos SaaS
+## Stack por defecto
 
-## Cuándo usar GSAP
-Usar cuando:
-- La narrativa depende del scroll
-- Hay reveals, parallax, timeline o secuencias
-- Se busca efecto “wow” controlado
+- **Framework:** Astro (default) o Next.js (si necesita estado complejo)
+- **Estilos:** Tailwind CSS siempre
+- **3D:** Three.js (CDN, no bundle pesado) — solo si suma a la historia
+- **Animaciones:** GSAP + ScrollTrigger para scroll storytelling
+- **Deploy:** Vercel (default) o Netlify
+- **Formularios:** Formspree, Resend o similar serverless
 
-No usar GSAP para microinteracciones simples que CSS puede resolver.
+> Si no hay 3D ni scroll narrativo, Astro + Tailwind solo alcanza.
 
-## Cuándo usar Three.js
-Usar cuando:
-- El concepto se beneficia de 3D o espacialidad
-- Hay una metáfora visual fuerte
-- La presentación necesita impacto visual alto
+## Checklist de web premium
 
-No usar Three.js solo por moda. Si no agrega claridad, evitarlo.
-
-## Estructura narrativa recomendada
-
-1. **Hook** — una frase/visual que captura atención
-2. **Problema** — qué duele o qué se intenta resolver
-3. **Insight** — el ángulo inteligente
-4. **Solución** — qué se construyó o propone
-5. **Demo/Proceso** — cómo funciona
-6. **Impacto** — resultados, métricas o aprendizaje
-7. **Cierre** — conclusión clara + next step
-
-## Checklist de calidad
-- [ ] Se entiende en 10 segundos
-- [ ] Tiene un hook visual o textual fuerte
-- [ ] No depende de animaciones para comunicar lo esencial
-- [ ] Responsive mobile/desktop
-- [ ] Performance aceptable
-- [ ] Accesible: contraste, foco, textos legibles
+- [ ] Tiene scroll storytelling o animación con sentido
+- [ ] Las transiciones son suaves (no fade default genérico)
+- [ ] Tipografía con personalidad
+- [ ] Paleta coherente en toda la página
+- [ ] Microinteracciones (hover, scroll, click)
+- [ ] Responsive en todos los breakpoints
+- [ ] Lighthouse > 90 Performance
+- [ ] Lighthouse > 90 Accessibility
+- [ ] No hay Lorem ipsum - cada palabra está ahí por decisión
+- [ ] CTA claro y visible sin hacer scroll
+- [ ] Carga rápida en 3G simulado
+- [ ] Sin dependencias innecesarias
 - [ ] No hay animaciones que mareen
 - [ ] Tiene narrativa, no solo secciones lindas
 - [ ] Si es facultad: responde exactamente a la consigna
 - [ ] Si es pitch: deja clara la propuesta de valor
 
 ## Conexión con Obsidian
+
 Si el contenido existe en el vault:
 - Leer notas del proyecto/clase
 - Extraer conceptos principales
@@ -107,6 +73,7 @@ Fuentes típicas:
 - `Clippings/` para referencias externas
 
 ## Agentes recomendados
+
 - `agente-obsidian-brain` → extrae contenido y conceptos del vault
 - `agente-docs` → arma guion/storytelling
 - `agente-design` → visual, responsive, animación
@@ -114,4 +81,5 @@ Fuentes típicas:
 - `agente-tests` → validación final
 
 ## Regla final
-Una web premium no es “más efectos”. Es una idea clara, una narrativa fuerte y movimiento al servicio del mensaje.
+
+Una web premium no es "más efectos". Es una idea clara, una narrativa fuerte y movimiento al servicio del mensaje.
