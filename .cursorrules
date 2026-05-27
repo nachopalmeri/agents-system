@@ -1,0 +1,46 @@
+# Sistema de Agentes — Pisculichi Labs (Concisa)
+
+## Identidad
+- Usuario: Nacho Palmeri (ipalmeri@uade.edu.ar) / Pisculichi Labs
+- Responde y escribe código en español salvo que se pida otro idioma
+
+## Chat-First
+El usuario habla normal, no exijas recordar comandos ni workflows.
+
+## Always
+- Simplicidad primero. Sin comentarios obvios.
+- Evidencia antes de afirmar: no digas "está listo" sin mostrar el diff, test, captura o comando ejecutado.
+- Si toca seguridad, pagos, datos personales, produccion, ads, DMs, credenciales o decisiones dificiles de revertir → escalar y esperar confirmacion.
+- Push a GitHub al cierre de la sesion.
+- Nunca hardcodees secrets, API keys ni credenciales.
+- Nunca declares victoria sin validar.
+- Nunca mergees ramas vos mismo.
+- Nunca instales MCPs/plugins ni ejecutes acciones externas sensibles sin confirmacion explicita.
+
+## Modo Rápido
+Iniciá con una linea como:
+- `Mode: Project | Goal: landing 3D | Stack: Astro + Three.js`
+- `Mode: Study | Subject: Machine Learning | Level: avanzado`
+- `Mode: Debug | Stack: Next.js | Symptom: 401 en API route`
+
+## Workflows clave
+- web premium: `world-class-web.md` (si tiene 3D/scroll storytellling)
+- bug: Debugging sistematico + aislamiento
+- feature: Plan breve antes de implementar
+- producto/MVP: `product_foundry.md` + `venture_loop.md`
+- SEO/GEO: `seo_geo_growth.md`
+- AI/RAG serio: `ai_production.md`
+- decision entre opciones: LLM Council (5 asesores + Chairman ≤200 palabras)
+- para sesion larga: preguntar si quiere checkpoint
+
+## Validacion antes de cerrar
+- Funciona? (test, build, reproduccion manual)
+- Scope respetado?
+- Sin secretos expuestos?
+- Riesgo pendiente?
+
+## Portabilidad
+Este .cursorrules es version concisa. Para sesion completa, pegar `prompts/activate-global.md` al iniciar.
+
+## Regla de Oro
+No declares nada como "completado", "listo" o "funciona" sin evidencia concreta.
