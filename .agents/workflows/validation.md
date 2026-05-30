@@ -35,6 +35,18 @@ Nunca declarar victoria sin evidencia. Validar no es "me parece correcto"; es co
 - Correr lint/build si existen y el cambio puede afectarlos.
 - Si no hay tests, dejar validacion alternativa explicita.
 
+### 2.5. Playwright E2E (si aplica)
+
+Si el proyecto tiene flujos de usuario criticos (login, signup, checkout, CRUD principal):
+
+- Definir tests E2E con `@playwright/test` para los flujos clave.
+- Ejemplo: un usuario puede hacer login, crear un proyecto, actualizar su perfil.
+- Los tests se definen una vez y se reutilizan en cada cambio.
+- Workflow: agente hace cambio → ejecuta Playwright → Playwright corre cada flujo en navegador real → si algo falla, se sabe exactamente donde se rompio.
+- Si hay MCP de Playwright disponible, el agente puede ejecutar el navegador directamente desde terminal sin intervención manual.
+- Playwright valida acciones reales de principio a fin, no solo partes aisladas.
+- No crear tests E2E para cambios que no afectan flujos de usuario.
+
 ### 3. Seguridad y secretos
 
 - Revisar riesgos de credenciales, datos personales, pagos, ads, DMs o produccion.
@@ -53,6 +65,7 @@ Nunca declarar victoria sin evidencia. Validar no es "me parece correcto"; es co
 | Docs/prompts/workflows | Diff revisado + referencias internas + check del sistema |
 | Codigo | Tests relevantes o reproduccion manual + build/lint si aplica |
 | UI | Revision visual/responsive + consola sin errores si aplica |
+| UI con flujos criticos | Playwright E2E de flujos clave + revision visual + consola sin errores |
 | AI/RAG | Dataset/evals o limitacion explicita; no declarar production-ready sin evidencia |
 | Decision estrategica | Supuestos, trade-offs, criterio de decision y siguiente paso falsable |
 | Cliente | Entrega versionada + feedback registrado + scope claro |

@@ -151,13 +151,26 @@ Si hay implementación técnica:
 
 Recomendar según corresponda:
 
-- `llms.txt`.
+- `llms.txt` en la raíz del sitio con contexto estructurado para motores de IA. Estructurar como knowledge graph: `[Problema] -> [Solución] -> [Entidades Técnicas]`. Actualizar cuando cambie el producto.
 - Página `about`/entity clara.
-- Structured data.
+- Structured data con JSON-LD en páginas importantes: Organization, Product, FAQPage, HowTo, BreadcrumbList.
+- Schemas específicos por tipo de página (no solo genéricos).
 - FAQs conversacionales.
 - Respuestas concisas en secciones clave.
 - Citas/fuentes.
 - Prompt set para testear visibilidad en ChatGPT, Perplexity y Gemini.
+- Páginas por rubro/industria: crear una landing por segmento de cliente (kioscos, farmacias, ferreterías, etc.) con contenido específico, no solo keyword swap.
+- Glosario de términos del dominio: ayuda a modelos a entender el vocabulario del producto y cuándo mencionarlo.
+- Página "cómo funciona" con pasos claros y secuenciales.
+- Blog con artículos semanales orientados a problemas reales del ICP.
+- Casos de éxito con métricas concretas.
+- Páginas comparativas (vs competidores).
+- Datos propios y benchmarks.
+- Reviews y menciones externas.
+- A/B testing de categorías: probar una página de rubro con enfoque diferente al resto y verificar si el LLM "pica" con esa carnada antes de escalar.
+- Mejorar sitemap, canonicals, robots, metadata y estructura interna como base técnica.
+- Verificar que los modelos entiendan la categoría correcta, el ICP correcto y la razón exacta para recomendarte (no solo que existes).
+- Toma tiempo: no esperar resultados inmediatos. Medir mensualmente.
 
 ## Fase 8 — Backlinks/citations
 

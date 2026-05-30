@@ -143,6 +143,45 @@ fuente: proyecto
 - No crear nota si no hay decision, aprendizaje, retro o proxima accion.
 - No duplicar: si ya existe una nota del mismo cierre, actualizarla con confirmacion.
 
+## Patron raw/wiki para knowledge management
+
+Para proyectos con mucha informacion de referencia (inversiones, research, documentacion tecnica):
+
+```text
+raw/    → archivos originales (pdf, xls, md, email, etc.)
+          Solo se ingieren, no se modifican.
+wiki/   → multiples .md sintetizados por el agente
+          El agente debe citar raw/ como fuente.
+```
+
+Reglas del patron:
+
+- `raw/` es inmutable: no tocar, solo leer y citar.
+- `wiki/` es la capa de entendimiento: el agente sintetiza, conecta y estructura.
+- Cada nota en `wiki/` debe indicar que `raw/` la respalda.
+- Si no hay raw que respalde una afirmacion, marcarlo como supuesto.
+
+## Principio: texto plano > RAG para la mayoria de los casos
+
+No se necesitan bases de datos vectoriales, embeddings ni pipelines de RAG para la mayoria de los casos de uso. El enfoque mas efectivo:
+
+1. Dividir la informacion en archivos de texto (.md, .txt, .json) con nombres informativos.
+2. Agregar metadatos para que sea facilmente indexable por grep/ls/find.
+3. Dejar que el agente se encargue del resto: búsqueda, síntesis, conexión.
+
+Este patron (texto plano con nombres y metadata descriptivos) supera a RAG en la mayoria de los escenarios practicos porque:
+
+- Cero infraestructura adicional.
+- Los agentes ya pueden buscar y leer archivos directamente.
+- Los nombres de archivo y la estructura de directorios actuan como indice semantico.
+- Wikilinks en .md permiten conectar conceptos sin embeddings.
+
+Solo considerar RAG/vector DB cuando:
+
+- Hay 50TB+ de datos (casos reales de big data, no la mayoria de las apps).
+- Se necesita busqueda semantica sobre datos estructurados con logica de negocio compleja.
+- Se requiere baja latencia en produccion con muchos usuarios concurrentes.
+
 ## Salida esperada
 
 ```text

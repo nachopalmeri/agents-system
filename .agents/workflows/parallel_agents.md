@@ -53,6 +53,44 @@ Usar subagentes o worktrees paralelos cuando:
 
 Si hay 3 o mas agentes trabajando en paralelo con dependencias entre sus outputs, usar `agent_coordination.md` en lugar de este workflow. El coordination protocol agrega contratos explicitos, fases de integracion y signals (`ready:`, `blocked:`) que este workflow no cubre.
 
+## Dynamic Workflows (Claude Code)
+
+Claude Code soporta Dynamic Workflows: al mencionar "workflow" en el prompt, Claude crea automaticamente un plan de orquestacion completo, lo sigue estrictamente y lanza sub-agentes en paralelo donde sea posible, respetando el orden correcto.
+
+Patron de uso:
+
+1. Mencionar "workflow" o "dynamic workflow" en la instruccion.
+2. Claude escribe el plan detallado de todo lo que hay que hacer.
+3. Respeta ese plan de forma estricta durante toda la ejecucion.
+4. Levanta sub-agentes automaticamente que trabajan en paralelo en las partes independientes.
+5. Coordina para que nada se pise y todo salga en el orden correcto.
+
+Ejemplo: revisar cientos de flags de A/B testing. En vez de ir uno por uno, Claude arma el plan y los procesa en paralelo en minutos.
+
+Caveats:
+
+- Consumo de tokens alto: puede quemar millones de tokens en tareas grandes. Considerar costo antes de usar.
+- Solo funciona en Claude Code CLI, Desktop, VS Code extension y via API. No en la version web.
+- Disponible en planes max, team y enterprise.
+- Segun es research preview: probar y experimentar antes de depender de el.
+
+## Auto-configuracion de proyecto (claude-code-setup)
+
+El plugin oficial `claude-code-setup` analiza el repo, detecta frameworks y dependencias, y recomienda:
+
+- Hooks
+- Skills
+- MCPs
+- Subagents
+
+Instalacion:
+
+```text
+/plugin install claude-code-setup@claude-plugins-official
+```
+
+Usar cuando se configura un proyecto nuevo o se quiere entender que automatizaciones y configuraciones convienen para un stack dado.
+
 ## Regla final
 
 Paralelizar para reducir riesgo/contexto, no para sumar teatro.
