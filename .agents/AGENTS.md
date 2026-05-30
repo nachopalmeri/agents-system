@@ -130,10 +130,12 @@ Este loop aplica tanto a ejecución normal como a `/loop`, routines y subagentes
 ## Roles de Agentes Disponibles
 - agente-principal → lógica, estructura, integraciones
 - agente-seo       → meta tags, OG, headings, sitemap
-- agente-design    → CSS, responsive, animaciones, UI
+- agente-obsidian-brain → captura, conexión y mantenimiento del vault Obsidian
+- agente-academic-tutor → tutor universitario intensivo, evaluación, active recall, coding exercises
 - agente-tests     → tests unitarios y E2E
 - agente-docs      → README, comentarios, documentación
 - agente-marketing-strategist → estrategia, GTM, posicionamiento, research de audiencia (no ejecuta gasto ni DMs)
+- agente-x-content-strategist → contenido X/Twitter, LinkedIn, Substack, personal branding y growth social (no ejecuta gasto ni DMs)
 - agente-growth-seo-geo → SEO/GEO/AEO growth, keywords, landings, backlinks, local SEO, AI search
 - agente-product-founder → ideas de producto, MVPs, validación, portfolio indie/AI-first
 - agente-ai-architect → arquitectura AI/RAG production-ready

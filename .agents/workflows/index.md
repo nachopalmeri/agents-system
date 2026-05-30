@@ -56,6 +56,7 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Trabajo para cliente real con brief, propuesta y entregas | `client_workflow.md` | Brief -> propuesta versionada -> entrega -> feedback -> retro |
 | Decisión de alto costo de reversión | `irreversible_decision.md` | Checklist mínima + registro en decisions + vault |
 | Review semanal de proyectos activos | `weekly_review.md` | Resumen semanal + candidatos globales + nota en vault |
+| Contenido X/Twitter, LinkedIn, personal branding o growth social | `x_content_system.md` + `agente-x-content-strategist` | Diagnóstico + contenido optimizado + playbook |
 | Seguridad, secretos o publicación de repo | `agente-security-auditor` + `validation.md` | Riesgos + mitigaciones + evidencia |
 | Tareas independientes en paralelo | `parallel_agents.md` | División por rol + integración final |
 | Web 3D/immersiva con Three.js/WebGPU/GSAP | `$world-class-web.md` | Pipeline 10 etapas + quality gates |
@@ -63,6 +64,9 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | AI/RAG serio + web 3D inmersiva | `$world-class-web.md` + `$ai_production.md` | Pipeline visual + capas AI |
 | Sesión larga o mucho contexto | `session_checkpoint.md` | Estado compacto para continuidad |
 | Cierre de trabajo | `validation.md` | Evidencia antes de declarar listo |
+| Estudio, explicación de materia, notas de clase o conceptos académicos | `academic_tutor.md` + `agente-obsidian-brain` | Explicación profunda + notas mejoradas + flashcards |
+| "Modo parcial", preparación de examen, simulación de oral | `academic_tutor.md` (modo parcial) | Evaluación honesta + plan intensivo + ejercicios |
+| Mejorar notas de Obsidian de clase | `academic_tutor.md` + `agente-obsidian-brain` | Notas enriquecidas + Dots + MOC actualizado |
 
 ## Criterio de tamaño
 

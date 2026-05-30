@@ -9,17 +9,20 @@ description: Trabajar con el vault de Obsidian Q1-2026-UADE. Estructura PARA, Ze
 - Cuando el usuario pida crear/editar notas en el vault
 - Cuando se mencione Obsidian, notas, clases, MOC, flashcards
 - Cuando se trabaje en la ruta `C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE\`
+- NUNCA usar la copia de `C:\Users\ignac\Desktop\Q1-2026-UADE\` — es una copia incompleta/desactualizada
 
 ## Estructura del Vault (PARA + Zettelkasten)
 
 | Carpeta | Propósito |
 |---|---|
-| `Proyects/` | Proyectos activos (JobBot, Dulces Creaciones) |
+| `Proyects/` | Proyectos activos (JobBot, Dulces Creaciones, Agents System, Prompts) |
 | `Efforts/A Q1 2026/` | Estudios universitarios (5 materias) |
+| `Efforts/Career/` | Carrera profesional, applications, roadmap |
 | `Atlas/Maps/` | Mapas de contenido (MOCs globales) |
-| `Atlas/Dots/` | Notas atómicas (Zettelkasten) |
+| `Atlas/Dots/` | Notas atómicas (Zettelkasten) — subcarpetas: 01-Lenguaje, 02-Infra&Redes, 03-Lógica&Algoritmos, 04-Gestión&Negocios |
 | `Atlas/Utilities/` | Recursos (imágenes, etc) |
-| `Archives/` | Archivados |
+| `Archives/` | Archivados (Ideaverse Examples, Past Years) |
+| `Bases/` | Obsidian Bases (Career.base, etc) |
 | `Calendar/` | Daily notes |
 | `Clippings/` | Recortes web |
 | `Templates/` | Plantillas (Clase, Daily Note, Checklist) |

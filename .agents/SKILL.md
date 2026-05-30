@@ -69,5 +69,6 @@ Es el que te deja avanzar rápido en lo simple y subir el rigor solo cuando apar
 
 - `skills/lean-project-kickoff`: para arrancar proyectos con foco y mínimo overhead.
 - `skills/token-efficiency-check`: para podar prompts, skills y workflows pesados.
+- `skills/x-algorithm-optimizer`: para diagnosticar y optimizar posts de X según el algoritmo Phoenix.
 - `agents/kickoff-architect.md`: para proponer el primer milestone y nivel de intensidad.
 - `agents/workflow-pruner.md`: para simplificar procesos y bajar costo de contexto.

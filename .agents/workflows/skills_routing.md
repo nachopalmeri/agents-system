@@ -103,6 +103,23 @@ Reglas:
 - Nunca ejecutar gasto publicitario automáticamente.
 - Los DMs y social selling empiezan en modo draft/handoff humano.
 
+### Académico y estudio
+
+| Skill | Cuándo usarla |
+|---|---|
+| `active-recall-engine` | Principios cognitivos, formato de sesión, flashcards inteligentes |
+| `exam-simulator` | Crear parciales realistas, evaluar con rubric, modo parcial |
+| `coding-exercises` | Ejercicios de programación progresivos para POO y AED II |
+| `case-analysis` | Ejercicios de análisis para materias teóricas (Economía, Gestión) |
+| `study-progress-tracker` | Tracking de progreso por materia/tema, habilita spacing real |
+| `obsidian-vault` | Entender estructura del vault, templates, frontmatter |
+
+Reglas:
+- Usar `agente-academic-tutor` como agente principal para enseñanza y evaluación.
+- Delegar escritura de notas/flashcards al `agente-obsidian-brain`.
+- Nunca regalar soluciones de código sin que el estudiante intente primero.
+- Seguir el workflow `academic_tutor.md` para la estructura de respuestas.
+
 ### Diseño y frontend
 
 | Skill | Cuándo usarla |
