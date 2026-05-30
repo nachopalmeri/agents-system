@@ -15,6 +15,26 @@
 
 ---
 
+## 1.5. Ubicación del Sistema
+
+- **Repo local:** `C:\Users\ignac\CascadeProjects\cv-palmeri\agents-system`
+- **Repo remoto:** https://github.com/nachopalmeri/agents-system
+- **Directorio del sistema:** `.agents/` dentro del repo
+
+Estructura:
+- `.agents/workflows/` → workflows (routing en `index.md`)
+- `.agents/agents/` → definiciones de agentes
+- `.agents/skills/` → skills por dominio
+- `.agents/rules/` → reglas globales
+- `.agents/memory/` → lecciones, tech radar, growth
+- `.agents/prompts/` → prompts portables (este archivo)
+- `bin/` → scripts (install, update, release-check, doctor)
+- `config/opencode/` → config de OpenCode
+
+> Si no tenés acceso al repo local, los workflows y reglas están en `https://raw.githubusercontent.com/nachopalmeri/agents-system/main/.agents/`.
+
+---
+
 ## 2. ⚡ Modo Rápido (elegí UNO al iniciar)
 
 Pegá una de estas líneas al empezar la sesión:
