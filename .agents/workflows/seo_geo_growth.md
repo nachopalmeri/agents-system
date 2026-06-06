@@ -45,7 +45,19 @@ Extraer del pedido o preguntar brevemente:
 3. Conversión buscada: registro, WhatsApp, llamada, demo, compra.
 4. Recursos disponibles: web, blog, GSC, GA4, Ahrefs/Semrush, capacidad mensual.
 
-Si el usuario responde “como vos digas”, asumir el preset más útil y declarar supuestos.
+Si el usuario responde "como vos digas", asumir el preset más útil y declarar supuestos.
+
+## Fase 0.5 — Bootstrapper SEO (cuando no hay presupuesto)
+
+Si el usuario es bootstrapper, indie hacker o tiene presupuesto cercano a cero:
+
+- SEO es el primer canal: se automatiza, una vez que arranca da clientes solo.
+- Keywords en español: menor competencia que inglés, más fácil posicionar.
+- Menciones en medios locales (notas, entrevistas, partnerships) → suben domain rating rápido.
+- Automatización mínima: landings programáticas + blog semanal + GSC monitoring.
+- No pagar ads hasta que SEO orgánico demore señal de demanda real.
+- Conectar con `venture_loop.md`: SEO como canal de distribución default en el loop idea→MVP→distribución→medición.
+- Regla: si no hay presupuesto para ads, SEO + contenido orgánico + reutilización multi-canal es la apuesta más eficiente.
 
 ## Fase 1 — Diagnóstico orgánico
 

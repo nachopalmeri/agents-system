@@ -13,6 +13,7 @@ Este workflow integra:
 - `product_foundry.md` para ideas, flujos de dinero, MVP patineta y validación.
 - `web_briefing.md` para landing, mensaje y presentación.
 - `seo_geo_growth.md` para adquisición orgánica, GEO/AEO y demanda buscable.
+- SEO como canal de distribución default para bootstrappers: keywords en español (menor competencia), menciones en medios locales (suben DR rápido), landings programáticas + blog semanal + GSC monitoring. Ver `seo_geo_growth.md` Fase 0.5.
 - `marketing.md` para GTM, posicionamiento y canales.
 - `validation.md` para no declarar listo sin evidencia.
 
