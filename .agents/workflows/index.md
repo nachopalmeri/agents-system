@@ -54,6 +54,8 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Automatizar contenido social o marketing de app | `marketing.md` (automatización social) + `mcp_catalog.md` Nivel 2.5 | Guion → creación → adaptación → programación → medición |
 | Research de competencia o audiencia | `marketing.md` | Mapa + gaps + CEP |
 | Integrar MCP o herramienta externa | `mcp_adoption.md` + `mcp_security.md` | Veredicto GO/NO-GO/PIVOT + config segura |
+| Crear MCP para que el agente se desarrolle contra la API propia | `mcp_catalog.md` (Nivel 1.7) + `mcp_adoption.md` | MCP search/use_tool → agente auto-update API → loop |
+| Infraestructura AWS (S3, Lambda, RDS, CloudFront) | `mcp_catalog.md` (Nivel 3) + `mcp_security.md` | Read-only primero, write con confirmación + rollback |
 | Plugin, theme, OpenCode Studio o awesome-opencode | `opencode_ecosystem.md` | Evaluación + instalación opt-in |
 | Trabajo para cliente real con brief, propuesta y entregas | `client_workflow.md` | Brief -> propuesta versionada -> entrega -> feedback -> retro |
 | Decisión de alto costo de reversión | `irreversible_decision.md` | Checklist mínima + registro en decisions + vault |

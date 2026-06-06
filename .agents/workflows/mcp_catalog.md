@@ -38,6 +38,30 @@ Usar para `seo_geo_growth.md`, siempre opt-in y con credenciales fuera del repo.
 - DataForSEO MCP: SERP, keywords y datos SEO amplios.
 - Google Sheets MCP: backlog editorial y reporting.
 
+### Nivel 1.7 — Self-updating app MCP
+
+Patrón para apps que quieren que los agentes se desarrollen contra sus propias APIs.
+
+Lo primero que le haces a tu app es un MCP con dos tools: `search` y `use_tool` (igual que Cloudflare).
+Conectas ese MCP a tu agente (Claude/Codex/OpenCode).
+El agente se actualiza sus propias APIs, que luego usa para conectar clientes.
+
+Flujo:
+1. App expone MCP con `search` (buscar recursos) y `use_tool` (ejecutar acciones).
+2. Agente se conecta al MCP y entiende la API automáticamente.
+3. Agente desarrolla contra la API, actualiza endpoints y los usa para integrar clientes.
+4. Loop: agente → API → clientes → feedback → agente actualiza API.
+
+Beneficios:
+- El agente se ocupa del boilerplate de integración.
+- La API se auto-documenta a través del MCP.
+- Cambios en la API se propagan automáticamente al agente.
+
+Reglas:
+- MCP de la app propia = Nivel 1.7 (read + write controlado dentro de la app).
+- Si el MCP toca datos de clientes o producción → subir a Nivel 4.
+- Siempre pasar por `mcp_security.md` antes de deployar.
+
 ### Nivel 2 — Browser QA
 
 Usar para validar UI y runtime.
@@ -57,12 +81,16 @@ Usar para creación y distribución de contenido social. Siempre requiere confir
 
 Regla: nunca publicar sin confirmación humana. Modo draft-only hasta validación manual.
 
-### Nivel 3 — Observability
+### Nivel 3 — Observability / Cloud infra
 
 Usar para producción con OAuth y permisos mínimos.
 
 - Sentry MCP: issues y errores.
 - Datadog/Last9 si el proyecto lo usa.
+- AWS MCP: gestión de infraestructura AWS (S3, Lambda, RDS, CloudFront, ECS, etc.).
+  - Modo read-only para auditoría y diagnóstico.
+  - Modo write solo con confirmación explícita y rollback plan.
+  - Aplicar `mcp_security.md` antes de conectar credenciales AWS.
 
 ### Nivel 4 — Sensitive/write
 
