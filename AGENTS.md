@@ -114,6 +114,10 @@ Este loop aplica tanto a ejecución normal como a `/loop`, routines y subagentes
 - Ejecutar `bin/check-secrets.ps1` antes de publicar o pushear cambios sensibles
 - Ejecutar `bin/doctor.ps1` para validar instalación local o laptop nueva
 
+### 10.5. Performance Audit
+- Usar `workflows/performance_audit.md` cuando la app sea lenta, haya queries lentas, bundle grande o Core Web Vitals malos
+- Checklist: indexes, cache, payloads, N+1, bundle size, lazy loading, image optimization, code splitting
+
 ### 11. Activadores Explícitos
 
 Cuando quieras forzar un workflow, agente o skill sin depender del ruteo automático, usá estas frases exactas. El nombre del archivo **es** el comando.
@@ -135,6 +139,7 @@ Cuando quieras forzar un workflow, agente o skill sin depender del ruteo automá
 | LLM Council | `"Activá llm_council.md para decidir entre X e Y"` |
 | Multiagent review | `"Activá multiagent_review_loop.md"` |
 | Validation | `"Activá validation.md"` |
+| Performance audit | `"Activá performance_audit.md"` |
 | Feedback loop | `"Activá feedback_loop.md"` |
 | Marketing | `"Activá marketing.md para esta estrategia"` |
 | AI production | `"Activá ai_production.md para esta feature"` |

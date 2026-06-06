@@ -59,6 +59,7 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Review semanal de proyectos activos | `weekly_review.md` | Resumen semanal + candidatos globales + nota en vault |
 | Contenido X/Twitter, LinkedIn, personal branding o growth social | `x_content_system.md` + `agente-x-content-strategist` | Diagnóstico + contenido optimizado + playbook |
 | Seguridad, secretos o publicación de repo | `agente-security-auditor` + `validation.md` | Riesgos + mitigaciones + evidencia |
+| Auditoría de performance, app lenta, query lenta o bundle grande | `performance_audit.md` | Checklist indexes/cache/payloads/bundle/CWV + baseline vs mejora |
 | Tareas independientes en paralelo | `parallel_agents.md` | División por rol + integración final |
 | Tarea compleja con muchos pasos y dependencias (Claude Code) | `parallel_agents.md` (Dynamic Workflows) | Plan de orquestación + sub-agentes paralelos + orden correcto |
 | Configurar proyecto nuevo o entender automatizaciones para un stack | `parallel_agents.md` (claude-code-setup) | Detección de frameworks + recomendaciones de hooks/skills/MCPs/subagents |
