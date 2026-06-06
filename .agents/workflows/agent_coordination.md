@@ -86,3 +86,54 @@ Estados posibles: `pendiente`, `activo`, `esperando`, `bloqueado`, `completado`.
 - Los commits de señal (`ready:`, `blocked:`) son obligatorios para coordinación.
 - El director es el único que mergea ramas.
 - Si la coordinación se vuelve más cara que hacerlo secuencial, volver a flujo simple.
+
+## Factory Model
+
+La metáfora: ya no escribís código, construís la fábrica que construye tu software.
+
+### 6 pasos de la línea de producción
+
+1. **Plan** — escribir specs con acceptance criteria. El spec es el leverage.
+2. **Spawn** — crear el equipo y asignar agentes.
+3. **Monitor** — ver progreso y resolver blockers cada 5-10 minutos. No hacer micro-management.
+4. **Verify** — correr tests, review de código. Verificación es el bottleneck, no generación.
+5. **Integrate** — mergear branches, resolver conflictos.
+6. **Retro** — actualizar AGENTS.md con nuevos patrones. Aprendizaje compuesto.
+
+### Reglas prácticas
+
+- **WIP limits**: no correr más agentes de los que se pueden revisar. 3-5 es el sweet spot.
+- **Kill criteria**: si un agente está stuck 3+ iteraciones en el mismo error, parar y reassignar.
+- **Async check-ins**: verificar progreso cada 5-10 min. Dejar que los agentes trabajen autónomamente.
+- **One file, one owner**: nunca dejar que dos agentes editen el mismo archivo. Conflictos matan velocidad.
+
+## Agent Teams (Claude Code)
+
+Claude Code soporta Agent Teams con coordinación automática a través de shared task list.
+
+### Setup
+
+```bash
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+```
+
+### Patrón
+
+- Un **lead** coordina. 2-4 **teammates** ejecutan en paralelo.
+- Shared task list con status y dependencias en tiempo real.
+- Cada teammate trabaja en su propio worktree (sin conflictos de archivos).
+- El lead revisa y mergea.
+
+### Worktree lifecycle scripts
+
+```bash
+agent-spin <feature>    # crear worktree + branch + iniciar agente
+agent-merge <feature>    # rebase + review + abrir PR
+agent-clean              # limpiar worktrees terminados
+```
+
+### Cuándo usar Agent Teams vs subagents
+
+- **Subagents**: delegación ligera, investigación o verificación dentro de la sesión. No necesitan coordinación inter-agente.
+- **Agent Teams**: tareas paralelas con coordinación en curso, shared state y dependencias entre agentes.
+- **Manual parallel sessions**: worktrees con múltiples sesiones sin coordinación automática.
