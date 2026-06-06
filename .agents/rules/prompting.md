@@ -7,7 +7,7 @@ description: Reglas de prompting basadas en la guía oficial de Anthropic para C
 ## Principio
 Buen prompting es hacer explícito lo que muchas veces asumimos que el modelo ya entiende.
 
-## 7 Reglas
+## 8 Reglas
 
 ### 1. Objetivo claro
 - No es lo mismo "haceme un dashboard" que "dashboard con métricas principales, filtros por fecha, gráficos y estados de carga".
@@ -50,6 +50,12 @@ Buen prompting es hacer explícito lo que muchas veces asumimos que el modelo ya
 - Más contexto cargado = peores resultados. Cambiar de sesión no es pérdida, es optimización.
 - Ejemplo: auditar cache primero, después indexes, después payloads. No todo junto.
 
+### 8. Write loops, not prompts
+- El trabajo del developer pasa de "escribir prompts" a "escribir loops que promptean al AI".
+- "I don't prompt Claude anymore. I have loops running that prompt Claude and figuring out what to do. My job is to write loops." — Boris Cherny, head of Claude Code at Anthropic.
+- En el sistema: el Ralph Loop (`parallel_agents.md`) es la implementación de este principio.
+- No sobre-abstractizar: loops son el nivel correcto. Más capas (ultrathoughts, aura, soul) = más fricción, menos control.
+
 ## Aplicación en el sistema
 
 - El agente aplica estas reglas internamente al enrutar y ejecutar tareas.
@@ -60,3 +66,4 @@ Buen prompting es hacer explícito lo que muchas veces asumimos que el modelo ya
 - `validation.md` es el mecanismo de auto-validación (regla 5).
 - Los niveles de MCP y las reglas de permisos son la explicitación de tools (regla 6).
 - Tareas complejas se dividen en áreas, una por sesión. Handoff con `session_checkpoint.md` (regla 7).
+- El trabajo es escribir loops, no prompts. Ralph Loop es la implementación concreta (regla 8).

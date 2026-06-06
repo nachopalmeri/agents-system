@@ -270,6 +270,8 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - Git en Windows: `mklink` requiere permisos de admin. Symlinks de AGENTS.md→CLAUDE.md pueden necesitar `Developer Mode` activado.
 - Supabase: RLS policies son obligatorias en tablas públicas. Sin RLS, cualquier usuario puede leer/escribir todo.
 - Next.js middleware order importa para auth: verificar JWT antes de redirigir.
+- No sobre-abstractizar con capas de agentes (ultrathoughts → aura → soul). El Ralph Loop ya es el nivel correcto de abstracción. Más capas = más fricción, menos control, vuelta a la pala.
+- Vendor lock-in: no depender 100% de un solo proveedor de AI. Mantener portabilidad cross-IDE (AGENTS.md + .aider + .gemini + .claude).
 
 ## ARCH_DECISIONS
 

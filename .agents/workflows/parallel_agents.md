@@ -99,6 +99,10 @@ Paralelizar para reducir riesgo/contexto, no para sumar teatro.
 
 Patrón popularizado por Geoffrey Huntley y Ryan Carson. Desarrollo en loop stateless-but-iterativo: cada iteración es atómica y el contexto se resetea entre ciclos.
 
+> "I don't prompt Claude anymore. I have loops running that prompt Claude and figuring out what to do. My job is to write loops." — Boris Cherny, head of Claude Code at Anthropic.
+
+Este quote valida el Ralph Loop como dirección oficial de la industria: el trabajo del developer pasa de "escribir prompts" a "escribir loops que promptean al AI".
+
 ### 5 pasos del ciclo
 
 1. **Pick** — seleccionar la próxima tarea de `tasks.json`.
