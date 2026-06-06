@@ -33,5 +33,16 @@ Qué NO tocar:
 - Separar hechos confirmados de supuestos.
 - Si hay política reusable, proponer moverla a reglas.
 
+## Handoff entre sesiones (Santi @santtiagom_)
+
+Cuando el contexto se degrada (más tokens = peores resultados):
+
+1. Pedir al agente: "generá un resumen de lo implementado y lo que falta".
+2. Copiar/pegar ese resumen a la nueva sesión.
+3. La nueva sesión arranca con constancia de lo anterior sin arrastrar contexto degradado.
+
+El resumen de handoff usa el formato de checkpoint de arriba. No es pérdida de tiempo, es optimización de calidad.
+
 ## Regla final
 Un checkpoint debe permitir continuar la sesión sin releer toda la conversación.
+Contexto degradado = cambiar de sesión con resumen, no forzar la sesión actual.

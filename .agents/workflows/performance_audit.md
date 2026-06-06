@@ -60,15 +60,37 @@ description: Auditoría de performance para apps, queries, APIs y frontend
 - Concurrencia: ¿hay cuellos de botella en endpoints críticos?
 - Memoria: ¿hay leaks o consumo creciente?
 
+## Enfoque granular (Santi @santtiagom_)
+
+No intentar resolver toda la auditoría en un único prompt. Empezar por un área. Por ejemplo, cache.
+
+1. Que analice el área.
+2. Que proponga mejoras.
+3. Que las implemente.
+4. Después avanzar con la siguiente área.
+
+Cuando el scope es más acotado, el agente encuentra mejores soluciones y profundiza más en los problemas.
+
+### Handoff entre sesiones
+
+Si el contexto se carga demasiado, cambiar de sesión:
+1. Pedir al agente un resumen de lo implementado y lo que falta.
+2. Copiar/pegar ese resumen a la nueva sesión.
+3. La nueva sesión tiene constancia de lo anterior sin arrastrar contexto degradado.
+
+Más contexto cargado = peores resultados. Splitear sesiones no es pérdida, es optimización.
+
 ## Proceso
 
 1. Identificar síntoma: ¿dónde es lento? (frontend, API, DB, todo).
 2. Medir baseline: tiempos actuales con datos reales.
-3. Ejecutar checklist según área afectada.
-4. Priorizar fixes por impacto/costo.
-5. Implementar fix mínimo.
-6. Medir mejora vs baseline.
-7. Validar con `validation.md`.
+3. Elegir UN área del checklist para esta sesión (no todas).
+4. Ejecutar checklist del área elegida.
+5. Priorizar fixes por impacto/costo.
+6. Implementar fix mínimo.
+7. Medir mejora vs baseline.
+8. Validar con `validation.md`.
+9. Si hay más áreas: generar resumen de handoff y continuar en nueva sesión.
 
 ## Output
 
@@ -92,3 +114,4 @@ Performance audit:
 ## Regla final
 
 No optimizar sin medir. Si no hay baseline, no hay evidencia de mejora.
+No auditar todo de una. Una área por sesión = mejor calidad. Contexto degradado = cambiar de sesión con resumen.

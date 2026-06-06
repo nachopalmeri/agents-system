@@ -7,7 +7,7 @@ description: Reglas de prompting basadas en la guía oficial de Anthropic para C
 ## Principio
 Buen prompting es hacer explícito lo que muchas veces asumimos que el modelo ya entiende.
 
-## 6 Reglas
+## 7 Reglas
 
 ### 1. Objetivo claro
 - No es lo mismo "haceme un dashboard" que "dashboard con métricas principales, filtros por fecha, gráficos y estados de carga".
@@ -43,6 +43,13 @@ Buen prompting es hacer explícito lo que muchas veces asumimos que el modelo ya
 - Si solo se quiere recomendaciones: aclarar que no toque archivos.
 - En el sistema: `mcp_catalog.md` define niveles de permisos por tool.
 
+### 7. Scope acotado = mejor calidad
+- No intentar resolver todo en un único prompt. Empezar por un área.
+- Cuando el scope es más acotado, el agente encuentra mejores soluciones y profundiza más.
+- Si el contexto se carga demasiado, splitear en sesiones nuevas con resumen de handoff.
+- Más contexto cargado = peores resultados. Cambiar de sesión no es pérdida, es optimización.
+- Ejemplo: auditar cache primero, después indexes, después payloads. No todo junto.
+
 ## Aplicación en el sistema
 
 - El agente aplica estas reglas internamente al enrutar y ejecutar tareas.
@@ -52,3 +59,4 @@ Buen prompting es hacer explícito lo que muchas veces asumimos que el modelo ya
 - El effort se ajusta según tamaño/riesgo de la tarea (regla 4).
 - `validation.md` es el mecanismo de auto-validación (regla 5).
 - Los niveles de MCP y las reglas de permisos son la explicitación de tools (regla 6).
+- Tareas complejas se dividen en áreas, una por sesión. Handoff con `session_checkpoint.md` (regla 7).
