@@ -226,6 +226,12 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - El sistema `.agents/` del repo es portable y funciona en todos los IDEs. `.claude/` es específico de Claude Code y ofrece features adicionales (model selection, worktree isolation, hooks per agent).
 - Para proyectos que usen solo Claude Code: se puede usar `.claude/` directamente. Para portabilidad cross-IDE: mantener `.agents/` como fuente de verdad.
 
+### 12.7. Aider y Gemini CLI
+
+- **Aider**: el repo incluye `.aider.conf.yml` con `read: AGENTS.md` para que Aider use las mismas instrucciones.
+- **Gemini CLI**: el repo incluye `.gemini/settings.json` con `{ "context": { "fileName": "AGENTS.md" } }` para que Gemini CLI también lea las instrucciones.
+- Ambos configs apuntan a `AGENTS.md` como fuente única de verdad, evitando duplicación.
+
 ## Gestión de Tareas
 1. Planificar Primero: escribir el plan en tasks/todo.md con elementos verificables
 2. Verificar Plan: confirmar antes de comenzar la implementación
