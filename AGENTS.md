@@ -218,6 +218,13 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
   - Windows: `mklink CLAUDE.md AGENTS.md`
 - Para otros IDEs que soporten `AGENTS.md` (Codex, etc.), el archivo ya está en la raíz.
 
+### 12.6. CLAUDE.local.md y .claude/ structure
+
+- `CLAUDE.local.md` en la raíz del repo: overrides personales gitignored. Cada desarrollador pone sus preferencias ahí sin afectar al equipo.
+- Claude Code también soporta `.claude/agents/` y `.claude/skills/` como estructura nativa para subagents y skills con YAML frontmatter (name, description, tools, model, effort, isolation, etc.).
+- El sistema `.agents/` del repo es portable y funciona en todos los IDEs. `.claude/` es específico de Claude Code y ofrece features adicionales (model selection, worktree isolation, hooks per agent).
+- Para proyectos que usen solo Claude Code: se puede usar `.claude/` directamente. Para portabilidad cross-IDE: mantener `.agents/` como fuente de verdad.
+
 ## Gestión de Tareas
 1. Planificar Primero: escribir el plan en tasks/todo.md con elementos verificables
 2. Verificar Plan: confirmar antes de comenzar la implementación
