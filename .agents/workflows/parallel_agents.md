@@ -94,3 +94,38 @@ Usar cuando se configura un proyecto nuevo o se quiere entender que automatizaci
 ## Regla final
 
 Paralelizar para reducir riesgo/contexto, no para sumar teatro.
+
+## Ralph Loop (desarrollo iterativo stateless)
+
+Patrón popularizado por Geoffrey Huntley y Ryan Carson. Desarrollo en loop stateless-but-iterativo: cada iteración es atómica y el contexto se resetea entre ciclos.
+
+### 5 pasos del ciclo
+
+1. **Pick** — seleccionar la próxima tarea de `tasks.json`.
+2. **Implement** — hacer el cambio.
+3. **Validate** — correr tests, types, lint.
+4. **Commit** — si los checks pasan, commitear y actualizar estado de la tarea.
+5. **Reset** — limpiar contexto del agente y empezar fresco con la próxima tarea.
+
+### Insight clave
+
+Stateless-but-iterative: al resetear cada iteración, el agente evita acumular confusión. Tareas chicas y acotadas producen código más limpio con menos alucinaciones que un prompt enorme.
+
+### 4 canales de memoria persistente
+
+- Git commit history (lo que ya se hizo).
+- Progress log (avance general).
+- `tasks.json` (estado de cada tarea).
+- `AGENTS.md` (memoria semántica a largo plazo).
+
+### Safeguards
+
+- Feed errors back para auto-retry.
+- Kill y reassign después de 3+ iteraciones stuck en el mismo error.
+- Siempre trabajar en feature branches.
+- Límites duros: iteraciones máximas, tiempo máximo, tokens máximos.
+- El agente abre PR → humano review antes de merge.
+
+### Escalamiento
+
+Empezar con un loop overnight. Graduar a 10 loops en 10 branches cuando se confirme que funciona.

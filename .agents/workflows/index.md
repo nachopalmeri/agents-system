@@ -65,6 +65,7 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Auditoría de performance, app lenta, query lenta o bundle grande | `performance_audit.md` | Checklist indexes/cache/payloads/bundle/CWV + baseline vs mejora |
 | Tareas independientes en paralelo | `parallel_agents.md` | División por rol + integración final |
 | Tarea compleja con muchos pasos y dependencias (Claude Code) | `parallel_agents.md` (Dynamic Workflows) | Plan de orquestación + sub-agentes paralelos + orden correcto |
+| Desarrollo iterativo automático / Ralph Loop / "ship while you sleep" | `parallel_agents.md` (Ralph Loop) | Pick→implement→validate→commit→reset + safeguards |
 | Configurar proyecto nuevo o entender automatizaciones para un stack | `parallel_agents.md` (claude-code-setup) | Detección de frameworks + recomendaciones de hooks/skills/MCPs/subagents |
 | Web 3D/immersiva con Three.js/WebGPU/GSAP | `$world-class-web.md` | Pipeline 10 etapas + quality gates |
 | Web con perfil especifico (luxury-3d, portfolio-3d) | `$world-class-web.md` + `$profiles/[perfil].md` | Brief -> concepto -> 3D -> gates |
