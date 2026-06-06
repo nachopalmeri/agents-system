@@ -77,3 +77,29 @@ Reportar:
 
 ## Regla final
 No usar marketing workflow para todo. Elegir el enfoque más simple que mantenga claridad y seguridad.
+
+## Automatización de contenido social
+
+### Pain point real
+El cuello de botella no es la distribución, es la creación: armar guion, grabar, editar, adaptar por canal. Los MCPs de marketing ayudan con la distribución, pero el tiempo de creación sigue siendo humano-servido.
+
+### Workflow de contenido social automatizado
+1. Guion/idea → agente genera guion para video/carrusel/hilo.
+2. Creación → EditFrame/Higgsfield para video, agente para copy.
+3. Adaptación por canal → un video → TikTok + IG Reels + Facebook + X + YouTube Shorts con mínimo ajuste.
+4. Programación → Buffer MCP o vibiz MCP para programar publicación.
+5. Medición → GA4 + eventos de producto por canal.
+
+### MCPs disponibles
+Ver `mcp_catalog.md` Nivel 2.5 — Marketing/social content:
+- vibiz: postear en múltiples redes.
+- Buffer: programación multi-canal.
+- EditFrame: edición de video.
+- Usefastlane: creación de contenido.
+- Higgsfield: generación visual con AI.
+
+### Reglas
+- Nunca publicar sin confirmación humana. Modo draft-only.
+- Empezar con un canal, validar, luego expandir.
+- Medir usuarios por canal y CAC por canal antes de escalar.
+- Facebook es canal subestimado: alto reach orgánico con poco esfuerzo.

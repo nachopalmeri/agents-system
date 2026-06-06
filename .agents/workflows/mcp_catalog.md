@@ -45,6 +45,18 @@ Usar para validar UI y runtime.
 - Playwright MCP: navegación y E2E por accessibility tree.
 - Chrome DevTools MCP: consola, network, performance.
 
+### Nivel 2.5 — Marketing/social content
+
+Usar para creación y distribución de contenido social. Siempre requiere confirmación antes de publicar.
+
+- vibiz MCP: postear en múltiples redes sociales desde el agente.
+- Buffer MCP: programación de contenido en TikTok, Instagram, LinkedIn, X.
+- EditFrame: edición de video para contenido social.
+- Usefastlane: creación de contenido social automatizado.
+- Higgsfield: generación de contenido visual/video con AI.
+
+Regla: nunca publicar sin confirmación humana. Modo draft-only hasta validación manual.
+
 ### Nivel 3 — Observability
 
 Usar para producción con OAuth y permisos mínimos.

@@ -50,6 +50,7 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | SEO/GEO/AEO growth, landings, keywords, backlinks o AI search | `seo_geo_growth.md` + `agente-growth-seo-geo` | Keyword map + backlog + quality gates |
 | Paid media, ads, Meta, LinkedIn | `marketing.md` + evaluación MCP | Plan + riesgos + datos necesarios |
 | Social selling, DMs, leads | `marketing.md` + evaluación MCP | Flujo + handoff humano + seguridad |
+| Automatizar contenido social o marketing de app | `marketing.md` (automatización social) + `mcp_catalog.md` Nivel 2.5 | Guion → creación → adaptación → programación → medición |
 | Research de competencia o audiencia | `marketing.md` | Mapa + gaps + CEP |
 | Integrar MCP o herramienta externa | `mcp_adoption.md` + `mcp_security.md` | Veredicto GO/NO-GO/PIVOT + config segura |
 | Plugin, theme, OpenCode Studio o awesome-opencode | `opencode_ecosystem.md` | Evaluación + instalación opt-in |
