@@ -18,6 +18,7 @@
 | Chat-first (no exigir nombrar workflows) | `rules/chat-first.md` |
 | Code style | `rules/code-style.md` |
 | Testing | `rules/testing.md` |
+| Prompting (Anthropic best practices) | `rules/prompting.md` |
 
 ## Orquestación del Flujo de Trabajo
 

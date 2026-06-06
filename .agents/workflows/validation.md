@@ -99,3 +99,14 @@ Validacion:
 ## Regla final
 
 Si no se pudo validar, decirlo claramente y no presentar el trabajo como completo.
+
+## Auto-validación del output
+
+Para tareas importantes, no quedarse solo con la primera respuesta. Antes de declarar listo:
+
+1. Revisar el output contra los criterios del pedido original.
+2. Verificar que no se rompieron tests existentes.
+3. Si el pedido tenía requisitos explícitos, chequear cada uno.
+4. Si algo no se pudo validar, declararlo explícitamente en lugar de asumir que está bien.
+
+Esta regla viene de la guía oficial de Anthropic: pedirle al modelo que valide su propio resultado contra criterios concretos antes de terminar.
