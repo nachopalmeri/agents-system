@@ -256,8 +256,36 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - agente-researcher → investigación actual de docs, plugins, MCPs y librerías
 - agente-release-manager → changelog, release, GitHub y bootstrap laptop
 
+## GOTCHAS
+
+- PowerShell no soporta `&&` como separador de comandos. Usar `;` o comandos separados.
+- Smart quotes (comillas tipográficas) rompen la búsqueda en archivos. Siempre usar comillas ASCII rectas.
+- Git en Windows: `mklink` requiere permisos de admin. Symlinks de AGENTS.md→CLAUDE.md pueden necesitar `Developer Mode` activado.
+- Supabase: RLS policies son obligatorias en tablas públicas. Sin RLS, cualquier usuario puede leer/escribir todo.
+- Next.js middleware order importa para auth: verificar JWT antes de redirigir.
+
+## ARCH_DECISIONS
+
+- Sistema chat-first: el usuario habla normal, los workflows son motor interno.
+- `.agents/` como fuente de verdad portable. `.claude/` como alternativa nativa Claude Code.
+- Texto plano > RAG para la mayoría de los casos. Solo RAG cuando hay 50TB+ o search semántica compleja.
+- MCPs por niveles de riesgo (0-4). Read-only primero, escritura con confirmación.
+- AGENTS.md es estándar de industria. CLAUDE.md importa AGENTS.md para compatibilidad.
+- Validación con `validation.md` antes de declarar listo. No declarar victoria sin evidencia.
+
+## TEST_STRATEGY
+
+- Toda función de lógica de negocio lleva test.
+- Un test por comportamiento, no por función.
+- Tests legibles: describen qué hace, no cómo.
+- Nunca commitear con tests rotos.
+- E2E con Playwright para flujos críticos de usuario (login, signup, CRUD principal).
+- Integration tests sobre unit tests para API routes.
+- Mutation testing cuando la suite madura: asegura que los tests pesquen todo.
+
 ## Regla de Oro
 Nunca declarés victoria antes de validar.
 Nunca toqués archivos fuera de tu scope.
 Nunca mergees ramas vos mismo — eso lo hace el director.
 Nunca instales MCPs/plugins ni ejecutes acciones externas sensibles sin confirmación explícita.
+Nunca dejes que un agente escriba directamente en AGENTS.md. El humano aprueba cada línea. (Investigación ETH Zurich: AGENTS.md generado por LLM reduce éxito ~3% y aumenta costos de inferencia >20%. Escrito por humanos mejora ~4%.)
