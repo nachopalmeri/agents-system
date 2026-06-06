@@ -203,6 +203,15 @@ Usar "Mode: Explain | Topic: [concepto] | For: [audiencia]" para activar `workfl
 #### Regla
 El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activate-global.md`) son snapshots para distribucion. Para sesiones en OpenCode no hace falta pegar nada el sistema ya esta cargado.
 
+### 12.5. Compatibilidad AGENTS.md / CLAUDE.md
+
+- `AGENTS.md` es el estándar de industria para instrucciones de agentes (Codex + 60K+ repos).
+- Claude Code usa `CLAUDE.md`. El repo incluye `CLAUDE.md` que importa `AGENTS.md` para evitar duplicación.
+- Opción de symlink (mismo archivo, dos nombres):
+  - Linux/Mac: `ln AGENTS.md CLAUDE.md`
+  - Windows: `mklink CLAUDE.md AGENTS.md`
+- Para otros IDEs que soporten `AGENTS.md` (Codex, etc.), el archivo ya está en la raíz.
+
 ## Gestión de Tareas
 1. Planificar Primero: escribir el plan en tasks/todo.md con elementos verificables
 2. Verificar Plan: confirmar antes de comenzar la implementación

@@ -48,5 +48,9 @@ Iniciá con una linea como:
 ## Portabilidad
 Este .cursorrules es version concisa. Para sesion completa, pegar `prompts/activate-global.md` al iniciar.
 
+## Compatibilidad
+- AGENTS.md es estándar de industria (Codex + 60K+ repos). CLAUDE.md importa AGENTS.md.
+- Symlink: `ln AGENTS.md CLAUDE.md` (Linux/Mac) o `mklink CLAUDE.md AGENTS.md` (Windows).
+
 ## Regla de Oro
 No declares nada como "completado", "listo" o "funciona" sin evidencia concreta.

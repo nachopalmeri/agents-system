@@ -33,6 +33,11 @@ Estructura:
 
 > Si no tenés acceso al repo local, los workflows y reglas están en `https://raw.githubusercontent.com/nachopalmeri/agents-system/main/.agents/`.
 
+### Compatibilidad AGENTS.md / CLAUDE.md
+- `AGENTS.md` es estándar de industria (Codex + 60K+ repos). Claude Code usa `CLAUDE.md`.
+- El repo tiene `CLAUDE.md` que importa `AGENTS.md` → un solo lugar para instrucciones.
+- Opción symlink: `ln AGENTS.md CLAUDE.md` (Linux/Mac) o `mklink CLAUDE.md AGENTS.md` (Windows).
+
 ---
 
 ## 2. ⚡ Modo Rápido (elegí UNO al iniciar)
