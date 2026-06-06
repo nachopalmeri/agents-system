@@ -19,6 +19,7 @@
 | Code style | `rules/code-style.md` |
 | Testing | `rules/testing.md` |
 | Prompting (Anthropic best practices) | `rules/prompting.md` |
+| Model routing (costo vs calidad) | `rules/model_routing.md` |
 
 ## Orquestación del Flujo de Trabajo
 
