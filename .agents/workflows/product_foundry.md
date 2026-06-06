@@ -162,3 +162,11 @@ Kill/scale criteria:
 ## Regla final
 
 No pensar durante meses. Lanzar pequeño, medir mercado y dejar que la tracción decida.
+
+## Pricing ladder post-MVP
+
+Una vez que el MVP tiene tracción, aplicar pricing ladder (ver `marketing.md`):
+- Mantener el plan esencial/free igual.
+- Agregar planes premium escalonados (efecto ancla: planes más caros suben la conversión general).
+- Plan IA + módulos premium como upsell natural.
+- Medir: tasa de conversión, ARPU, distribución por plan, churn por plan.

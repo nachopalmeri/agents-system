@@ -46,6 +46,7 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Idea a producto, MVP, landing, distribución y medición | `venture_loop.md` | Loop idea→MVP→landing→distribución→medición→kill/scale |
 | Ideas de producto, MVP, indie hacking o qué construir | `product_foundry.md` + `agente-product-founder` | Ideas rankeadas + MVP patineta + kill/scale criteria |
 | Estrategia, posicionamiento, lanzamiento o GTM | `marketing.md` | Veredicto GO/NO-GO/PIVOT + playbook |
+| Pricing, planes, conversión, monetización o ARPU | `marketing.md` (Pricing Ladder) | Efecto ancla + escalera de planes + métricas |
 | SEO técnico/on-page | `agente-seo` | Auditoría técnica + prioridades |
 | SEO/GEO/AEO growth, landings, keywords, backlinks o AI search | `seo_geo_growth.md` + `agente-growth-seo-geo` | Keyword map + backlog + quality gates |
 | Paid media, ads, Meta, LinkedIn | `marketing.md` + evaluación MCP | Plan + riesgos + datos necesarios |

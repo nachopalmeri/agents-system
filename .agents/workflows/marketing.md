@@ -103,3 +103,50 @@ Ver `mcp_catalog.md` Nivel 2.5 — Marketing/social content:
 - Empezar con un canal, validar, luego expandir.
 - Medir usuarios por canal y CAC por canal antes de escalar.
 - Facebook es canal subestimado: alto reach orgánico con poco esfuerzo.
+
+## Pricing Ladder
+
+### Insight
+Ofrecer planes más caros sube la conversión general (efecto ancla), no solo el ARPU. Mantener el plan esencial igual y agregar escalera de planes premium.
+
+### Táctica
+1. Mantener el plan esencial/free sin cambios.
+2. Agregar planes premium escalonados con más features, módulos o capacidad.
+3. Plan IA + módulos premium como upsell natural.
+4. El plan más caro hace que los planes intermedios parezcan razonables (efecto ancla).
+5. No tener miedo a precios altos: si el producto resuelve un problema real, hay gente dispuesta a pagar.
+
+### Métricas
+- Tasa de conversión antes/después de agregar planes premium.
+- ARPU (Average Revenue Per User).
+- Distribución de usuarios por plan.
+- Churn por plan.
+
+### Regla
+No subir precios del plan esencial para forzar upgrade. Agregar valor real en los planes premium.
+
+## Distribución de contenido multi-canal
+
+### Insight
+Un video → 5 canales con mínimo ajuste. Reutilizar contenido en TODAS las redes multiplica reach sin multiplicar esfuerzo.
+
+### Workflow
+1. Crear contenido base (video, carrusel, hilo).
+2. Adaptar por canal:
+   - TikTok → video vertical 60s, hook fuerte.
+   - IG Reels → mismo video, diferente caption/hashtags.
+   - Facebook → video + texto descriptivo (audiencia menos tech).
+   - X → hilo con key takeaways + link al video.
+   - YouTube Shorts → video vertical + título SEO.
+3. Programar publicación (Buffer MCP o manual).
+4. Medir performance por canal.
+
+### Canales subestimados
+- Facebook: alto reach orgánico, audiencia no-tech, buen performance para productos B2C locales.
+- YouTube Shorts: descubrimiento orgánico, long tail.
+
+### Métricas
+- Usuarios por canal.
+- CAC por canal.
+- Views orgánicos por canal.
+- Conversión por canal (no solo views).
