@@ -316,13 +316,11 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 
 ## TEST_STRATEGY
 
-- Toda función de lógica de negocio lleva test.
+Reglas detalladas en `rules/testing.md`. Resumen ejecutivo:
 - Un test por comportamiento, no por función.
-- Tests legibles: describen qué hace, no cómo.
-- Nunca commitear con tests rotos.
-- E2E con Playwright para flujos críticos de usuario (login, signup, CRUD principal).
+- Nunca commitear con tests rotos (enforceable por CI).
+- E2E con Playwright para flujos críticos.
 - Integration tests sobre unit tests para API routes.
-- Mutation testing cuando la suite madura: asegura que los tests pesquen todo.
 
 ## Regla de Oro
 Las reglas duras están en **Judgment Boundaries** (NEVER/ASK/ALWAYS). Esta sección es el resumen ejecutivo:
