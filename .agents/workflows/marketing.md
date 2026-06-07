@@ -150,3 +150,48 @@ Un video → 5 canales con mínimo ajuste. Reutilizar contenido en TODAS las red
 - CAC por canal.
 - Views orgánicos por canal.
 - Conversión por canal (no solo views).
+
+## Outbound para Freelancers / Agencias Chicas
+
+### Insight (Tito @titobarri0nuevo + matiasdev_ar)
+
+Los primeros clientes no llegan por inbound ni por producto perfecto. Llegan por servicios simples + prospección directa. Automatizaciones y software a medida no venden al principio. Auditoría gratis sí.
+
+### Estrategia
+
+1. **Ofertas simples primero.** No software a medida. Servicios que se entregan en días, no meses:
+   - Auditoría digital gratis a pymes → puerta de entrada (matiasdev_ar).
+   - Animaciones web CSS → servicio rápido y visible (ver skill `css-animations`).
+   - Landing pages → demanda constante.
+   - Automatizaciones con AI → alto valor percibido.
+   - Incluso Excel funcionó como primer servicio (Tito).
+
+2. **Prospección en frío.** No esperar que vengan.
+   - LinkedIn directo a decisores.
+   - WhatsApp a negocios locales.
+   - Email personalizado (no template genérico).
+   - Mostrar caso concreto, no promesas.
+
+3. **Hook = auditoría gratis.** Ofrecer diagnóstico sin costo → demostrar valor → upsell a implementación.
+
+4. **De servicio a producto.** Después de 5-10 clientes, detectar patrones repetidos → empaquetar como producto.
+
+### Precios para arrancar
+
+- Auditoría gratis: $0 (inversión en relación).
+- Landing simple: USD 200-500.
+- Animaciones web: USD 100-300 por sitio.
+- Automatización AI: USD 500-2000 por proyecto.
+- Consultoría + implementación: USD 1000+.
+
+### Métricas
+
+- Contactos por semana.
+- Tasa de respuesta.
+- Tasa de conversión (contacto → cliente).
+- Ingreso por cliente.
+- Tiempo de cierre (primer contacto → pago).
+
+### Regla
+
+No sobre-cotizar para los primeros clientes. Entrar rápido, cobrar algo, entregar bien, pedir referidos.

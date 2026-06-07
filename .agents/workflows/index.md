@@ -75,6 +75,7 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Estudio, explicación de materia, notas de clase o conceptos académicos | `academic_tutor.md` + `agente-obsidian-brain` | Explicación profunda + notas mejoradas + flashcards |
 | "Modo parcial", preparación de examen, simulación de oral | `academic_tutor.md` (modo parcial) | Evaluación honesta + plan intensivo + ejercicios |
 | Mejorar notas de Obsidian de clase | `academic_tutor.md` + `agente-obsidian-brain` | Notas enriquecidas + Dots + MOC actualizado |
+| Animaciones CSS 2D para web (keyframes, parallax, hover, fade, texto) | `css-animations` skill | 6 recetas + timing + reduced-motion + CLS check |
 
 ## Criterio de tamaño
 

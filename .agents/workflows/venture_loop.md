@@ -19,6 +19,60 @@ Este workflow integra:
 
 También integra el principio de growth moderno: saber qué busca la gente y qué hace dentro del producto para decidir qué mejorar, podar o escalar.
 
+## Etapa 0 — Primeros Clientes (Freelance / Agencia)
+
+### Cuándo usar esta etapa
+
+- El usuario necesita ganar plata YA, no tiene producto validado todavía.
+- Quiere arrancar como dev freelance o agencia chica.
+- Tiene skills (code, design, automation) pero no sabe cómo venderlos.
+
+### Principio (Tito @titobarri0nuevo + matiasdev_ar)
+
+No esperes tener el producto perfecto para vender. Entrá al mercado con lo que tengas. Los primeros clientes llegan por servicios simples, no por productos complejos.
+
+### Proceso
+
+1. **Crear ofertas de servicio simples.** No hace falta software a medida. Incluso con Excel funcionó (Tito). Ejemplos:
+   - Auditoría digital gratis a pymes (matiasdev_ar) → puerta de entrada.
+   - Animaciones web CSS (ver skill `css-animations`) → servicio rápido y visible.
+   - Automatizaciones con AI (chatbots, workflows) → alto valor percibido.
+   - Landing pages / sitios web → demanda constante.
+   - Consultoría + implementación → combo que cierra bien.
+
+2. **Prospección en frío.** Contactar pymes directamente. No esperar inbound.
+   - LinkedIn, WhatsApp, email directo.
+   - Ofrecer auditoría gratis como hook.
+   - Mostrar caso concreto (no promesas vagas).
+
+3. **Ads si hay presupuesto.** Si no, frío puro funciona.
+
+4. **Entrar rápido, refinar después.** La perfección es enemiga del primer cliente.
+
+5. **De servicio a producto.** Después de varios clientes, detectar patrones → producto.
+
+### Output
+
+```text
+Servicios ofrecidos:
+Hook (auditoría gratis / demo):
+Canal de prospección:
+Primeros 10 targets:
+Precio mínimo:
+Objetivo semanal:
+```
+
+### Conexiones
+
+- `marketing.md` para estrategia de outbound y pricing.
+- `css-animations` skill para ofrecer animaciones web como servicio.
+- `seo_geo_growth.md` para posicionarse orgánicamente mientras se busca trabajo.
+- Después de conseguir clientes: volver a Etapa 1 con señales reales de mercado.
+
+### Regla
+
+No construir producto sin señales. Vender servicios primero. El producto nace de los patrones que ves en los clientes.
+
 ## Cuándo usar
 
 - El usuario quiere crear un producto desde cero.
