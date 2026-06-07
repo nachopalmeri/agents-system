@@ -306,13 +306,13 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - MCPs por niveles de riesgo (0-4). Read-only primero, escritura con confirmación.
 - AGENTS.md es estándar de industria. CLAUDE.md importa AGENTS.md para compatibilidad.
 - Validación con `validation.md` antes de declarar listo. No declarar victoria sin evidencia.
-- Toolchain First (ASDLC.io): si una regla ya la enforcea linter/tsconfig/ESLint, sacarla de AGENTS.md. El archivo es para judgment, no para repetir lo que las tools ya atrapan.
-- Context Map: solo útil para onboarding y orientación arquitectónica, no para navegación de archivos durante delivery (Gloaguen et al. 2026: directory maps no aceleran file discovery).
-- Dreaming (Claude Managed Agents): proceso programado que revisa sesiones pasadas y cura memoria entre sesiones. Nuestro `session_checkpoint.md` es un dreaming manual. Cuando se use Managed Agents, dreaming automático complementa.
-- Outcomes (Claude Managed Agents): rubric de éxito con grader separado. Hasta +10 puntos vs prompting loop estándar. Nuestro `validation.md` es equivalente manual. Outcomes con grader es el próximo nivel.
-- AGENTS.override.md (Codex CLI): override por directorio con precedencia sobre AGENTS.md. Gitignored para overrides personales.
-- Devin Desktop (ex-Windsurf): Agent Client Protocol (ACP) permite correr Codex, Claude Agent, OpenCode en un mismo editor. AGENTS.md es contexto compartido.
-- Antigravity CLI (ex-Gemini CLI): sigue leyendo GEMINI.md y AGENTS.md. Skills se mueven de .gemini/skills/ a .agents/skills/ (ya compatible). Gemini CLI se descontinúa Junio 18, 2026.
+- Toolchain First: si una regla ya la enforcea linter/tsconfig/ESLint, sacarla de AGENTS.md.
+- Context Map: solo para onboarding/orientación, no para delivery (Gloaguen et al. 2026).
+- Dreaming/Outcomes (Claude Managed Agents): `session_checkpoint.md` = dreaming manual, `validation.md` = outcomes manual. Próximo nivel: automatizar.
+- AGENTS.override.md (Codex CLI): override por directorio. Gitignored.
+- Devin Desktop (ex-Windsurf): ACP permite múltiples agentes en un editor. AGENTS.md es contexto compartido.
+- Antigravity CLI (ex-Gemini CLI): sigue leyendo GEMINI.md y AGENTS.md. Skills en `.agents/skills/`. Sunset Junio 18, 2026.
+- Detalles y referencias en `docs/research-2026-06.md`.
 
 ## TEST_STRATEGY
 
@@ -325,8 +325,7 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - Mutation testing cuando la suite madura: asegura que los tests pesquen todo.
 
 ## Regla de Oro
-Nunca declarés victoria antes de validar.
-Nunca toqués archivos fuera de tu scope.
-Nunca mergees ramas vos mismo — eso lo hace el director.
-Nunca instales MCPs/plugins ni ejecutes acciones externas sensibles sin confirmación explícita.
-Nunca dejes que un agente escriba directamente en AGENTS.md. El humano aprueba cada línea. (Investigación ETH Zurich: AGENTS.md generado por LLM reduce éxito ~3% y aumenta costos de inferencia >20%. Escrito por humanos mejora ~4%.)
+Las reglas duras están en **Judgment Boundaries** (NEVER/ASK/ALWAYS). Esta sección es el resumen ejecutivo:
+- Nunca declarés victoria antes de validar.
+- Nunca toqués archivos fuera de tu scope.
+- AGENTS.md es escrito por humanos. LLM-generated context reduce éxito ~3% y aumenta costos >20% (Gloaguen et al. 2026).
