@@ -1,5 +1,6 @@
 {
   "context": {
     "fileName": "AGENTS.md"
-  }
+  },
+  "_note": "Antigravity CLI (ex-Gemini CLI) sigue leyendo GEMINI.md y AGENTS.md. Skills se mueven de .gemini/skills/ a .agents/skills/ (ya compatible). Gemini CLI se descontinua Junio 18, 2026."
 }

@@ -272,6 +272,31 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - Next.js middleware order importa para auth: verificar JWT antes de redirigir.
 - No sobre-abstractizar con capas de agentes (ultrathoughts → aura → soul). El Ralph Loop ya es el nivel correcto de abstracción. Más capas = más fricción, menos control, vuelta a la pala.
 - Vendor lock-in: no depender 100% de un solo proveedor de AI. Mantener portabilidad cross-IDE (AGENTS.md + .aider + .gemini + .claude).
+- Windsurf → Devin Desktop (Junio 2, 2026): `.windsurf/` paths pueden seguir como fallback pero el nombre correcto es Devin Desktop. ACP (Agent Client Protocol) permite correr múltiples agentes en un editor.
+- Gemini CLI → Antigravity CLI (Junio 18, 2026): Gemini CLI se descontinúa. Antigravity CLI sigue leyendo GEMINI.md y AGENTS.md. Skills migran de `.gemini/skills/` a `.agents/skills/`.
+- AGENTS.override.md (Codex CLI): override por directorio con precedencia sobre AGENTS.md. Gitignored para overrides personales.
+- LLM-generated AGENTS.md reduce éxito ~3% y aumenta costos >20% (Gloaguen et al. 2026). Siempre escrito por humanos.
+
+## Judgment Boundaries (ASDLC.io / Gloaguen et al. 2026)
+
+### NEVER (hard limits)
+- Nunca commitear secrets, tokens o .env files.
+- Nunca agregar dependencias externas sin discusión.
+- Nunca adivinar specs ambiguas — frenar y preguntar.
+- Nunca dejar que un agente escriba directamente en AGENTS.md.
+- Nunca ejecutar gasto publicitario, respnder DMs o hacer acciones externas sensibles sin confirmación explícita.
+
+### ASK (human-in-the-loop)
+- Preguntar antes de correr migraciones de base de datos.
+- Preguntar antes de eliminar archivos.
+- Preguntar antes de instalar MCPs o plugins.
+- Preguntar antes de mergear ramas.
+
+### ALWAYS (proactive judgment)
+- Explicar el plan antes de escribir código.
+- Manejar todos los errores explícitamente — nunca tragar excepciones.
+- Validar con `validation.md` antes de declarar listo.
+- Usar Toolchain First: si un linter/tsconfig lo enforcea, sacarlo de AGENTS.md (la tool es el mecanismo, no el agente).
 
 ## ARCH_DECISIONS
 
@@ -281,6 +306,13 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - MCPs por niveles de riesgo (0-4). Read-only primero, escritura con confirmación.
 - AGENTS.md es estándar de industria. CLAUDE.md importa AGENTS.md para compatibilidad.
 - Validación con `validation.md` antes de declarar listo. No declarar victoria sin evidencia.
+- Toolchain First (ASDLC.io): si una regla ya la enforcea linter/tsconfig/ESLint, sacarla de AGENTS.md. El archivo es para judgment, no para repetir lo que las tools ya atrapan.
+- Context Map: solo útil para onboarding y orientación arquitectónica, no para navegación de archivos durante delivery (Gloaguen et al. 2026: directory maps no aceleran file discovery).
+- Dreaming (Claude Managed Agents): proceso programado que revisa sesiones pasadas y cura memoria entre sesiones. Nuestro `session_checkpoint.md` es un dreaming manual. Cuando se use Managed Agents, dreaming automático complementa.
+- Outcomes (Claude Managed Agents): rubric de éxito con grader separado. Hasta +10 puntos vs prompting loop estándar. Nuestro `validation.md` es equivalente manual. Outcomes con grader es el próximo nivel.
+- AGENTS.override.md (Codex CLI): override por directorio con precedencia sobre AGENTS.md. Gitignored para overrides personales.
+- Devin Desktop (ex-Windsurf): Agent Client Protocol (ACP) permite correr Codex, Claude Agent, OpenCode en un mismo editor. AGENTS.md es contexto compartido.
+- Antigravity CLI (ex-Gemini CLI): sigue leyendo GEMINI.md y AGENTS.md. Skills se mueven de .gemini/skills/ a .agents/skills/ (ya compatible). Gemini CLI se descontinúa Junio 18, 2026.
 
 ## TEST_STRATEGY
 

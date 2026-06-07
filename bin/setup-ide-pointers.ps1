@@ -1,6 +1,6 @@
 # setup-ide-pointers.ps1
 # Crea punteros (symlinks o copias) desde cada IDE a ~/.agents/AGENTS.md
-# Paths verificados contra docs oficiales de cada IDE (2026-05).
+# Paths verificados contra docs oficiales de cada IDE (2026-06).
 
 [CmdletBinding()]
 param(
@@ -66,10 +66,12 @@ if (-not (Test-Path "$AgentsRoot\AGENTS.md")) {
 
 $source = "$AgentsRoot\AGENTS.md"
 
-# 1. Windsurf / Cascade - global rules
-# https://docs.windsurf.com/windsurf/cascade/memories#global-rules-file
-Write-Step "Windsurf / Cascade"
-New-Pointer -Source $source -Target "$env:USERPROFILE\.windsurf\global-rules.md" -Description "Windsurf global rules"
+# 1. Devin Desktop (ex-Windsurf) - Agent Client Protocol (ACP)
+# https://devin.ai/blog/windsurf-is-now-devin-desktop
+# Devin Desktop soporta ACP: Codex, Claude Agent, OpenCode, etc. corren dentro.
+# Legacy .windsurf/ paths pueden seguir funcionando como fallback.
+Write-Step "Devin Desktop (ex-Windsurf)"
+New-Pointer -Source $source -Target "$env:USERPROFILE\.windsurf\global-rules.md" -Description "Devin Desktop global rules (legacy .windsurf)"
 
 # 2. OpenCode - convencion AGENTS.md
 Write-Step "OpenCode"
@@ -95,14 +97,16 @@ if (-not (Test-Path $claudeDir)) {
 }
 New-Pointer -Source $source -Target "$claudeDir\CLAUDE.md" -Description "Claude Code global memory"
 
-# 4. Gemini CLI - ~/.gemini/GEMINI.md (global context)
-# https://geminicli.com/docs/cli/gemini-md/
-Write-Step "Gemini CLI"
+# 4. Antigravity CLI (ex-Gemini CLI) - ~/.gemini/GEMINI.md (global context)
+# https://antigravity.google/docs/gcli-migration
+# Gemini CLI se descontinua Junio 18, 2026. Antigravity CLI sigue leyendo GEMINI.md y AGENTS.md.
+# Skills se mueven de .gemini/skills/ a .agents/skills/ (ya compatible con nuestra estructura).
+Write-Step "Antigravity CLI (ex-Gemini CLI)"
 $geminiDir = "$env:USERPROFILE\.gemini"
 if (Test-Path $geminiDir) {
-    New-Pointer -Source $source -Target "$geminiDir\GEMINI.md" -Description "Gemini CLI global context"
+    New-Pointer -Source $source -Target "$geminiDir\GEMINI.md" -Description "Antigravity CLI global context"
 } else {
-    Write-Skip "Gemini CLI no instalado (no existe ~/.gemini/)"
+    Write-Skip "Antigravity CLI no instalado (no existe ~/.gemini/)"
 }
 
 # 5. Cursor - .cursorrules legacy en home (best-effort, Cursor prefiere UI Settings)
@@ -111,8 +115,16 @@ Write-Step "Cursor (legacy .cursorrules)"
 Write-Warn "Cursor user-level rules viven en Settings UI. Este archivo es fallback legacy."
 New-Pointer -Source $source -Target "$env:USERPROFILE\.cursorrules" -Description "Cursor legacy rules (home)"
 
-# 6. Codex CLI - convencion AGENTS.md en home
+# 6. Codex CLI - ~/.codex/AGENTS.md (global) + AGENTS.override.md por directorio
+# https://developers.openai.com/codex/guides/agents-md
+# Codex soporta AGENTS.override.md por directorio (precedencia sobre AGENTS.md).
+# Discovery chain: global → project root → subdirectorios → override.
 Write-Step "Codex CLI"
+$codexDir = "$env:USERPROFILE\.codex"
+if (-not (Test-Path $codexDir)) {
+    New-Item -ItemType Directory -Path $codexDir -Force | Out-Null
+}
+New-Pointer -Source $source -Target "$codexDir\AGENTS.md" -Description "Codex CLI global instructions"
 New-Pointer -Source $source -Target "$env:USERPROFILE\AGENTS.md" -Description "Codex CLI / AGENTS home convention"
 
 Write-Host ""
@@ -130,6 +142,14 @@ Write-Host "    En cada repo: cp `"$source`" .github/copilot-instructions.md" -F
 Write-Host ""
 Write-Host "  Zed:" -ForegroundColor Yellow
 Write-Host "    Zed no carga AGENTS.md global. Usar configuracion del Assistant en settings.json." -ForegroundColor Gray
+Write-Host ""
+Write-Host "  AGENTS.override.md (Codex CLI):" -ForegroundColor Yellow
+Write-Host "    Crear AGENTS.override.md en subdirectorios para reglas especificas por equipo/servicio." -ForegroundColor Gray
+Write-Host "    Codex prioriza override sobre AGENTS.md en el mismo directorio." -ForegroundColor Gray
+Write-Host ""
+Write-Host "  Devin Desktop (ACP):" -ForegroundColor Yellow
+Write-Host "    Devin Desktop soporta Codex, Claude Agent, OpenCode, etc. via Agent Client Protocol." -ForegroundColor Gray
+Write-Host "    AGENTS.md funciona como contexto compartido entre todos los agentes ACP." -ForegroundColor Gray
 Write-Host ""
 
 Write-Step "Setup completo"

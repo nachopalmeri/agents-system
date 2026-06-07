@@ -157,6 +157,38 @@ Un video → 5 canales con mínimo ajuste. Reutilizar contenido en TODAS las red
 
 Los primeros clientes no llegan por inbound ni por producto perfecto. Llegan por servicios simples + prospección directa. Automatizaciones y software a medida no venden al principio. Auditoría gratis sí.
 
+VENDER es la skill más importante. Build in public sin clientes = 0. Un mg en IG/X/Reddit no significa una venta.
+
+### 5 métodos probados (de0aclientes.substack.com)
+
+#### 1. Google Maps → Cold call
+- Buscar profesionales en Google Maps (odontólogos, estéticas, etc.).
+- Llamar temprano (más predisposición).
+- Speech examples:
+  - "Hola, soy X de X, me gustaría charlar sobre cómo llevás tu día a día en el rubro."
+  - "Hola, soy X de X, te llamo para preguntarte si tenés este problema y cómo lo solucionás."
+  - Pedir referencias: "¿Si vos no tenés este problema, conocés a algún colega que lo tenga?"
+
+#### 2. Visita presencial
+- Tasa de cierre alta, baja velocidad.
+- Speech aceitado, vender en el menor tiempo posible.
+- Caso Fidelando: salían después del 9-5 a caminar y vender cara a cara en Córdoba.
+
+#### 3. Red de redes (2°/3° contactos)
+- Hablar con todos. Nunca quedarse sin contacto.
+- La red de tu red tiene otra red.
+- Caso Tito: contacto fuera del rubro → centro odontológico grande → desarrollo a medida.
+
+#### 4. Boca a boca con hacks
+- Sobre rojo + carta de agradecimiento a clientes que pagan.
+- Regalar algo llamativo a los que NO compran (llavero).
+- "Powered by [tu producto]" en facturas/emails → marketing pasivo (caso PymeInteligente).
+
+#### 5. Documentar en redes (después de vender offline)
+- Vender offline → ganar clientes → contar experiencias → ganar clientes online.
+- Reddit y X trajeron muchos interesados.
+- No empezar por redes. Primero hacer el trabajo sucio.
+
 ### Estrategia
 
 1. **Ofertas simples primero.** No software a medida. Servicios que se entregan en días, no meses:
@@ -183,6 +215,7 @@ Los primeros clientes no llegan por inbound ni por producto perfecto. Llegan por
 - Animaciones web: USD 100-300 por sitio.
 - Automatización AI: USD 500-2000 por proyecto.
 - Consultoría + implementación: USD 1000+.
+- Sistema de turnos/reservas: USD 20-50/mes por cliente (caso 1minuto).
 
 ### Métricas
 
@@ -191,7 +224,8 @@ Los primeros clientes no llegan por inbound ni por producto perfecto. Llegan por
 - Tasa de conversión (contacto → cliente).
 - Ingreso por cliente.
 - Tiempo de cierre (primer contacto → pago).
+- MRR (Monthly Recurring Revenue) si hay suscripción.
 
 ### Regla
 
-No sobre-cotizar para los primeros clientes. Entrar rápido, cobrar algo, entregar bien, pedir referidos.
+No sobre-cotizar para los primeros clientes. Entrar rápido, cobrar algo, entregar bien, pedir referidos. El ROI más grande viene de la venta más offline: visitar, llamar, contactos de contactos.

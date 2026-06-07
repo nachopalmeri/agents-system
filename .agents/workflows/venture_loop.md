@@ -39,6 +39,7 @@ No esperes tener el producto perfecto para vender. Entrá al mercado con lo que 
    - Automatizaciones con AI (chatbots, workflows) → alto valor percibido.
    - Landing pages / sitios web → demanda constante.
    - Consultoría + implementación → combo que cierra bien.
+   - Sistemas de turnos/reservas → nicho con dolor claro (caso 1minuto.com.ar de Tito).
 
 2. **Prospección en frío.** Contactar pymes directamente. No esperar inbound.
    - LinkedIn, WhatsApp, email directo.
@@ -50,6 +51,50 @@ No esperes tener el producto perfecto para vender. Entrá al mercado con lo que 
 4. **Entrar rápido, refinar después.** La perfección es enemiga del primer cliente.
 
 5. **De servicio a producto.** Después de varios clientes, detectar patrones → producto.
+
+### 5 métodos de ventas (Tito @titobarri0nuevo — de0aclientes.substack.com)
+
+#### Método 1: Google Maps → Llamar
+- Buscar profesionales del rubro en Google Maps (odontólogos, estéticas, oculistas, etc.).
+- Llamar, llamar y llamar. No tiene mucha ciencia.
+- **Dato clave**: cuanto más temprano llames, mejor. Hay más predisposición a charlar.
+- **Speech examples**:
+  - "Hola mi nombre es X y soy el founder de X y me gustaría charlar con vos para saber cómo un profesional X lleva su día a día en el rubro."
+  - "Hola mi nombre es X y soy el founder de X y te llamo para preguntarte si tenés este X problema y cómo lo solucionás."
+  - Pedir referencias: "Hola X, mi nombre es X y soy el founder de X, una app que ayuda al profesional a llegar del punto A al punto B. ¿Si vos no tenés este problema, conocés a algún colega que lo tenga?"
+
+#### Método 2: Visita presencial → Vender la solución
+- Ir presencialmente y tratar de venderles en el menor tiempo posible.
+- Tener el speech muy aceitado.
+- **Tasa de cierre alta** (más que telefónica), pero baja velocidad (no hay tiempo/energía para volumen).
+
+#### Método 3: 2°/3° contactos de tus contactos
+- Hablar con todos. Nunca quedarse sin un contacto para llamar.
+- La red de tu red tiene otra red. Aprovechar.
+- Caso Tito: el último contacto le recomendó alguien fuera del rubro → ese lo conectó con un centro odontológico grande. No consiguió cliente para 1minuto, pero le terminó haciendo un desarrollo a medida.
+
+#### Método 4: Boca a boca con hacks
+- **Hack 1**: Mandar sobre rojo + carta de agradecimiento a clientes que pagan. Experiencia de compra memorable.
+- **Hack 2**: Regalar llavero a los que NO compran. Algo llamativo que usan → entre charlas aparece tu nombre/producto.
+- **Hack 3**: "Powered by [tu producto]" en facturas/emails que emite el sistema → marketing pasivo (caso PymeInteligente).
+
+#### Método 5: Documentar en redes → vender offline primero
+- Vender offline → ganar clientes → contar esas experiencias en redes → ganar clientes por redes.
+- El contenido rico viene de hacer el trabajo sucio. Sin eso, no hay nada valioso para publicar.
+- Reddit y X trajeron muchos interesados a Tito.
+- Probar mover tráfico entre redes (Reddit/X → LinkedIn).
+- **No empezar por redes**: primero conseguir clientes offline, después documentar.
+
+### Casos reales
+
+- **Fidelando** (fidelando.ar): app para cafés/bares/restaurantes. Dos founders salían después del laburo 9-5 a caminar Córdoba capital para vender. Tocar puertas, comerse "no"s, seguir. Hoy parte de una franquicia conocida.
+- **Picsel** (picsel.app): marketplace de fotos. Manu se juntaba con prospectos a tomar café, cara a cara. También consiguió muchos por redes.
+- **PymeInteligente** (pymeinteligente.com.ar): ERP. Un cliente vino por un amigo que trabajaba ahí. Otro por conocido del padre. Otro por el "Powered by" en facturas que despertaba interés.
+- **1minuto** (1minuto.com.ar): turnera para salud. Tito arrancó en provincia <200k habitantes, sin contactos, sin saber del rublo. 15 clientes, MRR 300 USD, meta 1k MRR este año.
+
+### Insight central
+
+VENDER es la skill más importante. Build in public sin clientes = 0. Un mg en IG/X/Reddit no significa una venta. Offline primero, online después. El ROI más grande viene de la venta más offline: visitar, llamar, contactos de contactos.
 
 ### Output
 
