@@ -67,15 +67,18 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Tarea compleja con muchos pasos y dependencias (Claude Code) | `parallel_agents.md` (Dynamic Workflows) | Plan de orquestación + sub-agentes paralelos + orden correcto |
 | Desarrollo iterativo automático / Ralph Loop / "ship while you sleep" | `parallel_agents.md` (Ralph Loop) | Pick→implement→validate→commit→reset + safeguards |
 | Configurar proyecto nuevo o entender automatizaciones para un stack | `parallel_agents.md` (claude-code-setup) | Detección de frameworks + recomendaciones de hooks/skills/MCPs/subagents |
-| Web 3D/immersiva con Three.js/WebGPU/GSAP | `$world-class-web.md` | Pipeline 10 etapas + quality gates |
-| Web con perfil especifico (luxury-3d, portfolio-3d) | `$world-class-web.md` + `$profiles/[perfil].md` | Brief -> concepto -> 3D -> gates |
-| AI/RAG serio + web 3D inmersiva | `$world-class-web.md` + `$ai_production.md` | Pipeline visual + capas AI |
+| Web 3D/immersiva con Three.js/WebGPU/GSAP | `world-class-web.md` | Pipeline 10 etapas + quality gates |
+| Web con perfil especifico (luxury-3d, portfolio-3d) | `world-class-web.md` + `profiles/[perfil].md` | Brief -> concepto -> 3D -> gates |
+| AI/RAG serio + web 3D inmersiva | `world-class-web.md` + `ai_production.md` | Pipeline visual + capas AI |
 | Sesión larga o mucho contexto | `session_checkpoint.md` | Estado compacto para continuidad |
 | Cierre de trabajo | `validation.md` | Evidencia antes de declarar listo |
 | Estudio, explicación de materia, notas de clase o conceptos académicos | `academic_tutor.md` + `agente-obsidian-brain` | Explicación profunda + notas mejoradas + flashcards |
 | "Modo parcial", preparación de examen, simulación de oral | `academic_tutor.md` (modo parcial) | Evaluación honesta + plan intensivo + ejercicios |
 | Mejorar notas de Obsidian de clase | `academic_tutor.md` + `agente-obsidian-brain` | Notas enriquecidas + Dots + MOC actualizado |
 | Animaciones CSS 2D para web (keyframes, parallax, hover, fade, texto) | `css-animations` skill | 6 recetas + timing + reduced-motion + CLS check |
+| Web premium/disruptiva/3D con agentes sandboxed (tipo Lovable) | `web-factory.md` + `premium-web-stack` skill | Plan→Agent→Polish + 5 agentes paralelos + CTA-focused |
+| Landing que venda sola con CTA fuerte | `web-factory.md` (Fase Plan) + `web_briefing.md` | Brief → concepto → CTA → build |
+| Stack premium para web 3D (Next.js + shadcn + R3F + GSAP + Spline) | `premium-web-stack` skill | Tabla de tech + versiones + setup + plugins |
 
 ## Criterio de tamaño
 

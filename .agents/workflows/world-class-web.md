@@ -10,7 +10,7 @@ No alcanza con que "se vea lindo". Una web de clase mundial es un sistema: conce
 
 ## Entry Point
 
-Para proyectos de alcance contenido, usar la skill `web-presentation-premium`. Este pipeline es para cuando esa skill no alcanza.
+Para proyectos de alcance contenido, usar la skill `web-presentation-premium`. Para orquestación con agentes sandboxed en paralelo (tipo Lovable), usar `web-factory.md`. Este pipeline es para cuando ninguno de los dos alcanza.
 
 ## Pipeline (10 etapas)
 
@@ -154,4 +154,14 @@ Concepto → Narrativa → 3D al servicio → Performance como feature → Acces
 
 ## Regla final
 
-No usar este workflow para landings simples. Si el proyecto no necesita 3 escenas 3D o scroll storytelling complejo, usar `web-presentation-premium`.
+No usar este workflow para landings simples. Si el proyecto no necesita 3 escenas 3D o scroll storytelling complejo, usar `web-presentation-premium`. Si se quiere orquestación con agentes sandboxed en paralelo, usar `web-factory.md`.
+
+## Plugins Claude Code (3D skills)
+
+Para patrones avanzados de Three.js, GSAP, R3F, Spline, etc., instalar plugins de [claudedesignskills](https://github.com/freshtechbro/claudedesignskills):
+
+- `core-3d-animation` bundle (5 skills, 9 commands, 6 agentes)
+- `threejs-webgl`, `gsap-scrolltrigger`, `react-three-fiber`, `spline-interactive`
+- `modern-web-design`, `web3d-integration-patterns`
+
+Ver skill `premium-web-stack` para referencia completa de stack y plugins.
