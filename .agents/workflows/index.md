@@ -79,6 +79,10 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Web premium/disruptiva/3D con agentes sandboxed (tipo Lovable) | `web-factory.md` + `premium-web-stack` skill | Plan→Agent→Polish + 5 agentes paralelos + CTA-focused |
 | Landing que venda sola con CTA fuerte | `web-factory.md` (Fase Plan) + `web_briefing.md` | Brief → concepto → CTA → build |
 | Stack premium para web 3D (Next.js + shadcn + R3F + GSAP + Spline) | `premium-web-stack` skill | Tabla de tech + versiones + setup + plugins |
+| Curar memoria entre sesiones, detectar patrones, proponer promociones | `dreaming.md` | READ→PATTERN→PROMOTE→PRUNE→REPORT→WRITE |
+| Quality gate con grader separado (maker≠checker) | `outcomes.md` | Rubric + grader + score + fix loop |
+| Goal con checker separado hasta condición verificable | `parallel_agents.md` (Goal Primitive) | /goal → checker → done o continue |
+| Aislar agentes en worktrees separados | `parallel_agents.md` (Worktree Protocol) | git worktree add + merge + cleanup |
 
 ## Criterio de tamaño
 

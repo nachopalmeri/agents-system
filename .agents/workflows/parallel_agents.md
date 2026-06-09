@@ -231,3 +231,66 @@ Invariantes:
 3. **Caro:** subagente verificador con modelo fuerte (maker/checker split).
 
 Usar nivel 1 siempre. Nivel 2 si el loop es desatendido. Nivel 3 si las consecuencias de un falso "done" son graves.
+
+## Worktree Protocol
+
+Dos agentes editando los mismos archivos = conflicto garantizado. Git worktrees dan a cada agente su propio checkout aislado en una branch separada, compartiendo el mismo repo history.
+
+### Setup
+
+```bash
+# Crear worktree para un agente
+git worktree add ../feature-X -b feature/X
+
+# O desde una branch existente
+git worktree add ../feature-X feature/X
+```
+
+### Mapeo por herramienta
+
+| Herramienta | Worktree support |
+|---|---|
+| Claude Code | `--worktree` flag, `isolation: worktree` en subagent YAML |
+| Codex | Built-in worktree por thread (Automations tab) |
+| Manual | `git worktree add` + `cd ../feature-X` |
+
+### Reglas de aislamiento
+
+1. Cada agente trabaja en su propio worktree/branch.
+2. Ningún agente edita archivos fuera de su worktree.
+3. Si un agente necesita un archivo que otro está editando → esperar o coordinar via `agent_coordination.md`.
+4. Los worktrees se limpian después del merge (no acumular).
+
+### Merge protocol
+
+1. Agente termina → commit en su branch.
+2. Abrir PR desde branch del agente → main.
+3. Humano review + CI checks.
+4. Merge → cleanup worktree: `git worktree remove ../feature-X`.
+
+### Conflict resolution
+
+Si hay conflictos al mergear:
+1. No forzar merge. Identificar archivos en conflicto.
+2. Si el conflicto es entre outputs de agentes → humano decide.
+3. Si el conflicto es con main actual → rebase sobre main y resolver: `git rebase main`.
+4. Regla: el agente que creó el conflicto lo resuelve, no el otro.
+
+### Cleanup
+
+```bash
+# Listar worktrees activos
+git worktree list
+
+# Limpiar worktree después de merge
+git worktree remove ../feature-X
+
+# Limpiar worktrees huérfanos (branches ya mergeadas)
+git worktree prune
+```
+
+### Cuándo NO usar worktrees
+
+- Un solo agente trabajando (no hay colisión).
+- Agentes que solo leen (no editan archivos).
+- Proyecto chico donde sequential es más simple.

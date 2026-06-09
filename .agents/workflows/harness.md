@@ -27,6 +27,8 @@ IMPROVE→ proponer mejora sistémica si aplica (N>=3)
 | Test falla 2 veces igual | Mismo error en tests | Marcar como problema recurrente |
 | Routing falla | Workflow elegido no existe o no aplica | `feedback_loop.md` + capturar |
 | Validación detecta problema | `validation.md` encuentra déficit | Capturar lección de calidad |
+| Loop genera >500 líneas sin intervención humana | Loop desatendido con output grande | Flag como comprehension debt risk |
+| 3+ loops desatendidos consecutivos | Sin sesión de review manual entre loops | Alertar: sesión de review obligatoria |
 | Misma pregunta se repite | Usuario pregunta lo mismo 2 veces | Capturar como documentación faltante |
 | Director da instrucción que contradice regla | Regla existente vs. pedido actual | Capturar como candidato a cambio de regla |
 
@@ -109,6 +111,40 @@ El modo se define en la primera señal de la sesión. Si el usuario está debugg
 - Nunca capturar ruido: si no hay evidencia clara, no registrar
 - Nunca promover con menos de 3 apariciones del mismo patrón
 - Nunca acumular más de 10 lecciones sin reportar al usuario
+
+## Token Awareness
+
+El Harness trackea consumo de tokens durante la sesión:
+
+### Tracking
+
+| Señal | Acción |
+|---|---|
+| Sesión alcanza ~50K tokens consumidos | Reportar uso al usuario |
+| Sesión alcanza ~80% del budget declarado | Alertar y pedir permiso para continuar |
+| Loop desatendido sin budget declarado | Frenar y pedir budget |
+| 3+ subagentes activos simultáneamente | Reportar costo estimado |
+
+### En el reporte de cierre
+
+Agregar al harness report:
+
+```text
+- Tokens estimados consumidos: ~XK
+- Budget declarado: YK (si aplica)
+- Subagentes usados: N
+- Alertas de budget: [lista]
+```
+
+### Integración con `/goal`
+
+En el `/goal` primitive, el checker también verifica:
+- Si el budget está al 80% → reportar progreso y pedir permiso.
+- Si el budget está al 100% → frenar el loop y reportar estado.
+
+### Integración con session_checkpoint
+
+El campo "tokens estimados consumidos" se incluye en cada checkpoint para continuidad entre sesiones.
 
 ## Regla final
 

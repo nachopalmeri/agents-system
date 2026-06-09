@@ -24,6 +24,8 @@ Pendientes:
 Riesgos:
 Próximo paso recomendado:
 Qué NO tocar:
+Tokens estimados consumidos:
+Budget declarado (si aplica):
 ```
 
 ## Reglas

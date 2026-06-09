@@ -13,6 +13,27 @@ La primera decisión de workflow vive en `workflows/index.md`; este archivo solo
 - Las skills `specialized` se usan cuando el tipo de trabajo ya está claro.
 - Las skills `rarely-use` conviene invocarlas de forma explícita cuando el caso lo amerita.
 
+## Skill Description Quality (Addy Osmani / Loop Engineering)
+
+Una skill se activa automáticamente cuando su descripción matchea el pedido del usuario. La calidad de la descripción determina si el auto-trigger funciona.
+
+**Regla:** "A tight boring description beats a clever one." (Addy Osmani)
+
+- ❌ Malo: "Transform your code into art" → demasiado vago, matchea todo y nada.
+- ✅ Bueno: "Create animated CSS keyframes for hover effects and scroll reveals" → específico, matchea solo cuando aplica.
+- ❌ Malo: "Supercharge your workflow" → marketing, no información.
+- ✅ Bueno: "Run token efficiency audit on prompts, workflows and skills" → dice exactamente qué hace.
+
+### Audit de descripciones
+
+Si una skill no se activa automáticamente cuando debería, el problema probablemente es la descripción. Verificar:
+1. ¿Dice QUÉ hace, no CÓMO lo hace?
+2. ¿Es específica enough para no matchear todo?
+3. ¿Es clara enough para matchear cuando debe?
+4. ¿Incluye los keywords que un usuario usaría naturalmente?
+
+Cuando Claude Code soporte skill auto-discovery nativo, las descripciones serán el mecanismo de matching. Prepararlas ahora.
+
 ## Cómo se usan
 
 ### 1. Activación automática

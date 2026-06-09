@@ -110,3 +110,21 @@ Para tareas importantes, no quedarse solo con la primera respuesta. Antes de dec
 4. Si algo no se pudo validar, declararlo explícitamente en lugar de asumir que está bien.
 
 Esta regla viene de la guía oficial de Anthropic: pedirle al modelo que valide su propio resultado contra criterios concretos antes de terminar.
+
+## Comprehension Debt Check
+
+Si el trabajo fue generado por un loop desatendido o con mínima intervención humana:
+
+1. **¿Leíste todo el código que el loop generó?** Si no → no declarar listo. Leer primero.
+2. **¿Entendés cada cambio en el diff?** Si hay cambios que no entendés → investigar antes de cerrar.
+3. **¿Podés explicar la solución a otro engineer?** Si no → comprehension debt acumulado.
+
+### Regla: 3 loops desatendidos → 1 sesión de review manual
+
+Después de 3 loops que generaron código sin intervención humana, la próxima sesión debe ser exclusivamente de review:
+- Leer todo el código generado.
+- Verificar que los tests realmente testean lo que dicen.
+- Confirmar que no hay "green by deletion" (tests eliminados para pasar).
+- Entender la arquitectura resultante.
+
+Esta sesión de review no es opcional. Es la countermeasure contra comprehension debt.
