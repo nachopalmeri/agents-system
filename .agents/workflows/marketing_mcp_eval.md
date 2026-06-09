@@ -1,8 +1,12 @@
 ---
-description: Checklist para evaluar MCPs de marketing, ads, scrapers, DMs y redes sociales antes de instalarlos o usarlos
+description: ⚠️ DEPRECATED — reemplazado por mcp_adoption.md + mcp_security.md. Checklist de marketing MCP integrada en evaluación general.
 ---
 
-# Marketing MCP Evaluation
+# ⚠️ DEPRECATED: Marketing MCP Evaluation
+
+Este checklist está integrado en `mcp_adoption.md` (evaluación GO/NO-GO/PIVOT) y `mcp_security.md` (seguridad por niveles). Para MCPs de marketing, usar esos workflows con atención a permisos de ads/DMs/datos personales.
+
+Contenido original archivado en `docs/archive/marketing_mcp_eval-v1.md`.
 
 ## Regla principal
 Nunca instalar ni usar MCPs de marketing sin pasar esta evaluación. El riesgo es real: gasto público, datos personales, bans de plataforma.

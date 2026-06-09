@@ -1,11 +1,12 @@
 ---
-description: Fases DDD de ejecución para tareas no triviales, integradas con routing chat-first y validación central
+description: ⚠️ DEPRECATED — reemplazado por AGENTS.md secciones 1-4 y spec_kit.md. Fases DDD integradas en el flujo chat-first.
 ---
 
-# Workflow: Fases DDD de Ejecución
+# ⚠️ DEPRECATED: Fases DDD de Ejecución
 
-## Principio
-Usar estas fases para tareas no triviales. Para cambios chicos, usar el flujo simple según `workflows/index.md`.
+Este workflow está integrado en AGENTS.md secciones 1 (Plan Mode), 2 (Subagentes), 3 (Automejora) y 4 (Verificación). Para specs formales, usar `spec_kit.md`.
+
+Contenido original archivado en `docs/archive/phases-v1.md`.
 
 ## FASE 1 — DIRECT
 El director define intención, prioridad y restricciones. Si el pedido está claro, no pedir rituales; actuar con el menor workflow suficiente.

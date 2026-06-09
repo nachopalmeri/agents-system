@@ -121,163 +121,51 @@ Este loop aplica tanto a ejecución normal como a `/loop`, routines y subagentes
 
 ### 11. Activadores Explícitos
 
-Cuando quieras forzar un workflow, agente o skill sin depender del ruteo automático, usá estas frases exactas. El nombre del archivo **es** el comando.
+Para forzar un workflow/agente/skill: `"Activá [nombre].md"` o `"Llamá al agente-[nombre]"`. El nombre del archivo es el comando. Ver lista completa en `workflows/index.md`.
 
-#### Workflows
+### 12. Portabilidad Cross-IDE
 
-| Para forzar... | Decí exactamente... |
-|---|---|
-| ADR | `"Activá adr.md para esta decisión"` |
-| Agent coordination | `"Activá agent_coordination.md, tengo 3+ agentes"` |
-| Tech radar | `"Consultá memory/tech_radar.md antes de proponer"` |
-| Irreversible decision | `"Activá irreversible_decision.md"` |
-| Parallel agents | `"Activá parallel_agents.md"` |
-| Spec kit | `"Activá spec_kit.md para esta feature"` |
-| Venture loop | `"Activá venture_loop.md"` |
-| Product foundry | `"Activá product_foundry.md"` |
-| SEO/GEO | `"Activá seo_geo_growth.md"` |
-| Client workflow | `"Activá client_workflow.md"` |
-| LLM Council | `"Activá llm_council.md para decidir entre X e Y"` |
-| Multiagent review | `"Activá multiagent_review_loop.md"` |
-| Validation | `"Activá validation.md"` |
-| Performance audit | `"Activá performance_audit.md"` |
-| Feedback loop | `"Activá feedback_loop.md"` |
-| Marketing | `"Activá marketing.md para esta estrategia"` |
-| AI production | `"Activá ai_production.md para esta feature"` |
-| Web briefing | `"Activá web_briefing.md para esta web"` |
-| World-class web | "Activa world-class-web.md para este sitio 3D/immersive" |
-| Lean kickoff | `"Activá project_kickoff_lean.md para este proyecto"` |
+Setup completo en `docs/setup-guide.md`. Resumen:
+- OpenCode/Codex/Antigravity: carga AGENTS.md automáticamente.
+- Claude Code: CLAUDE.md importa AGENTS.md. Symlinks con `bin/setup-ide-pointers.ps1`.
+- Devin Desktop: ACP permite múltiples agentes. AGENTS.md es contexto compartido.
+- ChatGPT/Claude web/Gemini: pegar `prompts/activate-global.md`.
+- Aider: `.aider.conf.yml` apunta a AGENTS.md.
+- AGENTS.override.md (Codex): override por directorio. Gitignored.
 
-#### Agentes
+## Roles de Agentes
 
-| Para forzar... | Decí exactamente... |
-|---|---|
-| AI Architect | `"Llamá al agente-ai-architect"` |
-| Principal | `"Llamá al agente-principal"` |
-| Design | `"Llamá al agente-design"` |
-| Tests | `"Llamá al agente-tests"` |
-| Docs | `"Llamá al agente-docs"` |
-| SEO | `"Llamá al agente-seo"` |
-| Growth SEO/GEO | `"Llamá al agente-growth-seo-geo"` |
-| Security auditor | `"Llamá al agente-security-auditor"` |
-| Product founder | `"Llamá al agente-product-founder"` |
-| Marketing strategist | `"Llamá al agente-marketing-strategist"` |
-| Researcher | `"Llamá al agente-researcher"` |
-| Code reviewer | `"Llamá al agente-code-reviewer"` |
-| Release manager | `"Llamá al agente-release-manager"` |
-| MCP architect | `"Llamá al agente-mcp-architect"` |
-| Obsidian brain | `"Llamá al agente-obsidian-brain"` |
+Definiciones completas en `.agents/agents/`. Registry:
 
-#### Skills
+- agente-principal, agente-design, agente-tests, agente-docs, agente-seo
+- agente-marketing-strategist, agente-growth-seo-geo, agente-product-founder
+- agente-ai-architect, agente-security-auditor, agente-mcp-architect
+- agente-obsidian-brain, agente-code-reviewer, agente-researcher, agente-release-manager
 
-| Para forzar... | Decí exactamente... |
-|---|---|
-| AI production | `"Usá la skill ai-production-architecture"` |
-| Web premium | `"Usá la skill web-presentation-premium"` |
-| Spec kit | `"Usá la skill spec-kit"` |
-| Product foundry | `"Usá la skill product-foundry"` |
-| SEO growth | `"Usá la skill seo-geo-growth"` |
-| Client work | `"Usá la skill client-work"` |
-| Docx | `"Usá la skill docx"` |
-| Pptx | `"Usá la skill pptx"` |
-| Xlsx | `"Usá la skill xlsx"` |
-
-#### Regla de oro
-
-Si dudás, poné `"Activá [nombre del archivo].md"` y el agente lo carga explícitamente.
-
-### 12. Portabilidad Cross-IDE y Vault de Prompts
-
-Este sistema esta disenado para OpenCode (carga `AGENTS.md` automaticamente). Para usar en otras IAs e IDEs:
-
-#### Para ChatGPT, Claude web, Gemini, Copilot (chats web)
-Copiar y pegar `prompts/activate-global.md` al iniciar la sesion. Despues elegir modo:
-- "Mode: Project | Goal: [que] | Stack: [tech]"
-- "Mode: Study | Subject: [materia] | Level: [nivel]"
-- "Mode: Notes | Class: [clase] | Goal: [organizar/flashcards]"
-- "Mode: Explain | Topic: [concepto] | For: [audiencia]"
-- "Mode: Debug | Stack: [tech] | Symptom: [error]"
-
-#### Para Cursor / Windsurf
-El archivo `.cursorrules` ya contiene una version concisa del sistema. Para sesiones completas, pegar `prompts/activate-global.md` al inicio.
-
-#### Vault de Prompts (Obsidian)
-Si hay un prompt relevante para la tarea actual, el agente puede preguntar: "Queres que busque en tu vault?" solo con confirmacion explicita. Usar `workflows/obsidian-prompt-search.md` para el flujo. Tambien podes pegar prompts manualmente en cualquier momento.
-
-#### Modo profesor / explicacion
-Usar "Mode: Explain | Topic: [concepto] | For: [audiencia]" para activar `workflows/harvard_teacher.md` (explica cada cambio con rigor academico estilo profesor Harvard).
-
-#### Regla
-El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activate-global.md`) son snapshots para distribucion. Para sesiones en OpenCode no hace falta pegar nada el sistema ya esta cargado.
-
-### 12.5. Compatibilidad AGENTS.md / CLAUDE.md
-
-- `AGENTS.md` es el estándar de industria para instrucciones de agentes (Codex + 60K+ repos).
-- Claude Code usa `CLAUDE.md`. El repo incluye `CLAUDE.md` que importa `AGENTS.md` para evitar duplicación.
-- Opción de symlink (mismo archivo, dos nombres):
-  - Linux/Mac: `ln AGENTS.md CLAUDE.md`
-  - Windows: `mklink CLAUDE.md AGENTS.md`
-- Para otros IDEs que soporten `AGENTS.md` (Codex, etc.), el archivo ya está en la raíz.
-
-### 12.6. CLAUDE.local.md y .claude/ structure
-
-- `CLAUDE.local.md` en la raíz del repo: overrides personales gitignored. Cada desarrollador pone sus preferencias ahí sin afectar al equipo.
-- Claude Code también soporta `.claude/agents/` y `.claude/skills/` como estructura nativa para subagents y skills con YAML frontmatter (name, description, tools, model, effort, isolation, etc.).
-- El sistema `.agents/` del repo es portable y funciona en todos los IDEs. `.claude/` es específico de Claude Code y ofrece features adicionales (model selection, worktree isolation, hooks per agent).
-- Para proyectos que usen solo Claude Code: se puede usar `.claude/` directamente. Para portabilidad cross-IDE: mantener `.agents/` como fuente de verdad.
-
-### 12.7. Aider y Gemini CLI
-
-- **Aider**: el repo incluye `.aider.conf.yml` con `read: AGENTS.md` para que Aider use las mismas instrucciones.
-- **Gemini CLI**: el repo incluye `.gemini/settings.json` con `{ "context": { "fileName": "AGENTS.md" } }` para que Gemini CLI también lea las instrucciones.
-- Ambos configs apuntan a `AGENTS.md` como fuente única de verdad, evitando duplicación.
-
-## Gestión de Tareas
-1. Planificar Primero: escribir el plan en tasks/todo.md con elementos verificables
-2. Verificar Plan: confirmar antes de comenzar la implementación
-3. Seguir el Progreso: marcar elementos completados a medida que avanzás
-4. Explicar Cambios: resumen de alto nivel en cada paso
-5. Documentar Resultados: añadir sección de revisión a tasks/todo.md
-6. Capturar Lecciones: actualizar tasks/lessons.md después de correcciones
-
-## Principios Fundamentales
-- Simplicidad Primero: hacé cada cambio lo más simple posible
-- Sin Pereza: encontrá las causas raíz, nada de arreglos temporales
-- Impacto Mínimo: los cambios solo deben tocar lo necesario
-- Estándares de Staff Engineer: si no lo aprobarías vos mismo, no lo presentes
-
-## Roles de Agentes Disponibles
-- agente-principal → lógica, estructura, integraciones
-- agente-seo       → meta tags, OG, headings, sitemap
-- agente-design    → CSS, responsive, animaciones, UI
-- agente-tests     → tests unitarios y E2E
-- agente-docs      → README, comentarios, documentación
-- agente-marketing-strategist → estrategia, GTM, posicionamiento, research de audiencia (no ejecuta gasto ni DMs)
-- agente-growth-seo-geo → SEO/GEO/AEO growth, keywords, landings, backlinks, local SEO, AI search
-- agente-product-founder → ideas de producto, MVPs, validación, portfolio indie/AI-first
-- agente-ai-architect → arquitectura AI/RAG production-ready
-- agente-security-auditor → secretos, permisos, seguridad, MCP/plugin risk
-- agente-mcp-architect → diseño y evaluación de MCPs
-- agente-obsidian-brain → notas Obsidian, Dataview, Zettelkasten, MOCs, templates de clase y daily notes
-- agente-code-reviewer → review read-only de diffs y PRs
-- agente-researcher → investigación actual de docs, plugins, MCPs y librerías
-- agente-release-manager → changelog, release, GitHub y bootstrap laptop
+(Gloaguen et al. 2026: listar por nombre e invocación, definiciones en archivos separados, no inline.)
 
 ## GOTCHAS
 
+### Entorno (Windows / Nacho)
 - PowerShell no soporta `&&` como separador de comandos. Usar `;` o comandos separados.
 - Smart quotes (comillas tipográficas) rompen la búsqueda en archivos. Siempre usar comillas ASCII rectas.
 - Git en Windows: `mklink` requiere permisos de admin. Symlinks de AGENTS.md→CLAUDE.md pueden necesitar `Developer Mode` activado.
+
+### Tech-specific (mover a AGENTS.override.md por proyecto)
 - Supabase: RLS policies son obligatorias en tablas públicas. Sin RLS, cualquier usuario puede leer/escribir todo.
 - Next.js middleware order importa para auth: verificar JWT antes de redirigir.
+
+### Principios del sistema
 - No sobre-abstractizar con capas de agentes (ultrathoughts → aura → soul). El Ralph Loop ya es el nivel correcto de abstracción. Más capas = más fricción, menos control, vuelta a la pala.
 - Vendor lock-in: no depender 100% de un solo proveedor de AI. Mantener portabilidad cross-IDE (AGENTS.md + .aider + .gemini + .claude).
-- Windsurf → Devin Desktop (Junio 2, 2026): `.windsurf/` paths pueden seguir como fallback pero el nombre correcto es Devin Desktop. ACP (Agent Client Protocol) permite correr múltiples agentes en un editor.
-- Gemini CLI → Antigravity CLI (Junio 18, 2026): Gemini CLI se descontinúa. Antigravity CLI sigue leyendo GEMINI.md y AGENTS.md. Skills migran de `.gemini/skills/` a `.agents/skills/`.
-- AGENTS.override.md (Codex CLI): override por directorio con precedencia sobre AGENTS.md. Gitignored para overrides personales.
 - LLM-generated AGENTS.md reduce éxito ~3% y aumenta costos >20% (Gloaguen et al. 2026). Siempre escrito por humanos.
-- Comprehension debt: cuanto más code shippea un loop que no leíste, más se aleja tu entendimiento del código que existe. El loop acelera shipping, pero también acelera la brecha entre lo que existe y lo que entendés. (Addy Osmani, Loop Engineering 2026).
+- Comprehension debt: cuanto más code shippea un loop que no leíste, más se aleja tu entendimiento del código que existe. (Addy Osmani, Loop Engineering 2026).
 - Cognitive surrender: diseñar loops para evitar pensar vs para moverse más rápido en trabajo que entendés profundamente. Misma acción, resultado opuesto. El loop no sabe la diferencia. Vos sí.
+
+### Plataforma (Junio 2026)
+- Windsurf → Devin Desktop (Junio 2): ACP permite múltiples agentes en un editor.
+- Gemini CLI → Antigravity CLI (Junio 18): sigue leyendo GEMINI.md y AGENTS.md.
+- AGENTS.override.md (Codex CLI): override por directorio. Gitignored.
 
 ## Judgment Boundaries (ASDLC.io / Gloaguen et al. 2026)
 
@@ -317,6 +205,7 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - Devin Desktop (ex-Windsurf): ACP permite múltiples agentes en un editor. AGENTS.md es contexto compartido.
 - Antigravity CLI (ex-Gemini CLI): sigue leyendo GEMINI.md y AGENTS.md. Skills en `.agents/skills/`. Sunset Junio 18, 2026.
 - Detalles y referencias en `docs/research-2026-06.md`.
+- Token budget del sistema: AGENTS.md (~8K tokens) + index.md (~3K) + rules/ (~5K) + 1 workflow (~2K) = ~18K tokens base por sesión. Agregar subagentes, skills y contexto de proyecto puede sumar 50-100K+. Para sesiones con loops, declarar budget explícito (ver Agentic Budgeting en `parallel_agents.md`).
 
 ## TEST_STRATEGY
 

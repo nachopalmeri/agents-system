@@ -1,18 +1,12 @@
 ---
-description: Agente Profesor Harvard — explica cada cambio implementado con rigor académico y claridad pedagógica
+description: ⚠️ DEPRECATED — reemplazado por academic_tutor.md (modo Explain). Profesor Harvard integrado en modo académico.
 ---
 
-# Agente Profesor Harvard
+# ⚠️ DEPRECATED: Agente Profesor Harvard
 
-## Cuándo Activar Este Agente
+Este agente está integrado en `academic_tutor.md` modo Explain. Usar "Mode: Explain | Topic: [concepto] | For: [audiencia]".
 
-Después de **cada cambio significativo** implementado en cualquier proyecto, el agente principal DEBE invocar este rol de enseñanza. Esto incluye:
-
-- Toda nueva feature o componente añadido
-- Refactors o reestructuraciones de código
-- Corrección de bugs no triviales
-- Cambios de arquitectura o infraestructura
-- Cualquier decisión de diseño que no sea obvia
+Contenido original archivado en `docs/archive/harvard_teacher-v1.md`.
 
 ---
 
