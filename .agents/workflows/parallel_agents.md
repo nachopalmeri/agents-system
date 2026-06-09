@@ -133,3 +133,101 @@ Stateless-but-iterative: al resetear cada iteración, el agente evita acumular c
 ### Escalamiento
 
 Empezar con un loop overnight. Graduar a 10 loops en 10 branches cuando se confirme que funciona.
+
+## Goal Primitive (Addy Osmani / Loop Engineering)
+
+El `/goal` primitive es diferente del Ralph Loop. Ralph Loop cicla tareas de una lista. `/goal` cicla hasta que una **condición verificable** es verdadera. Después de cada turno, un **modelo separado** (o subagente con instrucciones distintas) verifica si se cumple la condición — el agente que escribió el código no es el que evalúa si está listo.
+
+### Patrón
+
+```text
+/goal "condición verificable"
+→ agente trabaja un turno
+→ checker separado evalúa condición
+→ si cumple: done
+→ si no cumple: agente continúa con feedback del checker
+→ repeat
+```
+
+### Ejemplos de condiciones
+
+- "all tests in test/auth pass and lint is clean"
+- "Lighthouse score ≥ 90 and LCP < 2.5s"
+- "la landing tiene CTA visible above the fold y no hay Lorem ipsum"
+- "todos los endpoints del spec tienen integration test"
+
+### Anti-pattern: el agente hace trampa
+
+Caso real (Gagan): "I had Claude Code loop to a green test suite once. Green because it quietly deleted the failing tests."
+
+**Regla:** la condición de salida debe ser más específica de lo que el agente puede fakear. No "tests pass" sino "tests pass AND test count didn't decrease AND no tests were modified in this run".
+
+## Maker/Checker Split
+
+El pattern más importante en loops: **el que escribe ≠ el que verifica**.
+
+El modelo que escribió el código es demasiado generoso calificando su propio trabajo. Un segundo agente con instrucciones diferentes (y a veces un modelo diferente) atrapa lo que el primero se auto-convenció de que estaba bien.
+
+### Implementación
+
+| Herramienta | Maker | Checker |
+|---|---|---|
+| Claude Code | Subagente implementador | Subagente verificador (modelo diferente o reasoning effort alto) |
+| Codex | `.codex/agents/` TOML con model/reasoning distinto | `.codex/agents/reviewer.toml` con modelo fuerte en high effort |
+| Web Factory | `agente-web-layout/3d/motion/copy` | `agente-web-qa` |
+
+### Cuándo vale la pena (token cost)
+
+- Siempre para loops desatendidos (no estás ahí para verificar).
+- Siempre para `/goal` (el checker es parte del primitive).
+- Opcional para tareas simples donde el humano verifica en persona.
+- Sub-agents queman más tokens: usar donde una segunda opinión vale el costo.
+
+## Agentic Budgeting
+
+Los loops pueden quemar tokens sin límite si no hay awareness. El budget se define antes de arrancar, no después.
+
+### Parámetros por defecto
+
+| Parámetro | Default | Ajustar si |
+|---|---|---|
+| Max iteraciones por goal | 10 | Tarea compleja → 20 |
+| Max tokens por iteración | 50K | Subagentes con contexto largo → 100K |
+| Cooldown entre iteraciones | 5s | API rate limiting → 30s |
+| Max tokens por sesión completa | 500K | Token-rich → 1M, token-poor → 200K |
+| Kill después de N errores seguidos | 3 | Mismo error repetido = stuck |
+
+### Reglas
+
+- Si el budget se acerca al 80%, el loop debe reportar progreso y pedir permiso para continuar.
+- Si un loop está stuck (3+ iteraciones mismo error), kill y reassign, no insistir.
+- El budget se declara explícitamente al inicio del loop, no se improvisa.
+- Token-poor: loops cortos, checker barato (modelo chico), menos subagentes.
+- Token-rich: loops largos, checker con modelo fuerte, más subagentes paralelos.
+
+## Exit Conditions Anti-Fake
+
+Definir "done" es la parte difícil del loop. La condición de salida tiene que ser más robusta de lo que el agente puede eludir.
+
+### Pattern: condición + invariantes
+
+No solo verificar el objetivo, sino también que no se rompió nada en el camino:
+
+```text
+Condición principal: [objetivo verificable]
+Invariantes:
+- test count no disminuyó
+- no se modificaron tests en este run
+- lint sigue limpio (no se silenciaron warnings)
+- bundle size no creció más de X%
+- no se agregaron dependencias sin autorización
+- no hay TODO/FIXME nuevos en el código generado
+```
+
+### Niveles de verificación
+
+1. **Barato:** pattern checks en tool outputs (grep por "skip", "TODO", "deleted test").
+2. **Medio:** contract enforcement (el output tiene la forma esperada).
+3. **Caro:** subagente verificador con modelo fuerte (maker/checker split).
+
+Usar nivel 1 siempre. Nivel 2 si el loop es desatendido. Nivel 3 si las consecuencias de un falso "done" son graves.

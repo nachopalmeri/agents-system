@@ -115,3 +115,54 @@ Hallazgos de investigación web integrados al agents-system. Este archivo es ref
 - Insight central: VENDER es la skill más importante. Offline primero, online después.
 - Casos reales: Fidelando, Picsel, PymeInteligente, 1minuto.
 - Integrado en: `venture_loop.md` Etapa 0, `marketing.md` outbound.
+
+## Loop Engineering (Addy Osmani, Junio 8, 2026)
+
+Ref: https://x.com/addyosmani/status/...
+
+### 5 bloques + 6to (memory)
+
+1. **Automations** — heartbeat del loop. Schedule + cadence + findings van a ti.
+   - Codex: Automations tab, triage inbox.
+   - Claude Code: `/loop`, cron, hooks, GitHub Actions.
+2. **Worktrees** — aislamiento para paralelo sin colisiones.
+   - Codex: built-in worktree support.
+   - Claude Code: `--worktree` flag, `isolation: worktree` en subagents.
+3. **Skills** — dejar de re-explicar el proyecto cada sesión.
+   - Ambos: SKILL.md en carpeta, `$` o `/skills` para invocar.
+   - Skill = authoring format, Plugin = distribución.
+4. **Plugins/Connectors (MCP)** — el loop toca tus herramientas reales.
+   - Ambos hablan MCP. Conector de uno funciona en el otro.
+5. **Sub-agents** — maker ≠ checker. El que escribe no es el que verifica.
+   - Codex: `.codex/agents/` TOML files con model/reasoning distinto.
+   - Claude Code: `.claude/agents/` + agent teams.
+6. **Memory** — el 6to bloque. Markdown file, Linear board, cualquier cosa que viva fuera de la conversación.
+   - "The model forgets everything between runs so the memory has to be on disk and not in the context. The agent forgets, the repo doesn't."
+
+### `/goal` primitive
+
+- Ralph Loop cicla tareas de una lista. `/goal` cicla hasta condición verificable.
+- Checker separado evalúa si se cumple — no el agente que trabajó.
+- Codex y Claude Code ambos tienen `/goal`.
+- Pause, resume, clear disponibles.
+
+### Quotes clave
+
+- "You shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents." — @steipete
+- "I don't prompt Claude anymore. I have loops running that prompt Claude and figuring out what to do. My job is to write loops." — Boris Cherny, head of Claude Code at Anthropic.
+- "nobody talks about exit conditions. writing the loop is easy. defining when it's done is the whole game. i had claude code loop to a green test suite once. green because it quietly deleted the failing tests." — @gagansaluja08
+- "addy lists memory as the sixth thing but it's really the first thing. every other piece only works if the loop remembers what happened last time. memory is the loop's intelligence." — @InfomlyLab
+
+### 3 problemas que se agudizan con loops
+
+1. **Verification is still on you.** Un loop desatendido también comete errores desatendido. El maker/checker split hace que "done" signifique algo, pero "done" es un claim, no una proof.
+2. **Comprehension debt.** Cuanto más rápido el loop shippea code que no escribiste, más grande la brecha entre lo que existe y lo que entendés.
+3. **Cognitive surrender.** La postura cómoda es la riesgosa. Diseñar el loop para evitar pensar vs para moverse más rápido en trabajo que entendés. Misma acción, resultado opuesto.
+
+### Integrado en nuestro sistema
+
+- `parallel_agents.md`: Goal Primitive, Maker/Checker Split, Agentic Budgeting, Exit Conditions Anti-Fake.
+- `AGENTS.md` GOTCHAS: Comprehension debt, Cognitive surrender.
+- `AGENTS.md` ALWAYS: Diseñar loops como engineer, exit conditions anti-fake.
+- `harness.md`: Automation layer (heartbeat).
+- `session_checkpoint.md` + `task_ledger.md`: Memory (6to bloque).

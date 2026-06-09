@@ -276,6 +276,8 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - Gemini CLI → Antigravity CLI (Junio 18, 2026): Gemini CLI se descontinúa. Antigravity CLI sigue leyendo GEMINI.md y AGENTS.md. Skills migran de `.gemini/skills/` a `.agents/skills/`.
 - AGENTS.override.md (Codex CLI): override por directorio con precedencia sobre AGENTS.md. Gitignored para overrides personales.
 - LLM-generated AGENTS.md reduce éxito ~3% y aumenta costos >20% (Gloaguen et al. 2026). Siempre escrito por humanos.
+- Comprehension debt: cuanto más code shippea un loop que no leíste, más se aleja tu entendimiento del código que existe. El loop acelera shipping, pero también acelera la brecha entre lo que existe y lo que entendés. (Addy Osmani, Loop Engineering 2026).
+- Cognitive surrender: diseñar loops para evitar pensar vs para moverse más rápido en trabajo que entendés profundamente. Misma acción, resultado opuesto. El loop no sabe la diferencia. Vos sí.
 
 ## Judgment Boundaries (ASDLC.io / Gloaguen et al. 2026)
 
@@ -297,6 +299,8 @@ El sistema completo vive en `.agents/`. Los archivos portables (`prompts/activat
 - Manejar todos los errores explícitamente — nunca tragar excepciones.
 - Validar con `validation.md` antes de declarar listo.
 - Usar Toolchain First: si un linter/tsconfig lo enforcea, sacarlo de AGENTS.md (la tool es el mecanismo, no el agente).
+- Diseñar loops como engineer, no como forma de evitar entender el trabajo. El loop es el acelerador cuando lo usás con juicio, y el acelerador de la mediocridad cuando lo usás para no pensar. (Cognitive surrender — Addy Osmani 2026).
+- Definir exit conditions más robustas de lo que el agente puede fakear. No "tests pass" sino "tests pass AND test count didn't decrease".
 
 ## ARCH_DECISIONS
 
