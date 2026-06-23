@@ -17,7 +17,7 @@ Si además hay incertidumbre de producto o feature compleja, combinar con `spec_
 Evaluar si hacen falta:
 - `services/` para pipeline, cache, memory, rewriting, routing
 - `agents/` para grading, decomposition, adaptive routing
-- `prompts/` para templates versionados y registry
+- `.agents/prompts/` para templates versionados y registry
 - `security/` para input/content/output guards
 - `evaluation/` para golden dataset y evals
 - `observability/` para traces, feedback y costos

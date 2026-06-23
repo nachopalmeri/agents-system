@@ -32,7 +32,7 @@ AGENTS.md es contexto compartido entre todos los agentes ACP.
 Legacy `.windsurf/` paths siguen como fallback.
 
 ## Para ChatGPT, Claude web, Gemini, Copilot (chats web)
-Copiar y pegar `prompts/activate-global.md` al iniciar la sesión. Modos disponibles:
+Copiar y pegar `.agents/prompts/activate-global.md` al iniciar la sesión. Modos disponibles:
 - "Mode: Project | Goal: [que] | Stack: [tech]"
 - "Mode: Study | Subject: [materia] | Level: [nivel]"
 - "Mode: Notes | Class: [clase] | Goal: [organizar/flashcards]"
@@ -40,7 +40,7 @@ Copiar y pegar `prompts/activate-global.md` al iniciar la sesión. Modos disponi
 - "Mode: Debug | Stack: [tech] | Symptom: [error]"
 
 ## Para Cursor / Devin Desktop
-El archivo `.cursorrules` ya contiene una versión concisa del sistema. Para sesiones completas, pegar `prompts/activate-global.md` al inicio.
+El archivo `.cursorrules` ya contiene una versión concisa del sistema. Para sesiones completas, pegar `.agents/prompts/activate-global.md` al inicio.
 
 ## Vault de Prompts (Obsidian)
 Si hay un prompt relevante para la tarea actual, el agente puede preguntar: "Querés que busque en tu vault?" solo con confirmación explícita. Usar `workflows/obsidian-prompt-search.md` para el flujo.

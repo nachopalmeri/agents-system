@@ -13,7 +13,7 @@ Obsidian guarda memoria durable, no dumps. Cada nota debe servir para retomar un
 Ruta principal:
 
 ```text
-C:\Users\nacho\OneDrive\Desktop\Q1\Q1-2026-UADE
+C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE
 ```
 
 Estructura esperada Ideaverse Lite:

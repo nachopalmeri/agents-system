@@ -60,7 +60,7 @@ Este loop aplica tanto a ejecución normal como a `/loop`, routines y subagentes
 - Usar `workflows/parallel_agents.md` cuando haya tareas independientes que justifiquen paralelismo
 - Usar `workflows/multiagent_review_loop.md` para decisiones de alto impacto que requieran crear, criticar, red team, segunda crítica, roadmap y reevaluación
 - Usar `workflows/llm_council.md` para decidir entre opciones, evaluar oportunidades o contrastar perspectivas con 5 asesores + peer review + Chairman ≤200 palabras
-- Para usar el Council fuera del IDE, copiar `prompts/llm-council-portable.md` a cualquier chat (ChatGPT, Claude web, Gemini, etc.)
+- Para usar el Council fuera del IDE, copiar `.agents/prompts/llm-council-portable.md` a cualquier chat (ChatGPT, Claude web, Gemini, etc.)
 - Evitar teatro multiagente: si la crítica no puede cambiar la solución, usar flujo simple o `workflows/phases.md`
 
 ### 3. Bucle de Automejora
@@ -131,7 +131,7 @@ Setup completo en `docs/setup-guide.md`. Resumen:
 - OpenCode/Codex/Antigravity: carga AGENTS.md automáticamente.
 - Claude Code: CLAUDE.md importa AGENTS.md. Symlinks con `bin/setup-ide-pointers.ps1`.
 - Devin Desktop: ACP permite múltiples agentes. AGENTS.md es contexto compartido.
-- ChatGPT/Claude web/Gemini: pegar `prompts/activate-global.md`.
+- ChatGPT/Claude web/Gemini: pegar `.agents/prompts/activate-global.md`.
 - Aider: `.aider.conf.yml` apunta a AGENTS.md.
 - AGENTS.override.md (Codex): override por directorio. Gitignored.
 
@@ -143,6 +143,8 @@ Definiciones completas en `.agents/agents/`. Registry:
 - agente-marketing-strategist, agente-growth-seo-geo, agente-product-founder
 - agente-ai-architect, agente-security-auditor, agente-mcp-architect
 - agente-obsidian-brain, agente-code-reviewer, agente-researcher, agente-release-manager
+- agente-academic-tutor, agente-x-content-strategist
+- kickoff-architect, workflow-pruner
 
 (Gloaguen et al. 2026: listar por nombre e invocación, definiciones en archivos separados, no inline.)
 

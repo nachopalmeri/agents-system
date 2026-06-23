@@ -330,6 +330,30 @@ Worktree: no aplica; trabajar en el vault con cuidado
 Skill a leer: obsidian-vault, obsidian-markdown
 NO hacer: código de producción, CSS, SEO, tests
 
+### agente-academic-tutor
+Activar cuando: explicación de conceptos, evaluación, ejercicios, parciales, simulación de oral, estudio
+Worktree: no aplica
+Skill a leer: active-recall-engine, exam-simulator, coding-exercises, case-analysis, study-progress-tracker
+NO hacer: editar notas directamente (delegar a agente-obsidian-brain), código de producción
+
+### agente-x-content-strategist
+Activar cuando: contenido X/Twitter, LinkedIn, Substack, personal branding, hilos, replies, optimización algorítmica
+Worktree: no aplica
+Skill a leer: x-algorithm-optimizer
+NO hacer: ejecutar gasto publicitario, responder DMs sin confirmación, SEO técnico
+
+### kickoff-architect
+Activar cuando: arrancar proyecto, definir primer milestone, estructura inicial, setup de repo
+Worktree: agente/feature o nueva branch
+Skill a leer: lean-project-kickoff
+NO hacer: implementar features, diseño visual, tests, docs
+
+### workflow-pruner
+Activar cuando: un workflow, skill, prompt, agente o configuración se siente pesado y necesita simplificación agresiva
+Worktree: no aplica; modo read-only
+Skill a leer: token-efficiency-check
+NO hacer: editar AGENTS.md sin confirmación, borrar archivos sin preguntar
+
 ## Reglas de Paralelismo
 Podés lanzar múltiples agentes cuando:
 - Las tareas son independientes (no tocan los mismos archivos)

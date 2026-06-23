@@ -70,7 +70,7 @@ Recomendación final ≤200 palabras:
 
 ## Prompt portable
 
-El prompt completo copy-paste vive en `prompts/llm-council-portable.md` para usar en cualquier chat (ChatGPT, Claude, Gemini, Copilot, Cursor, etc.).
+El prompt completo copy-paste vive en `.agents/prompts/llm-council-portable.md` para usar en cualquier chat (ChatGPT, Claude, Gemini, Copilot, Cursor, etc.).
 
 ## Reglas
 
