@@ -185,11 +185,13 @@ Tiene que crear:
 │   ├── multiagent_review_loop.md
 │   ├── ai_production.md
 │   ├── web_briefing.md
+│   ├── web-factory.md
 │   ├── marketing.md
 │   ├── marketing_mcp_eval.md
 │   ├── venture_loop.md
 │   ├── product_foundry.md
 │   ├── seo_geo_growth.md
+│   ├── content_automation.md
 │   ├── mcp_catalog.md
 │   ├── mcp_security.md
 │   ├── mcp_adoption.md
@@ -202,10 +204,14 @@ Tiene que crear:
 │   ├── next/
 │   ├── python/
 │   ├── html-vanilla/
+│   ├── beui/
+│   ├── cli-essentials/
 │   ├── obsidian-vault/
 │   ├── product-foundry/
 │   ├── seo-geo-growth/
 │   ├── ai-production-architecture/
+│   ├── frontend-design/
+│   ├── premium-web-stack/
 │   ├── web-presentation-premium/
 │   └── ...
 └── rules/                    # Reglas de código, testing, git
