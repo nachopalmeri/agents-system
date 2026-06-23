@@ -173,7 +173,7 @@ Antes de ejecutar la secuencia, preguntar internamente:
 - ¿Hay suficiente contexto para no inventar?
 - ¿La salida será más accionable que un plan simple?
 
-Si la respuesta es no, usar `phases.md` o flujo simple.
+Si la respuesta es no, usar flujo simple.
 
 ## Integración con otros workflows
 

@@ -11,14 +11,12 @@ Nunca declarar victoria sin evidencia. Validar no es "me parece correcto"; es co
 ## Orden de cierre
 
 1. Checklist tecnico: scope, tests, secrets y riesgos.
-2. Actualizar `.agents/tasks/handoff.md` con el estado real si existe.
-3. Revisar `.agents/tasks/tech-debt.md`: si se agrego deuda intencional, registrarla.
-4. Ejecutar `feedback_loop.md` para errores de la sesion.
-5. Ejecutar `promote_lesson.md` para candidatos globales.
-6. Ejecutar `obsidian_sync.md` para retro, decision o nota relevante.
-7. Ejecutar `growth_update.md` si hay evidencia real de crecimiento.
-8. Commit y push si hubo cambios del sistema o del proyecto.
-9. Reporte final: que se cerro, que se aprendio, que crecio.
+2. Actualizar `.agents/tasks/handoff.md` si existe.
+3. Revisar `.agents/tasks/tech-debt.md` si hay deuda nueva.
+4. Registrar errores de la sesion en `tasks/lessons.md` con tipo (ROUTING/OUTPUT/SCOPE/QUALITY).
+5. Si una leccion aparece en 2+ proyectos, preguntar al usuario si promover a `memory/lessons-global.md`.
+6. Commit y push si hubo cambios del sistema o del proyecto.
+7. Reporte final: que se cerro, que se aprendio.
 
 ## Checklist tecnico
 

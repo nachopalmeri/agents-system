@@ -148,7 +148,7 @@ Próximo paso:
 ## Integración con workflows
 
 - Usar `index.md` para decidir workflow.
-- Usar `phases.md` para ejecución.
+- Usar flujo simple para ejecución.
 - Usar `/loop` si la task requiere iterar hasta criterio verificable.
 - Usar Routine si la task es recurrente.
 - Usar `validation.md` antes de mover a done.

@@ -23,7 +23,7 @@ Para decisiones complejas con múltiples ángulos, una sola perspectiva miente. 
 - Bug puntual.
 - Cambio chico o claro.
 - Pregunta con respuesta directa.
-- Cuando ya sabés qué hacer y solo querés ejecutar (usar `phases.md` o flujo simple).
+- Cuando ya sabés qué hacer y solo querés ejecutar (usar flujo simple).
 - Cuando no hay criterio de salida verificable.
 
 ## Relación con `multiagent_review_loop.md`
