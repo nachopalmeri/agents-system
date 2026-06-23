@@ -50,6 +50,7 @@ Elegir por defecto:
 - **Presentación facultad:** HTML/CSS/JS con scroll storytelling suave
 - **Pitch startup/SaaS:** Next/React si hay interacción; Astro si es mostly static
 - **Experiencia wow:** GSAP primero; Three.js solo si aporta al concepto
+- **Componentes animados React (beUI):** beUI skill + Next.js + Tailwind 4 + Motion
 
 ## Routing de skills/agentes
 

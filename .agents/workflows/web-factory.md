@@ -139,7 +139,7 @@ Como Lovable Visual Edits: ajustar lo visual sin rehacer todo.
 
 - **Framework:** Next.js 15 (App Router) o Astro (si no necesita estado)
 - **Estilos:** Tailwind CSS v4
-- **Componentes:** shadcn/ui (base) + Radix UI (primitives)
+- **Componentes:** shadcn/ui (base) + beUI (motion components vía shadcn registry) + Radix UI (primitives)
 - **3D:** React Three Fiber + Three.js r182+ + Drei
 - **3D Authoring:** Spline (importar .splinecode) o Blender → Draco → KTX2
 - **Animaciones scroll:** GSAP + ScrollTrigger

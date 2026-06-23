@@ -73,13 +73,16 @@ Usar para validar UI y runtime.
 
 Usar para creación y distribución de contenido social. Siempre requiere confirmación antes de publicar.
 
+- TikTok Ads MCP (lanzado Junio 2026): crear y gestionar campañas, analizar rendimiento, optimizar presupuesto. Incluye TikTok Ads Skills para automatización de flujos.
+- Google Ads MCP: consultar, analizar y recuperar datos de campañas mediante lenguaje natural. Compatible con el AI Agentic Hub de Google.
 - vibiz MCP: postear en múltiples redes sociales desde el agente.
 - Buffer MCP: programación de contenido en TikTok, Instagram, LinkedIn, X.
 - EditFrame: edición de video para contenido social.
 - Usefastlane: creación de contenido social automatizado.
 - Higgsfield: generación de contenido visual/video con AI.
+- Google Trends MCP: datos de tendencias de búsqueda para research de contenido.
 
-Regla: nunca publicar sin confirmación humana. Modo draft-only hasta validación manual.
+Regla: nunca publicar sin confirmación humana. Modo draft-only hasta validación manual. TikTok Ads MCP y Google Ads MCP requieren pasar por `mcp_security.md` antes de conectar credenciales de pago.
 
 ### Nivel 3 — Observability / Cloud infra
 

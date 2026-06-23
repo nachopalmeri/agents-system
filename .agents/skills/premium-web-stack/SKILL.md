@@ -21,6 +21,7 @@ allowed-tools: Read Write Grep WebSearch
 | Next.js | 15+ (App Router) | Framework base. Solo Astro si no hay estado complejo. |
 | Tailwind CSS | v4 | Estilos utility-first. Siempre. |
 | shadcn/ui | latest | Componentes base. Botones, cards, dialogs, forms. |
+| beUI | latest | Motion components vía shadcn registry. Alternativa a Radix UI para componentes animados. |
 | Radix UI | latest | Primitives accesibles debajo de shadcn. |
 | TypeScript | 5.x | Tipado estricto. |
 | Lucide React | latest | Iconos. |
@@ -78,6 +79,12 @@ npx create-next-app@latest my-premium-web --typescript --tailwind --app
 cd my-premium-web
 npx shadcn@latest init
 
+# beUI motion components (opcional — instalar según necesidad)
+bunx --bun shadcn add @beui/button
+bunx --bun shadcn add @beui/tilt-card
+bunx --bun shadcn add @beui/morphing-modal
+bunx --bun shadcn add @beui/command-palette
+
 # 3D
 npm install three @react-three/fiber @react-three/drei
 
@@ -113,12 +120,14 @@ Repo: [freshtechbro/claudedesignskills](https://github.com/freshtechbro/claudede
 - ❌ No usar CSS modules si hay Tailwind. Uno solo.
 - ❌ No importar Three.js completo. Usar tree-shaking: `import { Scene } from 'three'`.
 - ❌ No usar Framer Motion si hay Motion (es el reemplazo).
+- ❌ No construir animaciones desde cero si beUI ya tiene un componente que resuelve el caso.
 - ❌ No mezclar GSAP y Motion para lo mismo. GSAP = scroll/timeline. Motion = micro-interacciones.
 - ❌ No usar Lottie para animaciones simples que CSS resuelve.
 - ❌ No cargar fonts no-variable. Siempre variable fonts.
 
 ## Conexiones
 
+- `beui` skill — motion components vía shadcn registry. Capa de componentes sobre este stack.
 - `web-factory.md` — orquestación de agentes con este stack.
 - `world-class-web.md` — pipeline 10 etapas para proyectos ambiciosos.
 - `css-animations` skill — animaciones 2D puras.

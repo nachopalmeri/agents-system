@@ -52,6 +52,7 @@ Si el pedido puede caer en dos workflows, elegir el menor workflow suficiente y 
 | Paid media, ads, Meta, LinkedIn | `marketing.md` + evaluación MCP | Plan + riesgos + datos necesarios |
 | Social selling, DMs, leads | `marketing.md` + evaluación MCP | Flujo + handoff humano + seguridad |
 | Automatizar contenido social o marketing de app | `marketing.md` (automatización social) + `mcp_catalog.md` Nivel 2.5 | Guion → creación → adaptación → programación → medición |
+| Pipeline autónomo de contenido (Scout→Writer→Poster→CMO) | `content_automation.md` + `mcp_catalog.md` Nivel 2.5 | Pipeline 4 agentes + drafts en cada plataforma + reporte semanal CMO |
 | Research de competencia o audiencia | `marketing.md` | Mapa + gaps + CEP |
 | Integrar MCP o herramienta externa | `mcp_adoption.md` + `mcp_security.md` | Veredicto GO/NO-GO/PIVOT + config segura |
 | Crear MCP para que el agente se desarrolle contra la API propia | `mcp_catalog.md` (Nivel 1.7) + `mcp_adoption.md` | MCP search/use_tool → agente auto-update API → loop |

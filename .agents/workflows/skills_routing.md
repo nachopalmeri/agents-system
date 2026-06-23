@@ -144,7 +144,8 @@ Reglas:
 ### Diseño y frontend
 
 | Skill | Cuándo usarla |
-|---|---|
+|---|---|---|
+| `beui` | Motion components React vía shadcn registry — Tilt Card, Morphing Modal, Command Palette, Dynamic Island, etc. Requiere Tailwind 4 + React 19 + Motion |
 | `frontend-design` | Crear UI o páginas |
 | `web-presentation-premium` | Crear presentaciones web, pitch decks web, demos visuales, landings interactivas, Three.js/GSAP |
 | `adapt` | Ajustar responsive o diferentes contextos |

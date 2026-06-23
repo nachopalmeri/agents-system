@@ -132,6 +132,40 @@ Workflow interno:
 product_foundry.md + venture_loop.md
 ```
 
+## Eve Agent
+
+Usar para:
+- Crear agents con Vercel Eve framework (estructura tipo Next.js para agentes).
+- Agentes que necesitan channels (Slack, Discord, web), schedules, subagentes y sandbox.
+- Deploy en Vercel con infra lista.
+
+Comando típico:
+
+```powershell
+nuevo-proyecto mi-agent eve-agent
+```
+
+Estructura que genera:
+
+```text
+agent/
+├── instructions.md        # Rol del agente en markdown
+├── agent.ts               # Config de modelo y runtime
+├── skills/                # Skills en markdown
+├── tools/                 # Tools en TypeScript
+├── sandbox/               # Sandbox config
+├── channels/              # Slack, Discord, web, API
+├── subagents/             # Subagentes especializados
+├── schedules/             # Cron jobs
+└── connections/           # Auth para servicios externos
+```
+
+Workflow interno:
+
+```text
+web_briefing.md + ai_production.md
+```
+
 ## AI Production + Spec Kit
 
 Usar para:

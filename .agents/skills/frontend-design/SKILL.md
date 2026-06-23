@@ -16,6 +16,47 @@ Commit to a BOLD aesthetic direction:
 
 **CRITICAL**: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work—the key is intentionality, not intensity.
 
+## Design System `.md` Pattern
+
+Para outputs consistentes entre sesiones y modelos, mantener un archivo `design-system.md` en el proyecto con:
+
+- Paleta de colores (hex, uso: primary, secondary, accent, background, text).
+- Tipografía (font families, sizes, weights, line heights).
+- Espaciados (scale, grid, padding/margin defaults).
+- Componentes base (button, card, input, modal — estructura, no código).
+- Tono visual (glassmorphism, flat, neubrutalism, etc.).
+- Reglas (border-radius, shadow, transition defaults).
+
+Pasar este archivo como contexto al agente antes de generar UI. Resultado: outputs consistentes sin tener que repetir preferencias.
+
+Ejemplo de estructura:
+
+```markdown
+# Design System — [Project Name]
+
+## Colors
+- Primary: #6366F1 (Indigo 500)
+- Secondary: #EC4899 (Pink 500)
+- Background: #0F172A (Slate 900)
+- Text: #F8FAFC (Slate 50)
+
+## Typography
+- Display: Inter Variable, 800, 48px/1.1
+- Body: Inter Variable, 400, 16px/1.6
+- Mono: JetBrains Mono, 400, 14px/1.5
+
+## Spacing
+- Base unit: 4px
+- Section padding: 80px/40px (desktop/mobile)
+- Card gap: 24px
+
+## Components
+- Button: rounded-lg, px-6 py-3, transition-all, shadow-md
+- Card: rounded-xl, bg-slate-800/50, border border-slate-700, p-6
+```
+
+**Regla:** el `design-system.md` lo define el humano. El agente no lo modifica sin permiso.
+
 Then implement working code that is:
 - Production-grade and functional
 - Visually striking and memorable
