@@ -1,17 +1,12 @@
 ---
-description: Política global de trabajo para cualquier proyecto Antigravity, optimizada para claridad y uso eficiente de tokens
+description: ⚠️ DEPRECATED — reemplazado por AGENTS.md secciones 1 (Plan Mode), 4 (Verificación), 5 (Elegancia), 6 (Corrección autónoma) y chat-first.md. Política integrada en el flujo chat-first.
 ---
 
-# Política Global de Trabajo
+# ⚠️ DEPRECATED: Política Global de Trabajo
 
-Esta guía aplica a cualquier proyecto iniciado o editado desde Antigravity.
-La regla principal es simple:
+Este workflow está integrado en `AGENTS.md` secciones 1, 4, 5 y 6. Para niveles de intensidad, usar `chat-first.md` (liviano) y `index.md` (routing por tamaño).
 
-**Empezar liviano. Escalar el proceso solo cuando la tarea lo justifique.**
-
----
-
-## 1. Modo por Defecto: Directo y Breve
+Contenido original archivado en `docs/archive/work_policy-v1.md`.
 
 - Si la tarea es chica, clara y de bajo riesgo: ejecutar directo.
 - No crear planes largos, specs ni checklists para cambios obvios.

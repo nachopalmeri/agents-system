@@ -2,6 +2,7 @@
 name: teach-impeccable
 description: One-time setup that gathers design context for your project and saves it to your AI config file. Run once to establish persistent design guidelines.
 user-invokable: true
+platform: claude-code-only
 ---
 
 Gather design context for this project, then persist it for all future sessions.
@@ -67,3 +68,4 @@ Synthesize your findings and the user's answers into a `## Design Context` secti
 Write this section to CLAUDE.md in the project root. If the file exists, append or update the Design Context section.
 
 Confirm completion and summarize the key design principles that will now guide all future work.
+

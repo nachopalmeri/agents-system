@@ -2,6 +2,7 @@
 name: Writing Hookify Rules
 description: This skill should be used when the user asks to "create a hookify rule", "write a hook rule", "configure hookify", "add a hookify rule", or needs guidance on hookify rule syntax and patterns.
 version: 0.1.0
+platform: claude-code-only
 ---
 
 # Writing Hookify Rules
@@ -372,3 +373,5 @@ Warning message
 
 **Operators:**
 - `regex_match`, `contains`, `equals`, `not_contains`, `starts_with`, `ends_with`
+
+

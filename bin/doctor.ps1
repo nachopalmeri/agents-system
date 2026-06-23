@@ -40,8 +40,68 @@ try {
 }
 Add-Check "Ollama local" $ollamaReachable "http://127.0.0.1:11434"
 
+# ── Portability checks ──
+$entryPoints = @{
+    "GEMINI.md"                     = Join-Path $repoRoot "GEMINI.md"
+    "opencode.json"                 = Join-Path $repoRoot "opencode.json"
+    ".github/copilot-instructions.md" = $null
+    ".zed/settings.json"            = $null
+}
+$entryPoints['.github/copilot-instructions.md'] = Join-Path $repoRoot ".github\copilot-instructions.md"
+$entryPoints['.zed/settings.json'] = Join-Path $repoRoot ".zed\settings.json"
+
+$portabilityScore = 0
+$portabilityTotal = 0
+
+foreach ($ep in $entryPoints.Keys) {
+    $epPath = $entryPoints[$ep]
+    $exists = Test-Path $epPath
+    $portabilityTotal++
+    if ($exists) { $portabilityScore++ }
+    Add-Check "Entry: $ep" $exists $epPath
+}
+
+# Check IDE configs (global)
+$ideConfigs = @{
+    "~/.agents/AGENTS.md" = Join-Path $homeDir ".agents\AGENTS.md"
+    "~/.config/opencode/opencode.jsonc" = Join-Path $homeDir ".config\opencode\opencode.jsonc"
+    "~/AGENTS.md (root)" = Join-Path $homeDir "AGENTS.md"
+}
+
+foreach ($ic in $ideConfigs.Keys) {
+    $icPath = $ideConfigs[$ic]
+    $exists = Test-Path $icPath
+    $portabilityTotal++
+    if ($exists) { $portabilityScore++ }
+    Add-Check "IDE: $ic" $exists $icPath
+}
+
+# Check skills with platform: claude-code-only label
+$skillsDir = Join-Path $repoRoot ".agents\skills"
+$totalSkills = 0
+$ccOnlySkills = 0
+if (Test-Path $skillsDir) {
+    $skillDirs = Get-ChildItem -Path $skillsDir -Directory
+    $totalSkills = $skillDirs.Count
+    foreach ($sk in $skillDirs) {
+        $skMd = Join-Path $sk.FullName "SKILL.md"
+        if (Test-Path $skMd) {
+            $content = Get-Content $skMd -Raw
+            if ($content -match 'platform:\s*claude-code-only') {
+                $ccOnlySkills++
+            }
+        }
+    }
+    $portabilityTotal++
+    if ($ccOnlySkills -gt 0) { $portabilityScore++ }
+    Add-Check "Skills: CC-only labeled" ($ccOnlySkills -gt 0) "$ccOnlySkills/$totalSkills skills labeled claude-code-only"
+
+    Add-Check "Skills: all CC skills labeled" ($ccOnlySkills -ge 10) "$ccOnlySkills/78 skills labeled (10 expected claude-code-only)"
+}
+
 Write-Host "Agents System Doctor" -ForegroundColor Cyan
 Write-Host "Repo: $repoRoot"
+Write-Host "Portability Score: $portabilityScore / $portabilityTotal"
 Write-Host ""
 
 foreach ($check in $checks) {

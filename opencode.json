@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "agents": {
+    "AGENTS.md": {
+      "source": "AGENTS.md",
+      "auto_load": true
+    }
+  }
+}
