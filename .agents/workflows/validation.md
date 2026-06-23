@@ -11,8 +11,8 @@ Nunca declarar victoria sin evidencia. Validar no es "me parece correcto"; es co
 ## Orden de cierre
 
 1. Checklist tecnico: scope, tests, secrets y riesgos.
-2. Actualizar `tasks/handoff.md` con el estado real si existe.
-3. Revisar `tasks/tech-debt.md`: si se agrego deuda intencional, registrarla.
+2. Actualizar `.agents/tasks/handoff.md` con el estado real si existe.
+3. Revisar `.agents/tasks/tech-debt.md`: si se agrego deuda intencional, registrarla.
 4. Ejecutar `feedback_loop.md` para errores de la sesion.
 5. Ejecutar `promote_lesson.md` para candidatos globales.
 6. Ejecutar `obsidian_sync.md` para retro, decision o nota relevante.
@@ -56,7 +56,7 @@ Si el proyecto tiene flujos de usuario criticos (login, signup, checkout, CRUD p
 ### 4. Riesgos pendientes
 
 - Separar lo validado de lo no validado.
-- Si hay deuda, bloqueo o decision fragil, dejarla en `tasks/tech-debt.md`, `tasks/decisions.md` o `tasks/handoff.md` segun corresponda.
+- Si hay deuda, bloqueo o decision fragil, dejarla en `.agents/tasks/tech-debt.md`, `.agents/tasks/decisions.md` o `.agents/tasks/handoff.md` segun corresponda.
 
 ## Niveles de evidencia
 
@@ -72,7 +72,7 @@ Si el proyecto tiene flujos de usuario criticos (login, signup, checkout, CRUD p
 
 ## Handoff minimo
 
-Si existe `tasks/handoff.md`, debe quedar actualizado con:
+Si existe `.agents/tasks/handoff.md`, debe quedar actualizado con:
 
 - Estado actual.
 - Ultima sesion.

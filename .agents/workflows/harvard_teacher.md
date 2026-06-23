@@ -72,7 +72,7 @@ Debe ser una regla o principio generalizable, no solo "hice X".
 
 ## Ejemplo de Invocación
 
-Después de implementar un cambio, el agente debe añadir una sección como esta en su respuesta o en `tasks/lessons.md`:
+Después de implementar un cambio, el agente debe añadir una sección como esta en su respuesta o en `.agents/tasks/lessons.md`:
 
 ```markdown
 ## 📚 Clase del Profesor — [Título del Cambio]

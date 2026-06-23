@@ -12,16 +12,16 @@ description: Routine semanal breve para revisar avance, bloqueos, lecciones, deu
 
 ## Pasos
 
-1. Revisar `tasks/todo.md` de proyectos activos:
+1. Revisar `.agents/tasks/todo.md` de proyectos activos:
    - Que avanzo.
    - Que se trabo.
    - Por que.
-2. Revisar `tasks/lessons.md`:
+2. Revisar `.agents/tasks/lessons.md`:
    - Que errores se repitieron esta semana.
    - Si alguno es candidato a leccion global.
-3. Revisar `tasks/handoff.md`:
+3. Revisar `.agents/tasks/handoff.md`:
    - Si refleja el estado real.
-4. Revisar `tasks/tech-debt.md`:
+4. Revisar `.agents/tasks/tech-debt.md`:
    - Si alguna deuda se volvio urgente.
 5. Proponer actualizacion a `developer_growth.md` si hay evidencia nueva.
 6. Generar nota semanal en el vault:

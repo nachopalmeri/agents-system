@@ -34,7 +34,7 @@ IMPROVE→ proponer mejora sistémica si aplica (N>=3)
 
 ## Captura Automática
 
-Al detectar una señal, registrar en `tasks/lessons.md` del proyecto actual:
+Al detectar una señal, registrar en `.agents/tasks/lessons.md` del proyecto actual:
 
 ```markdown
 ## YYYY-MM-DD HH:mm - [ROUTING|OUTPUT|SCOPE|QUALITY] Título breve
@@ -52,7 +52,7 @@ Al detectar una señal, registrar en `tasks/lessons.md` del proyecto actual:
 
 Al capturar una lección, el Harness verifica:
 
-1. ¿Este mismo patrón ya apareció antes en `tasks/lessons.md`?
+1. ¿Este mismo patrón ya apareció antes en `.agents/tasks/lessons.md`?
 2. Si sí → incrementar contador de repeticiones
 3. Si contador >= 3 → marcar como candidato a promoción global
 4. Si contador >= 5 → preparar propuesta de cambio en regla/AGENTS.md
@@ -61,7 +61,7 @@ Al capturar una lección, el Harness verifica:
 
 Cuando mismo patrón aparece 3+ veces en la sesión o proyecto:
 
-1. Preparar propuesta de promoción a `memory/lessons-global.md`
+1. Preparar propuesta de promoción a `.agents/memory/lessons-global.md`
 2. Mostrar al usuario al final de la tarea o sesión:
    - Patrón detectado N veces
    - Lección local
@@ -106,7 +106,7 @@ El modo se define en la primera señal de la sesión. Si el usuario está debugg
 
 ## Hard Stops
 
-- Nunca modificar `AGENTS.md`, workflows globales o `memory/lessons-global.md` sin confirmación explícita
+- Nunca modificar `AGENTS.md`, workflows globales o `.agents/memory/lessons-global.md` sin confirmación explícita
 - Nunca interrumpir el flujo de trabajo para capturar una lección - la captura es asíncrona
 - Nunca capturar ruido: si no hay evidencia clara, no registrar
 - Nunca promover con menos de 3 apariciones del mismo patrón

@@ -50,8 +50,8 @@ Si la herramienta no soporta slash commands, replicar el flujo manualmente usand
 
 Spec Kit no reemplaza:
 - `AGENTS.md`
-- `tasks/todo.md`
-- `tasks/lessons.md`
+- `.agents/tasks/todo.md`
+- `.agents/tasks/lessons.md`
 - agentes por rol
 - workflows globales
 

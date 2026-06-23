@@ -35,7 +35,7 @@ Cuando el usuario corrige al agente o el agente detecta que fallo, el error se c
    - No registrar sintomas.
    - Preguntar: que regla, criterio, dato o hard stop falto para evitarlo.
 
-3. **Registrar en `tasks/lessons.md` del proyecto si existe**
+3. **Registrar en `.agents/tasks/lessons.md` del proyecto si existe**
    - Si no existe y el proyecto es mediano/grande, proponer crearlo.
    - Si no existe y el trabajo es chico, reportar la leccion en el cierre sin crear archivo.
 
@@ -46,7 +46,7 @@ Cuando el usuario corrige al agente o el agente detecta que fallo, el error se c
 5. **Preguntar al cierre**
    - "Este error te paso antes en otro proyecto? Si si, es candidato a leccion global; decime y lo promovemos."
 
-## Formato para `tasks/lessons.md`
+## Formato para `.agents/tasks/lessons.md`
 
 ```markdown
 ## YYYY-MM-DD - [ROUTING|OUTPUT|SCOPE|QUALITY] Titulo corto

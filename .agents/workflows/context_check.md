@@ -51,7 +51,7 @@ Proximo paso:
 
 - Si la sesion es larga, combinar con `session_checkpoint.md`.
 - Si la degradacion nace de errores repetidos, combinar con `feedback_loop.md`.
-- Si el trabajo queda pausado, actualizar `tasks/handoff.md` si existe.
+- Si el trabajo queda pausado, actualizar `.agents/tasks/handoff.md` si existe.
 
 ## Hard stops
 

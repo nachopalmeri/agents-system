@@ -131,7 +131,7 @@ Setup completo en `docs/setup-guide.md`. Resumen:
 - OpenCode/Codex/Antigravity: carga AGENTS.md automáticamente.
 - Claude Code: CLAUDE.md importa AGENTS.md. Symlinks con `bin/setup-ide-pointers.ps1`.
 - Devin Desktop: ACP permite múltiples agentes. AGENTS.md es contexto compartido.
-- ChatGPT/Claude web/Gemini: pegar `prompts/activate-global.md`.
+- ChatGPT/Claude web/Gemini: pegar `.agents/prompts/activate-global.md`.
 - Aider: `.aider.conf.yml` apunta a AGENTS.md.
 - AGENTS.override.md (Codex): override por directorio. Gitignored.
 
@@ -143,6 +143,8 @@ Definiciones completas en `.agents/agents/`. Registry:
 - agente-marketing-strategist, agente-growth-seo-geo, agente-product-founder
 - agente-ai-architect, agente-security-auditor, agente-mcp-architect
 - agente-obsidian-brain, agente-code-reviewer, agente-researcher, agente-release-manager
+- agente-academic-tutor, agente-x-content-strategist
+- kickoff-architect, workflow-pruner
 
 (Gloaguen et al. 2026: listar por nombre e invocación, definiciones en archivos separados, no inline.)
 

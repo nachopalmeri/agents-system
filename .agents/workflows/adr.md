@@ -11,7 +11,7 @@ Este workflow se dispara automáticamente cuando:
 1. `irreversible_decision.md` se activa, Y
 2. El proyecto tiene más de 2 semanas de duración estimada.
 
-Si el proyecto es chico (< 2 semanas), alcanza con el registro en `tasks/decisions.md`.
+Si el proyecto es chico (< 2 semanas), alcanza con el registro en `.agents/tasks/decisions.md`.
 
 ## Dónde viven los ADRs
 
@@ -69,7 +69,7 @@ Cuándo tiene sentido revisar esta decisión (fecha, hito o condición).
 - Los ADRs se numeran secuencialmente: ADR-001, ADR-002, etc.
 - **Nunca se borran.** Si una decisión cambia, el ADR viejo se marca como `Deprecada` o `Reemplazada por ADR-X`.
 - Al cierre del proyecto, los ADRs se sincronizan al vault vía `obsidian_sync.md`.
-- Un ADR no reemplaza el registro en `tasks/decisions.md` — lo complementa con más contexto.
+- Un ADR no reemplaza el registro en `.agents/tasks/decisions.md` — lo complementa con más contexto.
 
 ## Flujo
 
@@ -78,7 +78,7 @@ Cuándo tiene sentido revisar esta decisión (fecha, hito o condición).
 3. Escribir el ADR siguiendo el formato estándar.
 4. Numerar secuencialmente (buscar el último ADR existente).
 5. Guardar en `docs/adr/ADR-XXX-titulo.md`.
-6. Referenciar el ADR desde `tasks/decisions.md`.
+6. Referenciar el ADR desde `.agents/tasks/decisions.md`.
 7. Continuar con el flujo normal de `irreversible_decision.md`.
 
 ## Hard stops

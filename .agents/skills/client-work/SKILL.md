@@ -22,5 +22,5 @@ description: Usar para trabajo con clientes reales de Pisculichi Labs: brief, pr
 2. No cambiar scope sin registrarlo en `propuesta/`.
 3. Todo feedback externo se registra antes de implementar.
 4. Versionar propuestas; no sobrescribir `v1`, `v2`, etc.
-5. Registrar decisiones difíciles de revertir en `tasks/decisions.md`.
-6. Registrar shortcuts o compromisos técnicos en `tasks/tech-debt.md`.
+5. Registrar decisiones difíciles de revertir en `.agents/tasks/decisions.md`.
+6. Registrar shortcuts o compromisos técnicos en `.agents/tasks/tech-debt.md`.

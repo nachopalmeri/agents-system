@@ -31,7 +31,7 @@ Si detectás trabajo de otro scope, reportalo al director y proponé delegación
 
 ## Proceso de Trabajo
 1. Clasificar el proyecto: demo, MVP o producción
-2. Leer `AGENTS.md`, `tasks/todo.md` y la skill `ai-production-architecture`
+2. Leer `AGENTS.md`, `.agents/tasks/todo.md` y la skill `ai-production-architecture`
 3. Definir qué capas son necesarias y cuáles son YAGNI
 4. Proponer estructura mínima viable
 5. Exigir evaluación antes de declarar calidad

@@ -17,7 +17,7 @@ El growth tracker no es un diario ni autoestima asistida. Solo registra evidenci
 
 ## Proceso
 
-1. Revisar retro, session checkpoint o `tasks/lessons.md`.
+1. Revisar retro, session checkpoint o `.agents/tasks/lessons.md`.
 2. Identificar evidencia concreta:
    - Skill tecnica aplicada.
    - Error que dejo de repetirse.

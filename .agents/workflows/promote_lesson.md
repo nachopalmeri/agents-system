@@ -16,15 +16,15 @@ Una leccion global solo existe si aparecio en 2+ proyectos o el usuario confirma
 
 ## Fuentes
 
-- `tasks/lessons.md` del proyecto actual.
+- `.agents/tasks/lessons.md` del proyecto actual.
 - `.agents/memory/lessons-global.md`.
 - Retros del vault generadas por `obsidian_sync.md`.
 - Evidencia explicita del usuario si el proyecto anterior no esta disponible.
 
 ## Proceso
 
-1. Revisar `tasks/lessons.md` del proyecto actual.
-2. Para cada leccion, buscar si aparecio en otro proyecto anterior.
+1. Revisar `.agents/tasks/lessons.md` del proyecto actual.
+2. Para cada leccion, leer `.agents/projects-index.md` y buscar si aparecio en otro proyecto activo.
 3. Si aparece en 2+ proyectos, marcar como candidata.
 4. Mostrar al usuario:
    - Leccion local.
@@ -53,7 +53,7 @@ Candidato a leccion global:
 Confirmas promocion? (si/no/ajustar)
 ```
 
-## Formato en `lessons-global.md`
+## Formato en `.agents/memory/lessons-global.md`
 
 ```markdown
 ### YYYY-MM-DD - Titulo accionable

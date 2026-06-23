@@ -14,13 +14,13 @@ Memoria durable para patrones que deben afectar como trabaja el agente en cualqu
 - No es inbox.
 - No es backlog infinito.
 - No es lugar para guardar preferencias aisladas.
-- No reemplaza `tasks/lessons.md` de cada proyecto.
+- No reemplaza `.agents/tasks/lessons.md` de cada proyecto.
 
 ## Local vs global
 
 | Archivo | Scope | Cuando se usa |
 |---|---|---|
-| `tasks/lessons.md` | Proyecto actual | Error, decision o aprendizaje local |
+| `.agents/tasks/lessons.md` | Proyecto actual | Error, decision o aprendizaje local |
 | `.agents/memory/lessons-global.md` | Sistema completo | Lecciones repetidas en 2+ proyectos o confirmadas como durables |
 | `.agents/memory/developer_growth.md` | Crecimiento profesional | Evidencia concreta de evolucion tecnica y criterio |
 

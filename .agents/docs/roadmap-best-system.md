@@ -29,7 +29,7 @@ El sistema tiene dreaming manual (session_checkpoint). El próximo nivel es un l
 
 ### Implementación
 1. Crear `workflows/dreaming.md` — workflow que:
-   - Lee `memory/lessons-global.md`, `tasks/lessons.md`, `memory/developer_growth.md`
+   - Lee `.agents/memory/lessons-global.md`, `.agents/tasks/lessons.md`, `.agents/memory/developer_growth.md`
    - Detecta patrones repetidos (N≥3)
    - Propone promociones a reglas globales
    - Identifica lecciones stale (sin mención en 30+ días → candidato a poda)

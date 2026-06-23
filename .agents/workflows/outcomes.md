@@ -148,13 +148,13 @@ El grader también verifica:
 
 Si score ≥ threshold y todos los criterios obligatorios son true:
 
-1. Guardar score en `memory/outcome-scores.md` para tracking.
+1. Guardar score en `.agents/memory/outcome-scores.md` para tracking.
 2. Declarar listo con evidencia (score + gaps resueltos).
 3. Si score < 10, listar mejoras opcionales como "nice to have".
 
 ## Tracking de scores
 
-En `memory/outcome-scores.md`:
+En `.agents/memory/outcome-scores.md`:
 
 ```markdown
 # Outcome Scores

@@ -21,7 +21,7 @@ description: Política de seguridad para evaluar, configurar y usar MCPs
 - Usar env vars para API keys.
 - Deshabilitar MCPs por defecto si no son necesarios.
 - Limitar herramientas por agente cuando sea posible.
-- Documentar cada MCP en `docs/` o `tasks/lessons.md` si cambia el flujo.
+- Documentar cada MCP en `docs/` o `.agents/tasks/lessons.md` si cambia el flujo.
 
 ## Reglas de uso
 
