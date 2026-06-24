@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pisculichi Labs — Agent Ecosystem</title>
+<meta name="description" content="Interactive visualization of the Pisculichi Labs multi-agent ecosystem. See how 10+ AI agents collaborate, delegate, and execute workflows in real time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06050f;
+  --text:#f0f0f4;
+  --muted:rgba(240,240,244,.5);
+  --dim:rgba(240,240,244,.2);
+  --glass:rgba(12,10,30,.55);
+  --border:rgba(255,255,255,.07);
+  --font:'Plus Jakarta Sans',system-ui,sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+  --ease:cubic-bezier(.25,1,.5,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── BG ── */
+#scene{position:fixed;inset:0;overflow:hidden}
+#scene::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 80% 60% at 50% 40%,rgba(59,130,246,.06) 0%,transparent 70%),
+  radial-gradient(ellipse 60% 50% at 80% 70%,rgba(168,85,247,.04) 0%,transparent 60%);
+  pointer-events:none}
+
+/* ── INTRO ── */
+#intro{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#05040d;cursor:pointer;transition:opacity .8s var(--ease),transform 1s var(--ease)}
+#intro.hide{opacity:0;transform:scale(1.06);pointer-events:none}
+#intro .brand{font-family:var(--serif);font-size:clamp(40px,8vw,68px);font-weight:400;letter-spacing:-2px;background:linear-gradient(180deg,#fff 30%,rgba(255,255,255,.55));-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:up .9s var(--ease) .2s forwards}
+#intro .sub{font-size:clamp(13px,2vw,16px);color:var(--muted);font-weight:300;margin:14px 0 44px;opacity:0;animation:up .9s var(--ease) .45s forwards}
+#intro .cta{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:100px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);backdrop-filter:blur(10px);color:#fff;font-size:14px;font-weight:600;letter-spacing:.4px;cursor:pointer;transition:all .3s var(--ease);opacity:0;animation:up .9s var(--ease) .7s forwards;font-family:var(--font)}
+#intro .cta:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);transform:translateY(-2px);box-shadow:0 0 24px rgba(255,255,255,.06)}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── CANVAS ── */
+canvas{position:absolute;inset:0;pointer-events:none}
+#c1{z-index:1}
+#c2{z-index:4}
+
+/* ── VIEWPORT ── */
+#vp{position:absolute;inset:0;z-index:2;transition:transform 1.2s var(--ease);will-change:transform}
+
+/* ── AGENT NODES ── */
+.ag{position:absolute;transform:translate(-50%,-50%);cursor:pointer;display:flex;flex-direction:column;align-items:center;pointer-events:auto;opacity:0;z-index:10;transition:opacity .7s var(--ease),filter .8s var(--ease),transform 1s var(--ease)}
+.ag.vis{opacity:1}
+.ag .nd{width:80px;height:80px;border-radius:22px;overflow:hidden;border:1.5px solid var(--border);background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 4px 20px rgba(0,0,0,.35);transition:all .45s var(--ease);position:relative}
+.ag .nd img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.1);transition:transform .5s var(--ease)}
+.ag .nd::after{content:'';position:absolute;inset:-1px;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,transparent 55%);pointer-events:none}
+.ag .inf{margin-top:10px;text-align:center;pointer-events:none}
+.ag .nm{font-size:13px;font-weight:700;letter-spacing:-.2px;color:#fff;transition:color .3s}
+.ag .rl{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-top:2px}
+
+/* Hover */
+.ag:hover{z-index:15}
+.ag:hover .nd{border-color:var(--ac);box-shadow:0 0 28px var(--as),0 8px 32px rgba(0,0,0,.4);transform:translateY(-5px) scale(1.06)}
+.ag:hover .nd img{transform:scale(1.08)}
+.ag:hover .nm{color:var(--ac)}
+
+/* Selected */
+.ag.sel{z-index:30}
+.ag.sel .nd{width:108px;height:108px;border-radius:28px;border-color:var(--ac);box-shadow:0 0 50px var(--as),0 12px 48px rgba(0,0,0,.5)}
+.ag.sel .nm{font-size:16px;color:var(--ac)}
+.ag.sel .rl{font-size:10px;color:#fff}
+
+/* Retired */
+.ag.ret{opacity:0;filter:blur(8px);pointer-events:none;transform:translate(-50%,-50%) scale(.55)}
+
+/* ── SUB-UNIVERSE ── */
+#su{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .7s var(--ease)}
+#su.on{opacity:1}
+.sn{position:absolute;transform:translate(-50%,-50%) scale(.7);opacity:0;pointer-events:auto;cursor:pointer;padding:7px 16px;border-radius:100px;background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 3px 14px rgba(0,0,0,.25);transition:all .35s var(--ease);text-align:center;white-space:nowrap}
+.sn.vis{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.sn:hover{border-color:var(--sc);box-shadow:0 0 14px var(--ss);transform:translate(-50%,-50%) scale(1.1)}
+.sn .sl{font-size:11px;font-weight:600;color:#fff}
+.sn .st{font-size:7px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--sc);margin-top:1px}
+.sn .sd{width:5px;height:5px;border-radius:50%;background:var(--sc);position:absolute;top:-3px;left:50%;transform:translateX(-50%);box-shadow:0 0 6px var(--sc)}
+
+/* ── HEADER ── */
+header{position:fixed;top:32px;left:36px;z-index:40;opacity:0;transform:translateY(-8px);transition:all .7s var(--ease) .2s;pointer-events:none}
+header.vis{opacity:1;transform:translateY(0)}
+header h1{font-family:var(--serif);font-size:28px;font-weight:400;color:#fff;letter-spacing:-.8px}
+header .tag{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+
+/* ── BACK ── */
+#back{position:fixed;top:32px;right:36px;z-index:45;display:flex;align-items:center;gap:7px;padding:10px 22px;border-radius:100px;border:1px solid var(--border);background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:all .35s var(--ease);opacity:0;pointer-events:none;transform:translateY(-8px);font-family:var(--font)}
+#back.vis{opacity:1;pointer-events:auto;transform:translateY(0)}
+#back:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);transform:translateY(-2px)}
+
+/* ── HUD ── */
+#hud{position:fixed;bottom:36px;left:36px;width:310px;z-index:40;background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;transform:translateY(16px);transition:all .5s var(--ease);box-shadow:0 8px 36px rgba(0,0,0,.4);pointer-events:none}
+#hud.on{opacity:1;transform:translateY(0);pointer-events:auto}
+#hud .hh{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+#hud .dot{width:7px;height:7px;border-radius:50%;box-shadow:0 0 8px currentColor}
+#hud .hn{font-size:15px;font-weight:700;color:#fff}
+#hud .hr{font-size:8px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-left:auto}
+#hud .hb{font-size:12px;color:var(--muted);line-height:1.6}
+#hud .hm{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.05);font-size:10px;color:var(--dim)}
+
+/* ── WORKFLOWS PANEL ── */
+#wfp{position:fixed;bottom:36px;right:36px;width:330px;z-index:40;background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:22px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;transform:translateY(16px);transition:all .7s var(--ease) .3s;box-shadow:0 8px 36px rgba(0,0,0,.4)}
+#wfp.vis{opacity:1;transform:translateY(0)}
+#wfp.off{opacity:0;transform:translateY(16px);pointer-events:none}
+#wfp h3{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#fff;margin-bottom:3px}
+#wfp>p{font-size:11px;color:var(--muted);margin-bottom:14px}
+.wi{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border-radius:11px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);cursor:pointer;transition:all .3s var(--ease);margin-bottom:7px}
+.wi:last-child{margin-bottom:0}
+.wi:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);transform:translateX(-3px)}
+.wi.on{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3)}
+.wn{font-size:12px;font-weight:600;color:#fff}
+.ws{font-size:8px;color:var(--dim);font-weight:500;margin-top:2px}
+.wp{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0}
+.wi:hover .wp{background:#3B82F6}
+.wp svg{width:9px;height:9px;fill:#fff}
+
+/* ── STAGE HUD ── */
+#sh{position:fixed;top:32px;left:50%;transform:translateX(-50%) translateY(-16px);z-index:50;opacity:0;display:flex;align-items:center;gap:14px;background:rgba(12,10,30,.92);border:1px solid rgba(59,130,246,.25);border-radius:100px;padding:7px 22px 7px 14px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 0 28px rgba(59,130,246,.15),0 8px 36px rgba(0,0,0,.5);transition:all .45s var(--ease);pointer-events:none}
+#sh.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.sb{padding:5px 11px;border-radius:100px;font-size:8px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff;white-space:nowrap}
+.stx{font-size:12px;font-weight:600;color:#fff}
+.stp{font-size:10px;color:var(--muted)}
+
+/* ── HINT ── */
+#hint{position:fixed;bottom:36px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;font-weight:600;z-index:5;pointer-events:none;opacity:0;transition:opacity .8s var(--ease) .5s}
+#hint.vis{opacity:1}
+
+/* ── USER NODE ── */
+#un{position:absolute;width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translate(-50%,-50%) scale(0);opacity:0;transition:all .7s var(--ease);z-index:12;box-shadow:0 4px 16px rgba(0,0,0,.3)}
+#un.on{transform:translate(-50%,-50%) scale(1);opacity:1}
+#un svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;opacity:.8}
+#un .ul{position:absolute;bottom:-18px;font-size:9px;font-weight:700;letter-spacing:.4px;color:#fff;white-space:nowrap}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  #vp{position:relative;inset:auto;transform:none!important;height:auto;min-height:100vh}
+  .ag{position:relative!important;transform:none!important;left:auto!important;top:auto!important}
+  #c1,#c2,#su{display:none}
+  #hud,#wfp{width:calc(100% - 40px);left:20px;right:20px}
+}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <div class="brand">Pisculichi Labs</div>
+  <div class="sub">A network of AI agents that think, collaborate, and ship together</div>
+  <button class="cta">Explore the ecosystem →</button>
+</div>
+
+<div id="scene">
+  <canvas id="c1"></canvas>
+  <canvas id="c2"></canvas>
+
+  <div id="vp"></div>
+  <div id="su"></div>
+
+  <div id="un">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <div class="ul">User</div>
+  </div>
+
+  <header><h1>Pisculichi Labs</h1><div class="tag">Agent Ecosystem</div></header>
+  <button id="back"><span>←</span> Back to network</button>
+  <div id="hint">Click any agent to expand its universe · Play a workflow to see collaboration</div>
+
+  <div id="hud">
+    <div class="hh"><div class="dot" id="hdot"></div><div class="hn" id="hname"></div><div class="hr" id="hrole"></div></div>
+    <div class="hb" id="hbody"></div>
+    <div class="hm" id="hmeta"></div>
+  </div>
+
+  <div id="wfp">
+    <h3>Live Workflows</h3>
+    <p>Watch information flow through agents in real time</p>
+    <div id="wfl"></div>
+  </div>
+
+  <div id="sh">
+    <div class="sb" id="sa"></div>
+    <div class="stx" id="stxt"></div>
+    <div class="stp" id="sstp"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════ DATA — FROM .agents/ SYSTEM ═══════════════════
+
+const C = {
+  principal:  {c:'#3B82F6',s:'rgba(59,130,246,.12)'},
+  design:     {c:'#A855F7',s:'rgba(168,85,247,.12)'},
+  tests:      {c:'#22C55E',s:'rgba(34,197,94,.12)'},
+  docs:       {c:'#FACC15',s:'rgba(250,204,21,.12)'},
+  seo:        {c:'#38BDF8',s:'rgba(56,189,248,.12)'},
+  growth:     {c:'#10B981',s:'rgba(16,185,129,.12)'},
+  product:    {c:'#F472B6',s:'rgba(244,114,182,.12)'},
+  architect:  {c:'#F97316',s:'rgba(249,115,22,.12)'},
+  security:   {c:'#EF4444',s:'rgba(239,68,68,.12)'},
+  mcp:        {c:'#06B6D4',s:'rgba(6,182,212,.12)'}
+};
+
+const AGENTS = [
+  {id:'principal', name:'Director',    role:'Orchestrator / Core Dev',
+   img:'agent-assets/director.jpg',
+   desc:'Central nervous system. Routes tasks, delegates to specialists, manages Git commits, validates before declaring done. Coordinates the entire ecosystem.',
+   x:50,y:42,
+   subs:[
+     {l:'Task Routing',t:'workflow'},{l:'Agent Delegation',t:'workflow'},
+     {l:'Error Recovery',t:'workflow'},{l:'Engram Memory',t:'memory'},
+     {l:'Git / Bash',t:'tool'},{l:'Session Checkpoint',t:'workflow'}
+   ]},
+  {id:'architect', name:'AI Architect',role:'RAG / LLM Systems',
+   img:'agent-assets/architect.jpg',
+   desc:'Designs production AI/RAG pipelines, prompt registries, semantic caches, evaluation pipelines, and cost tracking. Classifies projects as demo/MVP/production.',
+   x:78,y:22,
+   subs:[
+     {l:'RAG Pipeline',t:'workflow'},{l:'Prompt Registry',t:'memory'},
+     {l:'Semantic Cache',t:'tool'},{l:'Cost Tracking',t:'workflow'},
+     {l:'Golden Datasets',t:'memory'},{l:'LangChain / FastAPI',t:'tool'}
+   ]},
+  {id:'design',    name:'Designer',    role:'UI / Visual / CSS',
+   img:'agent-assets/product.jpg',
+   desc:'CSS, responsive layouts (mobile-first), animations, accessibility, dark mode, component systems. Never touches business logic — pure visual craft.',
+   x:24,y:22,
+   subs:[
+     {l:'CSS Components',t:'tool'},{l:'Mobile-First',t:'workflow'},
+     {l:'Design Tokens',t:'memory'},{l:'Animation System',t:'workflow'},
+     {l:'Figma API',t:'tool'},{l:'shadcn/ui',t:'tool'}
+   ]},
+  {id:'growth',    name:'Growth',      role:'SEO / GEO / AEO Strategy',
+   img:'agent-assets/growth.jpg',
+   desc:'Strategic organic acquisition — keyword mapping, programmatic SEO, local SEO, GEO/AEO for AI search visibility. Builds 30/60/90 day growth backlogs.',
+   x:86,y:55,
+   subs:[
+     {l:'Keyword Mapping',t:'workflow'},{l:'Search Console',t:'tool'},
+     {l:'GA4 Analytics',t:'tool'},{l:'Programmatic SEO',t:'workflow'},
+     {l:'Citations DB',t:'memory'},{l:'Competitor Intel',t:'memory'}
+   ]},
+  {id:'seo',       name:'SEO Tech',    role:'On-Page / Technical SEO',
+   img:'agent-assets/researcher.jpg',
+   desc:'Meta tags, Open Graph, Twitter Cards, heading hierarchy, alt text, sitemap.xml, robots.txt, JSON-LD schema, canonical URLs. Technical execution from Growth strategy.',
+   x:88,y:35,
+   subs:[
+     {l:'Meta Tags',t:'tool'},{l:'JSON-LD Schema',t:'workflow'},
+     {l:'Sitemap Generator',t:'tool'},{l:'Canonical URLs',t:'workflow'},
+     {l:'Heading Hierarchy',t:'memory'},{l:'Open Graph',t:'tool'}
+   ]},
+  {id:'security',  name:'Security',    role:'Guardian / Audit',
+   img:'agent-assets/security.jpg',
+   desc:'Reviews secrets, unsafe commands, dependency risks, MCP permissions. Issues GO/NO-GO/PIVOT verdicts. Scans before any publication or merge.',
+   x:62,y:76,
+   subs:[
+     {l:'Semgrep Scanner',t:'tool'},{l:'GitLeaks Scan',t:'tool'},
+     {l:'Risk Registry',t:'memory'},{l:'Auth Flow Review',t:'workflow'},
+     {l:'Dep Check',t:'workflow'},{l:'Credential Guard',t:'memory'}
+   ]},
+  {id:'tests',     name:'QA',          role:'Testing / E2E / Coverage',
+   img:'agent-assets/reviewer.jpg',
+   desc:'Unit tests, E2E browser testing with Playwright, coverage gates, mocks/fixtures. Read-only — never modifies production code. Guarantees correctness.',
+   x:38,y:76,
+   subs:[
+     {l:'Playwright E2E',t:'tool'},{l:'Vitest Suite',t:'tool'},
+     {l:'Coverage Gate',t:'workflow'},{l:'Code Review',t:'workflow'},
+     {l:'Test Patterns',t:'memory'},{l:'CI/CD Config',t:'tool'}
+   ]},
+  {id:'docs',      name:'Docs',        role:'Technical Documentation',
+   img:'agent-assets/content.jpg',
+   desc:'READMEs, JSDoc/docstrings, API docs, changelogs, setup guides. Ensures any developer can understand and contribute to the project.',
+   x:14,y:55,
+   subs:[
+     {l:'README Gen',t:'workflow'},{l:'API Docs',t:'workflow'},
+     {l:'Changelog',t:'workflow'},{l:'Obsidian Vault',t:'tool'},
+     {l:'Style Guide',t:'memory'},{l:'Setup Guides',t:'workflow'}
+   ]},
+  {id:'product',   name:'Product',     role:'Founder / MVP Builder',
+   img:'agent-assets/marketing.jpg',
+   desc:'Ideates products, scores opportunities (9 dimensions), defines MVPs, validates demand with kill/scale criteria. Connects to Growth for acquisition.',
+   x:14,y:35,
+   subs:[
+     {l:'Product Scoring',t:'workflow'},{l:'MVP Definition',t:'workflow'},
+     {l:'Venture Loop',t:'workflow'},{l:'Kill/Scale Gate',t:'memory'},
+     {l:'Market Signals',t:'memory'},{l:'Landing Builder',t:'tool'}
+   ]},
+  {id:'mcp',       name:'MCP Arch',    role:'Tool Integration',
+   img:'agent-assets/mcp.jpg',
+   desc:'MCP architecture specialist — secure, portable, opt-in integrations. Classifies MCPs by risk level (0-4). Read-only first, write with confirmation.',
+   x:50,y:14,
+   subs:[
+     {l:'MCP Catalog',t:'memory'},{l:'Risk Classification',t:'workflow'},
+     {l:'Permission Model',t:'workflow'},{l:'Auth Patterns',t:'memory'},
+     {l:'Rollback Steps',t:'workflow'},{l:'Plugin Registry',t:'tool'}
+   ]}
+];
+
+// ═══════ REAL INTER-AGENT CONNECTIONS (from .agents/ analysis) ═══════
+const LINKS = [
+  // Director hub-and-spoke
+  ['principal','architect'], ['principal','design'],    ['principal','growth'],
+  ['principal','security'],  ['principal','tests'],     ['principal','docs'],
+  ['principal','product'],   ['principal','mcp'],       ['principal','seo'],
+  // Cross-connections
+  ['architect','security'],  ['architect','tests'],     ['architect','mcp'],
+  ['growth','seo'],          ['growth','product'],      ['growth','docs'],
+  ['security','tests'],      ['security','mcp'],
+  ['product','design'],      ['product','growth'],
+  ['docs','tests'],          ['design','docs'],
+  ['seo','docs']
+];
+
+// ═══════ REAL WORKFLOWS (from .agents/workflows/) ═══════
+const WORKFLOWS = [
+  {id:'feature', name:'Feature Implementation',
+   desc:'User request → orchestration → architecture → design → QA → security → ship',
+   seq:['user','principal','architect','design','tests','security','principal']},
+  {id:'growth-flow', name:'Growth & SEO Pipeline',
+   desc:'Strategy → keyword mapping → technical SEO → content → security review → publish',
+   seq:['user','principal','growth','seo','docs','security','principal']},
+  {id:'hotfix', name:'Hotfix & Verification',
+   desc:'Incident → security scan → QA validation → documentation → deployment',
+   seq:['user','principal','security','tests','docs','principal']},
+  {id:'product-launch', name:'Product Venture Loop',
+   desc:'Ideation → scoring → MVP → design → growth strategy → security → launch',
+   seq:['user','principal','product','design','growth','security','principal']}
+];
+
+// ═══════════════════ ENGINE ═══════════════════
+
+const VP = document.getElementById('vp');
+const SU = document.getElementById('su');
+const C1 = document.getElementById('c1');
+const X1 = C1.getContext('2d');
+const C2 = document.getElementById('c2');
+const X2 = C2.getContext('2d');
+const UN = document.getElementById('un');
+
+let W = window.innerWidth, H = window.innerHeight;
+let sel = null, hov = null, wfActive = null;
+let els = {};
+let ambParts = [];
+let wfParts = [];
+let wfTO = null;
+
+function resize(){
+  W = window.innerWidth; H = window.innerHeight;
+  C1.width = C2.width = W;
+  C1.height = C2.height = H;
+}
+
+// ═══════ BUILD ═══════
+function build(){
+  resize();
+  VP.innerHTML = '';
+  VP.appendChild(UN);
+
+  AGENTS.forEach((a,i)=>{
+    const col = C[a.id];
+    const d = document.createElement('div');
+    d.className = 'ag';
+    d.style.left = a.x+'%';
+    d.style.top = a.y+'%';
+    d.style.setProperty('--ac',col.c);
+    d.style.setProperty('--as',col.s);
+    d.innerHTML = `<div class="nd"><img src="${a.img}" alt="${a.name}" loading="eager"></div>
+      <div class="inf"><div class="nm">${a.name}</div><div class="rl">${a.role}</div></div>`;
+    d.addEventListener('click',e=>{e.stopPropagation();if(wfActive)stopWF();expand(a.id)});
+    d.addEventListener('mouseenter',()=>{if(!sel){hov=a.id;showHUD(a)}});
+    d.addEventListener('mouseleave',()=>{if(!sel){hov=null;hideHUD()}});
+    VP.appendChild(d);
+    els[a.id] = d;
+  });
+
+  // Workflows panel
+  const wfl = document.getElementById('wfl');
+  wfl.innerHTML = '';
+  WORKFLOWS.forEach(wf=>{
+    const d = document.createElement('div');
+    d.className = 'wi';
+    const names = wf.seq.map(s=>s==='user'?'User':AGENTS.find(a=>a.id===s)?.name||s);
+    d.innerHTML = `<div><div class="wn">${wf.name}</div><div class="ws">${names.join(' → ')}</div></div>
+      <div class="wp"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>`;
+    d.addEventListener('click',e=>{e.stopPropagation();runWF(wf)});
+    wfl.appendChild(d);
+  });
+
+  // Ambient particles
+  ambParts = [];
+  LINKS.forEach(([a,b])=>{
+    for(let i=0;i<3;i++){
+      ambParts.push({a,b,t:Math.random(),spd:.0004+Math.random()*.0008,
+        sz:1+Math.random()*2,al:.15+Math.random()*.35,dir:Math.random()>.5?1:-1});
+    }
+  });
+
+  // Stagger reveal
+  setTimeout(()=>{
+    document.querySelector('header').classList.add('vis');
+    document.getElementById('wfp').classList.add('vis');
+    document.getElementById('hint').classList.add('vis');
+    AGENTS.forEach((a,i)=>setTimeout(()=>els[a.id].classList.add('vis'),i*70));
+  },100);
+}
+
+// ═══════ POSITIONS ═══════
+function pos(id){
+  if(id==='user'){const r=UN.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2}}
+  const e=els[id];if(!e)return{x:0,y:0};
+  const r=e.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2};
+}
+
+function cp(a,b,curve){
+  const dx=b.x-a.x,dy=b.y-a.y,d=Math.sqrt(dx*dx+dy*dy);
+  const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+  const ang=Math.atan2(dy,dx),pa=ang+Math.PI/2;
+  const off=d*(curve||.18);
+  return{c1:{x:mx+Math.cos(pa)*off,y:my+Math.sin(pa)*off},c2:{x:mx-Math.cos(pa)*off,y:my-Math.sin(pa)*off}};
+}
+
+function bz(p0,c1,c2,p3,t){
+  const u=1-t,uu=u*u,uuu=uu*u,tt=t*t,ttt=tt*t;
+  return{x:uuu*p0.x+3*uu*t*c1.x+3*u*tt*c2.x+ttt*p3.x,y:uuu*p0.y+3*uu*t*c1.y+3*u*tt*c2.y+ttt*p3.y};
+}
+
+function drawCurve(ctx,a,c1,c2,b){
+  ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.bezierCurveTo(c1.x,c1.y,c2.x,c2.y,b.x,b.y);ctx.stroke();
+}
+
+// ═══════ HUD ═══════
+function showHUD(a){
+  const col=C[a.id];
+  document.getElementById('hdot').style.color=col.c;
+  document.getElementById('hdot').style.background=col.c;
+  document.getElementById('hname').textContent=a.name;
+  document.getElementById('hrole').textContent=a.role;
+  document.getElementById('hrole').style.color=col.c;
+  document.getElementById('hbody').textContent=a.desc;
+  document.getElementById('hmeta').innerHTML=`<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${col.c};box-shadow:0 0 6px ${col.c};margin-right:5px;vertical-align:middle"></span> ${a.subs.length} sub-nodes · ${LINKS.filter(l=>l[0]===a.id||l[1]===a.id).length} connections`;
+  document.getElementById('hud').classList.add('on');
+}
+function hideHUD(){document.getElementById('hud').classList.remove('on')}
+
+// ═══════ EXPAND / COLLAPSE ═══════
+function updateVP(){
+  if(sel){
+    const a=AGENTS.find(x=>x.id===sel);
+    VP.style.transform=`translate(${W*(0.5-a.x/100)}px,${H*(0.5-a.y/100)}px)`;
+  }else VP.style.transform='translate(0,0)';
+}
+
+function expand(id){
+  sel=id;hov=null;
+  const a=AGENTS.find(x=>x.id===id);
+  updateVP();
+  document.getElementById('back').classList.add('vis');
+  document.getElementById('wfp').classList.add('off');
+  document.getElementById('hint').classList.remove('vis');
+  AGENTS.forEach(ag=>{
+    const e=els[ag.id];
+    if(ag.id===id){e.classList.add('sel');e.classList.remove('ret')}
+    else{e.classList.add('ret');e.classList.remove('sel')}
+  });
+  showHUD(a);
+  buildSubs(a);
+}
+
+function collapse(){
+  sel=null;hov=null;
+  updateVP();
+  document.getElementById('back').classList.remove('vis');
+  document.getElementById('wfp').classList.remove('off');
+  document.getElementById('hint').classList.add('vis');
+  AGENTS.forEach(ag=>{els[ag.id].classList.remove('sel','ret')});
+  SU.classList.remove('on');
+  setTimeout(()=>SU.innerHTML='',350);
+  hideHUD();
+}
+
+function buildSubs(a){
+  SU.innerHTML='';SU.classList.add('on');
+  const col=C[a.id];
+  const r=Math.min(200,Math.min(W,H)*.26);
+  a.subs.forEach((s,i)=>{
+    const ang=(i/a.subs.length)*Math.PI*2-Math.PI/2;
+    const sx=Math.cos(ang)*r,sy=Math.sin(ang)*r;
+    const d=document.createElement('div');
+    d.className='sn';
+    d.style.setProperty('--sc',col.c);d.style.setProperty('--ss',col.s);
+    d.innerHTML=`<div class="sd"></div><div class="sl">${s.l}</div><div class="st">${s.t}</div>`;
+    d.style.left=`calc(50% + ${sx}px)`;d.style.top=`calc(50% + ${sy}px)`;
+    SU.appendChild(d);
+    setTimeout(()=>d.classList.add('vis'),120+i*50);
+  });
+}
+
+// ═══════ WORKFLOW ANIMATION ═══════
+function runWF(wf){
+  stopWF();collapse();
+  wfActive=wf;
+  document.querySelectorAll('.wi').forEach(w=>{
+    w.classList.toggle('on',w.querySelector('.wn').textContent===wf.name);
+  });
+  document.getElementById('hint').classList.remove('vis');
+  UN.style.left='50%';UN.style.top='8%';UN.classList.add('on');
+  wfStep(0);
+}
+
+function stopWF(){
+  wfActive=null;if(wfTO)clearTimeout(wfTO);
+  document.getElementById('sh').classList.remove('on');
+  UN.classList.remove('on');wfParts=[];
+  AGENTS.forEach(a=>{els[a.id].classList.remove('ret');
+    const nd=els[a.id].querySelector('.nd');nd.style.boxShadow='';nd.style.borderColor='';});
+  document.querySelectorAll('.wi').forEach(w=>w.classList.remove('on'));
+  document.getElementById('hint').classList.add('vis');
+}
+
+function wfStep(i){
+  if(!wfActive)return;
+  const seq=wfActive.seq;
+  if(i>=seq.length-1){
+    document.getElementById('sa').textContent='COMPLETE';
+    document.getElementById('sa').style.background='#10B981';
+    document.getElementById('stxt').textContent='Workflow validated and deployed';
+    document.getElementById('sstp').textContent='Done';
+    AGENTS.forEach(a=>{if(seq.includes(a.id)){
+      const nd=els[a.id].querySelector('.nd');nd.style.boxShadow=`0 0 24px rgba(16,185,129,.35)`}});
+    wfTO=setTimeout(stopWF,3500);return;
+  }
+  const from=seq[i],to=seq[i+1];
+  const toA=AGENTS.find(a=>a.id===to);
+  const col=to!=='user'?C[to].c:'#fff';
+  document.getElementById('sa').textContent=toA?toA.name:'System';
+  document.getElementById('sa').style.background=col;
+  document.getElementById('stxt').textContent=({
+    principal:'Routing tasks and delegating to specialists...',
+    architect:'Building RAG pipelines and prompt architectures...',
+    design:'Crafting responsive layouts and CSS systems...',
+    tests:'Running Playwright E2E and unit test suites...',
+    security:'Scanning credentials and auditing dependencies...',
+    growth:'Mapping keywords and organic growth strategy...',
+    seo:'Optimizing meta tags and JSON-LD schemas...',
+    docs:'Generating API docs and README updates...',
+    product:'Scoring opportunities and defining MVP scope...',
+    mcp:'Classifying MCP risk and permission boundaries...'
+  })[to]||'Processing...';
+  document.getElementById('sstp').textContent=`Step ${i+1} / ${seq.length-1}`;
+  document.getElementById('sh').classList.add('on');
+
+  AGENTS.forEach(a=>{
+    const e=els[a.id];
+    if(a.id===from||a.id===to){e.classList.remove('ret');
+      if(a.id===to){const nd=e.querySelector('.nd');nd.style.boxShadow=`0 0 30px ${col}55`;nd.style.borderColor=col}}
+    else{e.classList.add('ret');const nd=e.querySelector('.nd');nd.style.boxShadow='';nd.style.borderColor=''}
+  });
+
+  // Particle stream
+  const pf=pos(from),pt=pos(to);
+  const cps=cp(pf,pt,.25);
+  let done=0;const N=6;
+  for(let j=0;j<N;j++){
+    wfParts.push({from:pf,to:pt,c1:cps.c1,c2:cps.c2,t:0,spd:.014-j*.001,
+      delay:j*130,sz:3.5-j*.2,col,done:false,
+      cb:()=>{done++;if(done===N)wfStep(i+1)}});
+  }
+}
+
+// ═══════ RENDER LOOP ═══════
+function render(ts){
+  X1.clearRect(0,0,W,H);
+  X2.clearRect(0,0,W,H);
+
+  // 1. GLOBAL CONNECTIONS — THE PROTAGONIST
+  if(!sel){
+    LINKS.forEach(([a,b])=>{
+      const pa=pos(a),pb=pos(b);
+      const cps=cp(pa,pb);
+      const isH=(hov===a||hov===b);
+      const ca=C[a].c,cb=C[b].c;
+
+      // Main curve
+      const g=X1.createLinearGradient(pa.x,pa.y,pb.x,pb.y);
+      g.addColorStop(0,ca);g.addColorStop(1,cb);
+      X1.strokeStyle=g;
+      X1.lineWidth=isH?2.5:1.2;
+      X1.globalAlpha=isH?.5:.1;
+      drawCurve(X1,pa,cps.c1,cps.c2,pb);
+
+      // Glow
+      if(isH){X1.lineWidth=7;X1.globalAlpha=.12;drawCurve(X1,pa,cps.c1,cps.c2,pb)}
+      X1.globalAlpha=1;
+    });
+
+    // Ambient particles
+    ambParts.forEach(p=>{
+      const pa=pos(p.a),pb=pos(p.b);
+      const cps=cp(pa,pb);
+      p.t+=p.spd*p.dir;
+      if(p.t>1)p.t=0;if(p.t<0)p.t=1;
+      const pt=bz(pa,cps.c1,cps.c2,pb,p.t);
+      const isH=(hov===p.a||hov===p.b);
+      X1.beginPath();X1.arc(pt.x,pt.y,p.sz,0,Math.PI*2);
+      X1.fillStyle=isH?'#fff':C[p.a].c;
+      X1.globalAlpha=isH?.85:p.al;
+      X1.fill();X1.globalAlpha=1;
+    });
+  }
+
+  // 2. EXPANDED SUB-CONNECTIONS
+  if(sel){
+    const e=els[sel],r=e.getBoundingClientRect();
+    const ctr={x:r.left+r.width/2,y:r.top+r.height/2};
+    const col=C[sel].c;
+    SU.querySelectorAll('.sn').forEach((sn,i)=>{
+      const sr=sn.getBoundingClientRect();
+      const sp={x:sr.left+sr.width/2,y:sr.top+sr.height/2};
+      const cps=cp(ctr,sp,.1);
+      X1.lineWidth=1.5;X1.strokeStyle=col;X1.globalAlpha=.3;
+      drawCurve(X1,ctr,cps.c1,cps.c2,sp);
+      // Flowing particle
+      const t=(ts*.001+i*.35)%1;
+      const pt=bz(ctr,cps.c1,cps.c2,sp,t);
+      X1.beginPath();X1.arc(pt.x,pt.y,2.5,0,Math.PI*2);
+      X1.fillStyle='#fff';X1.globalAlpha=.85*(1-t)*t*4;
+      X1.fill();X1.globalAlpha=1;
+    });
+  }
+
+  // 3. WORKFLOW PARTICLES
+  if(wfActive&&wfParts.length){
+    for(let i=wfParts.length-1;i>=0;i--){
+      const p=wfParts[i];
+      if(p.done)continue;
+      if(p.delay>0){p.delay-=16;continue}
+      // Draw path trace
+      X2.lineWidth=2.5;X2.strokeStyle=p.col;X2.globalAlpha=.12;
+      drawCurve(X2,p.from,p.c1,p.c2,p.to);X2.globalAlpha=1;
+
+      p.t+=p.spd;
+      if(p.t>=1){p.done=true;p.cb();wfParts.splice(i,1);continue}
+      const pt=bz(p.from,p.c1,p.c2,p.to,p.t);
+      const al=Math.sin(p.t*Math.PI);
+      // Outer glow
+      X2.beginPath();X2.arc(pt.x,pt.y,p.sz*3.5,0,Math.PI*2);
+      X2.fillStyle=p.col;X2.globalAlpha=al*.2;X2.fill();
+      // Core
+      X2.beginPath();X2.arc(pt.x,pt.y,p.sz,0,Math.PI*2);
+      X2.fillStyle='#fff';X2.globalAlpha=al*.95;X2.fill();
+      X2.globalAlpha=1;
+    }
+  }
+
+  requestAnimationFrame(render);
+}
+
+// ═══════ EVENTS ═══════
+window.addEventListener('resize',()=>{resize();updateVP();if(sel){const a=AGENTS.find(x=>x.id===sel);buildSubs(a)}});
+document.getElementById('back').addEventListener('click',collapse);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(sel)collapse();if(wfActive)stopWF()}});
+document.addEventListener('click',e=>{
+  if(sel&&!e.target.closest('.ag')&&!e.target.closest('.sn')&&!e.target.closest('#back')&&!e.target.closest('#hud'))collapse();
+});
+
+// ═══════ START ═══════
+document.getElementById('intro').addEventListener('click',()=>{
+  document.getElementById('intro').classList.add('hide');
+  setTimeout(()=>{
+    document.getElementById('intro').style.display='none';
+    build();
+    requestAnimationFrame(render);
+  },600);
+});
+</script>
+</body>
+</html>
