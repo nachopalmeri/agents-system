@@ -1,0 +1,13 @@
+{
+  "id": "task-bugfix",
+  "source": "github",
+  "title": "Fix failing install script on Windows",
+  "body": "The install script fails when symlink creation is unavailable. Implement a fallback and add validation.",
+  "repo": "nachopalmeri/agents-system",
+  "contextRefs": ["install.ps1", "bin/setup-ide-pointers.ps1"],
+  "labels": ["bug", "windows"],
+  "requestedBy": "nachopalmeri",
+  "riskLevel": "medium",
+  "requiresApproval": false
+}
+

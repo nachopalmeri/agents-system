@@ -1,0 +1,13 @@
+{
+  "id": "task-docs-update",
+  "source": "cli",
+  "title": "Document the agent registry",
+  "body": "Update README and docs so contributors understand the registry contract and validation command.",
+  "repo": "nachopalmeri/agents-system",
+  "contextRefs": ["agents.registry.json", "schemas/agent.schema.json"],
+  "labels": ["docs"],
+  "requestedBy": "nachopalmeri",
+  "riskLevel": "low",
+  "requiresApproval": false
+}
+

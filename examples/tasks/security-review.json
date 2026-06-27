@@ -1,0 +1,13 @@
+{
+  "id": "task-security-review",
+  "source": "github",
+  "title": "Review MCP permissions before publishing",
+  "body": "Before publishing the repo, check for secrets, unsafe commands, plugin risk, and MCP permission boundaries.",
+  "repo": "nachopalmeri/agents-system",
+  "contextRefs": ["https://github.com/nachopalmeri/agents-system/pull/1"],
+  "labels": ["security", "mcp", "release"],
+  "requestedBy": "nachopalmeri",
+  "riskLevel": "high",
+  "requiresApproval": true
+}
+

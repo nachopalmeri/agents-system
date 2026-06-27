@@ -128,6 +128,39 @@ Si no hay symlinks (sin Developer Mode), usa copias y avisa cómo migrar a symli
 
 Valida: archivos requeridos, referencias internas no rotas, frontmatter de reglas/agentes, workflows con contenido, ratio skills llenas/vacías, prompts portables existentes.
 
+## Registry de agentes
+
+`agents.registry.json` es el contrato machine-readable de agentes. No reemplaza los prompts en `.agents/agents/`; los hace direccionables por routers, integraciones y checks automáticos.
+
+Cada entrada define:
+
+- `id` y `file`: identidad estable y archivo fuente.
+- `division`: área funcional para routing.
+- `whenToUse`: disparadores naturales para elegir el agente.
+- `inputs` y `outputs`: contrato esperado de trabajo.
+- `riskLevel` y `requiresApproval`: guardrails para ejecución y futuras integraciones workspace-native.
+- `tools` y `memoryTags`: permisos y contexto que el agente puede necesitar.
+
+Validar el registry:
+
+```powershell
+.\bin\validate-agents.ps1
+```
+
+Este check falla si hay ids duplicados, archivos faltantes, frontmatter desalineado, campos requeridos incompletos, herramientas no soportadas, tags de memoria inválidos o niveles de riesgo inválidos.
+
+## Router de tareas
+
+`schemas/task.schema.json` define un task envelope común para pedidos que vengan de chat, CLI, GitHub, Notion o Slack. `bin/route-task.ps1` carga ese envelope, consulta `agents.registry.json` y devuelve una decisión de routing en JSON.
+
+Ejemplo:
+
+```powershell
+.\bin\route-task.ps1 .\examples\tasks\security-review.json
+```
+
+La salida incluye `selectedAgents`, razones de routing y si hace falta aprobación humana antes de ejecutar.
+
 ## Verificación post-instalación
 
 Ejecutar en terminal:
