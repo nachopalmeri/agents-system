@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nachopalmeri/agents-system/schemas/task.schema.json",
+  "title": "Agents System Task Envelope",
+  "type": "object",
+  "required": ["id", "source", "title", "body", "contextRefs", "labels", "requestedBy", "riskLevel", "requiresApproval"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "source": {
+      "type": "string",
+      "enum": ["chat", "cli", "github", "notion", "slack"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3
+    },
+    "body": {
+      "type": "string"
+    },
+    "repo": {
+      "type": "string"
+    },
+    "contextRefs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requestedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "riskLevel": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "requiresApproval": {
+      "type": "boolean"
+    }
+  }
+}
+

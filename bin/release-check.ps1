@@ -25,6 +25,8 @@ try {
         "bin\nuevo-proyecto.ps1",
         "bin\check-agents-system.ps1",
         "bin\check-secrets.ps1",
+        "bin\validate-agents.ps1",
+        "bin\route-task.ps1",
         "bin\doctor.ps1",
         "bin\release-check.ps1",
         "install.ps1",
@@ -82,25 +84,19 @@ try {
     $required = @(
         ".agents\AGENTS.md",
         ".agents\rules\chat-first.md",
+        ".agents\rules\anti-cemetery.md",
         ".agents\workflows\index.md",
         ".agents\workflows\validation.md",
-        ".agents\workflows\feedback_loop.md",
-        ".agents\workflows\context_check.md",
-        ".agents\workflows\irreversible_decision.md",
-        ".agents\workflows\weekly_review.md",
-        ".agents\workflows\client_workflow.md",
-        ".agents\workflows\promote_lesson.md",
-        ".agents\workflows\obsidian_sync.md",
-        ".agents\workflows\vault_review.md",
-        ".agents\workflows\growth_update.md",
         ".agents\workflows\session_checkpoint.md",
-        ".agents\workflows\task_ledger.md",
         ".agents\workflows\multiagent_review_loop.md",
-        ".agents\workflows\venture_loop.md",
-        ".agents\workflows\seo_geo_growth.md",
-        ".agents\workflows\product_foundry.md",
-        ".agents\workflows\adr.md",
+        ".agents\workflows\parallel_agents.md",
+        ".agents\workflows\skills_routing.md",
+        ".agents\workflows\start.md",
+        ".agents\workflows\hooks.md",
         ".agents\workflows\agent_coordination.md",
+        ".agents\workflows\mcp_catalog.md",
+        ".agents\workflows\mcp_security.md",
+        ".agents\workflows\mcp_adoption.md",
         ".agents\memory\README.md",
         ".agents\memory\lessons-global.md",
         ".agents\memory\developer_growth.md",
@@ -109,9 +105,20 @@ try {
         ".agents\skills\client-work\pricing.md",
         "docs\world-class-workflow.md",
         "README.md",
+        "agents.registry.json",
+        "schemas\agent.schema.json",
+        "schemas\task.schema.json",
+        "docs\agent-contract-baseline.md",
+        "docs\task-envelope.md",
         "bin\nuevo-proyecto.ps1",
         "bin\check-agents-system.ps1",
+        "bin\validate-agents.ps1",
+        "bin\route-task.ps1",
         "bin\release-check.ps1",
+        "orchestrator\router.ps1",
+        "examples\tasks\security-review.json",
+        "examples\tasks\docs-update.json",
+        "examples\tasks\bugfix.json",
         "config\opencode\opencode.jsonc"
     )
 
@@ -146,6 +153,33 @@ try {
         Add-Failure "Secret scan found critical issues"
     } else {
         Add-Ok "Secret scan: no critical findings"
+    }
+
+    & "$PSScriptRoot\validate-agents.ps1"
+    if ($LASTEXITCODE -ne 0) {
+        Add-Failure "Agent registry validation failed"
+    } else {
+        Add-Ok "Agent registry validation"
+    }
+
+    $routeExamples = @(
+        "examples\tasks\security-review.json",
+        "examples\tasks\docs-update.json",
+        "examples\tasks\bugfix.json"
+    )
+
+    foreach ($example in $routeExamples) {
+        try {
+            $routeJson = & "$PSScriptRoot\route-task.ps1" $example
+            $route = $routeJson | ConvertFrom-Json
+            if ($LASTEXITCODE -ne 0 -or $null -eq $route.selectedAgents -or $route.selectedAgents.Count -eq 0) {
+                Add-Failure "Route smoke failed: $example"
+            } else {
+                Add-Ok "Route smoke: $example -> $($route.selectedAgents.Count) agent(s)"
+            }
+        } catch {
+            Add-Failure "Route smoke failed: $example :: $($_.Exception.Message)"
+        }
     }
 
     Write-Host ""
