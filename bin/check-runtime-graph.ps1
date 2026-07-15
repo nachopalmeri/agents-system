@@ -8,6 +8,7 @@ $baselinePath = Join-Path $repoRoot "config\capability-baseline.json"
 $ledgerPath = Join-Path $repoRoot "config\capabilities.json"
 $registryPath = Join-Path $repoRoot "agents.registry.json"
 $corpusPath = Join-Path $repoRoot "evals\runtime-cases.json"
+$manifestPath = Join-Path $repoRoot "config\runtime-manifest.json"
 $failures = @()
 
 function Add-Failure([string] $Message) {
@@ -15,15 +16,19 @@ function Add-Failure([string] $Message) {
     Write-Host "[FAIL] $Message" -ForegroundColor Red
 }
 
-function Resolve-RuntimeReference([string] $Reference) {
+function Resolve-RuntimeReference([string] $Reference, [string] $CurrentFile) {
     $normalized = $Reference.Replace("\", "/")
     if ($normalized.StartsWith(".agents/")) {
         return Join-Path $repoRoot $normalized
     }
+    $relativeCandidate = Join-Path (Split-Path (Join-Path $repoRoot $CurrentFile) -Parent) $normalized
+    if (Test-Path $relativeCandidate) {
+        return $relativeCandidate
+    }
     return Join-Path (Join-Path $repoRoot ".agents") $normalized
 }
 
-foreach ($required in @($baselinePath, $registryPath, $corpusPath)) {
+foreach ($required in @($baselinePath, $registryPath, $corpusPath, $manifestPath)) {
     if (-not (Test-Path $required -PathType Leaf)) {
         Add-Failure "Required graph input missing: $required"
     }
@@ -35,10 +40,11 @@ if ($failures.Count -gt 0) {
     exit 1
 }
 
-$baseline = Get-Content $baselinePath -Raw | ConvertFrom-Json
-$ledger = Get-Content $ledgerPath -Raw | ConvertFrom-Json
-$registry = Get-Content $registryPath -Raw | ConvertFrom-Json
-$fixtureIds = @((Get-Content $corpusPath -Raw | ConvertFrom-Json).cases.id)
+$baseline = Get-Content $baselinePath -Raw -Encoding UTF8 | ConvertFrom-Json
+$ledger = Get-Content $ledgerPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$registry = Get-Content $registryPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$manifest = Get-Content $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$fixtureIds = @((Get-Content $corpusPath -Raw -Encoding UTF8 | ConvertFrom-Json).cases.id)
 $entries = @($ledger.capabilities)
 $keys = @{}
 
@@ -109,16 +115,30 @@ foreach ($skillId in $activeSkillIds) {
     }
 }
 
-foreach ($file in @($ledger.runtimeEntrypoints)) {
+$runtimeFiles = @($ledger.runtimeEntrypoints)
+foreach ($root in @($manifest.activeInstructionRoots)) {
+    $rootPath = Join-Path $repoRoot $root
+    if (Test-Path $rootPath -PathType Container) {
+        $files = if ($root -like "*/skills") {
+            Get-ChildItem $rootPath -Recurse -File -Filter SKILL.md
+        } else {
+            Get-ChildItem $rootPath -File -Filter *.md
+        }
+        $runtimeFiles += $files | ForEach-Object { $_.FullName.Substring($repoRoot.Length + 1).Replace("\", "/") }
+    }
+}
+$runtimeFiles = @($runtimeFiles | Sort-Object -Unique)
+
+foreach ($file in $runtimeFiles) {
     $fullPath = Join-Path $repoRoot $file
     if (-not (Test-Path $fullPath -PathType Leaf)) {
         Add-Failure "Runtime entrypoint missing: $file"
         continue
     }
     $lineNumber = 0
-    foreach ($line in Get-Content $fullPath) {
+    foreach ($line in Get-Content $fullPath -Encoding UTF8) {
         $lineNumber++
-        foreach ($match in [regex]::Matches($line, '`((?:\.agents/)?(?:rules|workflows|agents|skills|prompts|memory)/[^`]+)`')) {
+        foreach ($match in [regex]::Matches($line, '`((?:\.agents/)?(?:rules|workflows|agents|skills|prompts|memory)/[^`]*?\.md)`')) {
             $reference = $match.Groups[1].Value
             if ($reference -match "[\[\]*{}<>]") { continue }
             if ($reference -match "(?:^|/)archive(?:/|$)") {
@@ -127,7 +147,7 @@ foreach ($file in @($ledger.runtimeEntrypoints)) {
                 }
                 continue
             }
-            if (-not (Test-Path (Resolve-RuntimeReference $reference))) {
+            if (-not (Test-Path (Resolve-RuntimeReference $reference $file))) {
                 Add-Failure "Missing runtime reference: ${file}:$lineNumber -> $reference"
             }
         }

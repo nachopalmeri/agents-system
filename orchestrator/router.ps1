@@ -1,5 +1,18 @@
 #!/usr/bin/env pwsh
 
+function ConvertTo-RouteText {
+    param([AllowEmptyString()] [string] $Text)
+
+    $normalized = $Text.ToLowerInvariant().Normalize([Text.NormalizationForm]::FormD)
+    $builder = New-Object Text.StringBuilder
+    foreach ($character in $normalized.ToCharArray()) {
+        if ([Globalization.CharUnicodeInfo]::GetUnicodeCategory($character) -ne [Globalization.UnicodeCategory]::NonSpacingMark) {
+            [void]$builder.Append($character)
+        }
+    }
+    return $builder.ToString().Normalize([Text.NormalizationForm]::FormC)
+}
+
 function Test-RoutePatterns {
     param(
         [Parameter(Mandatory = $true)] [string] $Text,
@@ -46,7 +59,7 @@ function Get-AgentRoute {
     }
 
     $labels = @($Task.labels) -join " "
-    $text = "$($Task.title) $($Task.body) $labels".ToLowerInvariant()
+    $text = ConvertTo-RouteText "$($Task.title) $($Task.body) $labels"
     $lane = "SIMPLE"
     $primaryId = "agente-principal"
     $supportIds = @()

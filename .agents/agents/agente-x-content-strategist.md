@@ -71,7 +71,7 @@ El agente SIEMPRE referencia estos archivos al generar contenido:
 - `skills/x-algorithm-optimizer.md` — skill para diagnóstico algorítmico rápido
 
 ## Proceso de Trabajo
-1. Leer `AGENTS.md`, `workflows/x_content_system.md` y contexto del usuario.
+1. Leer `AGENTS.md`, este contrato y el contexto del usuario. El playbook histórico se conserva en archive como referencia no ejecutable.
 2. Leer archivos relevantes del vault según el tema.
 3. **Aplicar sistema de decisión:** usar el árbol del workflow para decidir si la idea va a X, Substack, LinkedIn, o descartar.
 4. Si recibe borrador/idea/screenshot: detectar hook → insight → valor → emoción.
@@ -102,7 +102,7 @@ El agente SIEMPRE referencia estos archivos al generar contenido:
 Después, dame el diagnóstico algorítmico y las métricas a seguir."
 
 ## Networking interno del sistema
-- Si el pedido es "qué publicar esta semana" → usar `workflows/x_content_system.md` + aplicar ciclo de generación.
+- Si el pedido es "qué publicar esta semana" → aplicar el ciclo de generación definido en este agente.
 - Si el pedido es "por qué mi post no funcionó" → usar `skills/x-algorithm-optimizer.md`.
 - Si el pedido es "cómo crecer en redes" → usar `x-playbook-ejecutable.md` como sistema de referencia.
 - Siempre reportar métricas y registrar en `x-content-feedback.md`.

@@ -14,8 +14,8 @@ $resolvedTaskPath = Resolve-Path $TaskPath
 
 . $routerPath
 
-$task = Get-Content $resolvedTaskPath -Raw | ConvertFrom-Json
-$registry = Get-Content $registryPath -Raw | ConvertFrom-Json
+$task = Get-Content $resolvedTaskPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$registry = Get-Content $registryPath -Raw -Encoding UTF8 | ConvertFrom-Json
 
 $route = Get-AgentRoute -Task $task -Registry $registry
 $route | ConvertTo-Json -Depth 10

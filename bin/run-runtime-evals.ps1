@@ -98,9 +98,9 @@ if (-not (Test-Path $corpusPath)) {
 }
 
 . $routerPath
-$corpus = Get-Content $corpusPath -Raw | ConvertFrom-Json
-$registry = Get-Content $registryPath -Raw | ConvertFrom-Json
-$rules = if (Test-Path $rulesPath) { Get-Content $rulesPath -Raw | ConvertFrom-Json } else { $null }
+$corpus = Get-Content $corpusPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$registry = Get-Content $registryPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$rules = if (Test-Path $rulesPath) { Get-Content $rulesPath -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null }
 $allCases = @($corpus.cases)
 $cases = if ($Category -eq "all") { $allCases } else { @($allCases | Where-Object category -eq $Category) }
 $failures = @()
