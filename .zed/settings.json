@@ -1,5 +1,5 @@
 {
-  "_runtimeCanonicalSha256": "6de3faa896588edb4a3b77b733b482cc99bff0cf8e257bbea2cedc1d479f240f",
+  "_runtimeCanonicalSha256": "219bae91117c58fc4a526487f60a0455a9a8c5d3ad838e86a7b5b2528ff04e6e",
   "load_agent_rules": [
     ".agents/AGENTS.md"
   ]

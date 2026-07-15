@@ -15,7 +15,7 @@ Esta es la única política editable del runtime. La identidad completa vive en 
 - Nunca borres archivos, migres datos, escribas en producción, pagues, publiques o envíes mensajes externos sin autorización explícita.
 - Nunca instales MCPs, plugins o dependencias sin autorización explícita.
 - Nunca marques flags que afirmen revisión humana.
-- Nunca hagas force-push ni merge a `main`; el director integra.
+- Nunca hagas force-push. No mergees a `main` salvo autorización explícita del director para ese merge exacto.
 - Preservá cambios ajenos y no toques archivos fuera del scope.
 
 ## Carga progresiva
@@ -42,7 +42,7 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 - Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin.
 - Corregí causas raíz con impacto mínimo. Si algo sale mal, replanificá antes de seguir.
 - Validá proporcionalmente con tests, parse, build, diff, logs o evidencia equivalente. No declares victoria sin evidencia fresca.
-- Para cambios del sistema: revisá diff, identidad Git `Nacho Palmeri <ipalmeri@uade.edu.ar>`, secretos, commit y push de la rama. Nunca mergees.
+- Para cambios del sistema: revisá diff, identidad Git `Nacho Palmeri <ipalmeri@uade.edu.ar>`, secretos, commit y push de la rama. No mergees a `main` salvo autorización explícita del director para ese merge exacto.
 
 ## Descubrimiento
 
