@@ -14,6 +14,22 @@ $homeRoot = [System.IO.Path]::GetFullPath($HomePath).TrimEnd('\', '/')
 $stateRoot = Join-Path $homeRoot ".agents-system-sync"
 $statePath = Join-Path $stateRoot "state.json"
 
+function Assert-NoReparseTraversal {
+    param([string] $Root, [string] $Candidate, [string] $Label)
+    $rootFull = [IO.Path]::GetFullPath($Root).TrimEnd('\', '/')
+    $candidateFull = [IO.Path]::GetFullPath($Candidate)
+    $relative = $candidateFull.Substring($rootFull.Length).TrimStart('\', '/')
+    $current = $rootFull
+    foreach ($segment in @($relative -split '[\\/]' | Where-Object { $_ })) {
+        $current = Join-Path $current $segment
+        if (-not (Test-Path -LiteralPath $current)) { continue }
+        $item = Get-Item -LiteralPath $current -Force
+        if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+            throw "$Label crosses reparse point: $current"
+        }
+    }
+}
+
 function Get-ContainedPath {
     param([string] $Root, [string] $RelativePath, [string] $Label)
     if ([string]::IsNullOrWhiteSpace($RelativePath) -or [System.IO.Path]::IsPathRooted($RelativePath)) {
@@ -25,8 +41,11 @@ function Get-ContainedPath {
     if (-not $candidate.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
         throw "$Label escapes declared home/root: $RelativePath"
     }
+    Assert-NoReparseTraversal -Root $rootFull -Candidate $candidate -Label $Label
     return $candidate
 }
+
+Assert-NoReparseTraversal -Root $homeRoot -Candidate $stateRoot -Label "Sync state path"
 
 function Get-StringHash([string] $Value) {
     $algorithm = [System.Security.Cryptography.SHA256]::Create()
@@ -204,14 +223,36 @@ function Restore-Transaction([string] $RestoreManifestPath) {
         }
     }
 
-    foreach ($entry in @($transaction.entries | Sort-Object index -Descending)) {
-        $target = Get-ContainedPath -Root $homeRoot -RelativePath ([string]$entry.relativeTarget) -Label "Restore target"
-        Remove-ManagedPath $target
-        if ([bool]$entry.hadOriginal) {
-            $backupPath = Get-ContainedPath -Root $manifestDirectory -RelativePath ([string]$entry.backupRelative) -Label "Backup path"
-            Copy-ManagedPath $backupPath $target
-        }
+    $restoreStage = Join-Path $stateRoot "restore-staging\$([guid]::NewGuid().ToString('N'))"
+    [void](New-Item -ItemType Directory -Path $restoreStage -Force)
+    foreach ($entry in @($transaction.entries)) {
+        Copy-ManagedPath ([string]$entry.targetPath) (Join-Path $restoreStage ([string]$entry.index))
     }
+    $restored = @()
+    try {
+        foreach ($entry in @($transaction.entries | Sort-Object index -Descending)) {
+            $target = Get-ContainedPath -Root $homeRoot -RelativePath ([string]$entry.relativeTarget) -Label "Restore target"
+            $restored += $entry
+            Remove-ManagedPath $target
+            if ([bool]$entry.hadOriginal) {
+                $backupPath = Get-ContainedPath -Root $manifestDirectory -RelativePath ([string]$entry.backupRelative) -Label "Backup path"
+                Copy-ManagedPath $backupPath $target
+            }
+            if ($env:AGENTS_SYNC_FAIL_RESTORE_AFTER -and $restored.Count -ge [int]$env:AGENTS_SYNC_FAIL_RESTORE_AFTER) {
+                throw "Injected restore failure after $($restored.Count) target(s)"
+            }
+        }
+    } catch {
+        $restoreFailure = $_
+        foreach ($entry in @($restored | Sort-Object index)) {
+            $target = Get-ContainedPath -Root $homeRoot -RelativePath ([string]$entry.relativeTarget) -Label "Restore rollback target"
+            Remove-ManagedPath $target
+            Copy-ManagedPath (Join-Path $restoreStage ([string]$entry.index)) $target
+        }
+        Remove-ManagedPath $restoreStage
+        throw $restoreFailure
+    }
+    Remove-ManagedPath $restoreStage
 
     $restoredEntries = @()
     $restoredTargets = @($transaction.entries.relativeTarget)
@@ -308,11 +349,14 @@ $replaced = @()
 try {
     foreach ($entry in @($entries)) {
         $target = $targets[[int]$entry.index]
+        $replaced += $entry
         Remove-ManagedPath $target.targetPath
         $parent = Split-Path $target.targetPath -Parent
         if (-not (Test-Path $parent)) { [void](New-Item -ItemType Directory -Path $parent -Force) }
+        if ($env:AGENTS_SYNC_FAIL_BEFORE_MOVE_AT -and $replaced.Count -ge [int]$env:AGENTS_SYNC_FAIL_BEFORE_MOVE_AT) {
+            throw "Injected failure before move $($replaced.Count)"
+        }
         Move-Item (Join-Path $stagingRoot "$($entry.index)") $target.targetPath
-        $replaced += $entry
         if ($env:AGENTS_SYNC_FAIL_AFTER_REPLACE -and $replaced.Count -ge [int]$env:AGENTS_SYNC_FAIL_AFTER_REPLACE) {
             throw "Injected failure after replacement $($replaced.Count)"
         }

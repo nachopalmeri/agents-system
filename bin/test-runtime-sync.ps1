@@ -144,6 +144,15 @@ try {
     Assert-True ($escape.Output -match 'escapes declared home') "path escape error is explicit"
     Assert-True (-not (Test-Path (Join-Path $testRoot "escaped-runtime.txt"))) "path escape writes nothing"
 
+    Write-Host "==> Reject reparse traversal" -ForegroundColor Cyan
+    $junctionHome = New-TestHome "junction-home"
+    $junctionOutside = New-TestHome "junction-outside"
+    [void](New-Item -ItemType Junction -Path (Join-Path $junctionHome ".config") -Target $junctionOutside)
+    $junctionResult = Invoke-Sync -HomePath $junctionHome -Arguments @("-WhatIf", "-Force")
+    Assert-True ($junctionResult.ExitCode -ne 0) "sync rejects a junction in a target path"
+    Assert-True ($junctionResult.Output -match 'reparse') "junction rejection is explicit"
+    Assert-True (@(Get-ChildItem $junctionOutside -Force).Count -eq 0) "junction target outside home remains untouched"
+
     Write-Host "==> Legacy entrypoints delegate without writes" -ForegroundColor Cyan
     $delegateHome = New-TestHome "delegate-home"
     $delegates = @(
@@ -196,6 +205,26 @@ try {
     $rolledBackManifest = Get-ChildItem (Join-Path $rollbackHome ".agents-system-sync\backups") -Filter manifest.json -Recurse | Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1
     Assert-True ($null -ne $rolledBackManifest) "partial failure leaves an auditable manifest"
     Assert-True ((Get-Content $rolledBackManifest.FullName -Raw | ConvertFrom-Json).status -eq "rolled-back") "partial failure records rolled-back status"
+
+    Write-Host "==> Restore deletion-before-move failures" -ForegroundColor Cyan
+    $beforeMoveHome = New-TestHome "before-move-home"
+    [void](New-Item -ItemType Directory -Path (Join-Path $beforeMoveHome ".agents") -Force)
+    [IO.File]::WriteAllText((Join-Path $beforeMoveHome ".agents\original.txt"), "must survive")
+    $beforeMove = Invoke-Sync -HomePath $beforeMoveHome -Arguments @("-Force") -Environment @{ AGENTS_SYNC_FAIL_BEFORE_MOVE_AT = "1" }
+    Assert-True ($beforeMove.ExitCode -ne 0) "failure after delete but before move exits non-zero"
+    Assert-True ((Get-Content (Join-Path $beforeMoveHome ".agents\original.txt") -Raw) -eq "must survive") "failure before move restores deleted original"
+
+    Write-Host "==> Roll back a failed restore" -ForegroundColor Cyan
+    $restoreFailHome = New-TestHome "restore-fail-home"
+    [void](New-Item -ItemType Directory -Path (Join-Path $restoreFailHome ".agents") -Force)
+    [IO.File]::WriteAllText((Join-Path $restoreFailHome ".agents\original.txt"), "original")
+    $restoreSetup = Invoke-Sync -HomePath $restoreFailHome -Arguments @("-Force")
+    Assert-True ($restoreSetup.ExitCode -eq 0) "failed-restore fixture sync succeeds"
+    $restoreFailManifest = Get-ManifestPath $restoreSetup.Output
+    $installedBeforeRestore = (Get-FileHash (Join-Path $restoreFailHome ".agents\AGENTS.md") -Algorithm SHA256).Hash
+    $restoreFailure = Invoke-Sync -HomePath $restoreFailHome -Arguments @("-Restore", $restoreFailManifest) -Environment @{ AGENTS_SYNC_FAIL_RESTORE_AFTER = "1" }
+    Assert-True ($restoreFailure.ExitCode -ne 0) "injected restore failure exits non-zero"
+    Assert-True ((Get-FileHash (Join-Path $restoreFailHome ".agents\AGENTS.md") -Algorithm SHA256).Hash -eq $installedBeforeRestore) "failed restore rolls back to installed runtime"
 
     Write-Host "Runtime sync integration passed: $script:passed assertions." -ForegroundColor Green
     exit 0

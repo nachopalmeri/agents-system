@@ -37,7 +37,7 @@ Implementation metrics before final gate:
 - OpenCode preload: 4,999 / 8,000 characters; 90.38% below baseline.
 - Capability preservation: 19 agents and 52 active skills reachable.
 - Runtime evals: 100%, 44/44 weighted points.
-- Sync integration: 42 assertions including path escape, tamper, ownership, drift and partial rollback.
+- Sync integration: 50 assertions including path escape, junction traversal, tamper, ownership, drift, delete-before-move, failed restore and partial rollback.
 - Real local sync backup: `C:\Users\nacho\.agents-system-sync\backups\20260715-141658885-ffc8573d\manifest.json`.
 - Restore command: `powershell -NoProfile -ExecutionPolicy Bypass -File bin\sync-runtime.ps1 -Restore <manifest-path>`.
 

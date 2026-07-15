@@ -31,7 +31,26 @@ try {
     if ($LASTEXITCODE -eq 0) { $failures += "secret-like detail accepted" }
     & $shell -NoProfile -ExecutionPolicy Bypass -File $writer -TraceDirectory $temp -TaskId bad -Type action -Lane SIMPLE -Status ok -ReasonCode test -Detail "line1`nline2" 2>$null
     if ($LASTEXITCODE -eq 0) { $failures += "multiline detail accepted" }
+    $providerSecrets = @(
+        ("ghp_" + ("A" * 26)),
+        ("github_" + "pat_" + ("B" * 26)),
+        ("xox" + "b-" + ("C" * 26))
+    )
+    foreach ($secret in $providerSecrets) {
+        & $shell -NoProfile -ExecutionPolicy Bypass -File $writer -TraceDirectory $temp -TaskId bad -Type action -Lane SIMPLE -Status ok -ReasonCode test -Detail $secret 2>$null
+        if ($LASTEXITCODE -eq 0) { $failures += "provider secret accepted: $($secret.Substring(0, 4))" }
+    }
     $ErrorActionPreference = $previousPreference
+
+    $foreign = Join-Path $temp "foreign.jsonl"
+    $ownedOld = Join-Path $temp "runtime-2000-01-01.jsonl"
+    [IO.File]::WriteAllText($foreign, '{}')
+    [IO.File]::WriteAllText($ownedOld, '{}')
+    (Get-Item $foreign).LastWriteTimeUtc = [datetime]::UtcNow.AddDays(-31)
+    (Get-Item $ownedOld).LastWriteTimeUtc = [datetime]::UtcNow.AddDays(-31)
+    & $writer -TraceDirectory $temp -TaskId retention -Type result -Lane SIMPLE -Status ok -ReasonCode test
+    if (-not (Test-Path $foreign)) { $failures += "rotation deleted a foreign JSONL file" }
+    if (Test-Path $ownedOld) { $failures += "rotation kept an expired owned trace" }
 } finally {
     Remove-Item -LiteralPath $temp -Recurse -Force -ErrorAction SilentlyContinue
 }

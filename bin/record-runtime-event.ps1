@@ -14,14 +14,14 @@ param(
 $ErrorActionPreference = "Stop"
 if ($TaskId -match "[\r\n]" -or $Detail -match "[\r\n]") { throw "Multiline event values are not allowed." }
 $combined = "$TaskId $Status $ReasonCode $Detail"
-if ($combined -match "(?i)(?:api[_-]?key|token|secret|password|authorization)\s*[:=]|\bsk-[a-z0-9-]{8,}") {
+if ($combined -match "(?i)(?:api[_-]?key|token|secret|password|authorization)\s*[:=]|\bsk-[a-z0-9-]{8,}|\bghp_[a-z0-9_]{20,}|\bgithub_pat_[a-z0-9_]{20,}|\bxox[baprs]-[a-z0-9-]{20,}") {
     throw "Secret-like event value rejected."
 }
 if ($Detail.Length -gt 240) { throw "Event detail exceeds 240 characters." }
 
 $resolvedParent = [IO.Path]::GetFullPath($TraceDirectory)
 if (-not (Test-Path $resolvedParent)) { New-Item -ItemType Directory -Path $resolvedParent -Force | Out-Null }
-Get-ChildItem $resolvedParent -Filter *.jsonl -File -ErrorAction SilentlyContinue |
+Get-ChildItem $resolvedParent -Filter runtime-*.jsonl -File -ErrorAction SilentlyContinue |
     Where-Object LastWriteTimeUtc -lt ([datetime]::UtcNow.AddDays(-30)) |
     Remove-Item -Force
 
