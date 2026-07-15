@@ -132,7 +132,7 @@ try {
 
     $name = git config user.name
     $email = git config user.email
-    if ($name -eq "nachopalmeri" -and $email -eq "ipalmeri@uade.edu.ar") {
+    if ($name -eq "Nacho Palmeri" -and $email -eq "ipalmeri@uade.edu.ar") {
         Add-Ok "Git identity: $name <$email>"
     } else {
         Add-Failure "Git identity mismatch: $name <$email>"
@@ -162,24 +162,11 @@ try {
         Add-Ok "Agent registry validation"
     }
 
-    $routeExamples = @(
-        "examples\tasks\security-review.json",
-        "examples\tasks\docs-update.json",
-        "examples\tasks\bugfix.json"
-    )
-
-    foreach ($example in $routeExamples) {
-        try {
-            $routeJson = & "$PSScriptRoot\route-task.ps1" $example
-            $route = $routeJson | ConvertFrom-Json
-            if ($LASTEXITCODE -ne 0 -or $null -eq $route.selectedAgents -or $route.selectedAgents.Count -eq 0) {
-                Add-Failure "Route smoke failed: $example"
-            } else {
-                Add-Ok "Route smoke: $example -> $($route.selectedAgents.Count) agent(s)"
-            }
-        } catch {
-            Add-Failure "Route smoke failed: $example :: $($_.Exception.Message)"
-        }
+    & "$PSScriptRoot\run-runtime-evals.ps1" -Category routing
+    if ($LASTEXITCODE -ne 0) {
+        Add-Failure "Runtime routing evaluator failed"
+    } else {
+        Add-Ok "Runtime routing evaluator"
     }
 
     Write-Host ""
