@@ -80,9 +80,16 @@ if (-not (Test-Path $syncScript -PathType Leaf)) {
 try {
     Write-Host "==> WhatIf is write-free" -ForegroundColor Cyan
     $dryHome = New-TestHome "dry-home"
-    $dryRun = Invoke-Sync -HomePath $dryHome -Arguments @("-WhatIf")
+    $dryAgents = Join-Path $dryHome ".agents"
+    [void](New-Item -ItemType Directory -Path $dryAgents -Force)
+    $dryLock = Join-Path $dryAgents ".skill-lock.json"
+    [IO.File]::WriteAllText($dryLock, '{"existing":true}', (New-Object Text.UTF8Encoding($false)))
+    $dryBefore = Get-FileHash $dryLock -Algorithm SHA256
+    $dryCount = @(Get-ChildItem $dryHome -Force -Recurse).Count
+    $dryRun = Invoke-Sync -HomePath $dryHome -Arguments @("-WhatIf", "-Force")
     Assert-True ($dryRun.ExitCode -eq 0) "WhatIf exits successfully"
-    Assert-True (@(Get-ChildItem $dryHome -Force).Count -eq 0) "WhatIf creates no files or directories"
+    Assert-True (@(Get-ChildItem $dryHome -Force -Recurse).Count -eq $dryCount) "WhatIf creates no files or directories"
+    Assert-True ((Get-FileHash $dryLock -Algorithm SHA256).Hash -eq $dryBefore.Hash) "WhatIf can inspect a populated home without mutating it"
 
     Write-Host "==> Sync, doctor, drift, restore" -ForegroundColor Cyan
     $syncHome = New-TestHome "happy-home"

@@ -20,6 +20,7 @@ function Get-AdapterContent($Adapter) {
         "zed-json" {
             return "{`n  `"_runtimeCanonicalSha256`": `"$canonicalHash`",`n  `"load_agent_rules`": [`n    `".agents/AGENTS.md`"`n  ]`n}`n"
         }
+        "canonical-source" { return $null }
         "existing-pointer" { return $null }
         default { throw "Unknown adapter render kind: $($Adapter.renderKind)" }
     }
@@ -28,6 +29,12 @@ function Get-AdapterContent($Adapter) {
 foreach ($adapter in @($manifest.adapters)) {
     $path = Join-Path $repoRoot $adapter.repoPath
     $expected = Get-AdapterContent $adapter
+    if ($adapter.renderKind -eq "canonical-source") {
+        if ((Resolve-Path $path).Path -ne (Resolve-Path $canonicalPath).Path) {
+            $failures += "Canonical source adapter points elsewhere: $($adapter.repoPath)"
+        }
+        continue
+    }
     if ($adapter.renderKind -eq "existing-pointer") {
         if (-not (Test-Path $path -PathType Leaf) -or (Get-Content $path -Raw) -notmatch "\.agents/AGENTS\.md") {
             $failures += "Adapter does not resolve canonical policy: $($adapter.repoPath)"

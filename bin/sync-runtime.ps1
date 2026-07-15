@@ -38,11 +38,22 @@ function Get-StringHash([string] $Value) {
     }
 }
 
+function Get-FileContentHash([string] $Path) {
+    $algorithm = [System.Security.Cryptography.SHA256]::Create()
+    $stream = [System.IO.File]::OpenRead($Path)
+    try {
+        return (($algorithm.ComputeHash($stream) | ForEach-Object { $_.ToString("x2") }) -join "")
+    } finally {
+        $stream.Dispose()
+        $algorithm.Dispose()
+    }
+}
+
 function Get-PathHash([string] $Path) {
     if (-not (Test-Path $Path)) { return $null }
     $item = Get-Item $Path -Force
     if (-not $item.PSIsContainer) {
-        return (Get-FileHash $Path -Algorithm SHA256).Hash.ToLowerInvariant()
+        return Get-FileContentHash $Path
     }
     $root = $item.FullName.TrimEnd('\')
     $records = @()
@@ -51,7 +62,7 @@ function Get-PathHash([string] $Path) {
         if ($child.PSIsContainer) {
             $records += "D`0$relative"
         } else {
-            $hash = (Get-FileHash $child.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            $hash = Get-FileContentHash $child.FullName
             $records += "F`0$relative`0$hash"
         }
     }

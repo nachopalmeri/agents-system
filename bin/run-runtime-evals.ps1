@@ -12,6 +12,12 @@ $registryPath = Join-Path $repoRoot "agents.registry.json"
 $rulesPath = Join-Path $repoRoot "config\routing-rules.json"
 $routerPath = Join-Path $repoRoot "orchestrator\router.ps1"
 $visualTestPath = Join-Path $repoRoot "bin\test-visual-workflow.ps1"
+$categoryScripts = @{
+    adapter = Join-Path $repoRoot "bin\test-runtime-adapters.ps1"
+    reference = Join-Path $repoRoot "bin\check-runtime-graph.ps1"
+    feedback = Join-Path $repoRoot "bin\test-feedback-loop.ps1"
+    visual = $visualTestPath
+}
 
 function Get-ChildPowerShell {
     $shell = Get-Command pwsh -ErrorAction SilentlyContinue
@@ -19,14 +25,16 @@ function Get-ChildPowerShell {
     return $shell.Source
 }
 
-if ($Category -eq "visual") {
-    & (Get-ChildPowerShell) -NoProfile -ExecutionPolicy Bypass -File $visualTestPath
+if ($categoryScripts.ContainsKey($Category)) {
+    & (Get-ChildPowerShell) -NoProfile -ExecutionPolicy Bypass -File $categoryScripts[$Category]
     exit $LASTEXITCODE
 }
 
 if ($Category -eq "all") {
-    & (Get-ChildPowerShell) -NoProfile -ExecutionPolicy Bypass -File $visualTestPath
-    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    foreach ($scriptPath in @($categoryScripts.adapter, $categoryScripts.reference, $categoryScripts.feedback, $categoryScripts.visual)) {
+        & (Get-ChildPowerShell) -NoProfile -ExecutionPolicy Bypass -File $scriptPath
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    }
 }
 
 function Add-Failure {
