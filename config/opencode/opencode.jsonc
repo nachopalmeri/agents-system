@@ -65,30 +65,6 @@
   },
   "instructions": [
     "~/.agents/AGENTS.md",
-    "~/.agents/rules/chat-first.md",
-    "~/.agents/workflows/start.md",
-    "~/.agents/workflows/index.md",
-    "~/.agents/workflows/phases.md",
-    "~/.agents/workflows/skills_routing.md",
-    "~/.agents/workflows/task_ledger.md",
-    "~/.agents/workflows/multiagent_review_loop.md",
-    "~/.agents/workflows/venture_loop.md",
-    "~/.agents/workflows/product_foundry.md",
-    "~/.agents/workflows/seo_geo_growth.md",
-    "~/.agents/workflows/mcp_catalog.md",
-    "~/.agents/workflows/mcp_security.md",
-    "~/.agents/workflows/mcp_adoption.md",
-    "~/.agents/workflows/opencode_ecosystem.md",
-    "~/.agents/workflows/parallel_agents.md",
-    "~/.agents/workflows/hooks.md",
-    "~/.agents/workflows/spec_kit.md",
-    "~/.agents/workflows/validation.md",
-    "~/.agents/workflows/context_check.md",
-    "~/.agents/workflows/session_checkpoint.md",
-    "~/.agents/workflows/project_types.md",
-    "~/.agents/memory/tech_radar.md",
-    "~/.agents/rules/code-style.md",
-    "~/.agents/rules/testing.md",
-    "~/.agents/rules/git.md"
+    "~/.agents/workflows/index.md"
   ]
 }

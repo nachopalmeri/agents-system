@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "canonicalPath": ".agents/AGENTS.md",
+  "activeInstructionRoots": [".agents/agents", ".agents/rules", ".agents/skills", ".agents/workflows"],
+  "excludedRuntimePaths": [".agents/archive", ".git", "node_modules", "dist", "build", "runtime/traces"],
+  "preloadAllowlist": [".agents/AGENTS.md", ".agents/workflows/index.md"],
+  "contextBudgets": {
+    "canonicalMaxChars": 6000,
+    "openCodeMaxChars": 8000,
+    "baselineChars": 51958,
+    "minReductionPercent": 80
+  },
+  "adapters": [
+    { "client": "codex", "status": "stable", "requiredCapability": "AGENTS.md discovery", "repoPath": "AGENTS.md", "renderKind": "root-template", "globalTarget": ".codex/AGENTS.md" },
+    { "client": "claude", "status": "stable", "requiredCapability": "CLAUDE.md discovery", "repoPath": "CLAUDE.md", "renderKind": "markdown-pointer", "globalTarget": ".claude/CLAUDE.md" },
+    { "client": "gemini", "status": "stable", "requiredCapability": "GEMINI.md discovery", "repoPath": "GEMINI.md", "renderKind": "existing-pointer", "globalTarget": ".gemini/GEMINI.md" },
+    { "client": "cursor", "status": "experimental", "requiredCapability": "project rules file", "repoPath": ".cursorrules", "renderKind": "plain-pointer" },
+    { "client": "aider", "status": "stable", "requiredCapability": "read list config", "repoPath": ".aider.conf.yml", "renderKind": "aider-yaml" },
+    { "client": "zed", "status": "experimental", "requiredCapability": "assistant context config", "repoPath": ".zed/settings.json", "renderKind": "zed-json" },
+    { "client": "opencode", "status": "stable", "requiredCapability": "instructions list", "repoPath": "config/opencode/AGENTS.md", "renderKind": "markdown-pointer", "globalTarget": ".config/opencode/AGENTS.md" }
+  ]
+}
