@@ -1,6 +1,11 @@
 # Lecciones de Sesión
 
+Estados permitidos: `candidate`, `active`, `promoted`, `rejected`. Una corrección nueva nace como `candidate`; requiere evidencia/fixture para pasar a `active` y confirmación humana para `promoted`.
+
 ## 2026-06-23 20:30 - [ROUTING] Paths relativos en workflows rompen el loop de aprendizaje
+
+- Estado: active
+- Evidencia: incidente reproducido y paths corregidos
 
 - Tipo: ROUTING
 - Señal: validación de la Fase A — la simulación reveló que start.md busca `tasks/` en CWD, no en `.agents/tasks/`
@@ -13,6 +18,9 @@
 
 ## 2026-06-23 20:45 - [OUTPUT] La validación del loop requiere simulación concreta, no teoría
 
+- Estado: candidate
+- Evidencia: una aparición; falta fixture durable
+
 - Tipo: OUTPUT
 - Señal: el diseño inicial de las 3 fases no identificó los paths rotos hasta que se simuló paso a paso
 - Contexto: diseño de la validación del sistema de aprendizaje
@@ -23,6 +31,9 @@
 - Candidato global: no (primera aparición)
 
 ## 2026-06-23 21:00 - [SCOPE] No modificar paths en archivos ajenos al sistema (per-project)
+
+- Estado: candidate
+- Evidencia: una aparición durante refactor de paths
 
 - Tipo: SCOPE
 - Señal: durante la reparación de paths, agent_coordination.md y client_workflow.md referencian `tasks/` correctamente como archivos per-project

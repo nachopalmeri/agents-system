@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schemaVersion", "taskId", "state", "iterations", "replans", "evidence", "reasonCode"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "taskId": { "type": "string", "minLength": 1 },
+    "state": { "enum": ["SUCCESS", "BLOCKED", "NEEDS_USER", "BUDGET_EXCEEDED"] },
+    "iterations": { "type": "integer", "minimum": 0 },
+    "replans": { "type": "integer", "minimum": 0 },
+    "evidence": { "type": "array", "items": { "type": "string" } },
+    "reasonCode": { "type": "string", "minLength": 1 }
+  }
+}

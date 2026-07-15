@@ -5,7 +5,7 @@ description: Qué hacer al abrir una sesión en cualquier proyecto sin fallar si
 # Workflow: Inicio de Sesión
 
 ## Cuándo usarlo
-Al abrir OpenCode en cualquier proyecto, antes de cualquier acción.
+Sólo cuando el cliente solicita un diagnóstico de inicio o faltan contexto/estado para ejecutar la tarea. No crear un turno vacío de probes antes de trabajo simple.
 
 ## Principio
 El inicio de sesión nunca debe fallar por archivos faltantes. Si un archivo, comando o dato no existe, reportar `no encontrado` o `no disponible` y continuar.

@@ -4,6 +4,8 @@ description: Orquestación de agentes paralelos y worktrees cuando hay tareas in
 
 # Parallel Agents
 
+**Contrato finito:** sólo por pedido explícito o 2+ tareas realmente independientes. Lane PARALLEL: máximo 4 agentes, 8 iteraciones y 2 replans. Cada agente tiene ownership no solapado y entregable verificable. Dos fallos idénticos sin evidencia nueva terminan `BLOCKED`; siempre emitir receipt.
+
 ## Cuándo usar
 
 Usar subagentes o worktrees paralelos cuando:
