@@ -10,6 +10,10 @@ $canonicalHash = (Get-FileHash $canonicalPath -Algorithm SHA256).Hash.ToLowerInv
 $rootTemplate = Get-Content (Join-Path $repoRoot "config\templates\root-AGENTS.md.tmpl") -Raw
 $failures = @()
 
+function Normalize-AdapterContent([string] $Content) {
+    return $Content.Replace("`r`n", "`n")
+}
+
 function Get-AdapterContent($Adapter) {
     $marker = "managed-runtime-adapter; canonical-sha256: $canonicalHash"
     switch ($Adapter.renderKind) {
@@ -44,7 +48,7 @@ foreach ($adapter in @($manifest.adapters)) {
     if ($Check) {
         if (-not (Test-Path $path -PathType Leaf)) {
             $failures += "Adapter missing: $($adapter.repoPath)"
-        } elseif ((Get-Content $path -Raw) -cne $expected) {
+        } elseif ((Normalize-AdapterContent (Get-Content $path -Raw)) -cne (Normalize-AdapterContent $expected)) {
             $failures += "Adapter drift: $($adapter.repoPath)"
         }
         continue
