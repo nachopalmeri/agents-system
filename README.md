@@ -1,539 +1,254 @@
-# Agents System — Dotfiles de Nacho Palmeri
+# Agents System — Runtime de Pisculichi Labs
 
-Sistema global de agentes, workflows, skills y scaffolding para desarrollo con IA multi-herramienta.
+Sistema personal de agentes, skills, workflows y adapters para trabajar con IA en distintos IDEs y CLIs sin precargar toda la biblioteca en cada tarea.
 
-## Qué contiene
+La arquitectura actual prioriza:
 
-- `.agents/` — Reglas globales, workflows, skills, agentes personalizados
-- `bin/` — Scripts `nuevo-proyecto.ps1` y `nuevo-proyecto.sh`
-- `config/opencode/` — Configuración de OpenCode (`AGENTS.md`, `opencode.jsonc`)
-- `config/windsurf/` — Estructura local de Windsurf (planes, etc)
-- `docs/` — Guías de instalación privada, laptop bootstrap y ecosistema OpenCode
+- chat-first;
+- menor componente suficiente;
+- progressive disclosure;
+- validación proporcional;
+- gates humanos para acciones sensibles;
+- capacidades especializadas preservadas bajo demanda.
 
-## Principios operativos
+## Arquitectura actual
 
-- La interfaz es chat; los workflows son motor interno.
-- El agente debe elegir el menor workflow suficiente y explicar la eleccion cuando haya ambiguedad real.
-- Validar significa aportar evidencia observable o declarar la limitacion.
-- Cuando el routing o el output fallan, usar `.agents/workflows/feedback_loop.md` para convertir el error en una regla, checklist, test o poda concreta.
+```text
+pedido en lenguaje natural
+→ policy canónica
+→ clasificación de riesgo e intención
+→ componente mínimo suficiente
+→ ejecución
+→ validación proporcional
+→ recibo
+```
 
-## Requisitos previos
+### Fuente de verdad
 
-- Git instalado
-- PowerShell (Windows) o Bash (Linux/Mac)
-- GitHub CLI (`gh`) para instalar desde repo privado
-- Opcional: OpenCode, Zed, Obsidian
+`.agents/AGENTS.md` es la única policy editable del runtime.
 
-## Instalación rápida (PC nueva)
+El `AGENTS.md` de la raíz y los adapters de cada cliente son archivos administrados que apuntan a esa policy. No deben editarse manualmente.
 
-### Repo privado (recomendado)
+### Descubrimiento bajo demanda
+
+- `config/capabilities.json` contiene el catálogo alcanzable de agentes y skills.
+- `config/routing-rules.json` contiene las reglas deterministas de routing.
+- `.agents/workflows/index.md` ofrece el mapa compacto de intención al componente mínimo.
+- `.agents/archive/` conserva historia y playbooks retirados, pero nunca participa del runtime activo ni del preload.
+
+Mover una capacidad a `on-demand` o `explicit-only` no equivale a borrarla.
+
+## Lanes de ejecución
+
+| Lane | Uso |
+|---|---|
+| `SIMPLE` | Explicación, fallback o cambio chico. Sin council ni reviewer automático. |
+| `SPECIALIZED` | El dominio cambia materialmente la ejecución. Carga un primary especialista. |
+| `PARALLEL` | El usuario lo pide o existen trabajos realmente independientes. |
+| `HIGH_RISK` | Producción, destrucción, credenciales, pagos, release o comunicación externa. |
+
+Precedencia:
+
+```text
+riesgo
+→ agente explícito
+→ paralelismo explícito
+→ especialista
+→ SIMPLE
+```
+
+No se hace fan-out automático cuando dos especialistas podrían aplicar.
+
+## Política de permisos
+
+Por defecto se permite:
+
+- leer y analizar;
+- editar dentro del scope local;
+- ejecutar tests, parse, build y lint locales;
+- corregir cambios reversibles de bajo riesgo.
+
+Requieren autorización explícita:
+
+- instalar dependencias, plugins o MCPs;
+- borrar o mover destructivamente;
+- migrar datos o modificar producción;
+- pagos, publicidad o publicaciones;
+- emails, DMs y mensajes externos;
+- merge a `main` para ese merge exacto.
+
+El force-push está prohibido.
+
+## Componentes principales
+
+```text
+.agents/
+├── AGENTS.md                 # Policy canónica
+├── agents/                   # Agentes automáticos, on-demand y explicit-only
+├── skills/                   # Capacidades cargadas mediante progressive disclosure
+├── workflows/                # Routing, validación, loops y coordinación
+├── rules/                    # Reglas complementarias recuperables
+├── memory/                   # Memoria durable bajo demanda
+└── archive/                  # Historia fuera del runtime
+
+config/
+├── capabilities.json         # Catálogo de capacidades
+├── routing-rules.json        # Reglas del router
+├── runtime-manifest.json     # Adapters, preload y presupuestos
+├── templates/                # Templates de adapters
+└── opencode/                 # Adapter y configuración de OpenCode
+
+bin/
+├── render-runtime-adapters.ps1
+├── run-runtime-evals.ps1
+├── sync-runtime.ps1
+├── doctor.ps1
+├── release-check.ps1
+└── check-secrets.ps1
+```
+
+## Instalación
+
+### Windows
 
 ```powershell
-winget install --id GitHub.cli
-gh auth login
 gh repo clone nachopalmeri/agents-system $env:USERPROFILE\agents-system
-& "$env:USERPROFILE\agents-system\install-private.ps1"
+Set-Location $env:USERPROFILE\agents-system
+.\install-private.ps1
+.\bin\doctor.ps1
 ```
 
-Ver guía completa en `docs/private-repo-install.md` y `docs/bootstrap-laptop.md`.
-
-### Repo público (si algún día se publica)
-
-```powershell
-iwr https://raw.githubusercontent.com/nachopalmeri/agents-system/main/install.ps1 | iex
-```
-
-O manualmente:
-
-```powershell
-git clone https://github.com/nachopalmeri/agents-system.git $env:USERPROFILE\agents-system-temp
-# Luego seguir instrucciones de install.ps1
-```
-
-### Linux/Mac
+### Linux o macOS
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/nachopalmeri/agents-system/main/install.sh | bash
-```
-
-## Instalación manual
-
-1. Clonar este repo en tu PC
-2. Crear symlinks o copiar archivos a ubicaciones estándar
-3. Verificar que todo funcione
-
-### Windows (manual)
-
-```powershell
-# 1. Clonar
-git clone https://github.com/nachopalmeri/agents-system.git C:\Users\%USERNAME%\agents-system
-
-# 2. Crear symlinks (como Admin)
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.agents" -Target "$env:USERPROFILE\agents-system\.agents"
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\bin" -Target "$env:USERPROFILE\agents-system\bin"
-
-# 3. Copiar config de OpenCode
-Copy-Item "$env:USERPROFILE\agents-system\config\opencode\*" "$env:USERPROFILE\.config\opencode\" -Recurse -Force
-
-# 4. Agregar ~/bin al PATH
-[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\bin", "User")
-```
-
-### Linux/Mac (manual)
-
-```bash
-# 1. Clonar
 git clone https://github.com/nachopalmeri/agents-system.git ~/agents-system
-
-# 2. Crear symlinks
-ln -sf ~/agents-system/.agents ~/.agents
-ln -sf ~/agents-system/bin ~/bin
-
-# 3. Copiar config de OpenCode
-mkdir -p ~/.config/opencode
-cp -r ~/agents-system/config/opencode/* ~/.config/opencode/
-
-# 4. Agregar ~/bin al PATH
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
+cd ~/agents-system
+./install.sh
 ```
 
-## Setup multi-IDE (un solo archivo, todos los IDEs)
+## Sincronización multi-IDE
 
-`~/.agents/AGENTS.md` es la única fuente de verdad. Configurá punteros para cada IDE:
+El sistema genera o sincroniza adapters para los clientes declarados en `config/runtime-manifest.json`.
+
+Para regenerar adapters después de modificar la policy canónica:
 
 ```powershell
-.\bin\setup-ide-pointers.ps1
+.\bin\render-runtime-adapters.ps1
 ```
 
-Crea symlinks (con admin/Developer Mode) o copias para Windsurf, OpenCode, Claude Code, Gemini CLI, Cursor (legacy) y Codex. Ver `docs/multi-ide-setup.md` para detalles y `docs/rollback.md` para revertir cambios.
-
-## Pipeline de actualización (uso diario)
-
-Para sincronizar cambios del repo a `~/.agents/` y todos los IDEs en un solo paso:
+Para comprobar que no existe drift:
 
 ```powershell
-.\bin\update-system.ps1
+.\bin\render-runtime-adapters.ps1 -Check
 ```
 
-Hace: `git pull` → resync `~/.agents/` → re-correr `setup-ide-pointers.ps1` → `doctor.ps1`.
-
-Si no hay symlinks (sin Developer Mode), usa copias y avisa cómo migrar a symlinks reales.
-
-## Test de integridad
+Para sincronizar el runtime administrado:
 
 ```powershell
-.\bin\test-system.ps1
+.\bin\sync-runtime.ps1
 ```
 
-Valida: archivos requeridos, referencias internas no rotas, frontmatter de reglas/agentes, workflows con contenido, ratio skills llenas/vacías, prompts portables existentes.
+La sincronización administra únicamente los paths declarados, crea backups y no debe sobrescribir archivos locales fuera de su ownership.
 
-## Registry de agentes
+## Routing
 
-`agents.registry.json` es el contrato machine-readable de agentes. No reemplaza los prompts en `.agents/agents/`; los hace direccionables por routers, integraciones y checks automáticos.
+El router usa lanes e intención en lugar de desplegar un organigrama completo de agentes.
 
-Cada entrada define:
+Ejemplos:
 
-- `id` y `file`: identidad estable y archivo fuente.
-- `division`: área funcional para routing.
-- `whenToUse`: disparadores naturales para elegir el agente.
-- `inputs` y `outputs`: contrato esperado de trabajo.
-- `riskLevel` y `requiresApproval`: guardrails para ejecución y futuras integraciones workspace-native.
-- `tools` y `memoryTags`: permisos y contexto que el agente puede necesitar.
+| Pedido | Componente mínimo esperado |
+|---|---|
+| Cambio directo | agente principal / SIMPLE |
+| Bug o test rojo | `systematic-debugging` |
+| UI o landing | `frontend-design` |
+| SEO técnico | agente SEO |
+| SEO/GEO growth | `seo-geo-growth` |
+| Producto o MVP | `product-foundry` |
+| AI/RAG productivo | `ai-production-architecture` |
+| Estudio o examen | tutor académico |
+| Research actual | researcher |
+| Acción sensible | ruta normal + gate humano |
 
-Validar el registry:
+El catálogo completo vive en `config/capabilities.json`; no se duplica en este README.
+
+## Loops y multiagente
+
+- Los loops deben declarar límites de iteraciones, replans y agentes.
+- Un fallo idéntico repetido termina en bloqueo, no en spin.
+- El council es explícito, nunca automático.
+- El paralelismo se usa solo para trabajos con ownership e inputs/outputs independientes.
+- Para tareas chicas se usa una única lane simple.
+
+## Validación
+
+### Routing y comportamiento
 
 ```powershell
-.\bin\validate-agents.ps1
+.\bin\run-runtime-evals.ps1 -Category routing
 ```
 
-Este check falla si hay ids duplicados, archivos faltantes, frontmatter desalineado, campos requeridos incompletos, herramientas no soportadas, tags de memoria inválidos o niveles de riesgo inválidos.
-
-## Router de tareas
-
-`schemas/task.schema.json` define un task envelope común para pedidos que vengan de chat, CLI, GitHub, Notion o Slack. `bin/route-task.ps1` carga ese envelope, consulta `agents.registry.json` y devuelve una decisión de routing en JSON.
-
-Ejemplo:
+### Integridad de adapters
 
 ```powershell
-.\bin\route-task.ps1 .\examples\tasks\security-review.json
+.\bin\render-runtime-adapters.ps1 -Check
 ```
 
-La salida incluye `selectedAgents`, razones de routing y si hace falta aprobación humana antes de ejecutar.
-
-## Verificación post-instalación
-
-Ejecutar en terminal:
+### Diagnóstico de instalación
 
 ```powershell
 .\bin\doctor.ps1
 ```
 
-Para validar secretos antes de publicar:
+### Secret scan
 
 ```powershell
 .\bin\check-secrets.ps1
 ```
 
-Para validar el repo antes de commitear o pushear:
+### Gate de release
 
 ```powershell
 .\bin\release-check.ps1
 ```
 
-Para validar scaffolding:
+Una validación exitosa debe aportar evidencia fresca. Un check que solo confirma formato no reemplaza las pruebas de routing, adapters y comportamiento.
 
-```bash
-nuevo-proyecto test-install astro
-```
+## Flujo de cambios del sistema
 
-Tiene que crear:
-- `~/test-install/AGENTS.md`
-- `~/test-install/tasks/todo.md`
-- Worktrees de agentes
+1. Crear una rama de trabajo.
+2. Modificar la policy o componente correspondiente.
+3. Regenerar adapters si cambió `.agents/AGENTS.md`.
+4. Ejecutar evals, Doctor, secret scan y release check.
+5. Revisar el diff.
+6. Commit y push de la rama.
+7. Mergear a `main` únicamente con autorización explícita del director para ese merge exacto.
 
-## Estructura del sistema
+Nunca usar force-push.
 
-```text
-.agents/
-├── AGENTS.md                 # Reglas globales de orquestación
-├── agents/                   # Agentes personalizados
-│   ├── agente-principal.md
-│   ├── agente-design.md
-│   ├── agente-seo.md
-│   ├── agente-tests.md
-│   ├── agente-docs.md
-│   ├── agente-obsidian-brain.md
-│   ├── agente-ai-architect.md
-│   ├── agente-marketing-strategist.md
-│   ├── agente-growth-seo-geo.md
-│   ├── agente-product-founder.md
-│   ├── kickoff-architect.md
-│   └── workflow-pruner.md
-├── workflows/                # Workflows reutilizables
-│   ├── start.md
-│   ├── phases.md
-│   ├── skills_routing.md
-│   ├── task_ledger.md
-│   ├── multiagent_review_loop.md
-│   ├── ai_production.md
-│   ├── web_briefing.md
-│   ├── web-factory.md
-│   ├── marketing.md
-│   ├── marketing_mcp_eval.md
-│   ├── venture_loop.md
-│   ├── product_foundry.md
-│   ├── seo_geo_growth.md
-│   ├── content_automation.md
-│   ├── mcp_catalog.md
-│   ├── mcp_security.md
-│   ├── mcp_adoption.md
-│   ├── opencode_ecosystem.md
-│   ├── parallel_agents.md
-│   ├── hooks.md
-│   └── ...
-├── skills/                   # Skills del sistema
-│   ├── astro/
-│   ├── next/
-│   ├── python/
-│   ├── html-vanilla/
-│   ├── beui/
-│   ├── cli-essentials/
-│   ├── obsidian-vault/
-│   ├── product-foundry/
-│   ├── seo-geo-growth/
-│   ├── ai-production-architecture/
-│   ├── frontend-design/
-│   ├── premium-web-stack/
-│   ├── web-presentation-premium/
-│   └── ...
-└── rules/                    # Reglas de código, testing, git
-    ├── code-style.md
-    ├── testing.md
-    └── git.md
-
-bin/
-├── nuevo-proyecto.ps1        # Scaffolding Windows
-├── nuevo-proyecto.sh         # Scaffolding Linux/Mac
-├── doctor.ps1                # Diagnóstico de instalación
-├── check-secrets.ps1         # Scanner simple de secretos
-└── install-hooks.ps1         # Hooks locales opcionales
-
-config/opencode/
-├── AGENTS.md                 # Resumen global para OpenCode
-└── opencode.jsonc            # Config con instructions
-
-docs/
-├── world-class-workflow.md    # Workflow maestro chat-first
-├── architecture.md            # Capas Input → Model → Memory → Tools → Output
-└── how-to-use-the-agent-system.md
-```
-
-## Uso diario
-
-### Workflow maestro
-
-Ver `docs/world-class-workflow.md`.
-
-El flujo base es:
-
-```text
-start.md
-→ index.md
-→ phases.md si no trivial
-→ modo simple / plan / /loop / Routine / multiagent review / Venture Loop
-→ agente o skill especializado
-→ tools seguras
-→ validation.md
-→ feedback_loop.md si hubo correccion del enfoque/routing/output
-→ checkpoint/docs si aporta continuidad
-```
-
-### Crear proyecto simple
+## Scaffolding de proyectos
 
 ```bash
 nuevo-proyecto mi-landing astro
-```
-
-### Crear proyecto AI production
-
-```bash
+nuevo-proyecto mi-app next
+nuevo-proyecto mi-api python
 nuevo-proyecto mi-ai-app ai-prod
-```
-
-### Crear proyecto Spec-Driven Development
-
-```bash
-nuevo-proyecto mi-app-compleja spec-kit
-```
-
-Crea el scaffold base más `.specify/`:
-
-```text
-.specify/
-├── memory/
-│   └── constitution.md
-├── specs/
-├── templates/
-└── README.md
-```
-
-Usarlo para features/proyectos medianos o grandes. No usarlo para fixes chicos.
-
-### Crear proyecto SaaS MVP / negocio local / SEO growth
-
-```bash
 nuevo-proyecto mi-saas saas-mvp
-nuevo-proyecto dulces-creaciones local-business
-nuevo-proyecto seo-site seo-growth
-nuevo-proyecto ideas-ai product-foundry
 ```
 
-Estos presets crean carpetas para `product/`, `growth/`, `landing/`, `metrics/`, `docs/` y `tasks/`.
+Cada proyecto puede agregar un `AGENTS.md` local con reglas específicas. Las instrucciones más cercanas al proyecto no deben duplicar innecesariamente la policy global.
 
-### Crear proyecto web premium (con briefing)
+## Principios de mantenimiento
 
-```bash
-nuevo-proyecto mi-pitch next
-# La IA preguntará: ¿qué buscás? objetivo, audiencia, tono...
-```
+- Una capacidad nueva empieza como skill salvo que necesite una frontera propia de contexto, tools, permisos, modelo, memoria o independencia.
+- Los agentes especializados deben justificar su costo mediante comportamiento observable.
+- El archive es recuperable, pero no se carga automáticamente.
+- La documentación histórica no puede contradecir el runtime canónico.
+- Si un linter, schema o script puede imponer una regla, preferir ese mecanismo antes que repetirla en prompts.
+- La poda elimina duplicación, no conocimiento útil.
 
-### Marketing AI opcional
+## Recuperación
 
-El sistema puede enrutar pedidos de marketing internamente sin que recuerdes workflows:
-
-- Ideas de producto, MVPs, indie hacking y validación
-- Estrategia de lanzamiento, posicionamiento, GTM
-- Research de audiencia, competencia, Category Entry Points
-- SEO/GEO/AEO growth: keywords, landings, backlinks, local SEO, AI search
-- SEO técnico/on-page: auditoría, metadata, sitemap, schema, canonicals
-- Evaluación de MCPs para ads, Meta, Instagram, scrapers
-
-**Reglas de seguridad:**
-- Nunca ejecuta gasto publicitario automáticamente.
-- Los DMs y social selling empiezan en modo draft/handoff humano.
-- Todo MCP de marketing se evalúa con `marketing_mcp_eval.md` antes de instalar.
-
-Ejemplos de prompts naturales:
-```text
-"armame una estrategia de lanzamiento para JobBot"
-"no sé qué producto crear, ayudame a encontrar ideas"
-"quiero lanzar 12 productos chicos con AI"
-"evaluá esta idea con MVP patineta y kill/scale criteria"
-"auditá el SEO y decime quick wins"
-"armame una estrategia SEO para mi SaaS en Argentina"
-"tengo una pastelería de barrio, quiero mejores clientes por Google"
-"qué keywords buscarías en Ahrefs y qué landings crearías?"
-"quiero aparecer en ChatGPT cuando preguntan por mi categoría"
-"quiero investigar anuncios de competidores"
-"evaluá si conviene conectar Meta Ads MCP"
-```
-
-### Product Foundry
-
-El agente `agente-product-founder` aplica el framework:
-
-```text
-flujos de dinero → fricción real → MVP patineta → lanzamiento rápido → validación → kill/keep/scale
-```
-
-Sirve para:
-
-- Pensar ideas de producto.
-- Armar una cartera de 15-20 apuestas pequeñas.
-- Definir MVPs de 1-2 semanas.
-- Actualizar productos existentes con AI.
-- Simplificar productos grandes para nichos.
-- Detectar procesos que la gente ya resuelve mal con Sheets, WhatsApp, email o copy-paste.
-- Conectar ideas prometedoras con SEO/GEO/AEO si hay demanda buscable.
-
-Reglas:
-
-- No enamorarse de una idea sin señales.
-- No construir el auto completo: empezar por la patineta.
-- Evidencia fuerte: pago, preorden, uso repetido, usuario pidiendo más.
-- Evidencia débil: likes, elogios y tráfico sin conversión.
-
-### Venture Loop
-
-El workflow `venture_loop.md` conecta:
-
-```text
-idea → MVP patineta → landing/oferta → distribución → medición → kill/keep/scale
-```
-
-Integra:
-
-- `product_foundry.md`
-- `web_briefing.md`
-- `seo_geo_growth.md`
-- `marketing.md`
-- `validation.md`
-
-### Multiagent Review Loop
-
-El workflow `multiagent_review_loop.md` se usa para decisiones de alto impacto:
-
-```text
-crear → criticar → red team → segunda crítica → plan de mejora → roadmap → reevaluación
-```
-
-No se usa para fixes chicos. Si la crítica no puede cambiar la solución, usar flujo simple o `phases.md`.
-
-### Task Ledger / Kanban
-
-El workflow `task_ledger.md` aplica el patrón:
-
-```text
-pedido en lenguaje natural
-→ coordinador interpreta intención
-→ task trazable si corresponde
-→ agente correcto
-→ progreso visible
-→ evidencia
-→ recibo final
-```
-
-Puede usarse con `tasks/todo.md`, Obsidian, GitHub Projects, Kanban local, Discord/Hermes u otra herramienta. No debe crear tarjetas por cada conversación: solo cuando hay acción real, handoff, tracking o continuidad.
-
-Para setups móviles tipo Jumperz/Juan:
-
-```text
-Telegram/chat móvil
-→ Discord coordinador organizado
-→ Hermes Kanban como ledger
-→ agente correcto
-→ progress card durante el run
-→ evidencia en canal del agente
-→ recibo final en results channel
-→ Obsidian para decisiones/aprendizajes durables
-```
-
-Discord/Hermes/Telegram son una capa opcional de orquestación. Si fallan o no están configurados, el sistema debe seguir funcionando con chat local, `tasks/todo.md`, Obsidian y git.
-
-### SEO/GEO/AEO Growth
-
-El agente `agente-growth-seo-geo` aplica el loop:
-
-```text
-Ahrefs/Semrush/DataForSEO → landings/blog/tools → backlinks/citations → Search Console/GA4 → registros/leads/clientes
-```
-
-Sirve para:
-
-- SaaS Argentina/LATAM.
-- Negocios locales como pastelerías, ferreterías, clínicas o estudios.
-- Webs de servicios.
-- Estrategias para aparecer en ChatGPT, Perplexity, Gemini y Google AI Overviews.
-
-Reglas:
-
-- Mejor 5-10 páginas buenas por mes que 100 páginas thin.
-- No crear doorway pages ni páginas que solo cambian una keyword.
-- No instalar Ahrefs, GSC, GA4, Semrush o DataForSEO MCP sin confirmación.
-- Medir conversiones y calidad del tráfico, no solo visitas.
-- Programmatic SEO solo si cada página tiene valor único, front cuidado, medición y criterio de poda.
-- Páginas sin interés se reforman, fusionan, noindexan o borran.
-- Backlinks importan: proyectos propios, partnerships, directorios relevantes, PR real y assets linkables.
-- Product analytics conecta demanda con comportamiento: búsqueda → página → evento → mejora → poda/escala.
-- DataForSEO, PostHog, Mixpanel o base de eventos empiezan read-only/draft si hay credenciales o datos reales.
-- No monetizar antes de tiempo si reduce aprendizaje, confianza, UX o velocidad de iteración.
-
-### MCPs y plugins opcionales
-
-El sistema incluye workflows para evaluar MCPs y plugins, pero no instala integraciones externas automáticamente.
-
-- `mcp_catalog.md` clasifica MCPs por riesgo.
-- `mcp_security.md` define reglas de seguridad.
-- `mcp_adoption.md` guía adopciones con veredicto GO/NO-GO/PIVOT.
-- `opencode_ecosystem.md` usa `awesome-opencode` como fuente de descubrimiento.
-
-Reglas:
-
-- Empezar read-only.
-- No hardcodear API keys.
-- No conectar pagos, ads, DMs, producción ni datos personales sin confirmación explícita.
-- OpenCode Studio es opcional y debe usarse con backup/diff de config.
-
-### OpenCode Studio opcional
-
-Ver `docs/opencode-studio.md`.
-
-Uso recomendado:
-
-- Gestionar MCPs, skills, plugins y perfiles.
-- Hacer backup/restore.
-- Revisar usage.
-
-No es dependencia obligatoria del sistema.
-
-## Actualizar el sistema
-
-Como es un repo Git, simplemente:
-
-```bash
-git pull origin main
-```
-
-Los symlinks apuntan automáticamente al contenido actualizado.
-
-En Windows:
-
-```powershell
-.\update.ps1
-.\bin\doctor.ps1
-```
-
-## Contribuciones
-
-Este es tu sistema personal. Modificá reglas, agregá skills, experimentá. Cuando encuentres algo que funcione bien, commitealo y pushealo.
-
-## Notas
-
-- El vault de Obsidian (`Q1-2026-UADE`) se sincroniza vía OneDrive, no está en este repo
-- Las API keys y `.env` nunca deben commitearse (están en `.gitignore` global)
-- Cada proyecto creado con `nuevo-proyecto` hereda las reglas pero tiene su propio `AGENTS.md` local
-- `awesome-opencode` y OpenCode Studio son opcionales: evaluar antes de instalar o importar
+Antes de cambios estructurales, conservar una rama o tag de backup. `sync-runtime.ps1` mantiene manifests de backup para restaurar instalaciones administradas.
 
 ## Contacto
 
