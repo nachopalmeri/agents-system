@@ -4,6 +4,10 @@
   "activeInstructionRoots": [".agents/agents", ".agents/rules", ".agents/skills", ".agents/workflows"],
   "excludedRuntimePaths": [".agents/archive", ".git", "node_modules", "dist", "build", "runtime/traces"],
   "preloadAllowlist": [".agents/AGENTS.md", ".agents/workflows/index.md"],
+  "installTargets": [
+    { "client": "cli", "sourcePath": ".agents", "targetPath": ".agents", "kind": "directory" },
+    { "client": "opencode", "sourcePath": "config/opencode/opencode.jsonc", "targetPath": ".config/opencode/opencode.jsonc", "kind": "file" }
+  ],
   "contextBudgets": {
     "canonicalMaxChars": 6000,
     "openCodeMaxChars": 8000,
