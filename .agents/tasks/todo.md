@@ -10,7 +10,7 @@ Reduce default context and accidental orchestration while preserving the full ca
 - [x] Agree on the foundation-first architecture and preservation policy.
 - [x] Create isolated branch/worktree and capture baseline failures.
 - [x] Review and approve the design specification.
-- [ ] Write and review the executable implementation plan.
+- [x] Write and review the executable implementation plan.
 - [ ] Implement Foundation Runtime with tests first.
 - [ ] Implement Loop & Learning with tests first.
 - [ ] Implement Visual Quality workflow with tests first.
