@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: "Use before material or ambiguous creative/product work where alternative designs or a wrong assumption would change the result. Skip for localized fixes, direct commands, and already-approved implementation plans."
 ---
 
 # Brainstorming Ideas Into Designs
@@ -15,7 +15,7 @@ Do NOT invoke any implementation skill, write any code, scaffold any project, or
 
 ## Anti-Pattern: "This Is Too Simple To Need A Design"
 
-Every project goes through this process. A todo list, a single-function utility, a config change — all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The design can be short (a few sentences for truly simple projects), but you MUST present it and get approval.
+Use this process for material features, product behavior, architecture choices, or creative direction with genuine alternatives. Do not invoke it for a typo, one-file repair, direct explanation, small configuration change, or execution of an already approved plan. For a bounded medium task, the design may be one concise section.
 
 ## Checklist
 
@@ -151,7 +151,7 @@ A browser-based companion for showing mockups, diagrams, and visual options duri
 **Offering the companion:** When you anticipate that upcoming questions will involve visual content (mockups, layouts, diagrams), offer it once for consent:
 > "Some of what we're working on might be easier to explain if I can show it to you in a web browser. I can put together mockups, diagrams, comparisons, and other visuals as we go. This feature is still new and can be token-intensive. Want to try it? (Requires opening a local URL)"
 
-**This offer MUST be its own message.** Do not combine it with clarifying questions, context summaries, or any other content. The message should contain ONLY the offer above and nothing else. Wait for the user's response before continuing. If they decline, proceed with text-only brainstorming.
+Offer the visual companion only when visual comparison would materially improve the decision. It may share a message with the design question and must not pause work when the user has already authorized autonomous continuation.
 
 **Per-question decision:** Even after the user accepts, decide FOR EACH QUESTION whether to use the browser or the terminal. The test: **would the user understand this better by seeing it than reading it?**
 

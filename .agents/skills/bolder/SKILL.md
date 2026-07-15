@@ -18,8 +18,8 @@ You cannot do a great job without having necessary context, such as target audie
 
 Attempt to gather these from the current thread or codebase.
 
-1. If you don't find *exact* information and have to infer from existing design and functionality, you MUST STOP and STOP and call the AskUserQuestionTool to clarify. whether you got it right.
-2. Otherwise, if you can't fully infer or your level of confidence is medium or lower, you MUST STOP and call the AskUserQuestionTool to clarify. clarifying questions first to complete your context.
+1. If essential information cannot be inferred safely, ask one focused question through the client's available input mechanism.
+2. If the user already authorized autonomous work, state a reversible assumption and continue within the task scope.
 
 Do NOT proceed until you have answers. Guessing leads to generic AI slop.
 
@@ -47,7 +47,7 @@ Analyze what makes the design feel too safe or boring:
    - Who's the audience? (What will resonate?)
    - What are the constraints? (Brand guidelines, accessibility, performance)
 
-If any of these are unclear from the codebase, STOP and call the AskUserQuestionTool to clarify.
+If any essential item remains unclear, ask through the client's available input mechanism or use a stated reversible assumption when prior authorization permits it.
 
 **CRITICAL**: "Bolder" doesn't mean chaotic or garish. It means distinctive, memorable, and confident. Think intentional drama, not random chaos.
 

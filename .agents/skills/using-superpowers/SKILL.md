@@ -1,115 +1,36 @@
 ---
 name: using-superpowers
-description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
+description: Discover and load the smallest relevant skill when a task clearly matches one or the user requests it. Use to coordinate skill selection without preloading the whole catalog.
 ---
 
-<SUBAGENT-STOP>
-If you were dispatched as a subagent to execute a specific task, skip this skill.
-</SUBAGENT-STOP>
+# Using Skills Efficiently
 
-<EXTREMELY-IMPORTANT>
-If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
+Skills are progressive capabilities, not a checklist for every turn.
 
-IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
+## Selection rule
 
-This is not negotiable. This is not optional. You cannot rationalize your way out of this.
-</EXTREMELY-IMPORTANT>
+1. Read the available skill metadata, not every skill body.
+2. Activate a skill when the user names it or the task clearly matches its trigger.
+3. Prefer the smallest set that covers the work. Do not activate overlapping skills for reassurance.
+4. Load the selected `SKILL.md` completely, then only references directly needed for the current decision.
+5. Announce a selected skill when the client policy asks for it.
 
-## Instruction Priority
+A simple explanation, typo, localized edit, or direct command normally needs no workflow skill. Security, document formats, external systems, specialized domains, and material creative work often do.
 
-Superpowers skills override default system prompt behavior, but **user instructions always take precedence**:
+## Platform adaptation
 
-1. **User's explicit instructions** (CLAUDE.md, GEMINI.md, AGENTS.md, direct requests) — highest priority
-2. **Superpowers skills** — override default system behavior where they conflict
-3. **Default system prompt** — lowest priority
+- Claude Code may expose a Skill tool.
+- Gemini clients may expose skill activation.
+- Codex and generic CLI clients may read the selected `SKILL.md` directly.
+- Use `references/codex-tools.md` or `references/gemini-tools.md` only when a tool-name mapping is actually needed.
 
-If CLAUDE.md, GEMINI.md, or AGENTS.md says "don't use TDD" and a skill says "always use TDD," follow the user's instructions. The user is in control.
+Never require a vendor-specific tool that the active client does not expose. Ask through the client's available input mechanism when a real user decision is necessary.
 
-## How to Access Skills
+## Proportional process
 
-**In Claude Code:** Use the `Skill` tool. When you invoke a skill, its content is loaded and presented to you—follow it directly. Never use the Read tool on skill files.
+- SIMPLE: execute directly; add one focused skill only if it materially improves correctness.
+- SPECIALIZED: load one domain skill or role first.
+- PARALLEL: dispatch only independent work with separate ownership.
+- HIGH_RISK: load the safety/approval contract before acting.
 
-**In Gemini CLI:** Skills activate via the `activate_skill` tool. Gemini loads skill metadata at session start and activates the full content on demand.
-
-**In other environments:** Check your platform's documentation for how skills are loaded.
-
-## Platform Adaptation
-
-Skills use Claude Code tool names. Non-CC platforms: see `references/codex-tools.md` (Codex) for tool equivalents. Gemini CLI users get the tool mapping loaded automatically via GEMINI.md.
-
-# Using Skills
-
-## The Rule
-
-**Invoke relevant or requested skills BEFORE any response or action.** Even a 1% chance a skill might apply means that you should invoke the skill to check. If an invoked skill turns out to be wrong for the situation, you don't need to use it.
-
-```dot
-digraph skill_flow {
-    "User message received" [shape=doublecircle];
-    "About to EnterPlanMode?" [shape=doublecircle];
-    "Already brainstormed?" [shape=diamond];
-    "Invoke brainstorming skill" [shape=box];
-    "Might any skill apply?" [shape=diamond];
-    "Invoke Skill tool" [shape=box];
-    "Announce: 'Using [skill] to [purpose]'" [shape=box];
-    "Has checklist?" [shape=diamond];
-    "Create TodoWrite todo per item" [shape=box];
-    "Follow skill exactly" [shape=box];
-    "Respond (including clarifications)" [shape=doublecircle];
-
-    "About to EnterPlanMode?" -> "Already brainstormed?";
-    "Already brainstormed?" -> "Invoke brainstorming skill" [label="no"];
-    "Already brainstormed?" -> "Might any skill apply?" [label="yes"];
-    "Invoke brainstorming skill" -> "Might any skill apply?";
-
-    "User message received" -> "Might any skill apply?";
-    "Might any skill apply?" -> "Invoke Skill tool" [label="yes, even 1%"];
-    "Might any skill apply?" -> "Respond (including clarifications)" [label="definitely not"];
-    "Invoke Skill tool" -> "Announce: 'Using [skill] to [purpose]'";
-    "Announce: 'Using [skill] to [purpose]'" -> "Has checklist?";
-    "Has checklist?" -> "Create TodoWrite todo per item" [label="yes"];
-    "Has checklist?" -> "Follow skill exactly" [label="no"];
-    "Create TodoWrite todo per item" -> "Follow skill exactly";
-}
-```
-
-## Red Flags
-
-These thoughts mean STOP—you're rationalizing:
-
-| Thought | Reality |
-|---------|---------|
-| "This is just a simple question" | Questions are tasks. Check for skills. |
-| "I need more context first" | Skill check comes BEFORE clarifying questions. |
-| "Let me explore the codebase first" | Skills tell you HOW to explore. Check first. |
-| "I can check git/files quickly" | Files lack conversation context. Check for skills. |
-| "Let me gather information first" | Skills tell you HOW to gather information. |
-| "This doesn't need a formal skill" | If a skill exists, use it. |
-| "I remember this skill" | Skills evolve. Read current version. |
-| "This doesn't count as a task" | Action = task. Check for skills. |
-| "The skill is overkill" | Simple things become complex. Use it. |
-| "I'll just do this one thing first" | Check BEFORE doing anything. |
-| "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
-| "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
-
-## Skill Priority
-
-When multiple skills could apply, use this order:
-
-1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
-2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution
-
-"Let's build X" → brainstorming first, then implementation skills.
-"Fix this bug" → debugging first, then domain-specific skills.
-
-## Skill Types
-
-**Rigid** (TDD, debugging): Follow exactly. Don't adapt away discipline.
-
-**Flexible** (patterns): Adapt principles to context.
-
-The skill itself tells you which.
-
-## User Instructions
-
-Instructions say WHAT, not HOW. "Add X" or "Fix Y" doesn't mean skip workflows.
+Skill instructions do not override the user's explicit scope or higher-priority safety policy. If two skills conflict, use the narrower task-specific one and record the conflict instead of loading more process.
