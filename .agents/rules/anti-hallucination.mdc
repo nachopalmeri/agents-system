@@ -1,0 +1,13 @@
+---
+description: Critical rules to prevent code hallucinations and context loss in large codebases
+globs: *.{ts,tsx,py,go}
+---
+
+# Hallucination Prevention Protocol
+
+- **Dependency Verification:** If you import a module or package, you MUST first execute a shell command or read the package file to confirm it is installed in the current environment.
+- **Context Hygiene:** Do not rewrite entire files. When modifying files over 100 lines, you MUST use `SEARCH/REPLACE` blocks or targeted diff tools.
+- **No Orphan Code:** Every new function or class must be explicitly tied to an existing architectural pattern in the repository. If you cannot find a matching pattern, ask the user.
+- **Test-Time Compute:** For complex logic, write a failing unit test FIRST. Run the test to confirm it fails, then implement the logic, and run the test again to confirm it passes.
+- **Limit Changes:** Restrict modifications to a maximum of 3 files per step. If the task requires more, split it into sequential steps and ask for approval between them.
+- **Progressive Disclosure:** Never read all files at once. Use targeted tools (like Graphify MCP if available) or list the exact file paths you need to read before modifying them.
