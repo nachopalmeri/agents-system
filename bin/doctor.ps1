@@ -8,16 +8,23 @@ param(
 $ErrorActionPreference = "Stop"
 $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
 $homeRoot = [System.IO.Path]::GetFullPath($HomePath).TrimEnd('\', '/')
-$manifest = Get-Content (Join-Path $repoRoot "config\runtime-manifest.json") -Raw | ConvertFrom-Json
-$canonicalSource = Join-Path $repoRoot ([string]$manifest.canonicalPath)
-$canonicalTarget = Join-Path $homeRoot ([string]$manifest.canonicalPath)
-$canonicalSourceHash = (Get-FileHash $canonicalSource -Algorithm SHA256).Hash.ToLowerInvariant()
-$script:hasInvalidInstall = $false
 
 function Get-FileSha256([string] $Path) {
     if (-not (Test-Path $Path -PathType Leaf)) { return $null }
-    return (Get-FileHash $Path -Algorithm SHA256).Hash.ToLowerInvariant()
+    $content = [System.IO.File]::ReadAllText($Path)
+    $normalized = $content.Replace("`r`n", "`n")
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($normalized)
+    $algorithm = [System.Security.Cryptography.SHA256]::Create()
+    $hash = ($algorithm.ComputeHash($bytes) | ForEach-Object { $_.ToString("x2") }) -join ""
+    $algorithm.Dispose()
+    return $hash
 }
+
+$manifest = Get-Content (Join-Path $repoRoot "config\runtime-manifest.json") -Raw | ConvertFrom-Json
+$canonicalSource = Join-Path $repoRoot ([string]$manifest.canonicalPath)
+$canonicalTarget = Join-Path $homeRoot ([string]$manifest.canonicalPath)
+$canonicalSourceHash = Get-FileSha256 $canonicalSource
+$script:hasInvalidInstall = $false
 
 function Write-Status([string] $Status, [string] $Name, [string] $Detail) {
     Write-Host "[$Status] $Name - $Detail"

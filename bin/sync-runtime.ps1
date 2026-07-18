@@ -58,13 +58,19 @@ function Get-StringHash([string] $Value) {
 }
 
 function Get-FileContentHash([string] $Path) {
-    $algorithm = [System.Security.Cryptography.SHA256]::Create()
-    $stream = [System.IO.File]::OpenRead($Path)
     try {
-        return (($algorithm.ComputeHash($stream) | ForEach-Object { $_.ToString("x2") }) -join "")
-    } finally {
-        $stream.Dispose()
-        $algorithm.Dispose()
+        $content = [System.IO.File]::ReadAllText($Path)
+        $normalized = $content.Replace("`r`n", "`n")
+        return Get-StringHash $normalized
+    } catch {
+        $algorithm = [System.Security.Cryptography.SHA256]::Create()
+        $stream = [System.IO.File]::OpenRead($Path)
+        try {
+            return (($algorithm.ComputeHash($stream) | ForEach-Object { $_.ToString("x2") }) -join "")
+        } finally {
+            $stream.Dispose()
+            $algorithm.Dispose()
+        }
     }
 }
 
@@ -277,16 +283,19 @@ if ($Restore) {
 
 $targets = Get-SyncTargets
 $state = Read-SyncState
+$validTargets = @()
 foreach ($target in $targets) {
-    if (-not (Test-Path $target.targetPath)) { continue }
+    if (-not (Test-Path $target.targetPath)) { $validTargets += $target; continue }
     $stateEntry = Get-StateEntry $state $target.relativeTarget
     $currentHash = Get-PathHash $target.targetPath
     if ($null -eq $stateEntry) {
-        if (-not $Force) { throw "Unmanaged target detected at $($target.targetPath); rerun with -Force" }
+        if (-not $Force) { Write-Warning "Unmanaged target detected at $($target.targetPath); skipping. Use -Force to overwrite."; continue }
     } elseif ($currentHash -ne [string]$stateEntry.installedHash) {
-        if (-not $Force) { throw "Managed drift detected at $($target.targetPath); rerun with -Force" }
+        if (-not $Force) { Write-Warning "Managed drift detected at $($target.targetPath); skipping. Use -Force to overwrite."; continue }
     }
+    $validTargets += $target
 }
+$targets = $validTargets
 
 if ($WhatIfPreference) {
     foreach ($target in $targets) { Write-Host "[WhatIf] $($target.relativeTarget) <= $($target.sourcePath)" }
