@@ -1,7 +1,4 @@
-# Sistema de Agentes — Nacho Palmeri
+<!-- managed-runtime-adapter; canonical-sha256: 7b380e4c4ea436d10f086777cc875b501911341c140d50946aaf4c3447188276 -->
+# Runtime adapter: gemini
 
-Sistema de agentes portatil multi-IDE.
-
-**Fuente unica:** .agents/AGENTS.md
-
-Para cargar: leer .agents/AGENTS.md como contexto principal.
+Canonical policy: `.agents/AGENTS.md`. Load capabilities on demand from `config/capabilities.json`.

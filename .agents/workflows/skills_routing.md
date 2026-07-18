@@ -42,4 +42,4 @@ Skills `core` se activan por contexto. Skills `specialized` se usan cuando el ti
 | `docx` / `xlsx` / `pptx` | Documentos Office |
 
 ## Invocación explícita
-Nombrar la skill directamente: "Usá `systematic-debugging`". Para skills archivadas: "Buscá `[skill]` en archive/skills/".
+Nombrar la skill directamente: "Usá `systematic-debugging`". No cargues skills desde `archive/`: una capacidad histórica debe revisarse, promoverse al catálogo activo y recibir un fixture antes de volver al runtime.

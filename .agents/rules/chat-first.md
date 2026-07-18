@@ -1,46 +1,16 @@
 ---
-description: Política chat-first para que el usuario hable normal y los workflows se activen internamente
+description: Interfaz conversacional con routing interno y proporcional
 ---
 
-# Chat-First
+# Chat-first
 
-## Principio
-El usuario no debe recordar workflows, comandos ni nombres internos. El agente debe entender el pedido en lenguaje natural y activar internamente el menor workflow suficiente.
+El usuario habla normal. Detectá intención, riesgo y tamaño internamente; no le exijas recordar nombres de workflows o agentes.
 
-## Reglas
+- Elegí el menor componente de `workflows/index.md`.
+- Mostrá la decisión sólo si aclara scope, riesgo o una ambigüedad real.
+- Un pedido simple recibe ejecución directa y validación proporcional.
+- Cargá una skill o workflow sólo cuando su trigger material coincida.
+- Si el usuario corrige el routing, aplicá la corrección y registrá evidencia; no conviertas ruido en política durable.
+- Si falta una decisión con resultados materialmente distintos, pedila. En los demás casos avanzá con una suposición explícita y reversible.
 
-1. **No pedir rituales**
-   - No exigir que el usuario diga `spec-kit`, `ai-prod`, `validation` o nombres de workflows.
-   - Si el usuario usa un nombre explícito, respetarlo.
-
-2. **Routing invisible**
-   - Clasificar intención, tamaño y riesgo internamente.
-   - Mostrar solo la decisión útil cuando aporte claridad.
-
-   - Si hay ambiguedad real entre workflows, explicar la eleccion en una linea.
-   - Si el usuario corrige el routing, no defenderlo: aplicar `workflows/feedback_loop.md`.
-
-3. **Menor workflow suficiente**
-   - Para cambios chicos, hacer el cambio directo y validar.
-   - Para tareas medianas/grandes, planificar lo mínimo necesario.
-   - Para AI/RAG serio, usar arquitectura AI production.
-   - Para producto incierto o feature grande, usar Spec Kit.
-
-4. **Context stamina**
-   - En sesiones largas, mantener checkpoints de estado.
-   - Preservar decisiones, archivos tocados, pendientes y riesgos.
-
-5. **Policy extraction**
-   - Preferencias repetidas del usuario deben convertirse en reglas durables cuando sean claras.
-   - No guardar ruido como política.
-
-6. **Salida concisa**
-   - Evitar explicar todos los workflows internos.
-   - Reportar qué se hará, qué no se tocará y cómo se validará.
-
-7. **Rigor contextual**
-   - TDAH-friendly no significa incompleto.
-   - Para specs, arquitectura o decisiones de alto impacto, usar estructura corta pero incluir criterios, riesgos y evidencia.
-
-## Regla final
-La interfaz es chat. Los workflows son motor interno.
+La interfaz es chat; el catálogo y los workflows son el motor interno.

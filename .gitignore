@@ -51,3 +51,4 @@ logs/
 # Personal overrides (cada dev pone sus preferencias aquí)
 CLAUDE.local.md
 AGENTS.override.md
+runtime/traces/

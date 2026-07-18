@@ -1,2 +1,2 @@
-# Aider config — apunta a AGENTS.md como fuente de instrucciones
-read: AGENTS.md
+# managed-runtime-adapter; canonical-sha256: 7b380e4c4ea436d10f086777cc875b501911341c140d50946aaf4c3447188276
+read: .agents/AGENTS.md

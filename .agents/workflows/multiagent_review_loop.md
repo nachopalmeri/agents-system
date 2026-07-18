@@ -4,13 +4,15 @@ description: Secuencia multiagente crítica para crear, atacar, mejorar, convert
 
 # Multiagent Review Loop
 
+**Explicit-only:** no se activa por defecto. Lane PARALLEL: máximo 4 agentes, 8 iteraciones y 2 replans. La crítica debe poder cambiar la solución; si no, usar una revisión simple. Termina en `SUCCESS`, `BLOCKED`, `NEEDS_USER` o `BUDGET_EXCEEDED` con receipt.
+
 ## Principio
 
 No usar multiagente para parecer sofisticado. Usarlo cuando una decisión, arquitectura, workflow o estrategia necesita distancia crítica real.
 
 ## Cuándo usar
 
-- Mejorar el sistema de agentes, workflows, skills o arquitectura.
+- El usuario lo pide explícitamente para mejorar el sistema de agentes, workflows, skills o arquitectura.
 - Diseñar una estrategia con riesgo alto o muchas dependencias.
 - Evaluar un producto, Venture Loop, SEO/GEO/AEO o GTM con incertidumbre.
 - Convertir una idea fuerte en roadmap ejecutable.

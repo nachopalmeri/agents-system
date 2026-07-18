@@ -1,123 +1,129 @@
 #!/usr/bin/env pwsh
-$ErrorActionPreference = "Continue"
+[CmdletBinding()]
+param(
+    [string] $Client,
+    [string] $HomePath = $env:USERPROFILE
+)
 
-$repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
-$homeDir = $env:USERPROFILE
-$checks = @()
+$ErrorActionPreference = "Stop"
+$repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
+$homeRoot = [System.IO.Path]::GetFullPath($HomePath).TrimEnd('\', '/')
 
-function Add-Check {
-    param([string]$Name, [bool]$Ok, [string]$Detail)
-    $script:checks += [pscustomobject]@{ Name = $Name; Ok = $Ok; Detail = $Detail }
+function Get-FileSha256([string] $Path) {
+    if (-not (Test-Path $Path -PathType Leaf)) { return $null }
+    $content = [System.IO.File]::ReadAllText($Path)
+    $normalized = $content.Replace("`r`n", "`n")
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($normalized)
+    $algorithm = [System.Security.Cryptography.SHA256]::Create()
+    $hash = ($algorithm.ComputeHash($bytes) | ForEach-Object { $_.ToString("x2") }) -join ""
+    $algorithm.Dispose()
+    return $hash
 }
 
-function Test-CommandExists {
-    param([string]$Command)
-    return [bool](Get-Command $Command -ErrorAction SilentlyContinue)
+$manifest = Get-Content (Join-Path $repoRoot "config\runtime-manifest.json") -Raw | ConvertFrom-Json
+$canonicalSource = Join-Path $repoRoot ([string]$manifest.canonicalPath)
+$canonicalTarget = Join-Path $homeRoot ([string]$manifest.canonicalPath)
+$canonicalSourceHash = Get-FileSha256 $canonicalSource
+$script:hasInvalidInstall = $false
+
+function Write-Status([string] $Status, [string] $Name, [string] $Detail) {
+    Write-Host "[$Status] $Name - $Detail"
 }
 
-Add-Check "Git" (Test-CommandExists "git") "git executable available"
-Add-Check "GitHub CLI" (Test-CommandExists "gh") "gh executable available for private repo sync"
-Add-Check "PowerShell" $true $PSVersionTable.PSVersion.ToString()
-
-$agentsPath = Join-Path $homeDir ".agents"
-$binPath = Join-Path $homeDir "bin"
-$opencodePath = Join-Path $homeDir ".config\opencode\opencode.jsonc"
-
-Add-Check "~/.agents" (Test-Path $agentsPath) $agentsPath
-Add-Check "~/bin" (Test-Path $binPath) $binPath
-Add-Check "nuevo-proyecto.ps1" (Test-Path (Join-Path $binPath "nuevo-proyecto.ps1")) (Join-Path $binPath "nuevo-proyecto.ps1")
-Add-Check "OpenCode config" (Test-Path $opencodePath) $opencodePath
-
-$pathContainsBin = (($env:Path -split ';') -contains $binPath)
-Add-Check "~/bin in PATH" $pathContainsBin $binPath
-
-$ollamaReachable = $false
-try {
-    $response = Invoke-WebRequest -Uri "http://127.0.0.1:11434/api/tags" -UseBasicParsing -TimeoutSec 2
-    $ollamaReachable = $response.StatusCode -ge 200 -and $response.StatusCode -lt 500
-} catch {
-    $ollamaReachable = $false
-}
-Add-Check "Ollama local" $ollamaReachable "http://127.0.0.1:11434"
-
-# ── Portability checks ──
-$entryPoints = @{
-    "GEMINI.md"                     = Join-Path $repoRoot "GEMINI.md"
-    "opencode.json"                 = Join-Path $repoRoot "opencode.json"
-    ".github/copilot-instructions.md" = $null
-    ".zed/settings.json"            = $null
-}
-$entryPoints['.github/copilot-instructions.md'] = Join-Path $repoRoot ".github\copilot-instructions.md"
-$entryPoints['.zed/settings.json'] = Join-Path $repoRoot ".zed\settings.json"
-
-$portabilityScore = 0
-$portabilityTotal = 0
-
-foreach ($ep in $entryPoints.Keys) {
-    $epPath = $entryPoints[$ep]
-    $exists = Test-Path $epPath
-    $portabilityTotal++
-    if ($exists) { $portabilityScore++ }
-    Add-Check "Entry: $ep" $exists $epPath
+function Test-CanonicalInstall {
+    if (-not (Test-Path $canonicalTarget -PathType Leaf)) {
+        return [pscustomobject]@{ Status = "not-installed"; Hash = $null; Detail = "canonical runtime missing" }
+    }
+    $installedHash = Get-FileSha256 $canonicalTarget
+    if ($installedHash -ne $canonicalSourceHash) {
+        return [pscustomobject]@{ Status = "unsupported"; Hash = $installedHash; Detail = "canonical hash mismatch" }
+    }
+    return [pscustomobject]@{ Status = "supported"; Hash = $installedHash; Detail = "canonical-sha256=$installedHash" }
 }
 
-# Check IDE configs (global)
-$ideConfigs = @{
-    "~/.agents/AGENTS.md" = Join-Path $homeDir ".agents\AGENTS.md"
-    "~/.config/opencode/opencode.jsonc" = Join-Path $homeDir ".config\opencode\opencode.jsonc"
-    "~/AGENTS.md (root)" = Join-Path $homeDir "AGENTS.md"
+function Test-OpenCodePreload {
+    $configTarget = @($manifest.installTargets | Where-Object { $_.client -eq "opencode" -and $_.targetPath -match 'opencode\.jsonc$' }) | Select-Object -First 1
+    if ($null -eq $configTarget) { return [pscustomobject]@{ Ok = $false; Detail = "preload target undeclared" } }
+    $path = Join-Path $homeRoot ([string]$configTarget.targetPath)
+    if (-not (Test-Path $path -PathType Leaf)) { return [pscustomobject]@{ Ok = $false; Detail = "preload config missing" } }
+    $sourcePath = Join-Path $repoRoot ([string]$configTarget.sourcePath)
+    $sourceHash = Get-FileSha256 $sourcePath
+    $installedHash = Get-FileSha256 $path
+    if ($sourceHash -ne $installedHash) {
+        return [pscustomobject]@{ Ok = $false; Detail = "config hash mismatch; config-sha256=$installedHash expected=$sourceHash" }
+    }
+    try {
+        $config = Get-Content $path -Raw | ConvertFrom-Json
+    } catch {
+        return [pscustomobject]@{ Ok = $false; Detail = "preload config invalid" }
+    }
+    $actual = @($config.instructions | ForEach-Object { ([string]$_).Replace("~/.agents/", ".agents/") })
+    $expected = @($manifest.preloadAllowlist)
+    if (($actual -join "|") -cne ($expected -join "|")) {
+        return [pscustomobject]@{ Ok = $false; Detail = "preload mismatch" }
+    }
+    return [pscustomobject]@{ Ok = $true; Detail = "config-sha256=$installedHash; preload=ok" }
 }
 
-foreach ($ic in $ideConfigs.Keys) {
-    $icPath = $ideConfigs[$ic]
-    $exists = Test-Path $icPath
-    $portabilityTotal++
-    if ($exists) { $portabilityScore++ }
-    Add-Check "IDE: $ic" $exists $icPath
-}
+function Test-Client([string] $Name) {
+    if ($Name -eq "cli") {
+        $canonical = Test-CanonicalInstall
+        Write-Status $canonical.Status "cli" $canonical.Detail
+        if ($canonical.Status -eq "unsupported") { $script:hasInvalidInstall = $true }
+        return
+    }
 
-# Check skills with platform: claude-code-only label
-$skillsDir = Join-Path $repoRoot ".agents\skills"
-$totalSkills = 0
-$ccOnlySkills = 0
-if (Test-Path $skillsDir) {
-    $skillDirs = Get-ChildItem -Path $skillsDir -Directory
-    $totalSkills = $skillDirs.Count
-    foreach ($sk in $skillDirs) {
-        $skMd = Join-Path $sk.FullName "SKILL.md"
-        if (Test-Path $skMd) {
-            $content = Get-Content $skMd -Raw
-            if ($content -match 'platform:\s*claude-code-only') {
-                $ccOnlySkills++
-            }
+    $adapter = @($manifest.adapters | Where-Object { ([string]$_.client) -eq $Name }) | Select-Object -First 1
+    if ($null -eq $adapter) {
+        Write-Status "unsupported" $Name "client is not declared in runtime manifest"
+        return
+    }
+    if (-not $adapter.globalTarget) {
+        Write-Status "unsupported" $Name "repository-only adapter; no global install target"
+        return
+    }
+    $targetPath = Join-Path $homeRoot ([string]$adapter.globalTarget)
+    if (-not (Test-Path $targetPath -PathType Leaf)) {
+        Write-Status "not-installed" $Name $targetPath
+        return
+    }
+    $sourcePath = Join-Path $repoRoot ([string]$adapter.repoPath)
+    $sourceHash = Get-FileSha256 $sourcePath
+    $targetHash = Get-FileSha256 $targetPath
+    if ($sourceHash -ne $targetHash) {
+        Write-Status "unsupported" $Name "hash mismatch; sha256=$targetHash expected=$sourceHash"
+        $script:hasInvalidInstall = $true
+        return
+    }
+    $canonical = Test-CanonicalInstall
+    if ($canonical.Status -ne "supported") {
+        Write-Status $canonical.Status $Name "$($canonical.Detail); sha256=$targetHash"
+        if ($canonical.Status -eq "unsupported") { $script:hasInvalidInstall = $true }
+        return
+    }
+    if ($Name -eq "opencode") {
+        $preload = Test-OpenCodePreload
+        if (-not $preload.Ok) {
+            Write-Status "unsupported" $Name "$($preload.Detail); sha256=$targetHash"
+            $script:hasInvalidInstall = $true
+            return
         }
+        Write-Status "supported" $Name "sha256=$targetHash; canonical-sha256=$canonicalSourceHash; $($preload.Detail)"
+        return
     }
-    $portabilityTotal++
-    if ($ccOnlySkills -gt 0) { $portabilityScore++ }
-    Add-Check "Skills: CC-only labeled" ($ccOnlySkills -gt 0) "$ccOnlySkills/$totalSkills skills labeled claude-code-only"
-
-    Add-Check "Skills: all CC skills labeled" ($ccOnlySkills -ge 10) "$ccOnlySkills/78 skills labeled (10 expected claude-code-only)"
+    Write-Status "supported" $Name "sha256=$targetHash; canonical-sha256=$canonicalSourceHash"
 }
 
-Write-Host "Agents System Doctor" -ForegroundColor Cyan
+Write-Host "Agents System Doctor"
 Write-Host "Repo: $repoRoot"
-Write-Host "Portability Score: $portabilityScore / $portabilityTotal"
-Write-Host ""
+Write-Host "Home: $homeRoot"
 
-foreach ($check in $checks) {
-    if ($check.Ok) {
-        Write-Host "[OK] $($check.Name) - $($check.Detail)" -ForegroundColor Green
-    } else {
-        Write-Host "[WARN] $($check.Name) - $($check.Detail)" -ForegroundColor Yellow
-    }
+if ($Client) {
+    Test-Client $Client.ToLowerInvariant()
+} else {
+    Test-Client "cli"
+    foreach ($adapter in @($manifest.adapters)) { Test-Client ([string]$adapter.client) }
 }
 
-$failed = @($checks | Where-Object { -not $_.Ok })
-Write-Host ""
-if ($failed.Count -eq 0) {
-    Write-Host "Doctor completed with no warnings." -ForegroundColor Green
-    exit 0
-}
-
-Write-Host "Doctor completed with $($failed.Count) warning(s)." -ForegroundColor Yellow
+if ($script:hasInvalidInstall) { exit 1 }
 exit 0

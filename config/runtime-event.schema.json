@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "timestampUtc", "taskId", "type", "lane", "status", "reasonCode"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "timestampUtc": { "type": "string", "format": "date-time" },
+    "taskId": { "type": "string" },
+    "type": { "enum": ["route", "load", "action", "iteration", "validation", "replan", "result"] },
+    "lane": { "enum": ["SIMPLE", "SPECIALIZED", "PARALLEL", "HIGH_RISK"] },
+    "status": { "type": "string" },
+    "reasonCode": { "type": "string" },
+    "iteration": { "type": "integer", "minimum": 0 },
+    "detail": { "type": "string", "maxLength": 240 },
+    "usage": { "type": "object", "additionalProperties": false, "properties": { "toolCalls": { "type": "integer", "minimum": 0 }, "inputTokens": { "type": "integer", "minimum": 0 }, "outputTokens": { "type": "integer", "minimum": 0 }, "costUsd": { "type": "number", "minimum": 0 } } }
+  }
+}

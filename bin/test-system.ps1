@@ -7,10 +7,13 @@
 
 [CmdletBinding()]
 param(
-    [string]$AgentsRoot = "$env:USERPROFILE\.agents"
+    [string]$AgentsRoot
 )
 
 $ErrorActionPreference = "Continue"
+if (-not $AgentsRoot) {
+    $AgentsRoot = Join-Path ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))) ".agents"
+}
 $errors = 0
 $warnings = 0
 

@@ -1,168 +1,82 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications. Generates creative, polished code that avoids generic AI aesthetics.
+description: Create distinctive production-grade interfaces grounded in the real subject, audience, and content. Use for new pages, component suites, immersive/3D experiences, and material redesigns; skip the full ceremony for a one-line style fix.
 license: Apache 2.0. Based on Anthropic's frontend-design skill. See NOTICE.md for attribution.
 ---
 
-This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
+# Frontend Design
 
-## Design Direction
+Build a specific product, not a fashionable interface-shaped shell. Visual choices must follow from the subject, audience, job-to-be-done, brand truth, and real content.
 
-Commit to a BOLD aesthetic direction:
-- **Purpose**: What problem does this interface solve? Who uses it?
-- **Tone**: Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc. There are so many flavors to choose from. Use these for inspiration but design one that is true to the aesthetic direction.
-- **Constraints**: Technical requirements (framework, performance, accessibility).
-- **Differentiation**: What makes this UNFORGETTABLE? What's the one thing someone will remember?
+## Choose the lane
 
-**CRITICAL**: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work—the key is intentionality, not intensity.
+- **Small:** a one-line style fix, typo, token adjustment, or localized component repair. Inspect, edit, and run focused visual/accessibility checks. Do not manufacture a moodboard or approval loop.
+- **Material:** a new page with at least three content sections, landing page, component suite, immersive/3D experience, or redesign that changes hierarchy. Use the full workflow below.
 
-## Design System `.md` Pattern
+## Material workflow
 
-Para outputs consistentes entre sesiones y modelos, mantener un archivo `design-system.md` en el proyecto con:
+### 1. Ground the design
 
-- Paleta de colores (hex, uso: primary, secondary, accent, background, text).
-- Tipografía (font families, sizes, weights, line heights).
-- Espaciados (scale, grid, padding/margin defaults).
-- Componentes base (button, card, input, modal — estructura, no código).
-- Tono visual (glassmorphism, flat, neubrutalism, etc.).
-- Reglas (border-radius, shadow, transition defaults).
+Write a compact brief covering:
 
-Pasar este archivo como contexto al agente antes de generar UI. Resultado: outputs consistentes sin tener que repetir preferencias.
+- subject, audience, and job-to-be-done;
+- real offer/content and primary action;
+- brand truth, emotional target, and constraints;
+- accessibility, performance, device, framework, and content risks.
 
-Ejemplo de estructura:
+If essential product facts are missing, ask one focused question. If the user already authorized autonomous work, state a reversible assumption and continue.
 
-```markdown
-# Design System — [Project Name]
+### 2. Use 2-3 references
 
-## Colors
-- Primary: #6366F1 (Indigo 500)
-- Secondary: #EC4899 (Pink 500)
-- Background: #0F172A (Slate 900)
-- Text: #F8FAFC (Slate 50)
+Collect 2-3 concrete references, screenshots, or moodboard directions. For each, record what to borrow and what to reject. References are evidence, not a request to copy. Prefer subject-relevant editorial, architectural, industrial, cultural, or product sources over another generic SaaS landing.
 
-## Typography
-- Display: Inter Variable, 800, 48px/1.1
-- Body: Inter Variable, 400, 16px/1.6
-- Mono: JetBrains Mono, 400, 14px/1.5
+### 3. Select one signature
 
-## Spacing
-- Base unit: 4px
-- Section padding: 80px/40px (desktop/mobile)
-- Card gap: 24px
+Choose one memorable visual signature tied to the subject: a spatial metaphor, data behavior, typographic move, interaction, material, or 3D scene. Explain the connection in one sentence. Effects without this connection are decoration.
 
-## Components
-- Button: rounded-lg, px-6 py-3, transition-all, shadow-md
-- Card: rounded-xl, bg-slate-800/50, border border-slate-700, p-6
-```
+### 4. Define the system
 
-**Regla:** el `design-system.md` lo define el humano. El agente no lo modifica sin permiso.
+Decide, briefly:
 
-Then implement working code that is:
-- Production-grade and functional
-- Visually striking and memorable
-- Cohesive with a clear aesthetic point-of-view
-- Meticulously refined in every detail
+- typography roles and why those typefaces fit;
+- color roles and contrast, not a bag of hex values;
+- spatial rhythm, density, grid, and dominant composition;
+- image/illustration/3D treatment;
+- motion hierarchy and reduced-motion behavior.
 
-## Frontend Aesthetics Guidelines
+Glass, glow, neon gradients, dark mode, rounded cards, pills, grids, and fashionable fonts are allowed only when the subject rationale survives removal of the brand name. Never stack them as automatic “futuristic” defaults.
 
-### Typography
-→ *Consult [typography reference](reference/typography.md) for scales, pairing, and loading strategies.*
+### 5. Compare structure
 
-Choose fonts that are beautiful, unique, and interesting. Pair a distinctive display font with a refined body font.
+Sketch at least two wireframe directions for a material page and select one against content hierarchy, differentiation, and implementation risk. One compact wireframe is enough for a simple component.
 
-**DO**: Use a modular type scale with fluid sizing (clamp)
-**DO**: Vary font weights and sizes to create clear visual hierarchy
-**DON'T**: Use overused fonts—Inter, Roboto, Arial, Open Sans, system defaults
-**DON'T**: Use monospace typography as lazy shorthand for "technical/developer" vibes
-**DON'T**: Put large icons with rounded corners above every heading—they rarely add value and make sites look templated
+### 6. Implement the real thing
 
-### Color & Theme
-→ *Consult [color reference](reference/color-and-contrast.md) for OKLCH, palettes, and dark mode.*
+- Use real or representative content; avoid placeholder-shaped composition.
+- Preserve semantic HTML, keyboard access, visible focus, contrast, readable measure, and useful empty/error/loading states.
+- Make responsive behavior compositional, not merely smaller.
+- Use motion and 3D to explain hierarchy or create subject-specific atmosphere. Provide reduced-motion and performance fallbacks.
+- Reuse the project stack and design tokens unless the brief justifies a change.
 
-Commit to a cohesive palette. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
+### 7. Visual QA with evidence
 
-**DO**: Use modern CSS color functions (oklch, color-mix, light-dark) for perceptually uniform, maintainable palettes
-**DO**: Tint your neutrals toward your brand hue—even a subtle hint creates subconscious cohesion
-**DON'T**: Use gray text on colored backgrounds—it looks washed out; use a shade of the background color instead
-**DON'T**: Use pure black (#000) or pure white (#fff)—always tint; pure black/white never appears in nature
-**DON'T**: Use the AI color palette: cyan-on-dark, purple-to-blue gradients, neon accents on dark backgrounds
-**DON'T**: Use gradient text for "impact"—especially on metrics or headings; it's decorative rather than meaningful
-**DON'T**: Default to dark mode with glowing accents—it looks "cool" without requiring actual design decisions
+Capture the implemented result at 390x844 and 1440x900. Add 768x1024 when tablet layout changes materially. Score the nine dimensions in `reference/visual-qa-rubric.md`; every dimension must be at least 1 and total at least 14/18.
 
-### Layout & Space
-→ *Consult [spatial reference](reference/spatial-design.md) for grids, rhythm, and container queries.*
+Keep the evidence in the task receipt: brief, reference links or moodboard paths, chosen wireframe, screenshot paths, rubric score, defects found, and fixes made. Iterate within the lane budget. Do not claim visual completion from code inspection alone.
 
-Create visual rhythm through varied spacing—not the same padding everywhere. Embrace asymmetry and unexpected compositions. Break the grid intentionally for emphasis.
+## Generic-pattern test
 
-**DO**: Create visual rhythm through varied spacing—tight groupings, generous separations
-**DO**: Use fluid spacing with clamp() that breathes on larger screens
-**DO**: Use asymmetry and unexpected compositions; break the grid intentionally for emphasis
-**DON'T**: Wrap everything in cards—not everything needs a container
-**DON'T**: Nest cards inside cards—visual noise, flatten the hierarchy
-**DON'T**: Use identical card grids—same-sized cards with icon + heading + text, repeated endlessly
-**DON'T**: Use the hero metric layout template—big number, small label, supporting stats, gradient accent
-**DON'T**: Center everything—left-aligned text with asymmetric layouts feels more designed
-**DON'T**: Use the same spacing everywhere—without rhythm, layouts feel monotonous
+Hide the logo and product name. If the page could belong unchanged to any AI startup, it is still generic. Fix the content hierarchy, signature, composition, or art direction before adding more effects.
 
-### Visual Details
-**DO**: Use intentional, purposeful decorative elements that reinforce brand
-**DON'T**: Use glassmorphism everywhere—blur effects, glass cards, glow borders used decoratively rather than purposefully
-**DON'T**: Use rounded elements with thick colored border on one side—a lazy accent that almost never looks intentional
-**DON'T**: Use sparklines as decoration—tiny charts that look sophisticated but convey nothing meaningful
-**DON'T**: Use rounded rectangles with generic drop shadows—safe, forgettable, could be any AI output
-**DON'T**: Use modals unless there's truly no better alternative—modals are lazy
+## References on demand
 
-### Motion
-→ *Consult [motion reference](reference/motion-design.md) for timing, easing, and reduced motion.*
+Read only the reference needed for the current decision:
 
-Focus on high-impact moments: one well-orchestrated page load with staggered reveals creates more delight than scattered micro-interactions.
-
-**DO**: Use motion to convey state changes—entrances, exits, feedback
-**DO**: Use exponential easing (ease-out-quart/quint/expo) for natural deceleration
-**DO**: For height animations, use grid-template-rows transitions instead of animating height directly
-**DON'T**: Animate layout properties (width, height, padding, margin)—use transform and opacity only
-**DON'T**: Use bounce or elastic easing—they feel dated and tacky; real objects decelerate smoothly
-
-### Interaction
-→ *Consult [interaction reference](reference/interaction-design.md) for forms, focus, and loading patterns.*
-
-Make interactions feel fast. Use optimistic UI—update immediately, sync later.
-
-**DO**: Use progressive disclosure—start simple, reveal sophistication through interaction (basic options first, advanced behind expandable sections; hover states that reveal secondary actions)
-**DO**: Design empty states that teach the interface, not just say "nothing here"
-**DO**: Make every interactive surface feel intentional and responsive
-**DON'T**: Repeat the same information—redundant headers, intros that restate the heading
-**DON'T**: Make every button primary—use ghost buttons, text links, secondary styles; hierarchy matters
-
-### Responsive
-→ *Consult [responsive reference](reference/responsive-design.md) for mobile-first, fluid design, and container queries.*
-
-**DO**: Use container queries (@container) for component-level responsiveness
-**DO**: Adapt the interface for different contexts—don't just shrink it
-**DON'T**: Hide critical functionality on mobile—adapt the interface, don't amputate it
-
-### UX Writing
-→ *Consult [ux-writing reference](reference/ux-writing.md) for labels, errors, and empty states.*
-
-**DO**: Make every word earn its place
-**DON'T**: Repeat information users can already see
-
----
-
-## The AI Slop Test
-
-**Critical quality check**: If you showed this interface to someone and said "AI made this," would they believe you immediately? If yes, that's the problem.
-
-A distinctive interface should make someone ask "how was this made?" not "which AI made this?"
-
-Review the DON'T guidelines above—they are the fingerprints of AI-generated work from 2024-2025.
-
----
-
-## Implementation Principles
-
-Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details.
-
-Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices across generations.
-
-Remember: Claude is capable of extraordinary creative work. Don't hold back—show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
+- `reference/color-and-contrast.md`
+- `reference/interaction-design.md`
+- `reference/motion-design.md`
+- `reference/responsive-design.md`
+- `reference/spatial-design.md`
+- `reference/typography.md`
+- `reference/ux-writing.md`
+- `reference/visual-qa-rubric.md`

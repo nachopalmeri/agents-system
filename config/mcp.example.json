@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "graphify": {
+      "command": "uvx",
+      "args": ["graphifyy", "mcp", "--cache-dir", "./.graphify_cache"]
+    },
+    "meta-ads": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-meta-ads"],
+      "url": "https://mcp.facebook.com/ads"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_PAT>"
+      }
+    },
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-linear"],
+      "env": {
+        "LINEAR_API_KEY": "<YOUR_LINEAR_API_KEY>"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://username:password@localhost:5432/your_database"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  }
+}

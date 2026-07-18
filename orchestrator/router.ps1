@@ -1,159 +1,163 @@
 #!/usr/bin/env pwsh
 
-function Add-RouteAgent {
-    param(
-        [System.Collections.ArrayList] $Selected,
-        [Parameter(Mandatory = $true)] [string] $AgentId
-    )
+function ConvertTo-RouteText {
+    param([AllowEmptyString()] [string] $Text)
 
-    if (-not $Selected.Contains($AgentId)) {
-        [void] $Selected.Add($AgentId)
+    $normalized = $Text.ToLowerInvariant().Normalize([Text.NormalizationForm]::FormD)
+    $builder = New-Object Text.StringBuilder
+    foreach ($character in $normalized.ToCharArray()) {
+        if ([Globalization.CharUnicodeInfo]::GetUnicodeCategory($character) -ne [Globalization.UnicodeCategory]::NonSpacingMark) {
+            [void]$builder.Append($character)
+        }
     }
+    return $builder.ToString().Normalize([Text.NormalizationForm]::FormC)
 }
 
-function Test-AnyPattern {
+function Test-RoutePatterns {
     param(
         [Parameter(Mandatory = $true)] [string] $Text,
-        [Parameter(Mandatory = $true)] [string[]] $Patterns
+        [Parameter(Mandatory = $true)] [object[]] $Patterns
     )
 
     foreach ($pattern in $Patterns) {
-        if ($Text -match $pattern) {
+        if ($Text -match [string]$pattern) {
             return $true
         }
     }
-
     return $false
 }
 
+function New-RouteAgent {
+    param($Agent, [string] $Purpose)
+
+    $routeAgent = [ordered]@{
+        id = $Agent.id
+        file = $Agent.file
+    }
+    if ($Purpose) {
+        $routeAgent.purpose = $Purpose
+    }
+    return $routeAgent
+}
+
 function Get-AgentRoute {
+    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)] $Task,
-        [Parameter(Mandatory = $true)] $Registry
+        [Parameter(Mandatory = $true)] $Registry,
+        $Rules
     )
+
+    if ($null -eq $Rules) {
+        $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+        $Rules = Get-Content (Join-Path $repoRoot "config\routing-rules.json") -Raw | ConvertFrom-Json
+    }
 
     $agentsById = @{}
     foreach ($agent in $Registry.agents) {
         $agentsById[$agent.id] = $agent
     }
 
-    $selected = [System.Collections.ArrayList]::new()
-    $reasons = [System.Collections.ArrayList]::new()
     $labels = @($Task.labels) -join " "
-    $text = "$($Task.title) $($Task.body) $labels".ToLowerInvariant()
+    $text = ConvertTo-RouteText "$($Task.title) $($Task.body) $labels"
+    $lane = "SIMPLE"
+    $primaryId = "agente-principal"
+    $supportIds = @()
+    $components = @()
+    $reasons = @("simple-fallback")
+    $approvalRequired = [bool]$Task.requiresApproval
 
-    foreach ($agentId in $agentsById.Keys) {
-        if ($text -match "(^|\s|@)$([regex]::Escape($agentId))(\s|$|[.,;:])") {
-            Add-RouteAgent -Selected $selected -AgentId $agentId
-            [void] $reasons.Add("explicit mention: $agentId")
+    $riskMatch = $null
+    foreach ($rule in $Rules.highRisk) {
+        if (Test-RoutePatterns -Text $text -Patterns @($rule.patterns)) {
+            $riskMatch = $rule
+            break
         }
     }
 
-    if ($selected.Count -eq 0) {
-        if (Test-AnyPattern -Text $text -Patterns @("security", "secret", "token", "credential", "auth", "permission", "unsafe", "risk", "publish")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-security-auditor"
-            [void] $reasons.Add("security or permission risk detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("\bmcp\b", "plugin", "tool permission", "opencode")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-mcp-architect"
-            [void] $reasons.Add("MCP/plugin integration detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("test", "coverage", "playwright", "e2e", "vitest", "jest", "regression")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-tests"
-            [void] $reasons.Add("testing or regression work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("review", "pr", "diff", "merge", "ready to ship", "listo para subir")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-code-reviewer"
-            [void] $reasons.Add("review/readiness work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("readme", "docs", "documentation", "changelog", "docstring", "guide")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-docs"
-            [void] $reasons.Add("documentation work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("css", "ui", "design", "responsive", "accessibility", "tailwind", "animation")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-design"
-            [void] $reasons.Add("design/UI work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("seo", "geo", "aeo", "keyword", "search console", "schema", "sitemap", "robots")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-growth-seo-geo"
-            [void] $reasons.Add("organic growth/search work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("product", "mvp", "product validation", "validar idea", "idea de producto", "launch", "kill", "scale")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-product-founder"
-            [void] $reasons.Add("product validation or MVP work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("\bai\b", "\bllm\b", "rag", "agent architecture", "prompt registry", "semantic cache")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-ai-architect"
-            [void] $reasons.Add("AI architecture work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("research", "investigate", "compare", "current docs", "competitor")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-researcher"
-            [void] $reasons.Add("research work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("release", "publish", "version", "installation", "cross-machine")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-release-manager"
-            [void] $reasons.Add("release work detected")
-        }
-
-        if (Test-AnyPattern -Text $text -Patterns @("implement", "fix", "bug", "feature", "api", "database", "backend", "frontend", "script")) {
-            Add-RouteAgent -Selected $selected -AgentId "agente-principal"
-            [void] $reasons.Add("implementation work detected")
-        }
-    }
-
-    if ($selected.Count -eq 0) {
-        Add-RouteAgent -Selected $selected -AgentId "agente-principal"
-        [void] $reasons.Add("fallback route")
-    }
-
-    $codeWork = Test-AnyPattern -Text $text -Patterns @("implement", "fix", "bug", "feature", "api", "database", "backend", "frontend", "script")
-    if ($codeWork -and -not $selected.Contains("agente-code-reviewer")) {
-        Add-RouteAgent -Selected $selected -AgentId "agente-code-reviewer"
-        [void] $reasons.Add("code work should receive review")
-    }
-
-    $approvalRequired = [bool] $Task.requiresApproval
-    if ($Task.riskLevel -eq "high") {
+    if ($null -ne $riskMatch -or $Task.riskLevel -eq "high") {
+        $lane = "HIGH_RISK"
+        $primaryId = if ($null -ne $riskMatch) { $riskMatch.primary } else { "agente-security-auditor" }
+        $components = @(".agents/workflows/validation.md")
+        $reasons = @($(if ($null -ne $riskMatch) { $riskMatch.reason } else { "risk-level-high" }))
         $approvalRequired = $true
-        [void] $reasons.Add("task riskLevel is high")
+    } else {
+        $explicitIds = @()
+        foreach ($agent in $Registry.agents) {
+            $escaped = [regex]::Escape([string]$agent.id)
+            if ($text -match "(?<![a-z0-9-])$escaped(?![a-z0-9-])") {
+                $explicitIds += $agent.id
+            }
+        }
+
+        if ($explicitIds.Count -gt 0) {
+            $primaryId = $explicitIds[0]
+            $lane = if ($primaryId -eq "agente-principal") { "SIMPLE" } else { "SPECIALIZED" }
+            $reasons = @("explicit-agent")
+        } else {
+            $isCouncil = Test-RoutePatterns -Text $text -Patterns @($Rules.parallel.councilPatterns)
+            $isParallel = $isCouncil -or (Test-RoutePatterns -Text $text -Patterns @($Rules.parallel.patterns))
+            if ($isParallel) {
+                $lane = "PARALLEL"
+                $primaryId = if ($text -match "\b(?:research|investiga|documentation|documentacion|libraries|costos)\b") { "agente-researcher" } else { "agente-principal" }
+                $supportIds = if ($primaryId -eq "agente-researcher") { @("agente-principal") } else { @("agente-researcher") }
+                $components = @($(if ($isCouncil) { ".agents/workflows/multiagent_review_loop.md" } else { ".agents/workflows/parallel_agents.md" }))
+                $reasons = @($(if ($isCouncil) { "explicit-council" } else { "explicit-parallel" }))
+            } else {
+                $matches = @()
+                foreach ($rule in ($Rules.specialists | Sort-Object priority)) {
+                    if (Test-RoutePatterns -Text $text -Patterns @($rule.patterns)) {
+                        $matches += $rule
+                    }
+                }
+                if ($matches.Count -gt 0) {
+                    $selectedRule = $matches[0]
+                    $lane = "SPECIALIZED"
+                    $primaryId = $selectedRule.primary
+                    $components = if ($selectedRule.component) { @($selectedRule.component) } else { @() }
+                    $reasons = @($selectedRule.reason)
+                    if ($matches.Count -gt 1) {
+                        $reasons += "ambiguous-specialist"
+                    }
+                }
+            }
+        }
     }
 
-    $agentSummaries = @()
-    foreach ($agentId in $selected) {
-        $agent = $agentsById[$agentId]
-        if ($null -eq $agent) {
-            continue
-        }
+    if (-not $agentsById.ContainsKey($primaryId)) {
+        throw "Routing rule selected unknown agent: $primaryId"
+    }
 
-        if ($agent.requiresApproval) {
-            $approvalRequired = $true
-        }
-
-        $agentSummaries += [ordered]@{
-            id = $agent.id
-            file = $agent.file
-            riskLevel = $agent.riskLevel
-            requiresApproval = $agent.requiresApproval
-            outputs = @($agent.outputs)
+    $primary = New-RouteAgent -Agent $agentsById[$primaryId]
+    $support = @()
+    foreach ($supportId in $supportIds) {
+        if ($agentsById.ContainsKey($supportId) -and $supportId -ne $primaryId) {
+            $support += New-RouteAgent -Agent $agentsById[$supportId] -Purpose "research"
         }
     }
 
+    $selectedAgents = @($primary) + @($support)
+    $budget = $Rules.laneBudgets.$lane
+    $capabilityMap = if ($Rules.capabilityByAgent) { $Rules.capabilityByAgent } else { @{} }
+    $primaryCapability = if ($capabilityMap.PSObject.Properties.Name -contains $primaryId) { [string]$capabilityMap.$primaryId } else { "general-implementation" }
     return [ordered]@{
+        schemaVersion = 1
         taskId = $Task.id
-        source = $Task.source
-        riskLevel = $Task.riskLevel
-        approvalRequired = $approvalRequired
-        selectedAgents = $agentSummaries
+        lane = $lane
+        primary = $primary
+        support = @($support)
+        components = @($components)
         reasons = @($reasons)
+        primaryCapability = $primaryCapability
+        capabilities = @($primaryCapability)
+        budgetClass = $lane
+        selectionBasis = @($reasons)
+        approvalRequired = $approvalRequired
+        budgets = [ordered]@{
+            maxIterations = [int]$budget.maxIterations
+            maxReplans = [int]$budget.maxReplans
+            maxAgents = [int]$budget.maxAgents
+        }
+        selectedAgents = $selectedAgents
     }
 }
