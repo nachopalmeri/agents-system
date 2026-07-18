@@ -12,6 +12,7 @@
     "status": { "type": "string" },
     "reasonCode": { "type": "string" },
     "iteration": { "type": "integer", "minimum": 0 },
-    "detail": { "type": "string", "maxLength": 240 }
+    "detail": { "type": "string", "maxLength": 240 },
+    "usage": { "type": "object", "additionalProperties": false, "properties": { "toolCalls": { "type": "integer", "minimum": 0 }, "inputTokens": { "type": "integer", "minimum": 0 }, "outputTokens": { "type": "integer", "minimum": 0 }, "costUsd": { "type": "number", "minimum": 0 } } }
   }
 }

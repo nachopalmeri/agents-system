@@ -6,6 +6,16 @@
     ".agents/workflows/index.md",
     ".agents/rules/chat-first.md"
   ],
+  "routingProfiles": [
+    { "id": "general-implementation", "default": true, "mode": "single-agent-first" },
+    { "id": "current-research", "mode": "on-demand", "requiresFreshSources": true },
+    { "id": "frontend-design", "mode": "on-demand", "requiresDistinctiveDirection": true },
+    { "id": "seo-geo-aeo", "mode": "on-demand", "requiresFreshSources": true },
+    { "id": "academic-tutoring", "mode": "on-demand" },
+    { "id": "obsidian-knowledge", "mode": "on-demand" },
+    { "id": "security-review", "mode": "high-risk", "requiresApproval": true },
+    { "id": "release-publication", "mode": "high-risk", "requiresApproval": true }
+  ],
   "capabilities": [
     { "id": "agente-principal", "kind": "agent", "mode": "automatic", "triggers": ["default implementation"], "component": ".agents/agents/agente-principal.md", "fixtureIds": ["simple-en-one-file"] },
     { "id": "agente-design", "kind": "agent", "mode": "on-demand", "triggers": ["frontend design"], "component": ".agents/agents/agente-design.md", "fixtureIds": ["specialized-en-frontend"] },

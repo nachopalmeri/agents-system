@@ -6,6 +6,16 @@
     "PARALLEL": { "maxIterations": 8, "maxReplans": 2, "maxAgents": 4 },
     "HIGH_RISK": { "maxIterations": 5, "maxReplans": 1, "maxAgents": 2 }
   },
+  "capabilityByAgent": {
+    "agente-principal": "general-implementation",
+    "agente-researcher": "current-research",
+    "agente-design": "frontend-design",
+    "agente-growth-seo-geo": "seo-geo-aeo",
+    "agente-academic-tutor": "academic-tutoring",
+    "agente-obsidian-brain": "obsidian-knowledge",
+    "agente-security-auditor": "security-review",
+    "agente-release-manager": "release-publication"
+  },
   "highRisk": [
     {
       "reason": "risk-release",

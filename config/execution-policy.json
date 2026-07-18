@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "default": { "allowedTools": ["Read", "Grep"], "allowedMcpServers": [], "requiresApproval": false },
+  "lanes": {
+    "SIMPLE": { "allowedTools": ["Read", "Grep", "Edit"], "requiresApproval": false },
+    "SPECIALIZED": { "allowedTools": ["Read", "Grep", "Edit", "Write"], "requiresApproval": false },
+    "PARALLEL": { "allowedTools": ["Read", "Grep", "Edit", "Write"], "requiresApproval": false },
+    "HIGH_RISK": { "allowedTools": ["Read", "Grep"], "requiresApproval": true }
+  },
+  "externalWriteTools": ["Bash", "Browser"],
+  "allowedMcpServers": []
+}

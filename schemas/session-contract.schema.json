@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nachopalmeri/agents-system/schemas/session-contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "taskId", "objective", "lane", "capabilities", "budgets", "policy", "provider", "stopReasons"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "taskId": { "type": "string", "minLength": 1 },
+    "objective": { "type": "string", "minLength": 1 },
+    "successCriteria": { "type": "array", "items": { "type": "string" } },
+    "invariants": { "type": "array", "items": { "type": "string" } },
+    "lane": { "enum": ["SIMPLE", "SPECIALIZED", "PARALLEL", "HIGH_RISK"] },
+    "capabilities": { "type": "array", "items": { "type": "string" } },
+    "budgets": { "$ref": "#/$defs/budgets" },
+    "policy": { "type": "object", "additionalProperties": false, "required": ["allowedTools", "allowedMcpServers", "requiresApproval"], "properties": { "allowedTools": { "type": "array", "items": { "type": "string" } }, "allowedMcpServers": { "type": "array", "items": { "type": "string" } }, "requiresApproval": { "type": "boolean" } } },
+    "provider": { "type": "object", "additionalProperties": false, "required": ["status"], "properties": { "name": { "type": "string" }, "model": { "type": "string" }, "status": { "enum": ["available", "unknown", "refusal", "rate_limited", "unavailable"] } } },
+    "stopReasons": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+  },
+  "$defs": { "budgets": { "type": "object", "additionalProperties": false, "required": ["maxIterations", "maxReplans", "maxAgents", "maxWallSeconds", "maxToolCalls", "maxTokenEstimate", "maxCostUsd"], "properties": { "maxIterations": { "type": "integer", "minimum": 1 }, "maxReplans": { "type": "integer", "minimum": 0 }, "maxAgents": { "type": "integer", "minimum": 1 }, "maxWallSeconds": { "type": "integer", "minimum": 1 }, "maxToolCalls": { "type": "integer", "minimum": 1 }, "maxTokenEstimate": { "type": "integer", "minimum": 1 }, "maxCostUsd": { "type": "number", "minimum": 0 } } } }
+}

@@ -6,10 +6,13 @@
   "properties": {
     "schemaVersion": { "const": 1 },
     "taskId": { "type": "string", "minLength": 1 },
-    "state": { "enum": ["SUCCESS", "BLOCKED", "NEEDS_USER", "BUDGET_EXCEEDED"] },
+    "state": { "enum": ["SUCCESS", "BLOCKED", "NEEDS_USER", "BUDGET_EXCEEDED", "PROVIDER_REFUSAL", "RATE_LIMITED"] },
     "iterations": { "type": "integer", "minimum": 0 },
     "replans": { "type": "integer", "minimum": 0 },
     "evidence": { "type": "array", "items": { "type": "string" } },
-    "reasonCode": { "type": "string", "minLength": 1 }
+    "reasonCode": { "type": "string", "minLength": 1 },
+    "stopReason": { "type": "string" },
+    "retryable": { "type": "boolean" },
+    "usage": { "type": "object", "additionalProperties": false, "properties": { "toolCalls": { "type": "integer", "minimum": 0 }, "inputTokens": { "type": "integer", "minimum": 0 }, "outputTokens": { "type": "integer", "minimum": 0 }, "costUsd": { "type": "number", "minimum": 0 } } }
   }
 }

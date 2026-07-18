@@ -1,0 +1,3 @@
+#!/usr/bin/env pwsh
+[CmdletBinding()] param([Parameter(Mandatory=$true)][string]$SessionPath,[string[]]$Tools=@(),[string[]]$McpServers=@())
+$ErrorActionPreference='Stop'; $root=(Resolve-Path (Join-Path $PSScriptRoot '..')).Path; $policy=Get-Content (Join-Path $root 'config/execution-policy.json') -Raw|ConvertFrom-Json; $session=Get-Content (Resolve-Path $SessionPath) -Raw|ConvertFrom-Json; $allow=@($session.policy.allowedTools); foreach($t in $Tools){if($allow -notcontains $t){throw "tool-denied:$t"}}; foreach($m in $McpServers){if(@($session.policy.allowedMcpServers) -notcontains $m){throw "mcp-denied:$m"}}; 'RUNTIME_POLICY_OK'

@@ -138,6 +138,8 @@ function Get-AgentRoute {
 
     $selectedAgents = @($primary) + @($support)
     $budget = $Rules.laneBudgets.$lane
+    $capabilityMap = if ($Rules.capabilityByAgent) { $Rules.capabilityByAgent } else { @{} }
+    $primaryCapability = if ($capabilityMap.PSObject.Properties.Name -contains $primaryId) { [string]$capabilityMap.$primaryId } else { "general-implementation" }
     return [ordered]@{
         schemaVersion = 1
         taskId = $Task.id
@@ -146,6 +148,10 @@ function Get-AgentRoute {
         support = @($support)
         components = @($components)
         reasons = @($reasons)
+        primaryCapability = $primaryCapability
+        capabilities = @($primaryCapability)
+        budgetClass = $lane
+        selectionBasis = @($reasons)
         approvalRequired = $approvalRequired
         budgets = [ordered]@{
             maxIterations = [int]$budget.maxIterations
