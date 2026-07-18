@@ -26,6 +26,10 @@
     "postgres": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://username:password@localhost:5432/your_database"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
     }
   }
 }
