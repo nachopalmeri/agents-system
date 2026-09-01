@@ -151,3 +151,7 @@ See [debug-tricks.md](./debug-tricks.md) for:
 - MCP endpoint for AI-assisted debugging
 - Rebuild specific routes with `--debug-build-paths`
 
+## Commands
+
+`npm run dev` (desarrollo) / `build` / `start` (producción) / `lint`. No modificar `next.config.js`/`.ts` sin confirmar — es config compartida por todo el proyecto.
+

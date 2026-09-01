@@ -31,7 +31,7 @@ HEAD_SHA=$(git rev-parse HEAD)
 
 **2. Dispatch code-reviewer subagent:**
 
-Use Task tool with code-reviewer type, fill template at `code-reviewer.md`
+En este sistema, el subagente a usar es `agents/agente-code-reviewer.md` (read-only, P0/P1/P2 + veredicto). Fill template at `code-reviewer.md` con el contexto para esa invocación.
 
 **Placeholders:**
 - `{WHAT_WAS_IMPLEMENTED}` - What you just built

@@ -1,5 +1,5 @@
 {
-    "generatedAt":  "2026-09-01T11:02:01.6447430-03:00",
+    "generatedAt":  "2026-09-01T11:17:23.7846278-03:00",
     "generatedBy":  "bin/generate-capabilities.ps1",
     "agents":  [
                    {
@@ -370,11 +370,6 @@
                        "path":  "skills/newsletter-curation/SKILL.md"
                    },
                    {
-                       "name":  "next",
-                       "description":  "Skill para proyectos Next.js — estructura, reglas y comandos",
-                       "path":  "skills/next/SKILL.md"
-                   },
-                   {
                        "name":  "next-best-practices",
                        "description":  "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling user-invocable: false",
                        "path":  "skills/next-best-practices/SKILL.md"
@@ -481,7 +476,7 @@
                    },
                    {
                        "name":  "prompt-engineering",
-                       "description":  "\"Master prompt engineering for AI models: LLMs, image generators, video models. Techniques: chain-of-thought, few-shot, system prompts, negative prompts. Models: Claude, GPT-4, Gemini, FLUX, Veo, Stable Diffusion prompting. Use for: better AI outputs, consistent results, complex tasks, optimization. Triggers: prompt engineering, how to prompt, better prompts, prompt tips, prompting guide, llm prompting, image prompt, ai prompting, prompt optimization, prompt template, prompt structure, effective prompts, prompt techniques\" allowed-tools: Bash(belt *)",
+                       "description":  "\"Master prompt engineering for AI models: LLMs, image generators, video models. Techniques: chain-of-thought, few-shot, system prompts, negative prompts. Models: Claude, GPT-5, Gemini, FLUX, Veo, Stable Diffusion prompting. Use for: better AI outputs, consistent results, complex tasks, optimization. Triggers: prompt engineering, how to prompt, better prompts, prompt tips, prompting guide, llm prompting, image prompt, ai prompting, prompt optimization, prompt template, prompt structure, effective prompts, prompt techniques\" allowed-tools: Bash(belt *)",
                        "path":  "skills/prompt-engineering/SKILL.md"
                    },
                    {

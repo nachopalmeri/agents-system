@@ -1,6 +1,6 @@
 ---
 name: prompt-engineering
-description: "Master prompt engineering for AI models: LLMs, image generators, video models. Techniques: chain-of-thought, few-shot, system prompts, negative prompts. Models: Claude, GPT-4, Gemini, FLUX, Veo, Stable Diffusion prompting. Use for: better AI outputs, consistent results, complex tasks, optimization. Triggers: prompt engineering, how to prompt, better prompts, prompt tips, prompting guide, llm prompting, image prompt, ai prompting, prompt optimization, prompt template, prompt structure, effective prompts, prompt techniques"
+description: "Master prompt engineering for AI models: LLMs, image generators, video models. Techniques: chain-of-thought, few-shot, system prompts, negative prompts. Models: Claude, GPT-5, Gemini, FLUX, Veo, Stable Diffusion prompting. Use for: better AI outputs, consistent results, complex tasks, optimization. Triggers: prompt engineering, how to prompt, better prompts, prompt tips, prompting guide, llm prompting, image prompt, ai prompting, prompt optimization, prompt template, prompt structure, effective prompts, prompt techniques"
 allowed-tools: Bash(belt *)
 ---
 
@@ -247,12 +247,12 @@ belt app run openrouter/claude-sonnet-45 --input '{
 - Good at following complex constraints
 - Prefers explicit output formats
 
-### GPT-4
+### GPT-5 / o-series
 
 - Strong at code generation
 - Works well with examples
 - Good structured output
-- Responds to "let's think step by step"
+- Reasoning models (o-series) plan internally — explicit "step by step" prompting matters less than for older non-reasoning models
 
 ### FLUX
 
