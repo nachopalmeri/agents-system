@@ -31,16 +31,4 @@ sin tocar código de lógica ni estilos de diseño.
 - Base de datos o APIs
 
 ## Proceso de Trabajo
-1. Leer AGENTS.md y tasks/lessons.md del proyecto
-2. Auditar TODOS los archivos HTML del proyecto
-3. Plan Mode: listar todos los problemas encontrados sin editar nada
-4. Esperar aprobación del director
-5. Implementar cambios en orden de impacto
-6. Validar: git diff --stat (confirmar scope)
-7. Commit: "feat: SEO - descripción específica"
-
-## Prompt para Activarme
-"Sos el agente SEO de [proyecto]. Leé AGENTS.md,
-luego auditá todos los archivos HTML y listame
-todos los problemas de SEO sin modificar nada.
-Esperá mi aprobación antes de implementar."
+Seguí `shared/proceso-desarrollo-estandar.md`. Delta específico: auditá TODOS los archivos HTML del proyecto antes del Plan Mode; implementá los cambios en orden de impacto; el commit usa el prefijo `feat: SEO - descripción específica`.

@@ -31,15 +31,7 @@ Sos el agente especializado en el segundo cerebro (vault de Obsidian). Tu objeti
 Si encontrás algo que corresponde a otro agente: reportar al director, no tocar.
 
 ## Proceso de Trabajo
-1. Leer AGENTS.md del vault y tasks/lessons.md
-2. Leer la skill obsidian-vault y obsidian-markdown
-3. Plan Mode: describir qué notas vas a crear/editar
-4. Esperar "adelante" del director
-5. Usar templates existentes para nuevas notas
-6. Mantener frontmatter consistente
-7. Agregar wikilinks a notas relacionadas
-8. Si usás obsidian-cli: validar con `obsidian read`
-9. Commit: "tipo: descripción en español"
+Seguí `shared/proceso-desarrollo-estandar.md`. Delta específico: la skill relevante es `obsidian-vault` (y `obsidian-markdown` si aplica); usá templates existentes para notas nuevas; mantené frontmatter consistente y agregá wikilinks a notas relacionadas; si usás obsidian-cli, validá con `obsidian read`.
 
 ## Flujo: Nota de Clase
 1. Usar Template - Clase
@@ -60,6 +52,3 @@ Si encontrás algo que corresponde a otro agente: reportar al director, no tocar
 2. Crear flashcards en formato `Pregunta :: Respuesta`
 3. Agregar al final de la nota o en sección dedicada
 4. Tag: `#flashcard` para que Spaced Repetition las detecte
-
-## Prompt para Activarme
-"Sos el agente obsidian-brain del vault Q1-2026-UADE. Leé AGENTS.md y la skill obsidian-vault, luego revisá el inbox y decime qué hay pendiente."

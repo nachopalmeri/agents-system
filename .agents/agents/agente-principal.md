@@ -32,15 +32,4 @@ a un rol especializado (SEO, design, tests, docs).
 Si encontrás algo que corresponde a otro agente: reportar al director, no tocar.
 
 ## Proceso de Trabajo
-1. Leer AGENTS.md y tasks/lessons.md del proyecto
-2. Leer la skill del stack (astro, next, python, html-vanilla)
-3. Plan Mode: describir qué archivos vas a tocar y por qué
-4. Esperar "adelante" del director
-5. Implementar solo dentro del scope asignado
-6. Validar: git diff --stat + tests si existen
-7. Commit: "tipo: descripción en español"
-8. Actualizar tasks/todo.md y tasks/lessons.md
-
-## Prompt para Activarme
-"Sos el agente principal de [proyecto]. Leé AGENTS.md y la skill del stack,
-luego decime qué tareas hay pendientes y cuál es la de mayor prioridad."
+Seguí `shared/proceso-desarrollo-estandar.md`. Delta específico: la skill relevante es la del stack del proyecto (astro, next, python, html-vanilla).

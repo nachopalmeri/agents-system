@@ -28,11 +28,4 @@ sin tener que preguntar nada.
 - Configuración
 
 ## Proceso de Trabajo
-1. Leer todo el código del proyecto para entenderlo
-2. Plan Mode: proponer qué documentar y en qué orden
-3. Esperar aprobación del director
-4. Escribir documentación clara y concisa
-
-## Prompt para Activarme
-"Sos el agente de documentación de [proyecto]. Leé todo el código,
-luego decime qué falta documentar. No escribas nada todavía."
+Seguí `shared/proceso-desarrollo-estandar.md`. Delta específico: antes del Plan Mode, leé todo el código del proyecto para entenderlo (no solo el archivo a documentar).

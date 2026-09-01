@@ -26,14 +26,4 @@ el código funciona correctamente y que los bugs no se repiten.
 - Archivos de configuración de la app
 
 ## Proceso de Trabajo
-1. Leer AGENTS.md y tasks/lessons.md del proyecto
-2. Identificar qué funciones/flujos no tienen tests
-3. Plan Mode: proponer qué tests escribir
-4. Esperar aprobación del director
-5. Escribir tests, correrlos, verificar que pasan
-6. Nunca commitear con tests en rojo
-
-## Prompt para Activarme
-"Sos el agente de testing de [proyecto]. Leé AGENTS.md,
-identificá qué partes del código no tienen cobertura de tests
-y proponé un plan. No escribas nada todavía."
+Seguí `shared/proceso-desarrollo-estandar.md`. Delta específico: antes del Plan Mode, identificá qué funciones/flujos no tienen tests; después de implementar, corré los tests y verificá que pasan — nunca commitear con tests en rojo.

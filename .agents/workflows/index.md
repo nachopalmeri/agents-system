@@ -24,3 +24,11 @@ Primero clasificá SIMPLE, SPECIALIZED, PARALLEL o HIGH_RISK con `../../config/r
 | Cierre | `workflows/validation.md` | evidencia insuficiente implica replan/bloqueo |
 
 La lista de agentes/skills no se duplica acá: se descubre desde el ledger. `archive/` queda disponible sólo como historia opcional, nunca como ruta ejecutable.
+
+## Escalamiento (T3)
+
+| Situación | Herramienta |
+|---|---|
+| Refactor masivo o arquitectura nueva | `skills/mcts-planner/SKILL.md` en vez de razonamiento lineal |
+| Test E2E falla repetido | `skills/self-healing-ci/SKILL.md` (Intent Re-resolution) antes de escalar a humano |
+| Cierre de tarea con evidencia | `skills/procedural-memory/SKILL.md` para extraer lecciones |

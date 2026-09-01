@@ -4,9 +4,8 @@ Esta es la única política editable del runtime. La identidad completa vive en 
 
 ## Contrato de interacción
 
-- El usuario habla normal. Enrutá internamente al menor componente suficiente.
+- El usuario habla normal. Enrutá internamente al menor componente suficiente, sin exigir nombres de workflows, agentes ni comandos internos.
 - Comunicá en español rioplatense, con secciones cortas y una prioridad ejecutable.
-- No exijas nombres de workflows, agentes ni comandos internos.
 - No inventes requisitos. Preguntá sólo cuando una decisión humana cambie materialmente el resultado.
 
 ## Límites no negociables
@@ -22,8 +21,8 @@ Esta es la única política editable del runtime. La identidad completa vive en 
 
 1. **T0 Core:** este archivo.
 2. **T1 Route:** `workflows/index.md`, metadata del agente y `config/routing-rules.json`.
-3. **T2 Execute:** una skill o workflow seleccionado y sólo sus referencias directas necesarias. Para lectura masiva, usa herramientas estructuradas (ej. `Graphify MCP`) antes de leer archivos planos a la fuerza bruta.
-4. **T3 Escalate:** agentes paralelos, research profundo o controles de alto riesgo sólo con evidencia que lo justifique. En refactors masivos o arquitectura nueva, **exigí el uso de MCTS (`mcts-planner`)** en lugar de razonamiento lineal.
+3. **T2 Execute:** una skill o workflow seleccionado y sólo sus referencias directas necesarias.
+4. **T3 Escalate:** agentes paralelos, research profundo o controles de alto riesgo sólo con evidencia que lo justifique. Las herramientas específicas de escalamiento (MCTS, self-healing-ci, procedural-memory) se eligen desde `workflows/index.md`, no desde este core.
 
 No precargues toda la biblioteca. `config/capabilities.json` preserva descubrimiento de agentes y skills; mover una capacidad a on-demand no equivale a borrarla. `archive/` es referencia histórica, nunca destino ejecutable ni preload.
 
@@ -38,12 +37,12 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 ## Ejecución y cierre
 
-- Planificá cuando haya más de tres pasos significativos, varios archivos o riesgo; los cambios chicos van directos. Para problemas de diseño complejos, usa MCTS simulando ramas alternativas.
-- Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin. Si un test E2E falla, aplica "Intent Re-resolution" (`self-healing-ci`) antes de escalar.
-- Corregí causas raíz con impacto mínimo. Si algo sale mal, replanificá antes de seguir. Extrae lecciones usando `procedural-memory` al finalizar.
+- Planificá cuando haya más de tres pasos significativos, varios archivos o riesgo; los cambios chicos van directos.
+- Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin.
+- Corregí causas raíz con impacto mínimo. Si algo sale mal, replanificá antes de seguir.
 - Validá proporcionalmente con tests, parse, build, diff, logs o evidencia equivalente. No declares victoria sin evidencia fresca.
 - Para cambios del sistema: revisá diff, identidad Git `Nacho Palmeri <ipalmeri@uade.edu.ar>`, secretos, commit y push de la rama. Nunca mergees.
 
 ## Descubrimiento
 
-Usá `workflows/index.md` para intención → componente y `config/capabilities.json` para reachability. Leé memoria durable sólo cuando afecte la decisión actual. La documentación histórica no puede contradecir este core.
+Usá `workflows/index.md` para intención → componente y `config/capabilities.json` para reachability. Leé memoria durable sólo cuando afecte la decisión actual.
