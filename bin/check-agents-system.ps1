@@ -9,47 +9,21 @@ $checks = @(
     @{ Name = "Chat-first rule"; Path = "$env:USERPROFILE\.agents\rules\chat-first.md" },
     @{ Name = "Workflow index"; Path = "$env:USERPROFILE\.agents\workflows\index.md" },
     @{ Name = "Validation workflow"; Path = "$env:USERPROFILE\.agents\workflows\validation.md" },
-    @{ Name = "Feedback loop workflow"; Path = "$env:USERPROFILE\.agents\workflows\feedback_loop.md" },
-    @{ Name = "Context check workflow"; Path = "$env:USERPROFILE\.agents\workflows\context_check.md" },
-    @{ Name = "Irreversible decision workflow"; Path = "$env:USERPROFILE\.agents\workflows\irreversible_decision.md" },
-    @{ Name = "Weekly review workflow"; Path = "$env:USERPROFILE\.agents\workflows\weekly_review.md" },
-    @{ Name = "Client workflow"; Path = "$env:USERPROFILE\.agents\workflows\client_workflow.md" },
-    @{ Name = "Promote lesson workflow"; Path = "$env:USERPROFILE\.agents\workflows\promote_lesson.md" },
-    @{ Name = "Obsidian sync workflow"; Path = "$env:USERPROFILE\.agents\workflows\obsidian_sync.md" },
-    @{ Name = "Vault review workflow"; Path = "$env:USERPROFILE\.agents\workflows\vault_review.md" },
-    @{ Name = "Growth update workflow"; Path = "$env:USERPROFILE\.agents\workflows\growth_update.md" },
     @{ Name = "Session checkpoint workflow"; Path = "$env:USERPROFILE\.agents\workflows\session_checkpoint.md" },
-    @{ Name = "Project types workflow"; Path = "$env:USERPROFILE\.agents\workflows\project_types.md" },
-    @{ Name = "Task ledger workflow"; Path = "$env:USERPROFILE\.agents\workflows\task_ledger.md" },
-    @{ Name = "Multiagent review workflow"; Path = "$env:USERPROFILE\.agents\workflows\multiagent_review_loop.md" },
-    @{ Name = "Spec Kit workflow"; Path = "$env:USERPROFILE\.agents\workflows\spec_kit.md" },
-    @{ Name = "AI production workflow"; Path = "$env:USERPROFILE\.agents\workflows\ai_production.md" },
-    @{ Name = "Web briefing workflow"; Path = "$env:USERPROFILE\.agents\workflows\web_briefing.md" },
     @{ Name = "Spec Kit skill"; Path = "$env:USERPROFILE\.agents\skills\spec-kit\SKILL.md" },
     @{ Name = "AI production skill"; Path = "$env:USERPROFILE\.agents\skills\ai-production-architecture\SKILL.md" },
-    @{ Name = "Web premium skill"; Path = "$env:USERPROFILE\.agents\skills\web-presentation-premium\SKILL.md" },
-    @{ Name = "Venture Loop workflow"; Path = "$env:USERPROFILE\.agents\workflows\venture_loop.md" },
-    @{ Name = "Marketing workflow"; Path = "$env:USERPROFILE\.agents\workflows\marketing.md" },
-    @{ Name = "Marketing MCP eval"; Path = "$env:USERPROFILE\.agents\workflows\marketing_mcp_eval.md" },
     @{ Name = "Marketing strategist agent"; Path = "$env:USERPROFILE\.agents\agents\agente-marketing-strategist.md" },
-    @{ Name = "Product Foundry workflow"; Path = "$env:USERPROFILE\.agents\workflows\product_foundry.md" },
-    @{ Name = "ADR workflow"; Path = "$env:USERPROFILE\.agents\workflows\adr.md" },
-    @{ Name = "Agent coordination workflow"; Path = "$env:USERPROFILE\.agents\workflows\agent_coordination.md" },
-    @{ Name = "Product Foundry skill"; Path = "$env:USERPROFILE\.agents\skills\product-foundry\SKILL.md" },
-    @{ Name = "Product Founder agent"; Path = "$env:USERPROFILE\.agents\agents\agente-product-founder.md" },
-    @{ Name = "SEO/GEO/AEO growth workflow"; Path = "$env:USERPROFILE\.agents\workflows\seo_geo_growth.md" },
-    @{ Name = "SEO/GEO/AEO growth skill"; Path = "$env:USERPROFILE\.agents\skills\seo-geo-growth\SKILL.md" },
-    @{ Name = "SEO/GEO/AEO growth agent"; Path = "$env:USERPROFILE\.agents\agents\agente-growth-seo-geo.md" },
-    @{ Name = "Memory README"; Path = "$env:USERPROFILE\.agents\memory\README.md" },
-    @{ Name = "Global lessons memory"; Path = "$env:USERPROFILE\.agents\memory\lessons-global.md" },
-    @{ Name = "Developer growth memory"; Path = "$env:USERPROFILE\.agents\memory\developer_growth.md" },
-    @{ Name = "Tech radar memory"; Path = "$env:USERPROFILE\.agents\memory\tech_radar.md" },
-    @{ Name = "Client work skill"; Path = "$env:USERPROFILE\.agents\skills\client-work\SKILL.md" },
-    @{ Name = "Client pricing guide"; Path = "$env:USERPROFILE\.agents\skills\client-work\pricing.md" },
+    @{ Name = "Capabilities ledger"; Path = "$env:USERPROFILE\config\capabilities.json" },
+    @{ Name = "Routing rules ledger"; Path = "$env:USERPROFILE\config\routing-rules.json" },
     @{ Name = "nuevo-proyecto.ps1"; Path = "$env:USERPROFILE\bin\nuevo-proyecto.ps1" },
     @{ Name = "nuevo-proyecto.sh"; Path = "$env:USERPROFILE\bin\nuevo-proyecto.sh" },
     @{ Name = "OpenCode config"; Path = "$env:USERPROFILE\.config\opencode\opencode.jsonc" }
 )
+# Nota: project_types.md, spec_kit.md (workflow), ai_production.md, web_briefing.md,
+# marketing.md (workflow), marketing_mcp_eval.md y la skill web-presentation-premium
+# fueron archivados a propósito en una poda anterior (ver .agents/archive/) y su
+# funcionalidad quedó cubierta por skills existentes (spec-kit, ai-production-architecture,
+# seo-geo-growth). Se sacaron de este check para que no reporte falsos positivos.
 
 $missing = 0
 foreach ($check in $checks) {
@@ -66,6 +40,31 @@ if ($missing -eq 0) {
     Write-Host "System OK: all required files exist." -ForegroundColor Green
 } else {
     Write-Host "System incomplete: $missing missing item(s)." -ForegroundColor Red
+}
+
+Write-Host ""
+Write-Host "=== Referencias rotas (workflows/*.md, skills/*/SKILL.md) ===" -ForegroundColor Cyan
+$agentsRoot = "$env:USERPROFILE\.agents"
+$scanFiles = @("$agentsRoot\AGENTS.md", "$agentsRoot\workflows\index.md") +
+    (Get-ChildItem "$agentsRoot\rules" -Filter "*.md" -ErrorAction SilentlyContinue).FullName
+$pattern = '(workflows/[a-zA-Z0-9_\-]+\.md|skills/[a-zA-Z0-9_\-]+/SKILL\.md)'
+$brokenRefs = 0
+foreach ($file in $scanFiles) {
+    if (-not (Test-Path $file)) { continue }
+    $matches = [regex]::Matches((Get-Content -Raw -Encoding utf8 -Path $file), $pattern)
+    foreach ($m in $matches) {
+        $refPath = Join-Path $agentsRoot $m.Value
+        if (-not (Test-Path $refPath)) {
+            Write-Host "[BROKEN] $($m.Value) referenciado en $file" -ForegroundColor Red
+            $brokenRefs++
+        }
+    }
+}
+if ($brokenRefs -eq 0) {
+    Write-Host "Sin referencias rotas detectadas." -ForegroundColor Green
+} else {
+    Write-Host "$brokenRefs referencia(s) rota(s) encontrada(s)." -ForegroundColor Red
+    $missing += $brokenRefs
 }
 
 Write-Host ""

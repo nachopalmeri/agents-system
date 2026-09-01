@@ -18,3 +18,6 @@ Registro plano de uso del sistema. Formato: `fecha | tipo | componente | detalle
 2026-06-23 | promote | lessons-global.md | lección [ROUTING] promovida
 2026-06-23 | bridge | obsidian | nota real leída (Abstracción.md) y escrita (2026-06-23.md)
 2026-06-23 | doctor | doctor.ps1 | score 8/8 portabilidad
+
+## 2026-09-01
+2026-09-01 | feat | log-usage-hook.ps1 | hook PostToolUse instalado para registrar Agent/Skill reales (usage-log estaba muerto desde 2026-06-23)

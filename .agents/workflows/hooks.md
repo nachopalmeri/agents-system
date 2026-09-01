@@ -27,6 +27,10 @@ Los hooks deben proteger sin volverse fricción invisible. Deben ser auditables,
 - En sesiones largas, usar `session_checkpoint.md`.
 - No guardar ruido, solo decisiones y pendientes.
 
+## Instalado actualmente
+
+- **PostToolUse — `bin/log-usage-hook.ps1`** (2026-09-01, en `.claude/settings.json`, agregado sin pisar los hooks preexistentes de Orca): registra en `tasks/usage-log.md` cada invocación real de `Agent` o `Skill`. Falla en silencio siempre, nunca bloquea. Instalado porque `usage-log.md` llevaba desde 2026-06-23 sin una sola entrada — sin esto, ninguna decisión de podar un agente/skill puede basarse en evidencia real de uso.
+
 ## Reglas
 
 - No instalar hooks sin confirmación explícita.
