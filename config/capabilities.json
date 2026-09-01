@@ -1,5 +1,5 @@
 {
-    "generatedAt":  "2026-09-01T10:57:58.4658864-03:00",
+    "generatedAt":  "2026-09-01T11:02:01.6447430-03:00",
     "generatedBy":  "bin/generate-capabilities.ps1",
     "agents":  [
                    {
@@ -255,6 +255,11 @@
                        "path":  "skills/data-visualization/SKILL.md"
                    },
                    {
+                       "name":  "defuddle",
+                       "description":  "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.",
+                       "path":  "skills/defuddle/SKILL.md"
+                   },
+                   {
                        "name":  "delight",
                        "description":  "Add moments of joy, personality, and unexpected touches that make interfaces memorable and enjoyable to use. Elevates functional to delightful. user-invokable: true",
                        "path":  "skills/delight/SKILL.md"
@@ -325,6 +330,11 @@
                        "path":  "skills/javascript-sdk/SKILL.md"
                    },
                    {
+                       "name":  "json-canvas",
+                       "description":  "Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.",
+                       "path":  "skills/json-canvas/SKILL.md"
+                   },
+                   {
                        "name":  "landing-page-design",
                        "description":  "\"Landing page conversion optimization with layout rules, hero section design, and CTA psychology. Covers above-the-fold formula, social proof placement, mobile design, and F-pattern reading. Use for: startup landing pages, product pages, SaaS marketing, conversion optimization. Triggers: landing page, hero section, above the fold, conversion optimization, landing page design, cta button, hero image, landing page layout, saas landing page, product page design, conversion rate, landing page best practices\" allowed-tools: Bash(belt *)",
                        "path":  "skills/landing-page-design/SKILL.md"
@@ -383,6 +393,21 @@
                        "name":  "normalize",
                        "description":  "Normalize design to match your design system and ensure consistency user-invokable: true",
                        "path":  "skills/normalize/SKILL.md"
+                   },
+                   {
+                       "name":  "obsidian-bases",
+                       "description":  "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.",
+                       "path":  "skills/obsidian-bases/SKILL.md"
+                   },
+                   {
+                       "name":  "obsidian-cli",
+                       "description":  "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
+                       "path":  "skills/obsidian-cli/SKILL.md"
+                   },
+                   {
+                       "name":  "obsidian-markdown",
+                       "description":  "Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.",
+                       "path":  "skills/obsidian-markdown/SKILL.md"
                    },
                    {
                        "name":  "obsidian-vault",
