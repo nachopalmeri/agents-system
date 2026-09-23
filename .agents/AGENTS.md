@@ -1,6 +1,6 @@
 # Runtime canónico — Pisculichi Labs
 
-Esta es la única política editable del runtime. La identidad completa vive en `rules/identity.md`; el catálogo ejecutable vive en `../config/capabilities.json`.
+Esta es la única política editable del runtime. Todas las rutas son relativas a `~/.agents/` (global) o a `.agents/` del repo. La identidad completa vive en `rules/identity.md`.
 
 ## Contrato de interacción
 
@@ -45,4 +45,14 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 ## Descubrimiento
 
-Usá `workflows/index.md` para intención → componente y `config/capabilities.json` para reachability. Leé memoria durable sólo cuando afecte la decisión actual.
+- `skills/`: 30 skills núcleo; el cliente ve sólo su metadata.
+- `skills-library/`: resto del catálogo, fuera del preload. Si ninguna skill núcleo encaja, leé `skills-library/INDEX.md` y cargá sólo la skill elegida.
+- `workflows/index.md`: intención → componente. `config/capabilities.json` es para tooling; no lo leas entero en una tarea.
+- Memoria durable sólo cuando afecte la decisión actual.
+
+## Economía de tokens
+
+- Subagentes sólo para búsqueda amplia cuyo resultado cabe en un resumen, o trabajos independientes. Cada uno arranca en frío y relee contexto.
+- Buscá con grep/glob y leé rangos; no leas archivos enteros para ubicar algo.
+- Una tarea por sesión: al cerrar, dejá estado en `tasks/todo.md` y empezá limpio.
+- MCPs apagados por defecto; habilitalos por proyecto cuando se usen.

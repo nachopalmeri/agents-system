@@ -183,7 +183,8 @@ function Get-SyncTargets {
         }
     }
     foreach ($adapter in @($runtimeManifest.adapters | Where-Object { $_.globalTarget })) {
-        $source = Get-ContainedPath -Root $repoRoot -RelativePath ([string]$adapter.repoPath) -Label "Source path"
+        $globalSource = if ($adapter.globalSourcePath) { [string]$adapter.globalSourcePath } else { [string]$adapter.repoPath }
+        $source = Get-ContainedPath -Root $repoRoot -RelativePath $globalSource -Label "Source path"
         $target = Get-ContainedPath -Root $homeRoot -RelativePath ([string]$adapter.globalTarget) -Label "Target path"
         $targets += [pscustomobject]@{
             client = [string]$adapter.client

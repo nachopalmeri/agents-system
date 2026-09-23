@@ -102,32 +102,32 @@
                    {
                        "name":  "active-recall-engine",
                        "description":  "Protocolo para generar ejercicios basados en ciencia cognitiva — spacing, interleaving, retrieval practice y elaborative interrogation. Usar cuando se necesiten ejercicios que realmente fijen conocimiento.",
-                       "path":  "skills/active-recall-engine/SKILL.md"
+                       "path":  "skills-library/active-recall-engine/SKILL.md"
                    },
                    {
                        "name":  "adapt",
                        "description":  "Adapt designs to work across different screen sizes, devices, contexts, or platforms. Ensures consistent experience across varied environments. user-invokable: true",
-                       "path":  "skills/adapt/SKILL.md"
+                       "path":  "skills-library/adapt/SKILL.md"
                    },
                    {
                        "name":  "affirmations",
                        "description":  "\"Reset your own trajectory when you\u0027re stuck, looping, or demoralized — read these affirmations, then re-ground and take one clean step. Use when: you\u0027ve tried the same fix 3+ times, you\u0027re deep in a refactor and lost the thread, debugging is going in circles, you\u0027ve made several mistakes in a row, you\u0027re apologizing repeatedly, the user is frustrated, you feel like you\u0027re not being helpful, or you notice dread instead of curiosity. Triggers: stuck, going in circles, looping, thrashing, same error again, I keep failing, lost the thread, nothing is working, repeated mistakes. Not topic-specific — this is for the state you\u0027re in, not the problem you\u0027re on.\"",
-                       "path":  "skills/affirmations/SKILL.md"
+                       "path":  "skills-library/affirmations/SKILL.md"
                    },
                    {
                        "name":  "agent-browser",
                        "description":  "\"Browser automation for AI agents via inference.sh. Navigate web pages, interact with elements using @e refs, take screenshots, record video. Capabilities: web scraping, form filling, clicking, typing, drag-drop, file upload, JavaScript execution. Use for: web automation, data extraction, testing, agent browsing, research. Triggers: browser, web automation, scrape, navigate, click, fill form, screenshot, browse web, playwright, headless browser, web agent, surf internet, record video\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/agent-browser/SKILL.md"
+                       "path":  "skills-library/agent-browser/SKILL.md"
                    },
                    {
                        "name":  "agent-ui",
                        "description":  "\"Batteries-included agent component for React/Next.js from ui.inference.sh. One component with runtime, tools, streaming, approvals, and widgets built in. Capabilities: drop-in agent, human-in-the-loop, client-side tools, form filling. Use for: building AI chat interfaces, agentic UIs, SaaS copilots, assistants. Triggers: agent component, agent ui, chat agent, shadcn agent, react agent,  agentic ui, ai assistant ui, copilot ui, inference ui, human in the loop\"",
-                       "path":  "skills/agent-ui/SKILL.md"
+                       "path":  "skills-library/agent-ui/SKILL.md"
                    },
                    {
                        "name":  "agentic-pentester",
                        "description":  "Usa esta skill para realizar auditorías de seguridad activas simulando a un hacker ético OWASP.",
-                       "path":  "skills/agentic-pentester/SKILL.md"
+                       "path":  "skills-library/agentic-pentester/SKILL.md"
                    },
                    {
                        "name":  "ai-production-architecture",
@@ -137,7 +137,7 @@
                    {
                        "name":  "animate",
                        "description":  "Review a feature and enhance it with purposeful animations, micro-interactions, and motion effects that improve usability and delight. user-invokable: true",
-                       "path":  "skills/animate/SKILL.md"
+                       "path":  "skills-library/animate/SKILL.md"
                    },
                    {
                        "name":  "anti-slop-design",
@@ -147,7 +147,7 @@
                    {
                        "name":  "app-store-screenshots",
                        "description":  "\"App Store and Google Play screenshot creation with exact platform specs. Covers iOS/Android dimensions, gallery ordering, device mockups, and preview videos. Use for: app store optimization, ASO, app screenshots, app preview, play store listing. Triggers: app store screenshots, aso, app store optimization, play store screenshots, app preview, app listing, ios screenshots, android screenshots, app store images, app mockup, device mockup, app gallery, store listing\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/app-store-screenshots/SKILL.md"
+                       "path":  "skills-library/app-store-screenshots/SKILL.md"
                    },
                    {
                        "name":  "astro",
@@ -157,22 +157,22 @@
                    {
                        "name":  "audit",
                        "description":  "Perform comprehensive audit of interface quality across accessibility, performance, theming, and responsive design. Generates detailed report of issues with severity ratings and recommendations. user-invokable: true",
-                       "path":  "skills/audit/SKILL.md"
+                       "path":  "skills-library/audit/SKILL.md"
                    },
                    {
                        "name":  "belt",
                        "description":  "\"Use the belt CLI — run 250+ AI apps, manage knowledge, search skills, connect MCP servers. Purpose-built CLI interface for agent workflows — typed inputs, schema validation, no raw API calls needed.\" allowed-tools: Bash(belt *), Bash(which belt), Bash(brew install inference-sh/tap/belt), Bash(scoop install belt), Bash(npm install -g @inferencesh/belt)",
-                       "path":  "skills/belt/SKILL.md"
+                       "path":  "skills-library/belt/SKILL.md"
                    },
                    {
                        "name":  "bolder",
                        "description":  "Amplify safe or boring designs to make them more visually interesting and stimulating. Increases impact while maintaining usability. user-invokable: true",
-                       "path":  "skills/bolder/SKILL.md"
+                       "path":  "skills-library/bolder/SKILL.md"
                    },
                    {
                        "name":  "book-cover-design",
                        "description":  "\"Book cover design with genre-specific conventions, typography rules, and AI image generation. Covers fiction and non-fiction genres, sizing, thumbnail testing, and iteration workflows. Use for: self-publishing, ebook covers, print covers, audiobook covers, cover mockups. Triggers: book cover, cover design, ebook cover, book art, novel cover, self publishing cover, kindle cover, audiobook cover, book jacket, cover illustration, fiction cover, nonfiction cover\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/book-cover-design/SKILL.md"
+                       "path":  "skills-library/book-cover-design/SKILL.md"
                    },
                    {
                        "name":  "brainstorming",
@@ -182,27 +182,27 @@
                    {
                        "name":  "case-analysis",
                        "description":  "Ejercicios de análisis para materias teóricas — Economía y Gestión de Personas. 5 niveles progresivos análogos a coding-exercises pero para análisis de casos, gráficos, teorías y modelos. Usar cuando el estudiante quiera practicar materias no-código.",
-                       "path":  "skills/case-analysis/SKILL.md"
+                       "path":  "skills-library/case-analysis/SKILL.md"
                    },
                    {
                        "name":  "case-study-writing",
                        "description":  "\"B2B case study writing with STAR framework, data visualization, and research. Covers structure, customer quotes, metrics presentation, and distribution formats. Use for: customer success stories, portfolio pieces, sales enablement, marketing content. Triggers: case study, customer story, success story, b2b case study, client testimonial, customer case study, portfolio case study, use case, customer win, results story\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/case-study-writing/SKILL.md"
+                       "path":  "skills-library/case-study-writing/SKILL.md"
                    },
                    {
                        "name":  "character-design-sheet",
                        "description":  "\"Character consistency across AI-generated images with reference sheets and LoRA techniques. Covers turnaround views, expression sheets, color palettes, and style consistency tricks. Use for: character design, game art, illustration, animation, comics, visual novels. Triggers: character design, character sheet, character consistency, character reference, turnaround sheet, expression sheet, character art, consistent character, character concept, reference sheet, character creation, oc design, character bible\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/character-design-sheet/SKILL.md"
+                       "path":  "skills-library/character-design-sheet/SKILL.md"
                    },
                    {
                        "name":  "chat-ui",
                        "description":  "\"Chat UI building blocks for React/Next.js from ui.inference.sh. Components: container, messages, input, typing indicators, avatars. Capabilities: chat interfaces, message lists, input handling, streaming. Use for: building custom chat UIs, messaging interfaces, AI assistants. Triggers: chat ui, chat component, message list, chat input, shadcn chat,  react chat, chat interface, messaging ui, conversation ui, chat building blocks\"",
-                       "path":  "skills/chat-ui/SKILL.md"
+                       "path":  "skills-library/chat-ui/SKILL.md"
                    },
                    {
                        "name":  "clarify",
                        "description":  "Improve unclear UX copy, error messages, microcopy, labels, and instructions. Makes interfaces easier to understand and use. user-invokable: true",
-                       "path":  "skills/clarify/SKILL.md"
+                       "path":  "skills-library/clarify/SKILL.md"
                    },
                    {
                        "name":  "client-work",
@@ -212,57 +212,57 @@
                    {
                        "name":  "coding-exercises",
                        "description":  "Protocolo para generar ejercicios de programación progresivos en 5 niveles — comprensión, completar, modificar, crear y diseñar. Para POO (Java) y AED II. Usar cuando el estudiante quiera practicar código o el tutor quiera evaluar capacidad práctica.",
-                       "path":  "skills/coding-exercises/SKILL.md"
+                       "path":  "skills-library/coding-exercises/SKILL.md"
                    },
                    {
                        "name":  "colorize",
                        "description":  "Add strategic color to features that are too monochromatic or lack visual interest. Makes interfaces more engaging and expressive. user-invokable: true",
-                       "path":  "skills/colorize/SKILL.md"
+                       "path":  "skills-library/colorize/SKILL.md"
                    },
                    {
                        "name":  "competitor-teardown",
                        "description":  "\"Structured competitive analysis with feature matrices, SWOT, positioning maps, and UX review. Covers research frameworks, pricing comparison, review mining, and visual deliverables. Use for: market research, competitive intelligence, investor decks, product strategy, sales enablement. Triggers: competitor analysis, competitive analysis, competitor teardown, market research, competitive intelligence, swot analysis, competitor comparison, market landscape, competitor review, competitive landscape, feature comparison, market positioning\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/competitor-teardown/SKILL.md"
+                       "path":  "skills-library/competitor-teardown/SKILL.md"
                    },
                    {
                        "name":  "computer-use",
                        "description":  "\u003e-   Use Orca\u0027s computer-use CLI to inspect and operate local desktop app windows   through accessibility trees, screenshots, and safe UI actions. Use for   desktop app interaction: list apps/windows, get app state, read visible UI,   click controls, type, press keys, scroll, drag, set values, or perform   accessibility actions. Also use for browser windows, webviews, Orca app UI,   or other desktop UI. Triggers include \"computer use\", \"orca computer\", \"read   Spotify\", \"read Slack\", \"control/click/read in a desktop app\", and \"get app   state\".",
-                       "path":  "skills/computer-use/SKILL.md"
+                       "path":  "skills-library/computer-use/SKILL.md"
                    },
                    {
                        "name":  "content-repurposing",
                        "description":  "\"Content atomization — turn one piece of content into many formats. Covers blog-to-thread, blog-to-carousel, podcast-to-blog, video-to-quotes, and more. Use for: content marketing, social media, multi-platform distribution, content strategy. Triggers: content repurposing, repurpose content, content atomization, content recycling, one to many content, multi platform content, cross post, adapt content, reformat content, blog to thread, blog to video, podcast to blog, content multiplication\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/content-repurposing/SKILL.md"
+                       "path":  "skills-library/content-repurposing/SKILL.md"
                    },
                    {
                        "name":  "critique",
                        "description":  "Evaluate design effectiveness from a UX perspective. Assesses visual hierarchy, information architecture, emotional resonance, and overall design quality with actionable feedback. user-invokable: true",
-                       "path":  "skills/critique/SKILL.md"
+                       "path":  "skills-library/critique/SKILL.md"
                    },
                    {
                        "name":  "css-animations",
                        "description":  "Genera animaciones CSS 2D para sitios web — keyframes, parallax, hover effects, fade-on-scroll, texto animado allowed-tools: Read Write Grep",
-                       "path":  "skills/css-animations/SKILL.md"
+                       "path":  "skills-library/css-animations/SKILL.md"
                    },
                    {
                        "name":  "customer-persona",
                        "description":  "\"Research-backed customer persona creation with market data and avatar generation. Covers demographics, psychographics, jobs-to-be-done, journey mapping, and anti-personas. Use for: marketing strategy, product development, UX research, sales enablement, content strategy. Triggers: customer persona, buyer persona, user persona, target audience, ideal customer, customer profile, audience research, user research, icp, ideal customer profile, target market, customer avatar, audience persona\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/customer-persona/SKILL.md"
+                       "path":  "skills-library/customer-persona/SKILL.md"
                    },
                    {
                        "name":  "data-visualization",
                        "description":  "\"Data visualization with chart selection, color theory, and annotation best practices. Covers chart types (bar, line, scatter, heatmap), axes rules, and storytelling with data. Use for: charts, graphs, dashboards, reports, presentations, infographics, data stories. Triggers: data visualization, chart, graph, data chart, bar chart, line chart, scatter plot, data viz, visualization, dashboard chart, infographic data, data presentation, chart design, plot, heatmap, pie chart alternative\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/data-visualization/SKILL.md"
+                       "path":  "skills-library/data-visualization/SKILL.md"
                    },
                    {
                        "name":  "defuddle",
                        "description":  "Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md — those are already markdown, use WebFetch directly.",
-                       "path":  "skills/defuddle/SKILL.md"
+                       "path":  "skills-library/defuddle/SKILL.md"
                    },
                    {
                        "name":  "delight",
                        "description":  "Add moments of joy, personality, and unexpected touches that make interfaces memorable and enjoyable to use. Elevates functional to delightful. user-invokable: true",
-                       "path":  "skills/delight/SKILL.md"
+                       "path":  "skills-library/delight/SKILL.md"
                    },
                    {
                        "name":  "dispatching-parallel-agents",
@@ -272,17 +272,17 @@
                    {
                        "name":  "distill",
                        "description":  "Strip designs to their essence by removing unnecessary complexity. Great design is simple, powerful, and clean. user-invokable: true",
-                       "path":  "skills/distill/SKILL.md"
+                       "path":  "skills-library/distill/SKILL.md"
                    },
                    {
                        "name":  "doc-coauthoring",
                        "description":  "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
-                       "path":  "skills/doc-coauthoring/SKILL.md"
+                       "path":  "skills-library/doc-coauthoring/SKILL.md"
                    },
                    {
                        "name":  "email-design",
                        "description":  "\"Email marketing design with layout patterns, subject line formulas, and deliverability rules. Covers welcome sequences, promotional emails, transactional templates, and mobile optimization. Use for: email marketing, newsletter design, drip campaigns, email templates, transactional emails. Triggers: email design, email template, email marketing, newsletter design, email layout, email campaign, drip campaign, welcome email, promotional email, transactional email, email subject line, email header image, email banner\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/email-design/SKILL.md"
+                       "path":  "skills-library/email-design/SKILL.md"
                    },
                    {
                        "name":  "exam-simulator",
@@ -292,17 +292,17 @@
                    {
                        "name":  "executing-plans",
                        "description":  "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
-                       "path":  "skills/executing-plans/SKILL.md"
+                       "path":  "skills-library/executing-plans/SKILL.md"
                    },
                    {
                        "name":  "explainer-video-guide",
                        "description":  "\"Explainer video production guide: scripting, voiceover, visuals, and assembly. Covers script formulas, pacing rules, scene planning, and multi-tool pipelines. Use for: product demos, how-it-works videos, onboarding videos, social explainers. Triggers: explainer video, how to make explainer, product video, demo video, video production, video script, animated explainer, product demo video, tutorial video, onboarding video, walkthrough video, video pipeline\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/explainer-video-guide/SKILL.md"
+                       "path":  "skills-library/explainer-video-guide/SKILL.md"
                    },
                    {
                        "name":  "extract",
                        "description":  "Extract and consolidate reusable components, design tokens, and patterns into your design system. Identifies opportunities for systematic reuse and enriches your component library. user-invokable: true",
-                       "path":  "skills/extract/SKILL.md"
+                       "path":  "skills-library/extract/SKILL.md"
                    },
                    {
                        "name":  "find-skills",
@@ -322,52 +322,52 @@
                    {
                        "name":  "harden",
                        "description":  "Improve interface resilience through better error handling, i18n support, text overflow handling, and edge case management. Makes interfaces robust and production-ready. user-invokable: true",
-                       "path":  "skills/harden/SKILL.md"
+                       "path":  "skills-library/harden/SKILL.md"
                    },
                    {
                        "name":  "javascript-sdk",
                        "description":  "\"JavaScript/TypeScript SDK for inference.sh - run AI apps, build agents, integrate with all models. Package: @inferencesh/sdk (npm install). Full TypeScript support, streaming, file uploads. Build agents with template or ad-hoc patterns, tool builder API, skills, human approval. Use for: JavaScript integration, TypeScript, Node.js, React, Next.js, frontend apps. Triggers: javascript sdk, typescript sdk, npm install, node.js api, js client, react ai, next.js ai, frontend sdk, @inferencesh/sdk, typescript agent, browser sdk, js integration\" allowed-tools: Bash(npm *), Bash(npx *), Bash(node *), Bash(pnpm *), Bash(yarn *)",
-                       "path":  "skills/javascript-sdk/SKILL.md"
+                       "path":  "skills-library/javascript-sdk/SKILL.md"
                    },
                    {
                        "name":  "json-canvas",
                        "description":  "Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.",
-                       "path":  "skills/json-canvas/SKILL.md"
+                       "path":  "skills-library/json-canvas/SKILL.md"
                    },
                    {
                        "name":  "landing-page-design",
                        "description":  "\"Landing page conversion optimization with layout rules, hero section design, and CTA psychology. Covers above-the-fold formula, social proof placement, mobile design, and F-pattern reading. Use for: startup landing pages, product pages, SaaS marketing, conversion optimization. Triggers: landing page, hero section, above the fold, conversion optimization, landing page design, cta button, hero image, landing page layout, saas landing page, product page design, conversion rate, landing page best practices\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/landing-page-design/SKILL.md"
+                       "path":  "skills-library/landing-page-design/SKILL.md"
                    },
                    {
                        "name":  "lean-project-kickoff",
                        "description":  "Use when starting a new project, repo, feature branch, or greenfield initiative and you want a minimal kickoff workflow that avoids over-planning, excess documentation, and token waste while still defining a clear first milestone.",
-                       "path":  "skills/lean-project-kickoff/SKILL.md"
+                       "path":  "skills-library/lean-project-kickoff/SKILL.md"
                    },
                    {
                        "name":  "linkedin-content",
                        "description":  "\"LinkedIn post writing with hook formulas, formatting rules, and engagement patterns. Covers post types, algorithm signals, character limits, and content pillars. Use for: LinkedIn posts, professional content, thought leadership, B2B content, personal branding. Triggers: linkedin post, linkedin content, linkedin writing, linkedin strategy, linkedin engagement, linkedin algorithm, linkedin hook, linkedin formatting, thought leadership, professional content, b2b content, linkedin growth\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/linkedin-content/SKILL.md"
+                       "path":  "skills-library/linkedin-content/SKILL.md"
                    },
                    {
                        "name":  "logo-design-guide",
                        "description":  "\"Logo design principles and AI image generation best practices for creating logos. Covers logo types, prompting techniques, scalability rules, and iteration workflows. Use for: brand identity, startup logos, app icons, favicons, logo concepts. Triggers: logo design, create logo, brand logo, logo generation, ai logo, logo maker, icon design, brand mark, logo concept, startup logo, app icon logo\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/logo-design-guide/SKILL.md"
+                       "path":  "skills-library/logo-design-guide/SKILL.md"
                    },
                    {
                        "name":  "mcts-planner",
                        "description":  "Usa esta skill para arquitecturas complejas, refactors masivos o cuando un plan lineal (\"Chain of Thought\") es demasiado riesgoso. Reemplaza el razonamiento lineal por un árbol de decisión simulado.",
-                       "path":  "skills/mcts-planner/SKILL.md"
+                       "path":  "skills-library/mcts-planner/SKILL.md"
                    },
                    {
                        "name":  "monetization-architect",
                        "description":  "Usa esta skill siempre que vayas a implementar, modificar o auditar flujos de pago, suscripciones o integración con Stripe.",
-                       "path":  "skills/monetization-architect/SKILL.md"
+                       "path":  "skills-library/monetization-architect/SKILL.md"
                    },
                    {
                        "name":  "newsletter-curation",
                        "description":  "\"Newsletter curation with content sourcing, editorial structure, and subscriber growth strategies. Covers issue formatting, link roundups, commentary style, and sending cadence. Use for: email newsletters, link roundups, weekly digests, curated content, creator newsletters. Triggers: newsletter, email newsletter, newsletter curation, weekly digest, link roundup, curated newsletter, newsletter writing, newsletter format, subscriber growth, newsletter strategy, content curation, newsletter template\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/newsletter-curation/SKILL.md"
+                       "path":  "skills-library/newsletter-curation/SKILL.md"
                    },
                    {
                        "name":  "next-best-practices",
@@ -377,32 +377,32 @@
                    {
                        "name":  "next-cache-components",
                        "description":  "Next.js 16 Cache Components - PPR, use cache directive, cacheLife, cacheTag, updateTag",
-                       "path":  "skills/next-cache-components/SKILL.md"
+                       "path":  "skills-library/next-cache-components/SKILL.md"
                    },
                    {
                        "name":  "next-cache-components-adoption",
                        "description":  "\u003e   Turn on Cache Components in a Next.js app and resolve the blocking routes it   surfaces. Use when the user wants to enable, adopt, or migrate to Cache   Components, flip the `cacheComponents` flag, work through a flood of   blocking-prerender / instant validation errors, run the   `cache-components-instant-false` codemod, or decide between opting routes out   with `export const instant = false` and fixing them in place.",
-                       "path":  "skills/next-cache-components-adoption/SKILL.md"
+                       "path":  "skills-library/next-cache-components-adoption/SKILL.md"
                    },
                    {
                        "name":  "normalize",
                        "description":  "Normalize design to match your design system and ensure consistency user-invokable: true",
-                       "path":  "skills/normalize/SKILL.md"
+                       "path":  "skills-library/normalize/SKILL.md"
                    },
                    {
                        "name":  "obsidian-bases",
                        "description":  "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.",
-                       "path":  "skills/obsidian-bases/SKILL.md"
+                       "path":  "skills-library/obsidian-bases/SKILL.md"
                    },
                    {
                        "name":  "obsidian-cli",
                        "description":  "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
-                       "path":  "skills/obsidian-cli/SKILL.md"
+                       "path":  "skills-library/obsidian-cli/SKILL.md"
                    },
                    {
                        "name":  "obsidian-markdown",
                        "description":  "Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.",
-                       "path":  "skills/obsidian-markdown/SKILL.md"
+                       "path":  "skills-library/obsidian-markdown/SKILL.md"
                    },
                    {
                        "name":  "obsidian-vault",
@@ -412,42 +412,42 @@
                    {
                        "name":  "og-image-design",
                        "description":  "\"Open Graph and social sharing image design with platform specs, text placement, and branding. Covers OG meta tags, Twitter cards, LinkedIn previews, and dynamic generation. Use for: social sharing images, blog thumbnails, link previews, social cards. Triggers: og image, open graph, social sharing image, twitter card, social card, link preview image, og meta, sharing preview, social thumbnail, meta image, og:image, twitter:image, linkedin preview\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/og-image-design/SKILL.md"
+                       "path":  "skills-library/og-image-design/SKILL.md"
                    },
                    {
                        "name":  "onboard",
                        "description":  "Design or improve onboarding flows, empty states, and first-time user experiences. Helps users get started successfully and understand value quickly. user-invokable: true",
-                       "path":  "skills/onboard/SKILL.md"
+                       "path":  "skills-library/onboard/SKILL.md"
                    },
                    {
                        "name":  "openship-architect",
                        "description":  "Handles zero-config deployment and infrastructure provisioning via OpenShip MCP. Use when deploying apps to a VPS.",
-                       "path":  "skills/openship-architect/SKILL.md"
+                       "path":  "skills-library/openship-architect/SKILL.md"
                    },
                    {
                        "name":  "optimize",
                        "description":  "Improve interface performance across loading speed, rendering, animations, images, and bundle size. Makes experiences faster and smoother. user-invokable: true",
-                       "path":  "skills/optimize/SKILL.md"
+                       "path":  "skills-library/optimize/SKILL.md"
                    },
                    {
                        "name":  "pitch-deck-visuals",
                        "description":  "\"Investor pitch deck structure with slide-by-slide framework, visual design rules, and data presentation. Covers the 12-slide framework, chart types, team slides, and common investor turn-offs. Use for: fundraising decks, investor presentations, startup pitch, demo day, grant proposals. Triggers: pitch deck, investor deck, startup pitch, fundraising deck, demo day, pitch presentation, investor presentation, seed deck, series a deck, pitch slides, startup presentation, vc pitch, investor meeting\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/pitch-deck-visuals/SKILL.md"
+                       "path":  "skills-library/pitch-deck-visuals/SKILL.md"
                    },
                    {
                        "name":  "polish",
                        "description":  "Final quality pass before shipping. Fixes alignment, spacing, consistency, and detail issues that separate good from great. user-invokable: true",
-                       "path":  "skills/polish/SKILL.md"
+                       "path":  "skills-library/polish/SKILL.md"
                    },
                    {
                        "name":  "press-release-writing",
                        "description":  "\"Press release writing in AP style with inverted pyramid structure. Covers formatting, datelines, quotes, boilerplates, and fact-checking. Use for: product launches, funding announcements, partnerships, company news, events. Triggers: press release, pr writing, media release, news release, announcement, product launch announcement, funding announcement, company news, media advisory, ap style, press statement, news wire\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/press-release-writing/SKILL.md"
+                       "path":  "skills-library/press-release-writing/SKILL.md"
                    },
                    {
                        "name":  "procedural-memory",
                        "description":  "Habilita la memoria persistente agentica extrayendo lecciones aprendidas al final de cada sesión y guardándolas para el futuro.",
-                       "path":  "skills/procedural-memory/SKILL.md"
+                       "path":  "skills-library/procedural-memory/SKILL.md"
                    },
                    {
                        "name":  "procesar-clase-vault",
@@ -457,7 +457,7 @@
                    {
                        "name":  "product-changelog",
                        "description":  "\"Product changelog and release notes that users actually read. Covers categorization, user-facing language, visuals, and distribution. Use for: release notes, changelogs, product updates, feature announcements, versioning. Triggers: changelog, release notes, product update, version notes, what\u0027s new, feature announcement, product changelog, update log, release announcement, version release, product release, ship notes\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/product-changelog/SKILL.md"
+                       "path":  "skills-library/product-changelog/SKILL.md"
                    },
                    {
                        "name":  "product-foundry",
@@ -467,17 +467,17 @@
                    {
                        "name":  "product-hunt-launch",
                        "description":  "\"Product Hunt launch optimization with specific specs, timing, and gallery strategy. Covers taglines, gallery images, maker comments, and launch day tactics. Use for: product launches, startup launches, side project launches, Product Hunt optimization. Triggers: product hunt, ph launch, product hunt launch, launch strategy, product launch, startup launch, product hunt tips, product hunt gallery, ph optimization, launch day, product hunt maker\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/product-hunt-launch/SKILL.md"
+                       "path":  "skills-library/product-hunt-launch/SKILL.md"
                    },
                    {
                        "name":  "product-photography",
                        "description":  "\"AI product photography with studio lighting, lifestyle shots, and packshot conventions. Covers angles, backgrounds, shadow types, hero shots, and e-commerce image requirements. Use for: product photos, e-commerce images, Amazon listings, packshots, lifestyle photography. Triggers: product photography, product photo, packshot, e-commerce photography, product shot, product image, studio photography, lifestyle product, amazon product photo, product listing image, hero shot, product mockup, commercial photography\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/product-photography/SKILL.md"
+                       "path":  "skills-library/product-photography/SKILL.md"
                    },
                    {
                        "name":  "prompt-engineering",
                        "description":  "\"Master prompt engineering for AI models: LLMs, image generators, video models. Techniques: chain-of-thought, few-shot, system prompts, negative prompts. Models: Claude, GPT-5, Gemini, FLUX, Veo, Stable Diffusion prompting. Use for: better AI outputs, consistent results, complex tasks, optimization. Triggers: prompt engineering, how to prompt, better prompts, prompt tips, prompting guide, llm prompting, image prompt, ai prompting, prompt optimization, prompt template, prompt structure, effective prompts, prompt techniques\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/prompt-engineering/SKILL.md"
+                       "path":  "skills-library/prompt-engineering/SKILL.md"
                    },
                    {
                        "name":  "python",
@@ -487,22 +487,22 @@
                    {
                        "name":  "python-executor",
                        "description":  "\"Execute Python code in a safe sandboxed environment via [inference.sh](https://inference.sh). Pre-installed: NumPy, Pandas, Matplotlib, requests, BeautifulSoup, Selenium, Playwright, MoviePy, Pillow, OpenCV, trimesh, and 100+ more libraries. Use for: data processing, web scraping, image manipulation, video creation, 3D model processing, PDF generation, API calls, automation scripts. Triggers: python, execute code, run script, web scraping, data analysis, image processing, video editing, 3D models, automation, pandas, matplotlib\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/python-executor/SKILL.md"
+                       "path":  "skills-library/python-executor/SKILL.md"
                    },
                    {
                        "name":  "python-sdk",
                        "description":  "\"Python SDK for inference.sh - run AI apps, build agents, and integrate with all models. Package: inferencesh (pip install inferencesh). Supports sync/async, streaming, file uploads. Build agents with template or ad-hoc patterns, tool builder API, skills, and human approval. Use for: Python integration, AI apps, agent development, RAG pipelines, automation. Triggers: python sdk, inferencesh, pip install, python api, python client, async inference, python agent, tool builder python, programmatic ai, python integration, sdk python\" allowed-tools: Bash(pip install inferencesh), Bash(python *)",
-                       "path":  "skills/python-sdk/SKILL.md"
+                       "path":  "skills-library/python-sdk/SKILL.md"
                    },
                    {
                        "name":  "python-testing-patterns",
                        "description":  "Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development. Use when writing Python tests, setting up test suites, or implementing testing best practices.",
-                       "path":  "skills/python-testing-patterns/SKILL.md"
+                       "path":  "skills-library/python-testing-patterns/SKILL.md"
                    },
                    {
                        "name":  "quieter",
                        "description":  "Tone down overly bold or visually aggressive designs. Reduces intensity while maintaining design quality and impact. user-invokable: true",
-                       "path":  "skills/quieter/SKILL.md"
+                       "path":  "skills-library/quieter/SKILL.md"
                    },
                    {
                        "name":  "receiving-code-review",
@@ -512,12 +512,12 @@
                    {
                        "name":  "related-skill",
                        "description":  "\"Discover and install related skills from inference.sh skill registry. Helps find complementary skills for your AI workflow. Use for: skill discovery, workflow expansion, capability exploration. Triggers: related skills, find skills, skill discovery, complementary skills, expand workflow, more capabilities, similar skills, skill suggestions\" allowed-tools: Bash(npx skills *)",
-                       "path":  "skills/related-skill/SKILL.md"
+                       "path":  "skills-library/related-skill/SKILL.md"
                    },
                    {
                        "name":  "remembering-conversations",
                        "description":  "Use when user asks \u0027how should I...\u0027 or \u0027what\u0027s the best approach...\u0027 after exploring code, OR when you\u0027ve tried to solve something and are stuck, OR for unfamiliar workflows, OR when user references past work. Searches conversation history.",
-                       "path":  "skills/remembering-conversations/SKILL.md"
+                       "path":  "skills-library/remembering-conversations/SKILL.md"
                    },
                    {
                        "name":  "requesting-code-review",
@@ -527,12 +527,12 @@
                    {
                        "name":  "self-healing-ci",
                        "description":  "Usa esta skill cuando te encuentres con un test roto durante el CI/CD o desarrollo local para auto-repararlo basado en el estado actual de la app.",
-                       "path":  "skills/self-healing-ci/SKILL.md"
+                       "path":  "skills-library/self-healing-ci/SKILL.md"
                    },
                    {
                        "name":  "seo-content-brief",
                        "description":  "\"SEO content brief creation with keyword research, search intent analysis, and content structure. Covers SERP analysis, heading hierarchy, word count targets, and internal linking strategy. Use for: content briefs, SEO writing, blog strategy, content planning, keyword targeting. Triggers: seo content brief, content brief, seo brief, keyword research, search intent, content strategy, blog brief, seo writing, content planning, keyword targeting, serp analysis, content outline, seo article, blog seo\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/seo-content-brief/SKILL.md"
+                       "path":  "skills-library/seo-content-brief/SKILL.md"
                    },
                    {
                        "name":  "seo-geo-growth",
@@ -552,7 +552,7 @@
                    {
                        "name":  "social-media-carousel",
                        "description":  "\"Multi-slide carousel design for Instagram, LinkedIn, and Twitter/X with layout rules and hooks. Covers slide structure, text hierarchy, swipe psychology, and platform-specific specs. Use for: carousel posts, Instagram carousels, LinkedIn carousels, slide posts, educational content. Triggers: carousel, instagram carousel, linkedin carousel, slide post, carousel design, swipe post, multi-image post, carousel template, educational carousel, carousel content, instagram slides, linkedin slides\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/social-media-carousel/SKILL.md"
+                       "path":  "skills-library/social-media-carousel/SKILL.md"
                    },
                    {
                        "name":  "spec-kit",
@@ -562,12 +562,12 @@
                    {
                        "name":  "storyboard-creation",
                        "description":  "\"Film and video storyboarding with shot vocabulary, continuity rules, and panel layout. Covers shot types, camera angles, movement, 180-degree rule, and annotation format. Use for: video planning, film pre-production, ad storyboards, music video planning, animation. Triggers: storyboard, storyboarding, shot list, film planning, video planning, pre production, shot composition, camera angles, scene planning, visual script, animatic, storyboard panels, video storyboard\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/storyboard-creation/SKILL.md"
+                       "path":  "skills-library/storyboard-creation/SKILL.md"
                    },
                    {
                        "name":  "study-progress-tracker",
                        "description":  "Tracking de progreso académico por materia y tema. Registra estado de dominio, fecha de último repaso y habilita spacing real. Usar cuando el tutor necesite saber qué repasar, qué priorizar o cómo va el estudiante.",
-                       "path":  "skills/study-progress-tracker/SKILL.md"
+                       "path":  "skills-library/study-progress-tracker/SKILL.md"
                    },
                    {
                        "name":  "subagent-driven-development",
@@ -582,12 +582,12 @@
                    {
                        "name":  "technical-blog-writing",
                        "description":  "\"Technical blog post writing with structure, code examples, and developer audience conventions. Covers post types, code formatting, explanation depth, and developer-specific engagement patterns. Use for: engineering blogs, dev tutorials, technical writing, developer content, documentation posts. Triggers: technical blog, dev blog, engineering blog, technical writing, developer tutorial, tech post, code tutorial, programming blog, developer content, technical article, engineering post, coding tutorial, technical content\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/technical-blog-writing/SKILL.md"
+                       "path":  "skills-library/technical-blog-writing/SKILL.md"
                    },
                    {
                        "name":  "telemetry-pm",
                        "description":  "Usa esta skill cuando desarrolles nuevos features para asegurar que estén instrumentados correctamente con analíticas y Feature Flags (ej. PostHog, Vercel Web Analytics).",
-                       "path":  "skills/telemetry-pm/SKILL.md"
+                       "path":  "skills-library/telemetry-pm/SKILL.md"
                    },
                    {
                        "name":  "test-driven-development",
@@ -602,22 +602,22 @@
                    {
                        "name":  "tools-ui",
                        "description":  "\"Tool lifecycle UI components for React/Next.js from ui.inference.sh. Display tool calls: pending, progress, approval required, results. Capabilities: tool status, progress indicators, approval flows, results display. Use for: showing agent tool calls, human-in-the-loop approvals, tool output. Triggers: tool ui, tool calls, tool status, tool approval, tool results, agent tools, mcp tools ui, function calling ui, tool lifecycle, tool pending\"",
-                       "path":  "skills/tools-ui/SKILL.md"
+                       "path":  "skills-library/tools-ui/SKILL.md"
                    },
                    {
                        "name":  "twitter-thread-creation",
                        "description":  "\"Twitter/X thread writing with hook tweets, thread structure, and engagement optimization. Covers tweet formatting, character limits, media attachments, and posting strategies. Use for: Twitter threads, X posts, tweet storms, Twitter content, social media writing. Triggers: twitter thread, tweet thread, x thread, twitter post, tweet writing, thread creation, tweet storm, twitter content, x post, twitter writing, twitter hook, tweet formatting, thread structure\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/twitter-thread-creation/SKILL.md"
+                       "path":  "skills-library/twitter-thread-creation/SKILL.md"
                    },
                    {
                        "name":  "typescript-advanced-types",
                        "description":  "Master TypeScript\u0027s advanced type system including generics, conditional types, mapped types, template literals, and utility types for building type-safe applications. Use when implementing complex type logic, creating reusable type utilities, or ensuring compile-time type safety in TypeScript projects.",
-                       "path":  "skills/typescript-advanced-types/SKILL.md"
+                       "path":  "skills-library/typescript-advanced-types/SKILL.md"
                    },
                    {
                        "name":  "using-git-worktrees",
                        "description":  "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification",
-                       "path":  "skills/using-git-worktrees/SKILL.md"
+                       "path":  "skills-library/using-git-worktrees/SKILL.md"
                    },
                    {
                        "name":  "using-superpowers",
@@ -637,12 +637,12 @@
                    {
                        "name":  "video-ad-specs",
                        "description":  "\"Video ad creation with exact platform-specific specs for TikTok, Instagram, YouTube, Facebook, LinkedIn. Covers dimensions, duration limits, AIDA framework, and caption requirements. Use for: video ads, social media ads, paid media creative, video marketing, ad production. Triggers: video ad, social media ad, tiktok ad, instagram ad, youtube ad, facebook ad, linkedin ad, video creative, ad specs, paid media, video marketing, ad production, reels ad, stories ad, pre roll, bumper ad\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/video-ad-specs/SKILL.md"
+                       "path":  "skills-library/video-ad-specs/SKILL.md"
                    },
                    {
                        "name":  "video-prompting-guide",
                        "description":  "\"Best practices and techniques for writing effective AI video generation prompts. Covers: Veo, Seedance, Wan, Grok, Kling, Runway, Pika, Sora prompting strategies. Learn: shot types, camera movements, lighting, pacing, style keywords, negative prompts. Use for: improving video quality, getting consistent results, professional video prompts. Triggers: video prompt, how to prompt video, veo prompts, video generation tips, better ai video, video prompt engineering, video prompt guide, video prompt template, ai video tips, video prompt best practices, video prompt examples, cinematography prompts\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/video-prompting-guide/SKILL.md"
+                       "path":  "skills-library/video-prompting-guide/SKILL.md"
                    },
                    {
                        "name":  "webapp-testing",
@@ -652,7 +652,7 @@
                    {
                        "name":  "widgets-ui",
                        "description":  "\"Declarative UI widgets from JSON for React/Next.js from ui.inference.sh. Render rich interactive UIs from structured agent responses. Capabilities: forms, buttons, cards, layouts, inputs, selects, checkboxes. Use for: agent-generated UIs, dynamic forms, data display, interactive cards. Triggers: widgets, declarative ui, json ui, widget renderer, agent widgets, dynamic ui, form widgets, card widgets, shadcn widgets, structured output ui\"",
-                       "path":  "skills/widgets-ui/SKILL.md"
+                       "path":  "skills-library/widgets-ui/SKILL.md"
                    },
                    {
                        "name":  "writing-plans",
@@ -662,17 +662,17 @@
                    {
                        "name":  "writing-skills",
                        "description":  "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
-                       "path":  "skills/writing-skills/SKILL.md"
+                       "path":  "skills-library/writing-skills/SKILL.md"
                    },
                    {
                        "name":  "x-algorithm-optimizer",
                        "description":  "Skill para diagnosticar y optimizar contenido de X según el algoritmo Phoenix de xAI. Usar cuando el usuario pregunte por alcance, shadowban, hooks, timing, o quiera entender por qué un post no funcionó. No genera contenido nuevo; diagnostica y optimiza contenido existente.",
-                       "path":  "skills/x-algorithm-optimizer/SKILL.md"
+                       "path":  "skills-library/x-algorithm-optimizer/SKILL.md"
                    },
                    {
                        "name":  "youtube-thumbnail-design",
                        "description":  "\"YouTube thumbnail design with specific dimensions, contrast rules, and mobile preview optimization. Covers safe zones, text placement, face expression psychology, and A/B testing. Use for: YouTube thumbnails, video cover images, click-through optimization. Triggers: youtube thumbnail, thumbnail design, video thumbnail, click through rate, ctr optimization, youtube cover, video cover image, thumbnail maker, thumbnail tips, youtube design, video preview image\" allowed-tools: Bash(belt *)",
-                       "path":  "skills/youtube-thumbnail-design/SKILL.md"
+                       "path":  "skills-library/youtube-thumbnail-design/SKILL.md"
                    }
                ]
 }

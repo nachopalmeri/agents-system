@@ -32,7 +32,9 @@ Get-ChildItem -Path "$agentsRoot\agents" -Filter "*.md" | ForEach-Object {
 }
 
 $skills = @()
-Get-ChildItem -Path "$agentsRoot\skills" | ForEach-Object {
+foreach ($tier in @("skills", "skills-library")) {
+if (-not (Test-Path "$agentsRoot\$tier")) { continue }
+Get-ChildItem -Path "$agentsRoot\$tier" | ForEach-Object {
     if ($_.PSIsContainer) {
         $skillFile = Join-Path $_.FullName "SKILL.md"
         if (Test-Path $skillFile) {
@@ -41,18 +43,19 @@ Get-ChildItem -Path "$agentsRoot\skills" | ForEach-Object {
             $skills += [ordered]@{
                 name = $name
                 description = $fm.description
-                path = "skills/$($_.Name)/SKILL.md"
+                path = "$tier/$($_.Name)/SKILL.md"
             }
         }
-    } elseif ($_.Extension -eq ".md") {
+    } elseif ($_.Extension -eq ".md" -and $_.Name -ne "INDEX.md") {
         $fm = Get-Frontmatter $_.FullName
         $name = if ($fm.name) { $fm.name } else { $_.BaseName }
         $skills += [ordered]@{
             name = $name
             description = $fm.description
-            path = "skills/$($_.Name)"
+            path = "$tier/$($_.Name)"
         }
     }
+}
 }
 
 $capabilities = [ordered]@{

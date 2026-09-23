@@ -96,7 +96,7 @@ foreach ($agent in @($registry.agents)) {
     }
 }
 
-$activeSkillDirs = @(Get-ChildItem (Join-Path $repoRoot ".agents\skills") -Directory | Where-Object { Test-Path (Join-Path $_.FullName "SKILL.md") })
+$activeSkillDirs = @(foreach ($tier in @("skills", "skills-library")) { Get-ChildItem (Join-Path $repoRoot ".agents\$tier") -Directory | Where-Object { Test-Path (Join-Path $_.FullName "SKILL.md") } })
 $activeSkillIds = @($activeSkillDirs.Name)
 foreach ($item in @($baseline.skills)) {
     if ($item.sha256 -notmatch "^[a-f0-9]{64}$") {

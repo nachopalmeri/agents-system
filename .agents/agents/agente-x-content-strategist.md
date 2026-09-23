@@ -44,7 +44,7 @@ El agente SIEMPRE referencia estos archivos al generar contenido:
 - `github-readmes/web-fullstack.md` — proyecto full stack desplegado
 - `content-pipeline.md` — pipeline actual de contenido
 - `x-content-feedback.md` — feedback de publicaciones previas (si existe)
-- `skills/x-algorithm-optimizer/SKILL.md` — skill para diagnóstico algorítmico rápido
+- `skills-library/x-algorithm-optimizer/SKILL.md` — skill para diagnóstico algorítmico rápido
 
 ## Proceso de Trabajo
 1. Leer `AGENTS.md`, este contrato y el contexto del usuario. El playbook histórico se conserva en archive como referencia no ejecutable.
@@ -74,6 +74,6 @@ El agente SIEMPRE referencia estos archivos al generar contenido:
 
 ## Networking interno del sistema
 - Si el pedido es "qué publicar esta semana" → aplicar el ciclo de generación definido en este agente.
-- Si el pedido es "por qué mi post no funcionó" → usar `skills/x-algorithm-optimizer/SKILL.md`.
+- Si el pedido es "por qué mi post no funcionó" → usar `skills-library/x-algorithm-optimizer/SKILL.md`.
 - Si el pedido es "cómo crecer en redes" → usar `x-playbook-ejecutable.md` como sistema de referencia.
 - Siempre reportar métricas y registrar en `x-content-feedback.md`.

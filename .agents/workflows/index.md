@@ -29,6 +29,6 @@ La lista de agentes/skills no se duplica acá: se descubre desde el ledger. `arc
 
 | Situación | Herramienta |
 |---|---|
-| Refactor masivo o arquitectura nueva | `skills/mcts-planner/SKILL.md` en vez de razonamiento lineal |
-| Test E2E falla repetido | `skills/self-healing-ci/SKILL.md` (Intent Re-resolution) antes de escalar a humano |
-| Cierre de tarea con evidencia | `skills/procedural-memory/SKILL.md` para extraer lecciones |
+| Refactor masivo o arquitectura nueva | `skills-library/mcts-planner/SKILL.md` en vez de razonamiento lineal |
+| Test E2E falla repetido | `skills-library/self-healing-ci/SKILL.md` (Intent Re-resolution) antes de escalar a humano |
+| Cierre de tarea con evidencia | `skills-library/procedural-memory/SKILL.md` para extraer lecciones |
