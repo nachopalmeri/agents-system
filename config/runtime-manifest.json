@@ -7,9 +7,16 @@
   "preserveIfExists": [".agents/memory", ".agents/tasks", ".agents/projects-index.md"],
   "installTargets": [
     { "client": "cli", "sourcePath": ".agents", "targetPath": ".agents", "kind": "directory", "mode": "merge" },
-    { "client": "opencode", "sourcePath": "config/opencode/opencode.jsonc", "targetPath": ".config/opencode/opencode.jsonc", "kind": "file" },
     { "client": "claude", "sourcePath": ".agents/skills", "targetPath": ".claude/skills", "kind": "directory", "mode": "merge" },
-    { "client": "antigravity", "sourcePath": ".agents/skills", "targetPath": ".gemini/antigravity/skills", "kind": "directory", "mode": "merge" }
+    { "client": "antigravity", "sourcePath": ".agents/skills", "targetPath": ".gemini/antigravity/skills", "kind": "directory", "mode": "merge" },
+    { "client": "claude", "sourcePath": "config/generated/claude/agents", "targetPath": ".claude/agents", "kind": "directory", "mode": "merge" },
+    { "client": "opencode", "sourcePath": "config/generated/opencode/agent", "targetPath": ".config/opencode/agent", "kind": "directory", "mode": "merge" },
+    { "client": "gemini", "sourcePath": "config/generated/gemini/agents", "targetPath": ".gemini/agents", "kind": "directory", "mode": "merge" },
+    { "client": "claude", "sourcePath": "config/generated/claude/commands", "targetPath": ".claude/commands", "kind": "directory", "mode": "merge" },
+    { "client": "opencode", "sourcePath": "config/generated/opencode/command", "targetPath": ".config/opencode/command", "kind": "directory", "mode": "merge" },
+    { "client": "codex", "sourcePath": "config/generated/codex/prompts", "targetPath": ".codex/prompts", "kind": "directory", "mode": "merge" },
+    { "client": "gemini", "sourcePath": "config/generated/gemini/commands", "targetPath": ".gemini/commands", "kind": "directory", "mode": "merge" },
+    { "client": "opencode", "sourcePath": "config/opencode/plugin", "targetPath": ".config/opencode/plugin", "kind": "directory", "mode": "merge" }
   ],
   "contextBudgets": {
     "canonicalMaxChars": 6000,

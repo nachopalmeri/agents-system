@@ -409,3 +409,7 @@ Sources:
 - [Cache Components Guide](https://nextjs.org/docs/app/getting-started/cache-components)
 - [use cache Directive](https://nextjs.org/docs/app/api-reference/directives/use-cache)
 - [unstable_cache (legacy)](https://nextjs.org/docs/app/api-reference/functions/unstable_cache)
+
+## Adoptar Cache Components en un proyecto existente
+
+Plan de migración paso a paso (auditoría, flags, boundaries y errores comunes): `references/next-cache-components-adoption/GUIDE.md`.

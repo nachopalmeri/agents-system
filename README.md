@@ -52,7 +52,7 @@ Valida: archivos requeridos, referencias internas no rotas, frontmatter de regla
 
 ## Registry de agentes
 
-`agents.registry.json` es el contrato machine-readable de agentes. No reemplaza los prompts en `.agents/agents/`; los hace direccionables por routers, integraciones y checks automáticos.
+`agents.registry.json` es el contrato machine-readable de los 5 roles. No reemplaza los prompts en `.agents/agents/` (fuente única que `bin/render-agents.ps1` convierte al formato de cada cliente); los hace direccionables por routers, integraciones y checks automáticos.
 
 Cada entrada define:
 
@@ -118,77 +118,32 @@ Tiene que crear:
 
 ```text
 .agents/
-├── AGENTS.md                 # Reglas globales de orquestación
-├── agents/                   # Agentes personalizados
-│   ├── agente-principal.md
-│   ├── agente-design.md
-│   ├── agente-seo.md
-│   ├── agente-tests.md
-│   ├── agente-docs.md
-│   ├── agente-obsidian-brain.md
-│   ├── agente-ai-architect.md
-│   ├── agente-marketing-strategist.md
-│   ├── agente-growth-seo-geo.md
-│   ├── agente-product-founder.md
-│   ├── kickoff-architect.md
-│   └── workflow-pruner.md
-├── workflows/                # Workflows reutilizables
-│   ├── start.md
-│   ├── phases.md
-│   ├── skills_routing.md
-│   ├── task_ledger.md
-│   ├── multiagent_review_loop.md
-│   ├── ai_production.md
-│   ├── web_briefing.md
-│   ├── web-factory.md
-│   ├── marketing.md
-│   ├── marketing_mcp_eval.md
-│   ├── venture_loop.md
-│   ├── product_foundry.md
-│   ├── seo_geo_growth.md
-│   ├── content_automation.md
-│   ├── mcp_catalog.md
-│   ├── mcp_security.md
-│   ├── mcp_adoption.md
-│   ├── opencode_ecosystem.md
-│   ├── parallel_agents.md
-│   ├── hooks.md
-│   └── ...
-├── skills/                   # Skills del sistema
-│   ├── astro/
-│   ├── next/
-│   ├── python/
-│   ├── html-vanilla/
-│   ├── beui/
-│   ├── cli-essentials/
-│   ├── obsidian-vault/
-│   ├── product-foundry/
-│   ├── seo-geo-growth/
-│   ├── ai-production-architecture/
-│   ├── frontend-design/
-│   ├── premium-web-stack/
-│   ├── web-presentation-premium/
-│   └── ...
-└── rules/                    # Reglas de código, testing, git
-    ├── code-style.md
-    ├── testing.md
-    └── git.md
+├── AGENTS.md          # Política canónica (única fuente; se copia a cada cliente)
+├── agents/            # 5 roles: explorador, planner, implementador, reviewer, verificador
+├── commands/          # /planear, /revisar, /cerrar (fuente única)
+├── hooks/             # guard, lint-edited, session-todo, stop-unpushed, log-usage + guard-rules.json
+├── skills/            # 30 skills núcleo (metadata precargada)
+├── skills-library/    # skills on-demand + INDEX.md (incluye externas instalables)
+├── workflows/  rules/  memory/  tasks/  prompts/  shared/  docs/
+└── archive/           # historia (agentes y skills viejos); nada lo carga
+
+config/
+├── runtime-manifest.json   # qué se instala dónde (modo merge)
+├── model-tiers.json        # modelo por rol y cliente
+├── claude-hooks.json       # hooks que se mergean en ~/.claude/settings.json
+├── external-skills.json    # skills de terceros (se bajan de su fuente)
+├── generated/              # agentes y comandos por cliente (bin/render-*.ps1)
+├── global/                 # CLAUDE.md global y versión chat web
+└── opencode/               # plugin de guardia + plantilla opcional opencode.jsonc
 
 bin/
-├── nuevo-proyecto.ps1        # Scaffolding Windows
-├── nuevo-proyecto.sh         # Scaffolding Linux/Mac
-├── doctor.ps1                # Diagnóstico de instalación
-├── check-secrets.ps1         # Scanner simple de secretos
-└── install-hooks.ps1         # Hooks locales opcionales
-
-config/opencode/
-├── AGENTS.md                 # Resumen global para OpenCode
-└── opencode.jsonc            # Config con instructions
-
-docs/
-├── world-class-workflow.md    # Workflow maestro chat-first
-├── architecture.md            # Capas Input → Model → Memory → Tools → Output
-└── how-to-use-the-agent-system.md
+├── sync-runtime.ps1            # instalar / -Check / -Restore
+├── sync-claude-settings.ps1    # hooks de Claude (merge, -Check, -Remove)
+├── install-external-skills.ps1 # video, docs, arte, vercel… desde su fuente
+├── render-agents.ps1  render-commands.ps1  generate-skill-index.ps1  generate-capabilities.ps1
+├── check-runtime-graph.ps1  validate-agents.ps1  release-check.ps1  check-secrets.ps1
+├── audit-skill-dirs.ps1  inventory-agents.ps1  doctor.ps1
+└── nuevo-proyecto.ps1 / .sh    # scaffolding
 ```
 
 ## Uso diario
@@ -202,7 +157,7 @@ El flujo base es:
 ```text
 start.md
 → index.md
-→ phases.md si no trivial
+→ lane (SIMPLE / SPECIALIZED / PARALLEL / HIGH_RISK) según AGENTS.md
 → modo simple / plan / /loop / Routine / multiagent review / Venture Loop
 → agente o skill especializado
 → tools seguras
@@ -293,7 +248,7 @@ Ejemplos de prompts naturales:
 
 ### Product Foundry
 
-El agente `agente-product-founder` aplica el framework:
+La skill `product-founder` (con `product-foundry`) aplica el framework:
 
 ```text
 flujos de dinero → fricción real → MVP patineta → lanzamiento rápido → validación → kill/keep/scale
@@ -340,7 +295,7 @@ El workflow `multiagent_review_loop.md` se usa para decisiones de alto impacto:
 crear → criticar → red team → segunda crítica → plan de mejora → roadmap → reevaluación
 ```
 
-No se usa para fixes chicos. Si la crítica no puede cambiar la solución, usar flujo simple o `phases.md`.
+No se usa para fixes chicos. Si la crítica no puede cambiar la solución, usar el flujo simple (lane SIMPLE).
 
 ### Task Ledger / Kanban
 
@@ -375,7 +330,7 @@ Discord/Hermes/Telegram son una capa opcional de orquestación. Si fallan o no e
 
 ### SEO/GEO/AEO Growth
 
-El agente `agente-growth-seo-geo` aplica el loop:
+La skill `seo-geo-growth` (ref. `growth-playbook.md`) aplica el loop:
 
 ```text
 Ahrefs/Semrush/DataForSEO → landings/blog/tools → backlinks/citations → Search Console/GA4 → registros/leads/clientes
@@ -431,19 +386,8 @@ No es dependencia obligatoria del sistema.
 
 ## Actualizar el sistema
 
-Como es un repo Git, simplemente:
-
-```bash
-git pull origin main
-```
-
-Los symlinks apuntan automáticamente al contenido actualizado.
-
-En Windows:
-
 ```powershell
-.\update.ps1
-.\bin\doctor.ps1
+pwsh .\bin\update-system.ps1   # git pull + sync + check-runtime-graph + sync -Check
 ```
 
 ## Contribuciones

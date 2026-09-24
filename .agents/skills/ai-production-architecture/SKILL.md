@@ -88,3 +88,8 @@ Si el proyecto está en MVP, usar mínimo:
 - `tests/test_retrieval.py`
 
 Agregar capas restantes cuando haya usuarios reales o costo operativo relevante.
+
+## Referencias
+
+- Arquitecto AI/RAG (ex agente): `references/agente-ai-architect.md`.
+- Integraciones MCP y límites de permisos: `references/mcp-architect.md` y `workflows/mcp_security.md`.

@@ -468,3 +468,10 @@ The references/ directory has additional documentation:
 ---
 
 Agregá estos pasos a tu TodoList para no perderlos de vista, en particular "crear evals JSON y correr `eval-viewer/generate_review.py`" si estás en Cowork — es el paso que más se salta.
+
+## Referencias según la tarea
+
+- Escribir o editar instrucciones para agentes (SKILL.md, AGENTS.md, CLAUDE.md): `references/writing-for-agents.md`.
+- Probar que una skill funciona antes de publicarla (TDD de skills): `references/writing-skills/GUIDE.md`.
+- Auditar y mejorar skills existentes: `references/skill-improver.md`.
+- En este sistema, la descripción debe quedar en 60 tokens o menos. Una skill nueva va a `skills-library/` salvo que se use todas las semanas; después corré `bin/generate-skill-index.ps1` y `bin/generate-capabilities.ps1`.

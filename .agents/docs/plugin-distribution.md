@@ -70,7 +70,7 @@ Archivos que se distribuyen:
 ### Opcionales (por dominio)
 - `.agents/skills/academic*/` — estudio (solo si el usuario es estudiante)
 - `.agents/skills/docx/`, `pptx/`, `xlsx/` — documentos
-- `.agents/skills-library/coding-exercises/`, `exam-simulator/` — ejercicios
+- `.agents/skills-library/exercise-generator/`, `exam-simulator/` — ejercicios
 - `.agents/skills/frontend-design/`, `animate/`, etc. — diseño
 
 ### No se distribuyen

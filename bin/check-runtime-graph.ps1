@@ -104,7 +104,13 @@ foreach ($line in @(Get-Content $indexPath -Encoding UTF8 | Where-Object { $_ -m
 foreach ($dir in @(Get-ChildItem (Join-Path $repoRoot ".agents/skills-library") -Directory)) {
     if (-not $indexed.ContainsKey($dir.Name)) { Add-Failure "Library skill missing from INDEX.md: $($dir.Name)" }
 }
+$externalNames = @((Get-Content (Join-Path $repoRoot "config/external-skills.json") -Raw | ConvertFrom-Json).skills.name)
+foreach ($name in $externalNames) {
+    if (-not $indexed.ContainsKey($name)) { Add-Failure "External skill missing from INDEX.md: $name" }
+    if (Test-Path (Join-Path $repoRoot ".agents/skills-library/$name")) { Add-Failure "External skill vendored in repo (should be installed, not copied): $name" }
+}
 foreach ($id in $indexed.Keys) {
+    if ($externalNames -contains $id) { continue }
     if (-not (Test-Path (Join-Path $repoRoot ".agents/skills-library/$id/SKILL.md"))) { Add-Failure "INDEX.md lists missing library skill: $id" }
 }
 

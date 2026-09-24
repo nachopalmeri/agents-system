@@ -69,11 +69,11 @@ Spec Kit agrega una capa de especificación para trabajos grandes.
 ```
 
 ## Routing recomendado
-- Producto/alcance → `agente-principal` o `kickoff-architect`
-- Arquitectura AI/RAG → `agente-ai-architect`
-- Narrativa/docs/spec → `agente-docs`
-- Tests y aceptación → `agente-tests`
-- UI/experiencia → `agente-design`
+- Producto/alcance y arquitectura (incl. AI/RAG) → subagente `planner`
+- Implementación por tramos → `implementador`
+- Narrativa/docs/spec → skill `technical-docs`
+- Tests y aceptación → `verificador`
+- UI/experiencia → skill `frontend-design`
 
 ## Regla final
 Usar Spec Kit cuando el costo de no tener especificación sea mayor que el costo de escribirla.

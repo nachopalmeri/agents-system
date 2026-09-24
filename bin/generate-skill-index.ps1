@@ -35,6 +35,13 @@ foreach ($dir in @(Get-ChildItem $libraryRoot -Directory | Sort-Object { $_.Name
     if (-not (Test-Path $skillFile)) { continue }
     $lines += "- ``$($dir.Name)`` — $(Get-ShortDescription $skillFile)"
 }
+$external = Get-Content (Join-Path $repoRoot "config/external-skills.json") -Raw | ConvertFrom-Json
+$lines += ""
+$lines += "## Externas (se instalan en la PC con ``bin/install-external-skills.ps1``; si falta la carpeta, avisá cómo instalarla)"
+$lines += ""
+foreach ($skill in @($external.skills | Sort-Object { $_.name } -Culture "en-US")) {
+    $lines += "- ``$($skill.name)`` — $($skill.description)$(if ($skill.terms) { " Requiere aceptar términos." } else { '' })"
+}
 $content = ($lines -join "`n") + "`n"
 
 if ($Check) {
@@ -44,4 +51,4 @@ if ($Check) {
     exit 0
 }
 [IO.File]::WriteAllText($indexPath, $content, (New-Object Text.UTF8Encoding($false)))
-Write-Host "Escrito $indexPath ($($lines.Count - 4) skills)" -ForegroundColor Green
+Write-Host "Escrito $indexPath" -ForegroundColor Green

@@ -61,7 +61,7 @@ function Get-AgentRoute {
     $labels = @($Task.labels) -join " "
     $text = ConvertTo-RouteText "$($Task.title) $($Task.body) $labels"
     $lane = "SIMPLE"
-    $primaryId = "agente-principal"
+    $primaryId = "implementador"
     $supportIds = @()
     $components = @()
     $reasons = @("simple-fallback")
@@ -77,7 +77,7 @@ function Get-AgentRoute {
 
     if ($null -ne $riskMatch -or $Task.riskLevel -eq "high") {
         $lane = "HIGH_RISK"
-        $primaryId = if ($null -ne $riskMatch) { $riskMatch.primary } else { "agente-security-auditor" }
+        $primaryId = if ($null -ne $riskMatch) { $riskMatch.primary } else { "reviewer" }
         $components = @(".agents/workflows/validation.md")
         $reasons = @($(if ($null -ne $riskMatch) { $riskMatch.reason } else { "risk-level-high" }))
         $approvalRequired = $true
@@ -92,15 +92,15 @@ function Get-AgentRoute {
 
         if ($explicitIds.Count -gt 0) {
             $primaryId = $explicitIds[0]
-            $lane = if ($primaryId -eq "agente-principal") { "SIMPLE" } else { "SPECIALIZED" }
+            $lane = if ($primaryId -eq "implementador") { "SIMPLE" } else { "SPECIALIZED" }
             $reasons = @("explicit-agent")
         } else {
             $isCouncil = Test-RoutePatterns -Text $text -Patterns @($Rules.parallel.councilPatterns)
             $isParallel = $isCouncil -or (Test-RoutePatterns -Text $text -Patterns @($Rules.parallel.patterns))
             if ($isParallel) {
                 $lane = "PARALLEL"
-                $primaryId = if ($text -match "\b(?:research|investiga|documentation|documentacion|libraries|costos)\b") { "agente-researcher" } else { "agente-principal" }
-                $supportIds = if ($primaryId -eq "agente-researcher") { @("agente-principal") } else { @("agente-researcher") }
+                $primaryId = if ($text -match "\b(?:research|investiga|documentation|documentacion|libraries|costos)\b") { "explorador" } else { "implementador" }
+                $supportIds = if ($primaryId -eq "explorador") { @("implementador") } else { @("explorador") }
                 $components = @($(if ($isCouncil) { ".agents/workflows/multiagent_review_loop.md" } else { ".agents/workflows/parallel_agents.md" }))
                 $reasons = @($(if ($isCouncil) { "explicit-council" } else { "explicit-parallel" }))
             } else {

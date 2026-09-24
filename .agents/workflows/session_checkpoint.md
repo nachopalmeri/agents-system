@@ -35,7 +35,7 @@ Budget declarado (si aplica):
 - Separar hechos confirmados de supuestos.
 - Si hay política reusable, proponer moverla a reglas.
 
-## Handoff entre sesiones (Santi @santtiagom_)
+## Handoff entre sesiones (Santi @santtiagom_; formato de handoff de mattpocock/skills, MIT)
 
 Cuando el contexto se degrada (más tokens = peores resultados):
 
@@ -43,7 +43,14 @@ Cuando el contexto se degrada (más tokens = peores resultados):
 2. Copiar/pegar ese resumen a la nueva sesión.
 3. La nueva sesión arranca con constancia de lo anterior sin arrastrar contexto degradado.
 
-El resumen de handoff usa el formato de checkpoint de arriba. No es pérdida de tiempo, es optimización de calidad.
+El resumen de handoff usa el formato de checkpoint de arriba, más:
+
+- **Skills sugeridas:** qué skills debería cargar la próxima sesión.
+- **Referencias, no copias:** specs, planes, ADRs, issues, commits y diffs se citan por ruta o URL; no se duplican.
+- **Sin secretos:** redactá API keys, contraseñas y datos personales.
+- Guardalo en `tasks/handoff.md` del proyecto (o en el directorio temporal si no hay proyecto), nunca en un archivo versionado con datos sensibles.
+
+No es pérdida de tiempo, es optimización de calidad.
 
 ## Regla final
 Un checkpoint debe permitir continuar la sesión sin releer toda la conversación.

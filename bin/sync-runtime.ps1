@@ -211,6 +211,30 @@ function Get-ForeignEntries([string] $TargetDir, [string] $TargetRelative, [hash
     return $foreign
 }
 
+$externalSkillNames = @((Get-Content (Join-Path $repoRoot "config/external-skills.json") -Raw | ConvertFrom-Json).skills.name)
+function Test-ExternalSkill([string] $RelativeTarget) {
+    if ($RelativeTarget -notmatch '^\.agents/skills-library/([^/]+)$') { return $false }
+    return $externalSkillNames -contains $Matches[1]
+}
+
+# Nombres que el repo gestionó antes y ya movió o retiró: si aparecen en un destino
+# merge no son "tuyos" sino copias viejas del repo -> [stale], se quitan con -Force (con backup).
+$baselinePath = Join-Path $repoRoot "config/capability-baseline.json"
+$retiredNames = @()
+if (Test-Path $baselinePath) { $retiredNames = @((Get-Content $baselinePath -Raw | ConvertFrom-Json).retired | ForEach-Object { [string]$_.id }) }
+$tierNames = @{}
+foreach ($tier in @("skills", "skills-library")) {
+    $tierNames[$tier] = @(Get-ChildItem (Join-Path $repoRoot ".agents/$tier") -Directory -ErrorAction SilentlyContinue | ForEach-Object { $_.Name })
+}
+function Test-StaleEntry([string] $RelativeTarget) {
+    $leaf = Split-Path $RelativeTarget -Leaf
+    $base = [IO.Path]::GetFileNameWithoutExtension($leaf)
+    if ($retiredNames -contains $leaf -or $retiredNames -contains $base) { return $true }
+    if ($RelativeTarget -match '(^|/)skills/[^/]+$' -and $tierNames["skills-library"] -contains $leaf) { return $true }
+    if ($RelativeTarget -match '^\.agents/skills-library/[^/]+$' -and $tierNames["skills"] -contains $leaf) { return $true }
+    return $false
+}
+
 $script:mergeRoots = @()
 
 function Get-SyncTargets {
@@ -295,7 +319,7 @@ function Restore-Transaction([string] $RestoreManifestPath) {
         if ($target -ne [System.IO.Path]::GetFullPath([string]$entry.targetPath)) { throw "Restore target does not match declared ownership: $($entry.relativeTarget)" }
         $stateEntry = Get-StateEntry $state ([string]$entry.relativeTarget)
         $currentHash = Get-PathHash $target
-        if ($null -eq $stateEntry -or [string]$stateEntry.ownerId -ne [string]$transaction.id -or $currentHash -ne [string]$entry.installedHash) {
+        if ($null -eq $stateEntry -or [string]$stateEntry.ownerId -ne [string]$transaction.id -or [string]$currentHash -ne [string]$entry.installedHash) {
             throw "Ownership mismatch for restore target: $($entry.relativeTarget)"
         }
         if ([bool]$entry.hadOriginal) {
@@ -309,7 +333,7 @@ function Restore-Transaction([string] $RestoreManifestPath) {
     $restoreStage = Join-Path $stateRoot "restore-staging/$([guid]::NewGuid().ToString('N'))"
     [void](New-Item -ItemType Directory -Path $restoreStage -Force)
     foreach ($entry in @($transaction.entries)) {
-        Copy-ManagedPath ([string]$entry.targetPath) (Join-Path $restoreStage ([string]$entry.index))
+        if (Test-Path ([string]$entry.targetPath)) { Copy-ManagedPath ([string]$entry.targetPath) (Join-Path $restoreStage ([string]$entry.index)) }
     }
     $restored = @()
     try {
@@ -330,12 +354,21 @@ function Restore-Transaction([string] $RestoreManifestPath) {
         foreach ($entry in @($restored | Sort-Object index)) {
             $target = Get-ContainedPath -Root $homeRoot -RelativePath ([string]$entry.relativeTarget) -Label "Restore rollback target"
             Remove-ManagedPath $target
-            Copy-ManagedPath (Join-Path $restoreStage ([string]$entry.index)) $target
+            $staged = Join-Path $restoreStage ([string]$entry.index)
+            if (Test-Path $staged) { Copy-ManagedPath $staged $target }
         }
         Remove-ManagedPath $restoreStage
         throw $restoreFailure
     }
     Remove-ManagedPath $restoreStage
+    if ($transaction.PSObject.Properties.Name -contains "claudeSettings" -and $null -ne $transaction.claudeSettings) {
+        $claudeSettingsPath = Join-Path $homeRoot ".claude/settings.json"
+        if ([bool]$transaction.claudeSettings.hadOriginal) {
+            Copy-Item (Join-Path $manifestDirectory $transaction.claudeSettings.backupRelative) $claudeSettingsPath -Force
+        } elseif (Test-Path $claudeSettingsPath) {
+            Remove-Item $claudeSettingsPath -Force
+        }
+    }
     Remove-EmptyCreatedDirs $transaction.entries
 
     $restoredEntries = @()
@@ -359,6 +392,14 @@ if ($Restore) {
     exit 0
 }
 
+function Invoke-ClaudeSettings([switch] $CheckOnly, [switch] $DryRun) {
+    $parameters = @{ HomePath = $homeRoot }
+    if ($CheckOnly) { $parameters.Check = $true }
+    if ($DryRun) { $parameters.WhatIf = $true }
+    & (Join-Path $PSScriptRoot "sync-claude-settings.ps1") @parameters | Out-Host
+    return $LASTEXITCODE
+}
+
 foreach ($install in @($runtimeManifest.installTargets)) {
     $path = Join-Path $homeRoot ([string]$install.targetPath)
     if ((Test-Path -LiteralPath $path) -and ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) {
@@ -370,12 +411,22 @@ $targets = Get-SyncTargets
 
 $expected = @{}
 foreach ($target in $targets) { $expected[$target.relativeTarget] = $true }
+$staleTargets = @()
 foreach ($root in $script:mergeRoots) {
-    $foreign = @(Get-ForeignEntries $root.targetPath $root.relativeTarget $expected | Where-Object { -not (Test-Preserved $_) })
-    if ($foreign.Count -gt 0) {
-        Write-Warning "$($root.relativeTarget): $($foreign.Count) item(s) fuera del repo; se conservan sin tocar:"
-        foreach ($item in $foreign) { Write-Host "  [keep] $item" -ForegroundColor Yellow }
+    $foreign = @(Get-ForeignEntries $root.targetPath $root.relativeTarget $expected | Where-Object { -not (Test-Preserved $_) -and -not (Test-ExternalSkill $_) })
+    $stale = @($foreign | Where-Object { Test-StaleEntry $_ })
+    $keep = @($foreign | Where-Object { -not (Test-StaleEntry $_) })
+    if ($keep.Count -gt 0) {
+        Write-Warning "$($root.relativeTarget): $($keep.Count) item(s) fuera del repo; se conservan sin tocar:"
+        foreach ($item in $keep) { Write-Host "  [keep] $item" -ForegroundColor Yellow }
     }
+    foreach ($item in $stale) {
+        $staleTargets += [pscustomobject]@{ client = $root.client; kind = "remove"; relativeTarget = $item; sourcePath = $null; targetPath = (Get-ContainedPath -Root $homeRoot -RelativePath $item -Label "Stale path") }
+    }
+}
+if ($staleTargets.Count -gt 0) {
+    Write-Warning "$($staleTargets.Count) copia(s) viejas del repo (movidas o retiradas) se quitan con -Force, con backup:"
+    foreach ($item in $staleTargets) { Write-Host "  [stale] $($item.relativeTarget)" -ForegroundColor Yellow }
 }
 
 if ($Check) {
@@ -389,7 +440,10 @@ if ($Check) {
         }
     }
     foreach ($item in $drift) { Write-Host ("[{0}] {1} ({2})" -f $item.status.ToUpper(), $item.target, $item.client) -ForegroundColor Red }
-    if ($drift.Count -gt 0) {
+    foreach ($item in $staleTargets) { $drift += [pscustomobject]@{ status = "stale"; target = $item.relativeTarget; client = $item.client } }
+    foreach ($item in $drift | Where-Object { $_.status -eq "stale" }) { Write-Host ("[STALE] {0} ({1})" -f $item.target, $item.client) -ForegroundColor Red }
+    $settingsExit = Invoke-ClaudeSettings -CheckOnly
+    if ($drift.Count -gt 0 -or $settingsExit -ne 0) {
         Write-Host "$($drift.Count) destino(s) distintos del repo. Corré sync-runtime.ps1 para actualizarlos." -ForegroundColor Red
         exit 1
     }
@@ -413,18 +467,20 @@ foreach ($target in $targets) {
     }
     $validTargets += $target
 }
+if ($Force) { $validTargets += $staleTargets }
 $targets = $validTargets
 if ($skipped.Count -gt 0) {
     Write-Warning "$($skipped.Count) destino(s) existentes distintos del repo; no se tocan sin -Force (que reemplaza sólo esos, con backup):"
     foreach ($item in $skipped) { Write-Host "  $item" -ForegroundColor Yellow }
 }
 if ($targets.Count -eq 0 -and -not $WhatIfPreference) {
-    Write-Host "Nada para actualizar." -ForegroundColor Green
-    exit 0
+    Write-Host "Archivos: nada para actualizar." -ForegroundColor Green
+    exit (Invoke-ClaudeSettings)
 }
 
 if ($WhatIfPreference) {
     foreach ($target in $targets) { Write-Host "[WhatIf] $($target.relativeTarget) <= $($target.sourcePath)" }
+    [void](Invoke-ClaudeSettings -DryRun)
     exit 0
 }
 
@@ -439,8 +495,12 @@ $entries = @()
 for ($index = 0; $index -lt $targets.Count; $index++) {
     $target = $targets[$index]
     $stagePath = Join-Path $stagingRoot "$index"
-    Copy-StagedSource $target.sourcePath $stagePath
-    $sourceHash = Get-PathHash $stagePath
+    if ($target.kind -eq "remove") {
+        $sourceHash = $null
+    } else {
+        Copy-StagedSource $target.sourcePath $stagePath
+        $sourceHash = Get-PathHash $stagePath
+    }
     $hadOriginal = Test-Path $target.targetPath
     $backupRelative = $null
     $backupHash = $null
@@ -492,7 +552,7 @@ try {
         if ($env:AGENTS_SYNC_FAIL_BEFORE_MOVE_AT -and $replaced.Count -ge [int]$env:AGENTS_SYNC_FAIL_BEFORE_MOVE_AT) {
             throw "Injected failure before move $($replaced.Count)"
         }
-        Move-Item (Join-Path $stagingRoot "$($entry.index)") $target.targetPath
+        if ($target.kind -eq "remove") { Remove-Item $target.targetPath -Recurse -Force -ErrorAction SilentlyContinue } else { Move-Item (Join-Path $stagingRoot "$($entry.index)") $target.targetPath }
         if ($env:AGENTS_SYNC_FAIL_AFTER_REPLACE -and $replaced.Count -ge [int]$env:AGENTS_SYNC_FAIL_AFTER_REPLACE) {
             throw "Injected failure after replacement $($replaced.Count)"
         }
@@ -515,6 +575,12 @@ try {
     $transaction.completedAtUtc = [DateTime]::UtcNow.ToString("o")
     Write-JsonFile $transactionManifestPath $transaction
     Remove-ManagedPath $stagingRoot
+    # Estado previo de ~/.claude/settings.json para que -Restore también lo revierta.
+    $claudeSettingsPath = Join-Path $homeRoot ".claude/settings.json"
+    $hadSettings = Test-Path $claudeSettingsPath -PathType Leaf
+    if ($hadSettings) { Copy-Item $claudeSettingsPath (Join-Path $backupRoot "claude-settings.json") }
+    $transaction | Add-Member -NotePropertyName claudeSettings -NotePropertyValue ([pscustomobject]@{ hadOriginal = $hadSettings; backupRelative = "claude-settings.json" }) -Force
+    Write-JsonFile $transactionManifestPath $transaction
     Write-Host "Runtime sync completed for $homeRoot." -ForegroundColor Green
     Write-Host "Backup manifest: $transactionManifestPath"
 } catch {
@@ -536,4 +602,4 @@ try {
     throw $failure
 }
 
-exit 0
+exit (Invoke-ClaudeSettings)

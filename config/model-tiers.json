@@ -1,0 +1,6 @@
+{
+  "_note": "Único lugar donde se eligen modelos por rol. Claude usa alias (siempre el último de cada familia). Si opencode no reconoce un id, corregilo acá y corré bin/render-agents.ps1. En Gemini, null = hereda el modelo de la sesión.",
+  "fast":     { "claude": "haiku",  "opencode": "anthropic/claude-haiku-4-5",  "gemini": null },
+  "balanced": { "claude": "sonnet", "opencode": "anthropic/claude-sonnet-5",   "gemini": null },
+  "strong":   { "claude": "opus",   "opencode": "anthropic/claude-opus-5-5",   "gemini": null }
+}

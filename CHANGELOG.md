@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-09-24 (b) — propuestas 2, 7 y 12
+- **Fusiones:** 11 grupos, 32 skills retiradas con `mergedInto`, contenido original en `references/`. `code-review` reemplaza a `requesting-code-review`; nuevas en library: `grilling`, `exercise-generator`, `ui-refine`.
+- **Agentes:** 19 → 5 roles (`explorador`, `planner`, `implementador`, `reviewer`, `verificador`), definidos una vez y generados para Claude, opencode y Gemini (`render-agents.ps1`, `model-tiers.json`). El conocimiento de los viejos pasó a skills; los archivos originales, a `archive/agents/`.
+- **Comandos:** `/planear`, `/revisar`, `/cerrar` para Claude, opencode, Codex y Gemini (`render-commands.ps1`).
+- **Hooks de Claude** (merge en `settings.json`, `-Check`, `-Remove`): `session-todo`, `guard`, `lint-edited`, `log-usage`, `stop-unpushed`. Guardia también como plugin de opencode, con las mismas reglas.
+- **Skills externas** (video Tesseract/Remotion, documentos, arte, Vercel) por manifiesto e instalador, sin copiarlas al repo. Nueva `web-3d`.
+- **Sync:** ya no pisa `opencode.jsonc`; `-Restore` también revierte `~/.claude/settings.json`; `update-system` verifica después del sync.
+- **Poda:** 17 scripts `test-runtime-*` / `invoke-runtime-*` rotos y sin uso.
+
 ## 2026-09-24
 - `sync-runtime.ps1`: modo merge (conserva lo que no está en el repo y lo lista como `[keep]`), `preserveIfExists` para memoria/tareas, `-Check` de drift, `-Restore` que deja el home idéntico (borra carpetas creadas), rutas portables y aviso claro si `~/.agents` es un symlink viejo.
 - `check-runtime-graph.ps1` reescrito para el ledger actual; en verde y en CI junto con `generate-skill-index.ps1 -Check`.

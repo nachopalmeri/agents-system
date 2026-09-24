@@ -155,3 +155,8 @@ Quality gates:
 Métricas de éxito:
 Próxima acción:
 ```
+
+## Referencias
+
+- SEO técnico (meta, headings, sitemap, schema): `references/seo-tecnico.md`.
+- Playbook de growth (keywords, landings programáticas con quality gates, GEO/AEO, local): `references/growth-playbook.md`.

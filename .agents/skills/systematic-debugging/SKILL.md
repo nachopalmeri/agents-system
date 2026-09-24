@@ -43,6 +43,14 @@ Use for ANY technical issue:
 - You're in a hurry (rushing guarantees rework)
 - Manager wants it fixed NOW (systematic is faster than thrashing)
 
+## Fase 0: un loop que se ponga rojo (adaptado de [mattpocock/skills](https://github.com/mattpocock/skills), MIT, © 2026 Matt Pocock)
+
+Antes de teorizar, construí un loop de feedback rápido y determinista que reproduzca el bug, en este orden de preferencia: test que falla en el seam que llega al bug → script curl/HTTP → CLI con fixture y diff contra snapshot → script de browser headless → replay de un trace capturado → harness descartable → loop property/fuzz → `git bisect run` → diff entre versión vieja y nueva → script guiado para el humano (último recurso). El loop está listo cuando se pone rojo por el bug y sólo por el bug. Detalle: `references/diagnosing-bugs.md`.
+
+## CI roja repetida
+
+Si un test E2E falla repetido, re-resolvé la intención original del test antes de parchear selectores: `references/self-healing-ci/GUIDE.md`.
+
 ## The Four Phases
 
 You MUST complete each phase before proceeding to the next.

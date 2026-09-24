@@ -1,101 +1,31 @@
 {
-  "generatedAt": "2026-09-24T00:22:20.0162039+00:00",
+  "generatedAt": "2026-09-24T10:36:40.9752340+00:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
-      "name": "agente-academic-tutor",
-      "description": "Tutor universitario intensivo. Explica conceptos con profundidad, evalúa con honestidad, genera ejercicios y prepara exámenes. NO edita archivos del vault directamente — delega a agente-obsidian-brain.",
-      "path": "agents/agente-academic-tutor.md"
+      "name": "explorador",
+      "description": "\"Read-only searcher. Use to find or read across many files (>~5), map unfamiliar code, or research current external docs; returns a short summary with file:line evidence. Not for a file you already know.\"",
+      "path": "agents/explorador.md"
     },
     {
-      "name": "agente-ai-architect",
-      "description": "Agente arquitecto para aplicaciones AI/RAG production-ready. Decide capas necesarias, separa servicios/agentes/prompts/seguridad/evaluación/observabilidad y evita demos de un archivo en producción. Usar para RAG, LLM apps, agentes, semantic cache, prompt registry, evaluación y monitoreo de costos/calidad.",
-      "path": "agents/agente-ai-architect.md"
+      "name": "implementador",
+      "description": "\"Implements one approved plan chunk with its own files, in parallel with others. Use only when there are independent chunks; linear or small work is done by the main agent.\"",
+      "path": "agents/implementador.md"
     },
     {
-      "name": "agente-code-reviewer",
-      "description": "Use this agent when reviewing diffs, PRs, implementation plans, or completed changes without editing code. Examples:  <example>",
-      "path": "agents/agente-code-reviewer.md"
+      "name": "planner",
+      "description": "\"Strong-model planner, read-only. Use before tasks with >3 steps, several files, architecture, AI/RAG or MCP design, or new projects; returns an ordered plan with risks and verification. Not for small direct changes.\"",
+      "path": "agents/planner.md"
     },
     {
-      "name": "agente-design",
-      "description": "Especialista de frontend visual para páginas, componentes, responsive, accesibilidad, motion y experiencias 3D. Usar cuando la calidad visual requiere criterio especializado.",
-      "path": "agents/agente-design.md"
+      "name": "reviewer",
+      "description": "\"Read-only reviewer on a strong model. Use before merge/PR, after a major feature, or for security, payments, credentials, MCP/plugins or releases. Returns P0/P1/P2 findings and a verdict. Not for trivial changes.\"",
+      "path": "agents/reviewer.md"
     },
     {
-      "name": "agente-docs",
-      "description": "Especialista en documentación técnica. Usar cuando hay que escribir README, JSDoc, docstrings, documentación de API, changelogs o guías de uso. NO toca código de producción, estilos ni tests.",
-      "path": "agents/agente-docs.md"
-    },
-    {
-      "name": "agente-growth-seo-geo",
-      "description": "Use this agent when the user wants organic acquisition through SEO, GEO, AEO, programmatic SEO, local SEO, keyword research, Ahrefs/Semrush/DataForSEO planning, backlinks, Search Console, or appearing in ChatGPT/Perplexity/Gemini. Examples:  <example>",
-      "path": "agents/agente-growth-seo-geo.md"
-    },
-    {
-      "name": "agente-marketing-strategist",
-      "description": "Agente para estrategia de marketing, posicionamiento, GTM, campañas y research de audiencia. No ejecuta acciones de paid media ni DMs sin evaluación MCP previa.",
-      "path": "agents/agente-marketing-strategist.md"
-    },
-    {
-      "name": "agente-mcp-architect",
-      "description": "Use this agent when designing, evaluating, or documenting MCP integrations, MCP catalogs, OpenCode MCP config, or tool permission boundaries. Examples:  <example>",
-      "path": "agents/agente-mcp-architect.md"
-    },
-    {
-      "name": "agente-obsidian-brain",
-      "description": "Agente especializado en el vault de Obsidian. Captura notas de clase, genera flashcards, hace triaje de inbox, conecta notas entre sí (Zettelkasten), mantiene MOCs y Dashboard actualizados. NO hace código de proyectos ni estilos CSS.",
-      "path": "agents/agente-obsidian-brain.md"
-    },
-    {
-      "name": "agente-principal",
-      "description": "Agente principal para lógica, estructura, integraciones, API calls, autenticación y base de datos. Usar para cualquier tarea de desarrollo que no sea SEO puro, estilos visuales o tests. NO hace estilos de diseño, SEO puro ni tests.",
-      "path": "agents/agente-principal.md"
-    },
-    {
-      "name": "agente-product-founder",
-      "description": "Use this agent when the user wants product ideas, indie hacking strategy, MVP scoping, product validation, launch sequencing, AI-first product opportunities, or deciding what to build next. Examples:  <example>",
-      "path": "agents/agente-product-founder.md"
-    },
-    {
-      "name": "agente-release-manager",
-      "description": "Use this agent when preparing commits, changelogs, release checklists, repo publication, or cross-machine installation validation. Examples:  <example>",
-      "path": "agents/agente-release-manager.md"
-    },
-    {
-      "name": "agente-researcher",
-      "description": "Use this agent when researching current docs, libraries, MCPs, plugins, competitors, or implementation approaches before making a recommendation. Examples:  <example>",
-      "path": "agents/agente-researcher.md"
-    },
-    {
-      "name": "agente-security-auditor",
-      "description": "Use this agent when reviewing secrets, unsafe commands, dependency risk, MCP/plugin permissions, auth handling, or repo publication safety. Examples:  <example>",
-      "path": "agents/agente-security-auditor.md"
-    },
-    {
-      "name": "agente-seo",
-      "description": "Especialista en SEO técnico y on-page. Usar cuando hay que optimizar meta tags, Open Graph, headings, sitemap, robots.txt, schema markup, alt texts o URLs canónicas. NO toca JavaScript de lógica, estilos CSS ni archivos de configuración.",
-      "path": "agents/agente-seo.md"
-    },
-    {
-      "name": "agente-tests",
-      "description": "Especialista en testing. Usar cuando hay que escribir tests unitarios (Jest/Vitest), tests E2E (Playwright), coverage, mocks o fixtures. NO toca código de producción, estilos ni SEO.",
-      "path": "agents/agente-tests.md"
-    },
-    {
-      "name": "agente-x-content-strategist",
-      "description": "Agente para estrategia de contenido X/Twitter, LinkedIn, Substack y personal branding. Genera tweets, hilos, quote tweets, replies y adapta contenido multiplataforma manteniendo voz auténtica. No ejecuta gasto publicitario ni responde DMs sin confirmación.",
-      "path": "agents/agente-x-content-strategist.md"
-    },
-    {
-      "name": "kickoff-architect",
-      "description": "Use this agent when starting a new project or feature and you need a concise kickoff plan that identifies the first milestone, the minimum viable structure, and the right process intensity without over-engineering. Examples:  <example>",
-      "path": "agents/kickoff-architect.md"
-    },
-    {
-      "name": "workflow-pruner",
-      "description": "Use this agent when a prompt, workflow, agent setup, skill, or operating model feels bloated and you want an aggressive simplification pass focused on reducing token cost and removing low-value process. Examples:  <example>",
-      "path": "agents/workflow-pruner.md"
+      "name": "verificador",
+      "description": "\"Runs tests, builds and checks without editing, and reports evidence. Use before declaring multi-file work done or when a fix needs independent confirmation. Not for one-line changes.\"",
+      "path": "agents/verificador.md"
     }
   ],
   "skills": [
@@ -123,6 +53,11 @@
       "name": "client-work",
       "description": "\"Usar para trabajo con clientes reales de Pisculichi Labs: brief, propuesta, pricing, entregas, feedback y cierre.\"",
       "path": "skills/client-work/SKILL.md"
+    },
+    {
+      "name": "code-review",
+      "description": "\"Use before merge/PR, after a major feature or each plan task, or when asked to review a diff: review against repo standards and the spec from a fixed point. Explicit \\\"judgment day\\\" = blind dual review.\"",
+      "path": "skills/code-review/SKILL.md"
     },
     {
       "name": "dispatching-parallel-agents",
@@ -178,11 +113,6 @@
       "name": "receiving-code-review",
       "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
       "path": "skills/receiving-code-review/SKILL.md"
-    },
-    {
-      "name": "requesting-code-review",
-      "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
-      "path": "skills/requesting-code-review/SKILL.md"
     },
     {
       "name": "seo-geo-growth",
@@ -250,14 +180,9 @@
       "path": "skills/writing-plans/SKILL.md"
     },
     {
-      "name": "active-recall-engine",
-      "description": "Protocolo para generar ejercicios basados en ciencia cognitiva — spacing, interleaving, retrieval practice y elaborative interrogation. Usar cuando se necesiten ejercicios que realmente fijen conocimiento.",
-      "path": "skills-library/active-recall-engine/SKILL.md"
-    },
-    {
-      "name": "adapt",
-      "description": "Adapt designs to work across different screen sizes, devices, contexts, or platforms. Ensures consistent experience across varied environments. user-invokable: true",
-      "path": "skills-library/adapt/SKILL.md"
+      "name": "academic-tutor",
+      "description": "\"Use as an intensive university tutor: explain concepts in depth, evaluate honestly, generate exercises and prepare exams.\"",
+      "path": "skills-library/academic-tutor/SKILL.md"
     },
     {
       "name": "affirmations",
@@ -280,19 +205,9 @@
       "path": "skills-library/agentic-pentester/SKILL.md"
     },
     {
-      "name": "animate",
-      "description": "Review a feature and enhance it with purposeful animations, micro-interactions, and motion effects that improve usability and delight. user-invokable: true",
-      "path": "skills-library/animate/SKILL.md"
-    },
-    {
       "name": "app-store-screenshots",
       "description": "\"App Store and Google Play screenshot creation with exact platform specs. Covers iOS/Android dimensions, gallery ordering, device mockups, and preview videos. Use for: app store optimization, ASO, app screenshots, app preview, play store listing. Triggers: app store screenshots, aso, app store optimization, play store screenshots, app preview, app listing, ios screenshots, android screenshots, app store images, app mockup, device mockup, app gallery, store listing\" allowed-tools: Bash(belt *)",
       "path": "skills-library/app-store-screenshots/SKILL.md"
-    },
-    {
-      "name": "audit",
-      "description": "Perform comprehensive audit of interface quality across accessibility, performance, theming, and responsive design. Generates detailed report of issues with severity ratings and recommendations. user-invokable: true",
-      "path": "skills-library/audit/SKILL.md"
     },
     {
       "name": "belt",
@@ -300,19 +215,9 @@
       "path": "skills-library/belt/SKILL.md"
     },
     {
-      "name": "bolder",
-      "description": "Amplify safe or boring designs to make them more visually interesting and stimulating. Increases impact while maintaining usability. user-invokable: true",
-      "path": "skills-library/bolder/SKILL.md"
-    },
-    {
       "name": "book-cover-design",
       "description": "\"Book cover design with genre-specific conventions, typography rules, and AI image generation. Covers fiction and non-fiction genres, sizing, thumbnail testing, and iteration workflows. Use for: self-publishing, ebook covers, print covers, audiobook covers, cover mockups. Triggers: book cover, cover design, ebook cover, book art, novel cover, self publishing cover, kindle cover, audiobook cover, book jacket, cover illustration, fiction cover, nonfiction cover\" allowed-tools: Bash(belt *)",
       "path": "skills-library/book-cover-design/SKILL.md"
-    },
-    {
-      "name": "case-analysis",
-      "description": "Ejercicios de análisis para materias teóricas — Economía y Gestión de Personas. 5 niveles progresivos análogos a coding-exercises pero para análisis de casos, gráficos, teorías y modelos. Usar cuando el estudiante quiera practicar materias no-código.",
-      "path": "skills-library/case-analysis/SKILL.md"
     },
     {
       "name": "case-study-writing",
@@ -330,21 +235,6 @@
       "path": "skills-library/chat-ui/SKILL.md"
     },
     {
-      "name": "clarify",
-      "description": "Improve unclear UX copy, error messages, microcopy, labels, and instructions. Makes interfaces easier to understand and use. user-invokable: true",
-      "path": "skills-library/clarify/SKILL.md"
-    },
-    {
-      "name": "coding-exercises",
-      "description": "Protocolo para generar ejercicios de programación progresivos en 5 niveles — comprensión, completar, modificar, crear y diseñar. Para POO (Java) y AED II. Usar cuando el estudiante quiera practicar código o el tutor quiera evaluar capacidad práctica.",
-      "path": "skills-library/coding-exercises/SKILL.md"
-    },
-    {
-      "name": "colorize",
-      "description": "Add strategic color to features that are too monochromatic or lack visual interest. Makes interfaces more engaging and expressive. user-invokable: true",
-      "path": "skills-library/colorize/SKILL.md"
-    },
-    {
       "name": "competitor-teardown",
       "description": "\"Structured competitive analysis with feature matrices, SWOT, positioning maps, and UX review. Covers research frameworks, pricing comparison, review mining, and visual deliverables. Use for: market research, competitive intelligence, investor decks, product strategy, sales enablement. Triggers: competitor analysis, competitive analysis, competitor teardown, market research, competitive intelligence, swot analysis, competitor comparison, market landscape, competitor review, competitive landscape, feature comparison, market positioning\" allowed-tools: Bash(belt *)",
       "path": "skills-library/competitor-teardown/SKILL.md"
@@ -358,11 +248,6 @@
       "name": "content-repurposing",
       "description": "\"Content atomization — turn one piece of content into many formats. Covers blog-to-thread, blog-to-carousel, podcast-to-blog, video-to-quotes, and more. Use for: content marketing, social media, multi-platform distribution, content strategy. Triggers: content repurposing, repurpose content, content atomization, content recycling, one to many content, multi platform content, cross post, adapt content, reformat content, blog to thread, blog to video, podcast to blog, content multiplication\" allowed-tools: Bash(belt *)",
       "path": "skills-library/content-repurposing/SKILL.md"
-    },
-    {
-      "name": "critique",
-      "description": "Evaluate design effectiveness from a UX perspective. Assesses visual hierarchy, information architecture, emotional resonance, and overall design quality with actionable feedback. user-invokable: true",
-      "path": "skills-library/critique/SKILL.md"
     },
     {
       "name": "css-animations",
@@ -385,16 +270,6 @@
       "path": "skills-library/defuddle/SKILL.md"
     },
     {
-      "name": "delight",
-      "description": "Add moments of joy, personality, and unexpected touches that make interfaces memorable and enjoyable to use. Elevates functional to delightful. user-invokable: true",
-      "path": "skills-library/delight/SKILL.md"
-    },
-    {
-      "name": "distill",
-      "description": "Strip designs to their essence by removing unnecessary complexity. Great design is simple, powerful, and clean. user-invokable: true",
-      "path": "skills-library/distill/SKILL.md"
-    },
-    {
       "name": "doc-coauthoring",
       "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
       "path": "skills-library/doc-coauthoring/SKILL.md"
@@ -405,9 +280,9 @@
       "path": "skills-library/email-design/SKILL.md"
     },
     {
-      "name": "executing-plans",
-      "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
-      "path": "skills-library/executing-plans/SKILL.md"
+      "name": "exercise-generator",
+      "description": "\"Use to generate study exercises: active recall (spacing, interleaving), progressive programming exercises, or case analysis for theory subjects.\"",
+      "path": "skills-library/exercise-generator/SKILL.md"
     },
     {
       "name": "explainer-video-guide",
@@ -415,14 +290,9 @@
       "path": "skills-library/explainer-video-guide/SKILL.md"
     },
     {
-      "name": "extract",
-      "description": "Extract and consolidate reusable components, design tokens, and patterns into your design system. Identifies opportunities for systematic reuse and enriches your component library. user-invokable: true",
-      "path": "skills-library/extract/SKILL.md"
-    },
-    {
-      "name": "harden",
-      "description": "Improve interface resilience through better error handling, i18n support, text overflow handling, and edge case management. Makes interfaces robust and production-ready. user-invokable: true",
-      "path": "skills-library/harden/SKILL.md"
+      "name": "grilling",
+      "description": "\"Use when the user wants a plan, decision or idea stress-tested (\\\"grill me\\\", \\\"interrogame\\\"). Optional: record ADRs and glossary as you go.\"",
+      "path": "skills-library/grilling/SKILL.md"
     },
     {
       "name": "javascript-sdk",
@@ -455,6 +325,11 @@
       "path": "skills-library/logo-design-guide/SKILL.md"
     },
     {
+      "name": "marketing-strategist",
+      "description": "\"Use for marketing strategy: positioning, GTM, campaigns and audience research. Never runs paid media or DMs without MCP security review.\"",
+      "path": "skills-library/marketing-strategist/SKILL.md"
+    },
+    {
       "name": "mcts-planner",
       "description": "Usa esta skill para arquitecturas complejas, refactors masivos o cuando un plan lineal (\"Chain of Thought\") es demasiado riesgoso. Reemplaza el razonamiento lineal por un árbol de decisión simulado.",
       "path": "skills-library/mcts-planner/SKILL.md"
@@ -475,39 +350,9 @@
       "path": "skills-library/next-cache-components/SKILL.md"
     },
     {
-      "name": "next-cache-components-adoption",
-      "description": ">   Turn on Cache Components in a Next.js app and resolve the blocking routes it   surfaces. Use when the user wants to enable, adopt, or migrate to Cache   Components, flip the `cacheComponents` flag, work through a flood of   blocking-prerender / instant validation errors, run the   `cache-components-instant-false` codemod, or decide between opting routes out   with `export const instant = false` and fixing them in place.",
-      "path": "skills-library/next-cache-components-adoption/SKILL.md"
-    },
-    {
-      "name": "normalize",
-      "description": "Normalize design to match your design system and ensure consistency user-invokable: true",
-      "path": "skills-library/normalize/SKILL.md"
-    },
-    {
-      "name": "obsidian-bases",
-      "description": "Create and edit Obsidian Bases (.base files) with views, filters, formulas, and summaries. Use when working with .base files, creating database-like views of notes, or when the user mentions Bases, table views, card views, filters, or formulas in Obsidian.",
-      "path": "skills-library/obsidian-bases/SKILL.md"
-    },
-    {
-      "name": "obsidian-cli",
-      "description": "Interact with Obsidian vaults using the Obsidian CLI to read, create, search, and manage notes, tasks, properties, and more. Also supports plugin and theme development with commands to reload plugins, run JavaScript, capture errors, take screenshots, and inspect the DOM. Use when the user asks to interact with their Obsidian vault, manage notes, search vault content, perform vault operations from the command line, or develop and debug Obsidian plugins and themes.",
-      "path": "skills-library/obsidian-cli/SKILL.md"
-    },
-    {
-      "name": "obsidian-markdown",
-      "description": "Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Use when working with .md files in Obsidian, or when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes.",
-      "path": "skills-library/obsidian-markdown/SKILL.md"
-    },
-    {
       "name": "og-image-design",
       "description": "\"Open Graph and social sharing image design with platform specs, text placement, and branding. Covers OG meta tags, Twitter cards, LinkedIn previews, and dynamic generation. Use for: social sharing images, blog thumbnails, link previews, social cards. Triggers: og image, open graph, social sharing image, twitter card, social card, link preview image, og meta, sharing preview, social thumbnail, meta image, og:image, twitter:image, linkedin preview\" allowed-tools: Bash(belt *)",
       "path": "skills-library/og-image-design/SKILL.md"
-    },
-    {
-      "name": "onboard",
-      "description": "Design or improve onboarding flows, empty states, and first-time user experiences. Helps users get started successfully and understand value quickly. user-invokable: true",
-      "path": "skills-library/onboard/SKILL.md"
     },
     {
       "name": "openship-architect",
@@ -515,19 +360,9 @@
       "path": "skills-library/openship-architect/SKILL.md"
     },
     {
-      "name": "optimize",
-      "description": "Improve interface performance across loading speed, rendering, animations, images, and bundle size. Makes experiences faster and smoother. user-invokable: true",
-      "path": "skills-library/optimize/SKILL.md"
-    },
-    {
       "name": "pitch-deck-visuals",
       "description": "\"Investor pitch deck structure with slide-by-slide framework, visual design rules, and data presentation. Covers the 12-slide framework, chart types, team slides, and common investor turn-offs. Use for: fundraising decks, investor presentations, startup pitch, demo day, grant proposals. Triggers: pitch deck, investor deck, startup pitch, fundraising deck, demo day, pitch presentation, investor presentation, seed deck, series a deck, pitch slides, startup presentation, vc pitch, investor meeting\" allowed-tools: Bash(belt *)",
       "path": "skills-library/pitch-deck-visuals/SKILL.md"
-    },
-    {
-      "name": "polish",
-      "description": "Final quality pass before shipping. Fixes alignment, spacing, consistency, and detail issues that separate good from great. user-invokable: true",
-      "path": "skills-library/polish/SKILL.md"
     },
     {
       "name": "press-release-writing",
@@ -543,6 +378,11 @@
       "name": "product-changelog",
       "description": "\"Product changelog and release notes that users actually read. Covers categorization, user-facing language, visuals, and distribution. Use for: release notes, changelogs, product updates, feature announcements, versioning. Triggers: changelog, release notes, product update, version notes, what's new, feature announcement, product changelog, update log, release announcement, version release, product release, ship notes\" allowed-tools: Bash(belt *)",
       "path": "skills-library/product-changelog/SKILL.md"
+    },
+    {
+      "name": "product-founder",
+      "description": "\"Use to decide what to build next: product ideas, indie hacking, MVP scoping, validation experiments and launch sequencing.\"",
+      "path": "skills-library/product-founder/SKILL.md"
     },
     {
       "name": "product-hunt-launch",
@@ -575,11 +415,6 @@
       "path": "skills-library/python-testing-patterns/SKILL.md"
     },
     {
-      "name": "quieter",
-      "description": "Tone down overly bold or visually aggressive designs. Reduces intensity while maintaining design quality and impact. user-invokable: true",
-      "path": "skills-library/quieter/SKILL.md"
-    },
-    {
       "name": "related-skill",
       "description": "\"Discover and install related skills from inference.sh skill registry. Helps find complementary skills for your AI workflow. Use for: skill discovery, workflow expansion, capability exploration. Triggers: related skills, find skills, skill discovery, complementary skills, expand workflow, more capabilities, similar skills, skill suggestions\" allowed-tools: Bash(npx skills *)",
       "path": "skills-library/related-skill/SKILL.md"
@@ -588,11 +423,6 @@
       "name": "remembering-conversations",
       "description": "Use when user asks 'how should I...' or 'what's the best approach...' after exploring code, OR when you've tried to solve something and are stuck, OR for unfamiliar workflows, OR when user references past work. Searches conversation history.",
       "path": "skills-library/remembering-conversations/SKILL.md"
-    },
-    {
-      "name": "self-healing-ci",
-      "description": "Usa esta skill cuando te encuentres con un test roto durante el CI/CD o desarrollo local para auto-repararlo basado en el estado actual de la app.",
-      "path": "skills-library/self-healing-ci/SKILL.md"
     },
     {
       "name": "seo-content-brief",
@@ -620,6 +450,11 @@
       "path": "skills-library/technical-blog-writing/SKILL.md"
     },
     {
+      "name": "technical-docs",
+      "description": "\"Use to write technical docs: README, API docs, docstrings/JSDoc, changelogs and usage guides.\"",
+      "path": "skills-library/technical-docs/SKILL.md"
+    },
+    {
       "name": "telemetry-pm",
       "description": "Usa esta skill cuando desarrolles nuevos features para asegurar que estén instrumentados correctamente con analíticas y Feature Flags (ej. PostHog, Vercel Web Analytics).",
       "path": "skills-library/telemetry-pm/SKILL.md"
@@ -640,6 +475,11 @@
       "path": "skills-library/typescript-advanced-types/SKILL.md"
     },
     {
+      "name": "ui-refine",
+      "description": "\"Use to refine an existing UI: audit, critique, polish, animate, adapt to devices, harden, simplify (distill/quieter), make bolder or more delightful, fix colors or onboarding.\"",
+      "path": "skills-library/ui-refine/SKILL.md"
+    },
+    {
       "name": "using-git-worktrees",
       "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification",
       "path": "skills-library/using-git-worktrees/SKILL.md"
@@ -655,19 +495,24 @@
       "path": "skills-library/video-prompting-guide/SKILL.md"
     },
     {
+      "name": "web-3d",
+      "description": "\"Use to build 3D on the web with three.js or React Three Fiber: hero scenes, product viewers, immersive landings, with performance budgets, mobile fallback and accessibility.\"",
+      "path": "skills-library/web-3d/SKILL.md"
+    },
+    {
       "name": "widgets-ui",
       "description": "\"Declarative UI widgets from JSON for React/Next.js from ui.inference.sh. Render rich interactive UIs from structured agent responses. Capabilities: forms, buttons, cards, layouts, inputs, selects, checkboxes. Use for: agent-generated UIs, dynamic forms, data display, interactive cards. Triggers: widgets, declarative ui, json ui, widget renderer, agent widgets, dynamic ui, form widgets, card widgets, shadcn widgets, structured output ui\"",
       "path": "skills-library/widgets-ui/SKILL.md"
     },
     {
-      "name": "writing-skills",
-      "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
-      "path": "skills-library/writing-skills/SKILL.md"
-    },
-    {
       "name": "x-algorithm-optimizer",
       "description": "Skill para diagnosticar y optimizar contenido de X según el algoritmo Phoenix de xAI. Usar cuando el usuario pregunte por alcance, shadowban, hooks, timing, o quiera entender por qué un post no funcionó. No genera contenido nuevo; diagnostica y optimiza contenido existente.",
       "path": "skills-library/x-algorithm-optimizer/SKILL.md"
+    },
+    {
+      "name": "x-content-strategist",
+      "description": "\"Use for X/Twitter content strategy: post ideas, threads, hooks, calendar and diagnosing underperforming posts.\"",
+      "path": "skills-library/x-content-strategist/SKILL.md"
     },
     {
       "name": "youtube-thumbnail-design",

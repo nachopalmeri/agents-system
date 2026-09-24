@@ -24,3 +24,9 @@ jobs:
       - name: Check skills-library index
         shell: pwsh
         run: ./bin/generate-skill-index.ps1 -Check
+
+      - name: Check generated agents and commands
+        shell: pwsh
+        run: |
+          ./bin/render-agents.ps1 -Check
+          ./bin/render-commands.ps1 -Check

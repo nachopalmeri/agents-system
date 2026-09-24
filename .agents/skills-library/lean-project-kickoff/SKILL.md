@@ -57,3 +57,7 @@ Return a short kickoff note with:
 - first milestone
 - chosen intensity level
 - immediate next steps
+
+## Referencias
+
+- Kickoff completo de proyecto (ex kickoff-architect): `references/kickoff-architect.md`.
