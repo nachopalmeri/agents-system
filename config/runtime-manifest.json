@@ -4,11 +4,12 @@
   "activeInstructionRoots": [".agents/agents", ".agents/rules", ".agents/skills", ".agents/skills-library", ".agents/workflows"],
   "excludedRuntimePaths": [".agents/archive", ".git", "node_modules", "dist", "build", "runtime/traces"],
   "preloadAllowlist": [".agents/AGENTS.md", ".agents/workflows/index.md"],
+  "preserveIfExists": [".agents/memory", ".agents/tasks", ".agents/projects-index.md"],
   "installTargets": [
-    { "client": "cli", "sourcePath": ".agents", "targetPath": ".agents", "kind": "directory" },
+    { "client": "cli", "sourcePath": ".agents", "targetPath": ".agents", "kind": "directory", "mode": "merge" },
     { "client": "opencode", "sourcePath": "config/opencode/opencode.jsonc", "targetPath": ".config/opencode/opencode.jsonc", "kind": "file" },
-    { "client": "claude", "sourcePath": ".agents/skills", "targetPath": ".claude/skills", "kind": "directory" },
-    { "client": "antigravity", "sourcePath": ".agents/skills", "targetPath": ".gemini/antigravity/skills", "kind": "directory" }
+    { "client": "claude", "sourcePath": ".agents/skills", "targetPath": ".claude/skills", "kind": "directory", "mode": "merge" },
+    { "client": "antigravity", "sourcePath": ".agents/skills", "targetPath": ".gemini/antigravity/skills", "kind": "directory", "mode": "merge" }
   ],
   "contextBudgets": {
     "canonicalMaxChars": 6000,

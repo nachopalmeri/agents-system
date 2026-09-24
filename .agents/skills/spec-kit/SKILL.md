@@ -1,6 +1,6 @@
 ---
 name: spec-kit
-description: Usar GitHub Spec Kit / Spec-Driven Development para proyectos o features medianas-grandes donde conviene definir constitution, spec, plan, tasks e implementación antes de codear. No usar para fixes chicos, SEO puntual, cambios visuales simples o tareas de menos de 3 pasos.
+description: "Usar Spec-Driven Development (GitHub Spec Kit) en features medianas o grandes: constitution, spec, plan y tasks antes de codear. No para fixes chicos ni tareas de menos de 3 pasos."
 ---
 
 # Spec Kit — Spec-Driven Development

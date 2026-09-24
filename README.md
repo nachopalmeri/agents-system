@@ -24,101 +24,23 @@ Sistema global de agentes, workflows, skills y scaffolding para desarrollo con I
 - GitHub CLI (`gh`) para instalar desde repo privado
 - Opcional: OpenCode, Zed, Obsidian
 
-## Instalación rápida (PC nueva)
+## Instalación y actualización
 
-### Repo privado (recomendado)
-
-```powershell
-winget install --id GitHub.cli
-gh auth login
-gh repo clone nachopalmeri/agents-system $env:USERPROFILE\agents-system
-& "$env:USERPROFILE\agents-system\install-private.ps1"
-```
-
-Ver guía completa en `docs/private-repo-install.md` y `docs/bootstrap-laptop.md`.
-
-### Repo público (si algún día se publica)
+Una sola vía: `bin/sync-runtime.ps1`, que **copia** (no crea symlinks) reglas, skills y adapters a cada herramienta, con backup y `-Restore`. Guía completa, qué recibe cada cliente y flujo de trabajo: `docs/global-setup-2026.md`.
 
 ```powershell
-iwr https://raw.githubusercontent.com/nachopalmeri/agents-system/main/install.ps1 | iex
+gh repo clone nachopalmeri/agents-system $env:USERPROFILE\agents-system   # primera vez
+cd $env:USERPROFILE\agents-system; git pull
+pwsh .\bin\sync-runtime.ps1 -WhatIf    # qué va a escribir y qué conserva
+pwsh .\bin\sync-runtime.ps1            # instala lo nuevo; no toca nada distinto
+pwsh .\bin\sync-runtime.ps1 -Force     # además reemplaza (con backup) lo que el repo gestiona
+pwsh .\bin\sync-runtime.ps1 -Check     # avisa si alguna copia quedó distinta del repo
 ```
 
-O manualmente:
-
-```powershell
-git clone https://github.com/nachopalmeri/agents-system.git $env:USERPROFILE\agents-system-temp
-# Luego seguir instrucciones de install.ps1
-```
-
-### Linux/Mac
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/nachopalmeri/agents-system/main/install.sh | bash
-```
-
-## Instalación manual
-
-1. Clonar este repo en tu PC
-2. Crear symlinks o copiar archivos a ubicaciones estándar
-3. Verificar que todo funcione
-
-### Windows (manual)
-
-```powershell
-# 1. Clonar
-git clone https://github.com/nachopalmeri/agents-system.git C:\Users\%USERNAME%\agents-system
-
-# 2. Crear symlinks (como Admin)
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.agents" -Target "$env:USERPROFILE\agents-system\.agents"
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\bin" -Target "$env:USERPROFILE\agents-system\bin"
-
-# 3. Copiar config de OpenCode
-Copy-Item "$env:USERPROFILE\agents-system\config\opencode\*" "$env:USERPROFILE\.config\opencode\" -Recurse -Force
-
-# 4. Agregar ~/bin al PATH
-[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\bin", "User")
-```
-
-### Linux/Mac (manual)
-
-```bash
-# 1. Clonar
-git clone https://github.com/nachopalmeri/agents-system.git ~/agents-system
-
-# 2. Crear symlinks
-ln -sf ~/agents-system/.agents ~/.agents
-ln -sf ~/agents-system/bin ~/bin
-
-# 3. Copiar config de OpenCode
-mkdir -p ~/.config/opencode
-cp -r ~/agents-system/config/opencode/* ~/.config/opencode/
-
-# 4. Agregar ~/bin al PATH
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-```
-
-## Setup multi-IDE (un solo archivo, todos los IDEs)
-
-`~/.agents/AGENTS.md` es la única fuente de verdad. Configurá punteros para cada IDE:
-
-```powershell
-.\bin\setup-ide-pointers.ps1
-```
-
-Crea symlinks (con admin/Developer Mode) o copias para Windsurf, OpenCode, Claude Code, Gemini CLI, Cursor (legacy) y Codex. Ver `docs/multi-ide-setup.md` para detalles y `docs/rollback.md` para revertir cambios.
-
-## Pipeline de actualización (uso diario)
-
-Para sincronizar cambios del repo a `~/.agents/` y todos los IDEs en un solo paso:
-
-```powershell
-.\bin\update-system.ps1
-```
-
-Hace: `git pull` → resync `~/.agents/` → re-correr `setup-ide-pointers.ps1` → `doctor.ps1`.
-
-Si no hay symlinks (sin Developer Mode), usa copias y avisa cómo migrar a symlinks reales.
+- Merge: sólo se escriben skills/archivos que existen en el repo. Lo tuyo que no está en el repo se conserva y se lista como `[keep]`. `~/.agents/memory`, `~/.agents/tasks` y `~/.agents/projects-index.md` nunca se pisan.
+- Si `~/.agents` es un symlink/junction de una instalación vieja, el sync se detiene y te dice cómo borrar sólo el link.
+- `nuevo-proyecto` no se agrega al PATH: correlo como `pwsh ~\agents-system\bin\nuevo-proyecto.ps1 <nombre> <tipo>`.
+- `install.sh` (Linux/Mac) todavía usa symlinks: preferí `pwsh bin/sync-runtime.ps1 -HomePath ~`.
 
 ## Test de integridad
 
@@ -184,7 +106,7 @@ Para validar el repo antes de commitear o pushear:
 Para validar scaffolding:
 
 ```bash
-nuevo-proyecto test-install astro
+pwsh ./bin/nuevo-proyecto.ps1 test-install astro
 ```
 
 Tiene que crear:

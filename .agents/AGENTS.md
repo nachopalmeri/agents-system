@@ -46,13 +46,21 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 ## Descubrimiento
 
 - `skills/`: 30 skills núcleo; el cliente ve sólo su metadata.
-- `skills-library/`: resto del catálogo, fuera del preload. Si ninguna skill núcleo encaja, leé `skills-library/INDEX.md` y cargá sólo la skill elegida.
+- `skills-library/`: resto del catálogo, fuera del preload.
+- **Regla:** si ninguna skill cargada encaja con la tarea, leé `skills-library/INDEX.md` antes de improvisar o buscar afuera, y cargá sólo la skill elegida.
 - `workflows/index.md`: intención → componente. `config/capabilities.json` es para tooling; no lo leas entero en una tarea.
 - Memoria durable sólo cuando afecte la decisión actual.
 
+## Delegación
+
+- Delegá sólo: (a) búsqueda o lectura amplia cuyo resultado cabe en un resumen, (b) trabajos independientes con archivos separados, (c) review o verificación con ojos frescos. Lo lineal o chico lo hacés vos: cada subagente arranca en frío.
+- El encargo incluye objetivo, alcance (rutas), qué no tocar y formato de salida.
+- El subagente devuelve un resumen: conclusión, evidencia como `archivo:línea`, cambios hechos y bloqueos. Nunca vuelca archivos enteros ni logs crudos.
+- Profundidad máxima 1: un subagente no lanza otros subagentes. Si necesita más, devuelve el pedido al principal.
+- Máximo 3 subagentes en paralelo, salvo que el usuario pida más.
+
 ## Economía de tokens
 
-- Subagentes sólo para búsqueda amplia cuyo resultado cabe en un resumen, o trabajos independientes. Cada uno arranca en frío y relee contexto.
 - Buscá con grep/glob y leé rangos; no leas archivos enteros para ubicar algo.
 - Una tarea por sesión: al cerrar, dejá estado en `tasks/todo.md` y empezá limpio.
 - MCPs apagados por defecto; habilitalos por proyecto cuando se usen.

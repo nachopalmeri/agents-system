@@ -53,7 +53,7 @@ La capa de modelo razona sobre el pedido, elige el menor workflow suficiente y d
 Incluye:
 
 - Routing invisible según `workflows/index.md`.
-- Fases de ejecución según `workflows/phases.md`.
+- Lanes de ejecución según `.agents/AGENTS.md` (SIMPLE, SPECIALIZED, PARALLEL, HIGH_RISK).
 - Selección de agente especializado.
 - Selección de skill.
 - Decisión entre ejecución lineal, `/loop` o Routine.
@@ -62,9 +62,8 @@ Incluye:
 Workflows relacionados:
 
 - `workflows/index.md`
-- `workflows/phases.md`
 - `workflows/skills_routing.md`
-- `workflows/project_types.md`
+- `archive/workflows/project_types.md` (archivado, sólo referencia histórica)
 
 Regla clave:
 
@@ -113,7 +112,7 @@ Workflows relacionados:
 - `workflows/mcp_security.md`
 - `workflows/mcp_adoption.md`
 - `workflows/mcp_catalog.md`
-- `workflows/opencode_ecosystem.md`
+- `docs/opencode-ecosystem.md`
 - `workflows/parallel_agents.md`
 
 Reglas clave:

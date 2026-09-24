@@ -1,11 +1,11 @@
 # Genera config/capabilities.json escaneando el frontmatter (name + description)
-# de agents/*.md y skills/*/SKILL.md (o skills/*.md sueltos). Se corre en vez de
+# de agents/*.md, skills/*/SKILL.md y skills-library/*/SKILL.md del repo. Se corre en vez de
 # mantener el ledger a mano, para que nunca vuelva a desincronizarse.
 $ErrorActionPreference = "Stop"
 
-$agentsRoot = "$env:USERPROFILE\.agents"
-$configRoot = "$env:USERPROFILE\config"
-New-Item -ItemType Directory -Force -Path $configRoot | Out-Null
+$repoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
+$agentsRoot = Join-Path $repoRoot ".agents"
+$configRoot = Join-Path $repoRoot "config"
 
 function Get-Frontmatter($path) {
     $text = Get-Content -Raw -Encoding utf8 -Path $path
@@ -21,7 +21,7 @@ function Get-Frontmatter($path) {
 }
 
 $agents = @()
-Get-ChildItem -Path "$agentsRoot\agents" -Filter "*.md" | ForEach-Object {
+Get-ChildItem -Path (Join-Path $agentsRoot "agents") -Filter "*.md" | ForEach-Object {
     $fm = Get-Frontmatter $_.FullName
     $name = if ($fm.name) { $fm.name } else { $_.BaseName }
     $agents += [ordered]@{
@@ -33,8 +33,8 @@ Get-ChildItem -Path "$agentsRoot\agents" -Filter "*.md" | ForEach-Object {
 
 $skills = @()
 foreach ($tier in @("skills", "skills-library")) {
-if (-not (Test-Path "$agentsRoot\$tier")) { continue }
-Get-ChildItem -Path "$agentsRoot\$tier" | ForEach-Object {
+if (-not (Test-Path (Join-Path $agentsRoot $tier))) { continue }
+Get-ChildItem -Path (Join-Path $agentsRoot $tier) | ForEach-Object {
     if ($_.PSIsContainer) {
         $skillFile = Join-Path $_.FullName "SKILL.md"
         if (Test-Path $skillFile) {
@@ -65,7 +65,7 @@ $capabilities = [ordered]@{
     skills = $skills
 }
 
-$outPath = "$configRoot\capabilities.json"
+$outPath = (Join-Path $configRoot "capabilities.json")
 $json = $capabilities | ConvertTo-Json -Depth 5
 [System.IO.File]::WriteAllText($outPath, $json, (New-Object System.Text.UTF8Encoding($false)))
 Write-Host "Escrito $outPath ($($agents.Count) agentes, $($skills.Count) skills)" -ForegroundColor Green

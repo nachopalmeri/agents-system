@@ -1,6 +1,6 @@
 ---
 name: ai-production-architecture
-description: Diseñar y revisar aplicaciones AI/RAG production-ready con capas separadas para servicios, agentes, prompts, seguridad, evaluación y observabilidad. Usar cuando el proyecto involucre RAG, LLM apps, agentes, semantic cache, routing, prompt registry, evaluación o monitoreo de calidad/costos.
+description: "Diseñar o revisar apps AI/LLM en producción: RAG, agentes, prompts, semantic cache, routing, evaluación, observabilidad y costos. No para demos de un archivo."
 ---
 
 # AI Production Architecture

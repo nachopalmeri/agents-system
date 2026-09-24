@@ -2,13 +2,14 @@
 [CmdletBinding(SupportsShouldProcess = $true)]
 param(
     [switch] $Force,
+    [switch] $Check,
     [string] $Restore,
     [string] $HomePath = $env:USERPROFILE
 )
 
 $ErrorActionPreference = "Stop"
 $repoRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
-$manifestPath = Join-Path $repoRoot "config\runtime-manifest.json"
+$manifestPath = Join-Path $repoRoot "config/runtime-manifest.json"
 $runtimeManifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
 $homeRoot = [System.IO.Path]::GetFullPath($HomePath).TrimEnd('\', '/')
 $stateRoot = Join-Path $homeRoot ".agents-system-sync"
@@ -35,6 +36,7 @@ function Get-ContainedPath {
     if ([string]::IsNullOrWhiteSpace($RelativePath) -or [System.IO.Path]::IsPathRooted($RelativePath)) {
         throw "$Label must be a non-rooted declared path: $RelativePath"
     }
+    $RelativePath = $RelativePath.Replace('\', '/')
     $rootFull = [System.IO.Path]::GetFullPath($Root).TrimEnd('\', '/')
     $candidate = [System.IO.Path]::GetFullPath((Join-Path $rootFull $RelativePath))
     $prefix = $rootFull + [System.IO.Path]::DirectorySeparatorChar
@@ -109,7 +111,7 @@ function Copy-ManagedPath([string] $Source, [string] $Destination) {
 }
 
 function Test-RuntimePathExcluded([string] $SourcePath) {
-    $relative = [System.IO.Path]::GetFullPath($SourcePath).Substring($repoRoot.Length).TrimStart('\').Replace('\', '/')
+    $relative = [System.IO.Path]::GetFullPath($SourcePath).Substring($repoRoot.Length).TrimStart('\', '/').Replace('\', '/')
     foreach ($excluded in @($runtimeManifest.excludedRuntimePaths)) {
         $normalized = ([string]$excluded).Trim('/').Replace('\', '/')
         if ($relative -eq $normalized -or $relative.StartsWith("$normalized/", [System.StringComparison]::OrdinalIgnoreCase)) {
@@ -169,15 +171,71 @@ function Get-StateEntry($State, [string] $RelativeTarget) {
     return @($State.entries | Where-Object { ([string]$_.relativeTarget) -eq $RelativeTarget }) | Select-Object -First 1
 }
 
+function Test-Preserved([string] $RelativeTarget) {
+    foreach ($prefix in @($runtimeManifest.preserveIfExists)) {
+        $normalized = ([string]$prefix).Trim('/')
+        if ($RelativeTarget -eq $normalized -or $RelativeTarget.StartsWith("$normalized/", [System.StringComparison]::OrdinalIgnoreCase)) { return $true }
+    }
+    return $false
+}
+
+# Merge: cada skill (carpeta con SKILL.md) y cada archivo suelto es una unidad
+# propia; lo que exista en destino y no venga del repo no se toca.
+function Get-MergeUnits([string] $SourceDir, [string] $TargetRelative) {
+    $units = @()
+    foreach ($child in @(Get-ChildItem $SourceDir -Force | Sort-Object Name)) {
+        if (Test-RuntimePathExcluded $child.FullName) { continue }
+        $relative = "$TargetRelative/$($child.Name)"
+        if ($child.PSIsContainer -and -not (Test-Path (Join-Path $child.FullName "SKILL.md"))) {
+            $units += Get-MergeUnits $child.FullName $relative
+        } else {
+            $units += [pscustomobject]@{ sourcePath = $child.FullName; relativeTarget = $relative; kind = $(if ($child.PSIsContainer) { "directory" } else { "file" }) }
+        }
+    }
+    return $units
+}
+
+function Get-ForeignEntries([string] $TargetDir, [string] $TargetRelative, [hashtable] $Expected) {
+    $foreign = @()
+    if (-not (Test-Path $TargetDir -PathType Container)) { return $foreign }
+    foreach ($child in @(Get-ChildItem $TargetDir -Force | Sort-Object Name)) {
+        $relative = "$TargetRelative/$($child.Name)"
+        if ($Expected.ContainsKey($relative)) { continue }
+        $isAncestor = $child.PSIsContainer -and @($Expected.Keys | Where-Object { $_.StartsWith("$relative/") }).Count -gt 0
+        if ($isAncestor) {
+            $foreign += Get-ForeignEntries $child.FullName $relative $Expected
+        } else {
+            $foreign += $relative
+        }
+    }
+    return $foreign
+}
+
+$script:mergeRoots = @()
+
 function Get-SyncTargets {
     $targets = @()
     foreach ($install in @($runtimeManifest.installTargets)) {
         $source = Get-ContainedPath -Root $repoRoot -RelativePath ([string]$install.sourcePath) -Label "Source path"
-        $target = Get-ContainedPath -Root $homeRoot -RelativePath ([string]$install.targetPath) -Label "Target path"
+        $targetRelative = ([string]$install.targetPath).Replace('\', '/')
+        if ([string]$install.mode -eq "merge") {
+            $script:mergeRoots += [pscustomobject]@{ client = [string]$install.client; relativeTarget = $targetRelative; targetPath = (Get-ContainedPath -Root $homeRoot -RelativePath $targetRelative -Label "Target path") }
+            foreach ($unit in @(Get-MergeUnits $source $targetRelative)) {
+                $targets += [pscustomobject]@{
+                    client = [string]$install.client
+                    kind = $unit.kind
+                    relativeTarget = $unit.relativeTarget
+                    sourcePath = $unit.sourcePath
+                    targetPath = (Get-ContainedPath -Root $homeRoot -RelativePath $unit.relativeTarget -Label "Target path")
+                }
+            }
+            continue
+        }
+        $target = Get-ContainedPath -Root $homeRoot -RelativePath $targetRelative -Label "Target path"
         $targets += [pscustomobject]@{
             client = [string]$install.client
             kind = [string]$install.kind
-            relativeTarget = ([string]$install.targetPath).Replace('\', '/')
+            relativeTarget = $targetRelative
             sourcePath = $source
             targetPath = $target
         }
@@ -205,6 +263,24 @@ function Get-SyncTargets {
     return @($targets)
 }
 
+function Get-MissingAncestors([string] $TargetPath) {
+    $missing = @()
+    $parent = Split-Path $TargetPath -Parent
+    while ($parent -and $parent.Length -gt $homeRoot.Length -and -not (Test-Path $parent)) {
+        $missing += $parent.Substring($homeRoot.Length).TrimStart('\', '/').Replace('\', '/')
+        $parent = Split-Path $parent -Parent
+    }
+    return $missing
+}
+
+function Remove-EmptyCreatedDirs($Entries) {
+    $dirs = @($Entries | ForEach-Object { @($_.createdDirs) } | Where-Object { $_ } | Sort-Object -Unique | Sort-Object Length -Descending)
+    foreach ($relative in $dirs) {
+        $path = Get-ContainedPath -Root $homeRoot -RelativePath $relative -Label "Created directory"
+        if ((Test-Path $path -PathType Container) -and @(Get-ChildItem $path -Force).Count -eq 0) { Remove-Item $path -Force }
+    }
+}
+
 function Restore-Transaction([string] $RestoreManifestPath) {
     $resolvedManifest = [System.IO.Path]::GetFullPath($RestoreManifestPath)
     if (-not (Test-Path $resolvedManifest -PathType Leaf)) { throw "Restore manifest not found: $resolvedManifest" }
@@ -230,7 +306,7 @@ function Restore-Transaction([string] $RestoreManifestPath) {
         }
     }
 
-    $restoreStage = Join-Path $stateRoot "restore-staging\$([guid]::NewGuid().ToString('N'))"
+    $restoreStage = Join-Path $stateRoot "restore-staging/$([guid]::NewGuid().ToString('N'))"
     [void](New-Item -ItemType Directory -Path $restoreStage -Force)
     foreach ($entry in @($transaction.entries)) {
         Copy-ManagedPath ([string]$entry.targetPath) (Join-Path $restoreStage ([string]$entry.index))
@@ -260,6 +336,7 @@ function Restore-Transaction([string] $RestoreManifestPath) {
         throw $restoreFailure
     }
     Remove-ManagedPath $restoreStage
+    Remove-EmptyCreatedDirs $transaction.entries
 
     $restoredEntries = @()
     $restoredTargets = @($transaction.entries.relativeTarget)
@@ -282,21 +359,69 @@ if ($Restore) {
     exit 0
 }
 
+foreach ($install in @($runtimeManifest.installTargets)) {
+    $path = Join-Path $homeRoot ([string]$install.targetPath)
+    if ((Test-Path -LiteralPath $path) -and ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+        throw "~/$($install.targetPath) es un symlink/junction (instalación vieja). Borrá sólo el link con: cmd /c rmdir `"$path`"  (no borra el repo) y volvé a correr."
+    }
+}
+
 $targets = Get-SyncTargets
+
+$expected = @{}
+foreach ($target in $targets) { $expected[$target.relativeTarget] = $true }
+foreach ($root in $script:mergeRoots) {
+    $foreign = @(Get-ForeignEntries $root.targetPath $root.relativeTarget $expected | Where-Object { -not (Test-Preserved $_) })
+    if ($foreign.Count -gt 0) {
+        Write-Warning "$($root.relativeTarget): $($foreign.Count) item(s) fuera del repo; se conservan sin tocar:"
+        foreach ($item in $foreign) { Write-Host "  [keep] $item" -ForegroundColor Yellow }
+    }
+}
+
+if ($Check) {
+    $drift = @()
+    foreach ($target in $targets) {
+        $exists = Test-Path $target.targetPath
+        if ($exists -and (Test-Preserved $target.relativeTarget)) { continue }
+        if (-not $exists) { $drift += [pscustomobject]@{ status = "missing"; target = $target.relativeTarget; client = $target.client }; continue }
+        if ((Get-PathHash $target.targetPath) -ne (Get-PathHash $target.sourcePath)) {
+            $drift += [pscustomobject]@{ status = "drift"; target = $target.relativeTarget; client = $target.client }
+        }
+    }
+    foreach ($item in $drift) { Write-Host ("[{0}] {1} ({2})" -f $item.status.ToUpper(), $item.target, $item.client) -ForegroundColor Red }
+    if ($drift.Count -gt 0) {
+        Write-Host "$($drift.Count) destino(s) distintos del repo. Corré sync-runtime.ps1 para actualizarlos." -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "Sin drift: $($targets.Count) destinos iguales al repo." -ForegroundColor Green
+    exit 0
+}
+
 $state = Read-SyncState
 $validTargets = @()
+$skipped = @()
 foreach ($target in $targets) {
     if (-not (Test-Path $target.targetPath)) { $validTargets += $target; continue }
+    if (Test-Preserved $target.relativeTarget) { continue }
     $stateEntry = Get-StateEntry $state $target.relativeTarget
     $currentHash = Get-PathHash $target.targetPath
+    if ($currentHash -eq (Get-PathHash $target.sourcePath)) { continue }
     if ($null -eq $stateEntry) {
-        if (-not $Force) { Write-Warning "Unmanaged target detected at $($target.targetPath); skipping. Use -Force to overwrite."; continue }
+        if (-not $Force) { $skipped += "unmanaged: $($target.relativeTarget)"; continue }
     } elseif ($currentHash -ne [string]$stateEntry.installedHash) {
-        if (-not $Force) { Write-Warning "Managed drift detected at $($target.targetPath); skipping. Use -Force to overwrite."; continue }
+        if (-not $Force) { $skipped += "drift: $($target.relativeTarget)"; continue }
     }
     $validTargets += $target
 }
 $targets = $validTargets
+if ($skipped.Count -gt 0) {
+    Write-Warning "$($skipped.Count) destino(s) existentes distintos del repo; no se tocan sin -Force (que reemplaza sólo esos, con backup):"
+    foreach ($item in $skipped) { Write-Host "  $item" -ForegroundColor Yellow }
+}
+if ($targets.Count -eq 0 -and -not $WhatIfPreference) {
+    Write-Host "Nada para actualizar." -ForegroundColor Green
+    exit 0
+}
 
 if ($WhatIfPreference) {
     foreach ($target in $targets) { Write-Host "[WhatIf] $($target.relativeTarget) <= $($target.sourcePath)" }
@@ -304,8 +429,8 @@ if ($WhatIfPreference) {
 }
 
 $transactionId = "$(Get-Date -Format 'yyyyMMdd-HHmmssfff')-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
-$stagingRoot = Join-Path $stateRoot "staging\$transactionId"
-$backupRoot = Join-Path $stateRoot "backups\$transactionId"
+$stagingRoot = Join-Path $stateRoot "staging/$transactionId"
+$backupRoot = Join-Path $stateRoot "backups/$transactionId"
 $transactionManifestPath = Join-Path $backupRoot "manifest.json"
 [void](New-Item -ItemType Directory -Path $stagingRoot -Force)
 [void](New-Item -ItemType Directory -Path $backupRoot -Force)
@@ -321,7 +446,7 @@ for ($index = 0; $index -lt $targets.Count; $index++) {
     $backupHash = $null
     if ($hadOriginal) {
         $backupRelative = "items/$index"
-        $backupPath = Join-Path $backupRoot "items\$index"
+        $backupPath = Join-Path $backupRoot "items/$index"
         Copy-ManagedPath $target.targetPath $backupPath
         $backupHash = Get-PathHash $backupPath
         if ($backupHash -ne (Get-PathHash $target.targetPath)) { throw "Backup verification failed for $($target.relativeTarget)" }
@@ -337,6 +462,7 @@ for ($index = 0; $index -lt $targets.Count; $index++) {
         hadOriginal = [bool]$hadOriginal
         backupRelative = $backupRelative
         backupHash = $backupHash
+        createdDirs = @(Get-MissingAncestors $target.targetPath)
         previousStateEntry = Get-StateEntry $state $target.relativeTarget
     }
 }
@@ -397,9 +523,10 @@ try {
         $target = $targets[[int]$entry.index]
         Remove-ManagedPath $target.targetPath
         if ([bool]$entry.hadOriginal) {
-            Copy-ManagedPath (Join-Path $backupRoot "items\$($entry.index)") $target.targetPath
+            Copy-ManagedPath (Join-Path $backupRoot "items/$($entry.index)") $target.targetPath
         }
     }
+    Remove-EmptyCreatedDirs $replaced
     $transaction.status = "rolled-back"
     $transaction.failure = $failure.Exception.Message
     $transaction.rolledBackAtUtc = [DateTime]::UtcNow.ToString("o")
