@@ -43,6 +43,16 @@ Si `~/.agents` es un symlink o junction de una instalación vieja, el sync se de
 - `-Restore` devuelve el home al estado exacto previo, incluido `settings.json`. Está probado con hash de cada archivo.
 - Para el día a día: `pwsh .\bin\update-system.ps1` hace `git pull`, sync, `check-runtime-graph` y `-Check`.
 
+## Entornos cloud de Claude Code (contenedores efímeros)
+
+Pegá esto como **Setup script** del entorno (menú del entorno en la barra de título de la sesión → Edit). Así cada sesión nueva arranca con todo instalado:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/nachopalmeri/agents-system/main/bin/cloud-setup.sh | bash
+```
+
+Hasta que se mergee el PR, usá la rama: `curl -fsSL https://raw.githubusercontent.com/nachopalmeri/agents-system/claude/adoring-cray-bcle5y/bin/cloud-setup.sh | BRANCH=claude/adoring-cray-bcle5y bash`. Para instalar también las skills con términos propios, agregá `ACCEPT_TERMS=tesseract,anthropic-docs` antes de `bash`.
+
 ## Qué recibe cada herramienta
 
 ✅ instalado · ⚠️ parcial · ❌ no aplica o falta
