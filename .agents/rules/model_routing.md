@@ -9,19 +9,17 @@ No toda tarea necesita el modelo más caro. Routear por tipo de tarea optimiza c
 
 ## Routing por tipo de tarea
 
-| Tipo de tarea | Modelo recomendado | Razón |
+Un plan malo se paga en todas las iteraciones siguientes: el modelo fuerte va al principio (plan) y al final (review de riesgo); la ejecución va al medio.
+
+| Tipo de tarea | Modelo | Razón |
 |---|---|---|
-| Planning, arquitectura, specs | Haiku / Gemini Flash | Rápido, barato, suficiente para estructurar |
-| Implementation, coding | Sonnet / Opus | Calidad de código, manejo de contexto |
-| Review de seguridad | Opus | Máxima atención a vulnerabilidades |
-| Review de código general | Sonnet | Buen balance calidad/costo |
-| Tests unitarios | Sonnet | Generación de tests no requiere razonamiento profundo |
-| Tests E2E | Sonnet | Playwright requiere contexto de app, no razonamiento extremo |
-| Debugging complejo | Opus | Razonamiento profundo para causas raíz |
-| Debugging simple | Sonnet | Fixes obvios no necesitan Opus |
-| Explicación, docente | Sonnet | Claridad explicativa sin necesidad de razonamiento máximo |
-| Copy, marketing, contenido | Sonnet | Creatividad balanceada |
-| Research, búsqueda | Haiku / Gemini Flash | Velocidad sobre profundidad |
+| Planning, arquitectura, specs | Opus 5.5 / Fable | Define todo lo demás; errores acá multiplican tokens |
+| Implementación siguiendo un plan | Sonnet 5 | Mejor calidad/costo para código |
+| Búsqueda en repo, exploración, resúmenes | Haiku 4.5 (subagente) | Lectura masiva barata; devuelve sólo la conclusión |
+| Tests, fixes obvios, copy, docs | Sonnet 5 (effort bajo) | No requiere razonamiento profundo |
+| Debugging que ya falló una vez | Opus 5.5 | Causa raíz, evita loops |
+| Review de seguridad, release, pagos | Opus 5.5 | Máxima atención |
+| Tareas triviales offline | Ollama local (opencode) | Costo cero |
 
 ## Effort levels (Claude Code)
 

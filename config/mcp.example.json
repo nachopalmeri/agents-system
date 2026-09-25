@@ -1,35 +1,30 @@
 {
+  "_note": "Plantilla opt-in: el instalador NO la aplica. Copiar sólo el server necesario a la config del proyecto que lo usa. Remotos con OAuth: la credencial la pide el cliente al conectar, nunca va en este archivo. Verificado 2026-09-24: los paquetes npm @modelcontextprotocol/server-meta-ads y server-linear no existen; server-github y server-postgres están deprecados.",
   "mcpServers": {
-    "graphify": {
-      "command": "uvx",
-      "args": ["graphifyy", "mcp", "--cache-dir", "./.graphify_cache"]
-    },
-    "meta-ads": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-meta-ads"],
-      "url": "https://mcp.facebook.com/ads"
-    },
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_PAT>"
-      }
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
     },
     "linear": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-linear"],
-      "env": {
-        "LINEAR_API_KEY": "<YOUR_LINEAR_API_KEY>"
-      }
+      "type": "http",
+      "url": "https://mcp.linear.app/mcp"
     },
-    "postgres": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://username:password@localhost:5432/your_database"]
+    "meta-ads": {
+      "type": "http",
+      "url": "https://mcp.facebook.com/ads",
+      "_risk": "paid media: requiere workflows/mcp_security.md y confirmación explícita antes de conectar"
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
     },
     "memory": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "graphify": {
+      "command": "uvx",
+      "args": ["graphifyy", "mcp", "--cache-dir", "./.graphify_cache"]
     }
   }
 }

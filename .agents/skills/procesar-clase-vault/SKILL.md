@@ -1,6 +1,6 @@
 ---
 name: procesar-clase-vault
-description: Usar cuando el usuario termina una clase universitaria y pide procesar el material en su vault de Obsidian. Se activa con "procesar clase", "terminó la clase", "nueva clase", "vault universitario", "MOC", "Atlas/Dots". Rellena los campos entre [corchetes] y sigue el protocolo completo de preservación, descubrimiento, procesamiento y conexiones.
+description: "Usar cuando el usuario pide \"procesar clase\", \"terminó la clase\" o \"nueva clase\" para pasar material universitario al vault de Obsidian (MOC, Atlas/Dots) sin perder contenido."
 ---
 
 # Procesar una clase nueva del vault universitario

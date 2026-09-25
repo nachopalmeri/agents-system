@@ -1,3 +1,5 @@
+> `opencode.jsonc` es una **plantilla opcional**: el instalador ya no la copia, para no pisar tu configuración de opencode (tema, providers). Los agentes, comandos y el plugin de guardia se instalan como carpetas que opencode descubre solo.
+
 # config/opencode/
 
 Copiar aquí la configuración de OpenCode:

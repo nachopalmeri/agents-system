@@ -1,0 +1,90 @@
+# Skills library (on-demand)
+
+No se cargan solas. Si la tarea encaja con una fila, leé `~/.agents/skills-library/<skill>/SKILL.md` completo y seguilo. No leas otras.
+
+- `academic-tutor` — Use as an intensive university tutor: explain concepts in depth, evaluate honestly, generate exercises and…
+- `affirmations` — Reset your own trajectory when you're stuck, looping, or demoralized — read these affirmations, then…
+- `agent-browser` — Browser automation for AI agents via inference.sh.
+- `agent-ui` — Batteries-included agent component for React/Next.js from ui.inference.sh.
+- `agentic-pentester` — Usa esta skill para realizar auditorías de seguridad activas simulando a un hacker ético OWASP.
+- `app-store-screenshots` — App Store and Google Play screenshot creation with exact platform specs.
+- `belt` — Use the belt CLI — run 250+ AI apps, manage knowledge, search skills, connect MCP servers.
+- `book-cover-design` — Book cover design with genre-specific conventions, typography rules, and AI image generation.
+- `case-study-writing` — B2B case study writing with STAR framework, data visualization, and research.
+- `character-design-sheet` — Character consistency across AI-generated images with reference sheets and LoRA techniques.
+- `chat-ui` — Chat UI building blocks for React/Next.js from ui.inference.sh.
+- `competitor-teardown` — Structured competitive analysis with feature matrices, SWOT, positioning maps, and UX review.
+- `computer-use` — Use Orca's computer-use CLI to inspect and operate local desktop app windows through accessibility trees,…
+- `content-repurposing` — Content atomization — turn one piece of content into many formats.
+- `css-animations` — Genera animaciones CSS 2D para sitios web — keyframes, parallax, hover effects, fade-on-scroll, texto animado
+- `customer-persona` — Research-backed customer persona creation with market data and avatar generation.
+- `data-visualization` — Data visualization with chart selection, color theory, and annotation best practices.
+- `defuddle` — Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save…
+- `doc-coauthoring` — Guide users through a structured workflow for co-authoring documentation.
+- `email-design` — Email marketing design with layout patterns, subject line formulas, and deliverability rules.
+- `exercise-generator` — Use to generate study exercises: active recall (spacing, interleaving), progressive programming exercises,…
+- `explainer-video-guide` — Explainer video production guide: scripting, voiceover, visuals, and assembly.
+- `grilling` — Use when the user wants a plan, decision or idea stress-tested (\"grill me\", \"interrogame\").
+- `javascript-sdk` — JavaScript/TypeScript SDK for inference.sh - run AI apps, build agents, integrate with all models.
+- `json-canvas` — Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections.
+- `landing-page-design` — Landing page conversion optimization with layout rules, hero section design, and CTA psychology.
+- `lean-project-kickoff` — Use when starting a new project, repo, feature branch, or greenfield initiative and you want a minimal…
+- `linkedin-content` — LinkedIn post writing with hook formulas, formatting rules, and engagement patterns.
+- `logo-design-guide` — Logo design principles and AI image generation best practices for creating logos.
+- `marketing-strategist` — Use for marketing strategy: positioning, GTM, campaigns and audience research.
+- `mcts-planner` — Usa esta skill para arquitecturas complejas, refactors masivos o cuando un plan lineal ("Chain of…
+- `monetization-architect` — Usa esta skill siempre que vayas a implementar, modificar o auditar flujos de pago, suscripciones o…
+- `newsletter-curation` — Newsletter curation with content sourcing, editorial structure, and subscriber growth strategies.
+- `next-cache-components` — Next.js 16 Cache Components - PPR, use cache directive, cacheLife, cacheTag, updateTag
+- `og-image-design` — Open Graph and social sharing image design with platform specs, text placement, and branding.
+- `openship-architect` — Handles zero-config deployment and infrastructure provisioning via OpenShip MCP.
+- `pitch-deck-visuals` — Investor pitch deck structure with slide-by-slide framework, visual design rules, and data presentation.
+- `press-release-writing` — Press release writing in AP style with inverted pyramid structure.
+- `procedural-memory` — Habilita la memoria persistente agentica extrayendo lecciones aprendidas al final de cada sesión y…
+- `product-changelog` — Product changelog and release notes that users actually read.
+- `product-founder` — Use to decide what to build next: product ideas, indie hacking, MVP scoping, validation experiments and…
+- `product-hunt-launch` — Product Hunt launch optimization with specific specs, timing, and gallery strategy.
+- `product-photography` — AI product photography with studio lighting, lifestyle shots, and packshot conventions.
+- `prompt-engineering` — Master prompt engineering for AI models: LLMs, image generators, video models.
+- `python-executor` — Execute Python code in a safe sandboxed environment via [inference.sh](https://inference.sh).
+- `python-sdk` — Python SDK for inference.sh - run AI apps, build agents, and integrate with all models.
+- `python-testing-patterns` — Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development.
+- `related-skill` — Discover and install related skills from inference.sh skill registry.
+- `remembering-conversations` — Use when user asks 'how should I...' or 'what's the best approach...' after exploring code, OR when you've…
+- `seo-content-brief` — SEO content brief creation with keyword research, search intent analysis, and content structure.
+- `social-media-carousel` — Multi-slide carousel design for Instagram, LinkedIn, and Twitter/X with layout rules and hooks.
+- `storyboard-creation` — Film and video storyboarding with shot vocabulary, continuity rules, and panel layout.
+- `study-progress-tracker` — Tracking de progreso académico por materia y tema.
+- `technical-blog-writing` — Technical blog post writing with structure, code examples, and developer audience conventions.
+- `technical-docs` — Use to write technical docs: README, API docs, docstrings/JSDoc, changelogs and usage guides.
+- `telemetry-pm` — Usa esta skill cuando desarrolles nuevos features para asegurar que estén instrumentados correctamente con…
+- `tools-ui` — Tool lifecycle UI components for React/Next.js from ui.inference.sh.
+- `twitter-thread-creation` — Twitter/X thread writing with hook tweets, thread structure, and engagement optimization.
+- `typescript-advanced-types` — Master TypeScript's advanced type system including generics, conditional types, mapped types, template…
+- `ui-refine` — Use to refine an existing UI: audit, critique, polish, animate, adapt to devices, harden, simplify…
+- `using-git-worktrees` — Use when starting feature work that needs isolation from current workspace or before executing…
+- `video-ad-specs` — Video ad creation with exact platform-specific specs for TikTok, Instagram, YouTube, Facebook, LinkedIn.
+- `video-prompting-guide` — Best practices and techniques for writing effective AI video generation prompts.
+- `web-3d` — Use to build 3D on the web with three.js or React Three Fiber: hero scenes, product viewers, immersive…
+- `widgets-ui` — Declarative UI widgets from JSON for React/Next.js from ui.inference.sh.
+- `x-algorithm-optimizer` — Skill para diagnosticar y optimizar contenido de X según el algoritmo Phoenix de xAI.
+- `x-content-strategist` — Use for X/Twitter content strategy: post ideas, threads, hooks, calendar and diagnosing underperforming posts.
+- `youtube-thumbnail-design` — YouTube thumbnail design with specific dimensions, contrast rules, and mobile preview optimization.
+
+## Externas (se instalan en la PC con `bin/install-external-skills.ps1`; si falta la carpeta, avisá cómo instalarla)
+
+- `algorithmic-art` — Arte generativo con p5.js: flow fields, partículas, aleatoriedad con semilla.
+- `canvas-design` — Arte visual estático (pósters, piezas) en PNG/PDF con una filosofía de diseño.
+- `deploy-to-vercel` — Deployar apps y sitios a Vercel (preview o producción).
+- `docx` — Crear y editar documentos Word (.docx). Requiere aceptar términos.
+- `pdf` — Leer, extraer, unir, dividir, llenar formularios y crear PDFs. Requiere aceptar términos.
+- `pptx` — Crear y editar presentaciones PowerPoint (.pptx). Requiere aceptar términos.
+- `react-view-transitions` — Animaciones nativas con la View Transition API de React.
+- `remotion-best-practices` — Videos programáticos con React (Remotion): punto de entrada y router a las demás skills de Remotion.
+- `remotion-captions` — Transcribir, mostrar y animar subtítulos en videos Remotion.
+- `remotion-create` — Crear un video nuevo con Remotion.
+- `remotion-render` — Exportar/renderizar un video Remotion.
+- `tesseract-motion` — Motion graphics editables con Tesseract: escenas animadas, tipografía, diagramas, lower thirds y overlays. Requiere aceptar términos.
+- `tesseract-video` — Editar footage en videos terminados con Tesseract: cortes, diálogo, sonido, mezcla y motion graphics (runtime local). Requiere aceptar términos.
+- `web-design-guidelines` — Revisar UI contra las Web Interface Guidelines: accesibilidad, UX y buenas prácticas.
+- `xlsx` — Crear, limpiar y analizar planillas Excel/CSV. Requiere aceptar términos.

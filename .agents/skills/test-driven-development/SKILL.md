@@ -369,3 +369,11 @@ Otherwise → not TDD
 ```
 
 No exceptions without your human partner's permission.
+
+## Tests que valen la pena (adaptado de [mattpocock/skills](https://github.com/mattpocock/skills), MIT, © 2026 Matt Pocock)
+
+- **Seams:** testeá en la interfaz pública donde se observa el comportamiento, nunca internals. Antes del primer test, acordá con el usuario qué seams se testean.
+- **Slices verticales:** un test → implementación mínima → repetir. Escribir todos los tests primero ("horizontal") prueba comportamiento imaginado.
+- **Anti-patrones:** test acoplado a la implementación (se rompe al refactorizar sin cambio de comportamiento); test tautológico (recalcula el esperado igual que el código: el esperado sale de un literal conocido, un ejemplo o la spec).
+- **Refactor fuera del loop:** va en la etapa de review (`code-review`), no dentro de red → green.
+- Ejemplos: `references/tests.md`. Mocks: `references/mocking.md`.

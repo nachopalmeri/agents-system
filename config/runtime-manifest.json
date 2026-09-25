@@ -1,12 +1,22 @@
 {
   "schemaVersion": 1,
   "canonicalPath": ".agents/AGENTS.md",
-  "activeInstructionRoots": [".agents/agents", ".agents/rules", ".agents/skills", ".agents/workflows"],
+  "activeInstructionRoots": [".agents/agents", ".agents/rules", ".agents/skills", ".agents/skills-library", ".agents/workflows"],
   "excludedRuntimePaths": [".agents/archive", ".git", "node_modules", "dist", "build", "runtime/traces"],
   "preloadAllowlist": [".agents/AGENTS.md", ".agents/workflows/index.md"],
+  "preserveIfExists": [".agents/memory", ".agents/tasks", ".agents/projects-index.md"],
   "installTargets": [
-    { "client": "cli", "sourcePath": ".agents", "targetPath": ".agents", "kind": "directory" },
-    { "client": "opencode", "sourcePath": "config/opencode/opencode.jsonc", "targetPath": ".config/opencode/opencode.jsonc", "kind": "file" }
+    { "client": "cli", "sourcePath": ".agents", "targetPath": ".agents", "kind": "directory", "mode": "merge" },
+    { "client": "claude", "sourcePath": ".agents/skills", "targetPath": ".claude/skills", "kind": "directory", "mode": "merge" },
+    { "client": "antigravity", "sourcePath": ".agents/skills", "targetPath": ".gemini/antigravity/skills", "kind": "directory", "mode": "merge" },
+    { "client": "claude", "sourcePath": "config/generated/claude/agents", "targetPath": ".claude/agents", "kind": "directory", "mode": "merge" },
+    { "client": "opencode", "sourcePath": "config/generated/opencode/agent", "targetPath": ".config/opencode/agent", "kind": "directory", "mode": "merge" },
+    { "client": "gemini", "sourcePath": "config/generated/gemini/agents", "targetPath": ".gemini/agents", "kind": "directory", "mode": "merge" },
+    { "client": "claude", "sourcePath": "config/generated/claude/commands", "targetPath": ".claude/commands", "kind": "directory", "mode": "merge" },
+    { "client": "opencode", "sourcePath": "config/generated/opencode/command", "targetPath": ".config/opencode/command", "kind": "directory", "mode": "merge" },
+    { "client": "codex", "sourcePath": "config/generated/codex/prompts", "targetPath": ".codex/prompts", "kind": "directory", "mode": "merge" },
+    { "client": "gemini", "sourcePath": "config/generated/gemini/commands", "targetPath": ".gemini/commands", "kind": "directory", "mode": "merge" },
+    { "client": "opencode", "sourcePath": "config/opencode/plugin", "targetPath": ".config/opencode/plugin", "kind": "directory", "mode": "merge" }
   ],
   "contextBudgets": {
     "canonicalMaxChars": 6000,
@@ -15,13 +25,13 @@
     "minReductionPercent": 80
   },
   "adapters": [
-    { "client": "codex", "status": "stable", "requiredCapability": "AGENTS.md discovery", "repoPath": "AGENTS.md", "renderKind": "root-template", "globalTarget": ".codex/AGENTS.md" },
-    { "client": "claude", "status": "stable", "requiredCapability": "CLAUDE.md discovery", "repoPath": "CLAUDE.md", "renderKind": "markdown-pointer", "globalTarget": ".claude/CLAUDE.md" },
-    { "client": "gemini", "status": "stable", "requiredCapability": "GEMINI.md discovery", "repoPath": "GEMINI.md", "renderKind": "markdown-pointer", "globalTarget": ".gemini/GEMINI.md" },
+    { "client": "codex", "status": "stable", "requiredCapability": "AGENTS.md discovery", "repoPath": "AGENTS.md", "renderKind": "root-template", "globalTarget": ".codex/AGENTS.md", "globalSourcePath": ".agents/AGENTS.md" },
+    { "client": "claude", "status": "stable", "requiredCapability": "CLAUDE.md discovery", "repoPath": "CLAUDE.md", "renderKind": "markdown-pointer", "globalTarget": ".claude/CLAUDE.md", "globalSourcePath": "config/global/CLAUDE.md" },
+    { "client": "gemini", "status": "stable", "requiredCapability": "GEMINI.md discovery", "repoPath": "GEMINI.md", "renderKind": "markdown-pointer", "globalTarget": ".gemini/GEMINI.md", "globalSourcePath": ".agents/AGENTS.md" },
     { "client": "cursor", "status": "experimental", "requiredCapability": "project rules file", "repoPath": ".cursorrules", "renderKind": "plain-pointer" },
     { "client": "aider", "status": "stable", "requiredCapability": "read list config", "repoPath": ".aider.conf.yml", "renderKind": "aider-yaml" },
     { "client": "zed", "status": "experimental", "requiredCapability": "assistant context config", "repoPath": ".zed/settings.json", "renderKind": "zed-json" },
-    { "client": "opencode", "status": "stable", "requiredCapability": "instructions list", "repoPath": "config/opencode/AGENTS.md", "renderKind": "markdown-pointer", "globalTarget": ".config/opencode/AGENTS.md" },
+    { "client": "opencode", "status": "stable", "requiredCapability": "instructions list", "repoPath": "config/opencode/AGENTS.md", "renderKind": "markdown-pointer", "globalTarget": ".config/opencode/AGENTS.md", "globalSourcePath": ".agents/AGENTS.md" },
     { "client": "devin", "status": "experimental", "requiredCapability": "repository AGENTS.md discovery", "repoPath": "AGENTS.md", "renderKind": "root-template" },
     { "client": "cli", "status": "stable", "requiredCapability": "PowerShell route and doctor commands", "repoPath": ".agents/AGENTS.md", "renderKind": "canonical-source" }
   ]

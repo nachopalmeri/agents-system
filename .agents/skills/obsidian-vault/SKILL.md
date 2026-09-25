@@ -135,3 +135,11 @@ obsidian daily:read
 obsidian daily:append content="- [ ] Nueva tarea"
 obsidian property:set name="estado" value="completada" file="Mi Nota"
 ```
+
+## Referencias de formato y herramientas
+
+- Markdown de Obsidian (wikilinks, embeds, callouts, properties): `references/obsidian-markdown/GUIDE.md`.
+- Bases (`.base`: vistas, filtros, fórmulas): `references/obsidian-bases/GUIDE.md`.
+- CLI de Obsidian (leer, crear, buscar y gestionar notas desde terminal): `references/obsidian-cli/GUIDE.md`.
+
+- Operación del vault: capturas, flashcards, triage de inbox, MOCs (ex agente-obsidian-brain): `references/obsidian-brain.md`.

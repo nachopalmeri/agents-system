@@ -63,8 +63,5 @@
     "gh_grep_*": false,
     "sentry_*": false
   },
-  "instructions": [
-    "~/.agents/AGENTS.md",
-    "~/.agents/workflows/index.md"
-  ]
+  "instructions": []
 }

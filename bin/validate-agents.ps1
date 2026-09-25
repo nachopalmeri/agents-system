@@ -78,7 +78,7 @@ try {
     }
 
     $allowedRisk = @("low", "medium", "high")
-    $allowedTools = @("Read", "Grep", "Edit", "Write", "Bash")
+    $allowedTools = @("Read", "Grep", "Glob", "Edit", "Write", "Bash", "WebSearch", "WebFetch")
     $allowedMemoryTags = @("project", "user", "team", "run")
     $requiredFields = @("id", "name", "file", "division", "description", "whenToUse", "inputs", "outputs", "riskLevel", "tools", "requiresApproval", "memoryTags")
 

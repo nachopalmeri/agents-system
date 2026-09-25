@@ -12,11 +12,10 @@ $checks = @(
     @{ Name = "Session checkpoint workflow"; Path = "$env:USERPROFILE\.agents\workflows\session_checkpoint.md" },
     @{ Name = "Spec Kit skill"; Path = "$env:USERPROFILE\.agents\skills\spec-kit\SKILL.md" },
     @{ Name = "AI production skill"; Path = "$env:USERPROFILE\.agents\skills\ai-production-architecture\SKILL.md" },
-    @{ Name = "Marketing strategist agent"; Path = "$env:USERPROFILE\.agents\agents\agente-marketing-strategist.md" },
-    @{ Name = "Capabilities ledger"; Path = "$env:USERPROFILE\config\capabilities.json" },
-    @{ Name = "Routing rules ledger"; Path = "$env:USERPROFILE\config\routing-rules.json" },
-    @{ Name = "nuevo-proyecto.ps1"; Path = "$env:USERPROFILE\bin\nuevo-proyecto.ps1" },
-    @{ Name = "nuevo-proyecto.sh"; Path = "$env:USERPROFILE\bin\nuevo-proyecto.sh" },
+    @{ Name = "Skills library index"; Path = "$env:USERPROFILE\.agents\skills-library\INDEX.md" },
+    @{ Name = "Claude reviewer agent"; Path = "$env:USERPROFILE\.claude\agents\reviewer.md" },
+    @{ Name = "OpenCode reviewer agent"; Path = "$env:USERPROFILE\.config\opencode\agent\reviewer.md" },
+    @{ Name = "Claude global rules"; Path = "$env:USERPROFILE\.claude\CLAUDE.md" },
     @{ Name = "OpenCode config"; Path = "$env:USERPROFILE\.config\opencode\opencode.jsonc" }
 )
 # Nota: project_types.md, spec_kit.md (workflow), ai_production.md, web_briefing.md,

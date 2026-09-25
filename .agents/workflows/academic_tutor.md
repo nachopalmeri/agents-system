@@ -33,33 +33,33 @@ Combinación de:
 
 | Trigger del usuario | Modo | Detalles en |
 |---|---|---|
-| Pregunta conceptual | Explicación (6 pasos) | `agente-academic-tutor.md` → Proceso de Trabajo |
-| Comparte notas de clase | Mejora de Notas | `agente-academic-tutor.md` → Al recibir notas |
+| Pregunta conceptual | Explicación (6 pasos) | skill `academic-tutor` → Proceso de Trabajo |
+| Comparte notas de clase | Mejora de Notas | skill `academic-tutor` → Al recibir notas |
 | "modo parcial" / "evaluame" | Parcial | `exam-simulator` skill |
-| Pide ejercicios de código | Coding | `coding-exercises` skill |
-| Pide ejercicios teóricos | Análisis de Caso | `case-analysis` skill |
-| Quiere repasar / active recall | Active Learning | `active-recall-engine` skill |
+| Pide ejercicios de código | Coding | `exercise-generator` skill (modo Programación) |
+| Pide ejercicios teóricos | Análisis de Caso | `exercise-generator` skill (modo Casos) |
+| Quiere repasar / active recall | Active Learning | `exercise-generator` skill (modo Active recall) |
 
-Para el procedimiento detallado de cada modo, ver `agente-academic-tutor.md`.
+Para el procedimiento detallado de cada modo, ver la skill `academic-tutor` (`skills-library/academic-tutor/SKILL.md`).
 
 ## Skills del Tutor
 
 | Skill | Para qué |
 |---|---|
-| `active-recall-engine` | Principios cognitivos, formato de sesión, flashcards inteligentes |
+| `exercise-generator` (active recall) | Principios cognitivos, formato de sesión, flashcards inteligentes |
 | `exam-simulator` | Crear parciales, corregir con rubric, nivel de preparación |
-| `coding-exercises` | Ejercicios de código progresivos (5 niveles) para POO y AED II |
-| `case-analysis` | Ejercicios de análisis para materias teóricas (Economía, Gestión) |
+| `exercise-generator` (programación) | Ejercicios de código progresivos (5 niveles) para POO y AED II |
+| `exercise-generator` (casos) | Ejercicios de análisis para materias teóricas (Economía, Gestión) |
 | `study-progress-tracker` | Tracking de progreso por materia/tema, spacing real |
 | `obsidian-vault` | Estructura del vault, templates, frontmatter |
 
 ## Agente dedicado
-El `agente-academic-tutor` es el responsable de enseñar y evaluar.
-El `agente-obsidian-brain` solo se encarga de escribir notas/flashcards en el vault.
+La skill `academic-tutor` es la responsable de enseñar y evaluar.
+La skill `obsidian-vault` (ref. `obsidian-brain.md`) solo se encarga de escribir notas/flashcards en el vault.
 
 ## Conexión con Obsidian
 
-- Las notas mejoradas van al vault vía `agente-obsidian-brain`
+- Las notas mejoradas van al vault vía la skill `obsidian-vault`
 - Los conceptos clave se crean como Dots en `Atlas/Dots/`
 - Las flashcards se agregan con tag `#flashcard`
 - Los MOCs se actualizan cuando hay nuevas clases

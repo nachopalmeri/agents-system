@@ -1,6 +1,6 @@
 # Runtime canónico — Pisculichi Labs
 
-Esta es la única política editable del runtime. La identidad completa vive en `rules/identity.md`; el catálogo ejecutable vive en `../config/capabilities.json`.
+Esta es la única política editable del runtime. Todas las rutas son relativas a `~/.agents/` (global) o a `.agents/` del repo. La identidad completa vive en `rules/identity.md`.
 
 ## Contrato de interacción
 
@@ -22,7 +22,7 @@ Esta es la única política editable del runtime. La identidad completa vive en 
 1. **T0 Core:** este archivo.
 2. **T1 Route:** `workflows/index.md`, metadata del agente y `config/routing-rules.json`.
 3. **T2 Execute:** una skill o workflow seleccionado y sólo sus referencias directas necesarias.
-4. **T3 Escalate:** agentes paralelos, research profundo o controles de alto riesgo sólo con evidencia que lo justifique. Las herramientas específicas de escalamiento (MCTS, self-healing-ci, procedural-memory) se eligen desde `workflows/index.md`, no desde este core.
+4. **T3 Escalate:** agentes paralelos, research profundo o controles de alto riesgo sólo con evidencia que lo justifique. Las herramientas específicas de escalamiento (MCTS, CI roja repetida, procedural-memory) se eligen desde `workflows/index.md`, no desde este core.
 
 No precargues toda la biblioteca. `config/capabilities.json` preserva descubrimiento de agentes y skills; mover una capacidad a on-demand no equivale a borrarla. `archive/` es referencia histórica, nunca destino ejecutable ni preload.
 
@@ -45,4 +45,23 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 ## Descubrimiento
 
-Usá `workflows/index.md` para intención → componente y `config/capabilities.json` para reachability. Leé memoria durable sólo cuando afecte la decisión actual.
+- `skills/`: 30 skills núcleo; el cliente ve sólo su metadata.
+- `skills-library/`: resto del catálogo, fuera del preload.
+- **Regla:** si ninguna skill cargada encaja con la tarea, leé `skills-library/INDEX.md` antes de improvisar o buscar afuera, y cargá sólo la skill elegida.
+- `workflows/index.md`: intención → componente. `config/capabilities.json` es para tooling; no lo leas entero en una tarea.
+- Memoria durable sólo cuando afecte la decisión actual.
+
+## Delegación
+
+- Delegá sólo: (a) búsqueda o lectura amplia cuyo resultado cabe en un resumen, (b) trabajos independientes con archivos separados, (c) review o verificación con ojos frescos. Lo lineal o chico lo hacés vos: cada subagente arranca en frío.
+- El encargo incluye objetivo, alcance (rutas), qué no tocar y formato de salida.
+- El subagente devuelve un resumen: conclusión, evidencia como `archivo:línea`, cambios hechos y bloqueos. Nunca vuelca archivos enteros ni logs crudos.
+- Profundidad máxima 1: un subagente no lanza otros subagentes. Si necesita más, devuelve el pedido al principal.
+- Máximo 3 subagentes en paralelo, salvo que el usuario pida más.
+- Roles (`agents/`): `explorador` (búsqueda, barato), `planner` (plan, fuerte), `implementador` (tramo paralelo), `reviewer` (review/seguridad/release), `verificador` (tests). Sin subagentes en el cliente, aplicá el rol leyendo su archivo.
+
+## Economía de tokens
+
+- Buscá con grep/glob y leé rangos; no leas archivos enteros para ubicar algo.
+- Una tarea por sesión: al cerrar, dejá estado en `tasks/todo.md` y empezá limpio.
+- MCPs apagados por defecto; habilitalos por proyecto cuando se usen.
