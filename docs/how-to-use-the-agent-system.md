@@ -80,7 +80,7 @@ Usar cuando ya existe código.
 ### Comando
 
 ```powershell
-cd C:\Users\ignac\CascadeProjects\jobbot
+cd C:\Users\Nacho\CascadeProjects\jobbot
 opencode
 ```
 
