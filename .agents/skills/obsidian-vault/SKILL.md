@@ -1,21 +1,21 @@
 ---
 name: obsidian-vault
-description: Trabajar con el vault de Obsidian Q1-2026-UADE. Estructura PARA, Zettelkasten, Dataview, MOCs, templates de clase y daily notes. Usar cuando se trabaje en notas, clases, proyectos o cualquier contenido del vault.
+description: Trabajar con el vault de Obsidian UADE-Vault. Estructura PARA, Zettelkasten, Dataview, MOCs, templates de clase y daily notes. Usar cuando se trabaje en notas, clases, proyectos o cualquier contenido del vault.
 ---
 
-# Obsidian Vault — Q1-2026-UADE
+# Obsidian Vault — UADE-Vault
 
 ## Activación
 - Cuando el usuario pida crear/editar notas en el vault
 - Cuando se mencione Obsidian, notas, clases, MOC, flashcards
-- Cuando se trabaje en la ruta `C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE\`
-- NUNCA usar la copia de `C:\Users\ignac\Desktop\Q1-2026-UADE\` — es una copia incompleta/desactualizada
+- Cuando se trabaje en la ruta `D:\Facultad\UADE-Vault\`
+- Legacy: `C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE\` y `C:\Users\ignac\Desktop\Q1-2026-UADE\` son ubicaciones viejas — NUNCA usarlas, el vault vigente es el de `D:\Facultad\UADE-Vault\`
 
 ## Estructura del Vault (PARA + Zettelkasten)
 
 | Carpeta | Propósito |
 |---|---|
-| `Proyects/` | Proyectos activos (JobBot, Dulces Creaciones, Agents System, Prompts) |
+| `Efforts/Proyectos/` | Proyectos activos (JobBot, Dulces Creaciones, Agents System, Prompts) — antes vivían en `Proyects/`, ahora bajo `Efforts/` |
 | `Efforts/A Q1 2026/` | Estudios universitarios (5 materias) |
 | `Efforts/Career/` | Carrera profesional, applications, roadmap |
 | `Atlas/Maps/` | Mapas de contenido (MOCs globales) |
@@ -93,7 +93,7 @@ SORT fecha DESC
 ### Proyectos activos:
 ```dataview
 TABLE estado, energia, fecha_inicio, fecha_objetivo
-FROM "Proyects"
+FROM "Efforts/Proyectos"
 WHERE estado = "activo"
 SORT fecha_inicio DESC
 ```

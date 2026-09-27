@@ -121,7 +121,7 @@ Usar cuando trabajás con notas, clases, MOCs, flashcards o proyectos documentad
 ### Comando
 
 ```powershell
-cd "C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE"
+cd "D:\Facultad\UADE-Vault"
 opencode
 ```
 

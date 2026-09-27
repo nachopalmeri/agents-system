@@ -63,7 +63,7 @@ La skill `obsidian-vault` (ref. `obsidian-brain.md`) solo se encarga de escribir
 - Los conceptos clave se crean como Dots en `Atlas/Dots/`
 - Las flashcards se agregan con tag `#flashcard`
 - Los MOCs se actualizan cuando hay nuevas clases
-- Vault real: `C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE\`
+- Vault real: `D:\Facultad\UADE-Vault\`
 
 ## Cronograma Q1 2026 (UADE)
 
