@@ -1,145 +1,29 @@
 ---
 name: obsidian-vault
-description: Trabajar con el vault de Obsidian Q1-2026-UADE. Estructura PARA, Zettelkasten, Dataview, MOCs, templates de clase y daily notes. Usar cuando se trabaje en notas, clases, proyectos o cualquier contenido del vault.
+description: "Trabajar con el vault de Obsidian UADE-Vault (D:\Facultad\UADE-Vault): clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault."
 ---
 
-# Obsidian Vault — Q1-2026-UADE
+# Vault de Obsidian — UADE (Q2 2026)
 
-## Activación
-- Cuando el usuario pida crear/editar notas en el vault
-- Cuando se mencione Obsidian, notas, clases, MOC, flashcards
-- Cuando se trabaje en la ruta `C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE\`
-- NUNCA usar la copia de `C:\Users\ignac\Desktop\Q1-2026-UADE\` — es una copia incompleta/desactualizada
+Vault único vigente: `D:\Facultad\UADE-Vault` (las copias en `D:\BACKUP*` y `D:\Windows11-Backup*` son viejas). El contrato de agentes manda: **`AGENTS.md`** y `docs/FLUJO-IA.md`; el formato, `docs/ESTILO-NOTAS.md`. Procesar una clase o repasar: skill `procesar-clase-vault`.
 
-## Estructura del Vault (PARA + Zettelkasten)
+## Estructura (PARA + Zettelkasten)
 
 | Carpeta | Propósito |
 |---|---|
-| `Proyects/` | Proyectos activos (JobBot, Dulces Creaciones, Agents System, Prompts) |
-| `Efforts/A Q1 2026/` | Estudios universitarios (5 materias) |
-| `Efforts/Career/` | Carrera profesional, applications, roadmap |
-| `Atlas/Maps/` | Mapas de contenido (MOCs globales) |
-| `Atlas/Dots/` | Notas atómicas (Zettelkasten) — subcarpetas: 01-Lenguaje, 02-Infra&Redes, 03-Lógica&Algoritmos, 04-Gestión&Negocios |
-| `Atlas/Utilities/` | Recursos (imágenes, etc) |
-| `Archives/` | Archivados (Ideaverse Examples, Past Years) |
-| `Bases/` | Obsidian Bases (Career.base, etc) |
-| `Calendar/` | Daily notes |
-| `Clippings/` | Recortes web |
-| `Templates/` | Plantillas (Clase, Daily Note, Checklist) |
-| `+/` | Inbox (notas sin clasificar) |
+| `Efforts/Universidad/2026/Q2/<Materia>/{Clases,Evaluaciones,MOC}` | Cursada actual: 5 materias |
+| `Atlas/Dots` | Conceptos atómicos aprobados (`estado: validado`) |
+| `Atlas/Utilities/{Figuras,Diapositivas}` | SVG generados y capturas de diapositivas |
+| `+/Propuestas IA` | Única bandeja de borradores (`estado: propuesta`) |
+| `+/Fotos` | Fotos del cuaderno o pizarrón para OCR |
+| `Sources/Material Q2/<Materia>` | Texto extraído de PPTs y transcripciones |
+| `Bases`, `Calendar`, `Templates`, `Archives`, `docs`, `scripts` | Vistas, daily notes, plantillas, archivo, documentación y herramientas |
 
-## Materias Q1 2026
-- Redes de Datos
-- Paradigma Orientado a Objetos (POO)
-- Algoritmos y Estructura de Datos II (AED II)
-- Fundamentos de la Economía
-- Gestión de Personas en Organizaciones
+Materias: Dirección de Proyectos de Tecnología (lun), Liderazgo y Negociación (mar), Ingeniería de Datos I (mié), Ingeniería de Software (jue), Diseño y Análisis de Algoritmos (vie). Material de cátedra: `D:\Q2 2026\<MATERIA>` y Drive `G:\Mi unidad\Facultad\Q2 2026`. Las fechas de evaluaciones están en el Google Calendar de Nacho.
 
-## Frontmatter Obligatorio
+## Reglas
 
-### Para clases:
-```yaml
----
-materia: [nombre]
-fecha: YYYY-MM-DD
-tipo: clase
-estado: en-progreso|completada
-relacion:
-  - "[[Clase anterior]]"
-  - "[[Clase siguiente]]"
-notebooklm: [id o vacío]
----
-```
-
-### Para daily notes:
-```yaml
----
-date: YYYY-MM-DD
-sleep: [horas]
-exercise: [minutos]
-study_hours: [horas]
-mood: [1-5]
-tags:
-  - daily
-  - habit-tracker
----
-```
-
-### Para proyectos:
-```yaml
----
-estado: activo|pausado|completado|abandonado
-energia: profunda|superficial
-fecha_inicio: YYYY-MM-DD
-fecha_objetivo: YYYY-MM-DD
----
-```
-
-## Templates Disponibles
-- `Templates/Template - Clase.md` — Notas de clase
-- `Templates/Template - Daily Note.md` — Nota diaria con hábitos
-- `Templates/PLUGINS Checklist.md` — Referencia de plugins
-
-## Dataview Queries Comunes
-
-### Clases recientes de una materia:
-```dataview
-TABLE fecha, estado
-FROM "Efforts/A Q1 2026/[MATERIA]"
-WHERE tipo = "clase"
-SORT fecha DESC
-```
-
-### Proyectos activos:
-```dataview
-TABLE estado, energia, fecha_inicio, fecha_objetivo
-FROM "Proyects"
-WHERE estado = "activo"
-SORT fecha_inicio DESC
-```
-
-### Inbox sin clasificar:
-```dataview
-TABLE file.folder AS "Ubicación"
-FROM "+" OR "Clippings"
-WHERE !contains(file.path, "Templates")
-SORT file.mtime DESC
-LIMIT 10
-```
-
-## Agentes del Vault (My Brain Is Full Crew)
-- scribe → Captura y refine notas
-- sorter → Triaje de inbox
-- seeker → Búsqueda en vault
-- connector → Conexiones y MOC
-- librarian → Salud del vault
-- transcriber → Transcripción
-- postman → Email y calendario
-
-## Reglas Inmutables
-1. NUNCA borrar notas existentes — solo archivar o mover
-2. Usar templates para nuevas notas
-3. Frontmatter consistente en todas las notas
-4. Wikilinks `[[nota]]` para conexiones, nunca links relativos
-5. MOCs se actualizan automáticamente con Dataview
-6. Flashcards: formato `Pregunta :: Respuesta` para Spaced Repetition
-7. Notas atómicas en `Atlas/Dots/`, MOCs en `Atlas/Maps/`
-8. Commit semántico: feat/fix/chore/docs
-
-## Comandos Útiles (si obsidian-cli está instalado)
-```bash
-obsidian read file="Mi Nota"
-obsidian create name="Nueva Nota" content="# Título" template="Template - Clase" silent
-obsidian search query="término" limit=10
-obsidian daily:read
-obsidian daily:append content="- [ ] Nueva tarea"
-obsidian property:set name="estado" value="completada" file="Mi Nota"
-```
-
-## Referencias de formato y herramientas
-
-- Markdown de Obsidian (wikilinks, embeds, callouts, properties): `references/obsidian-markdown/GUIDE.md`.
-- Bases (`.base`: vistas, filtros, fórmulas): `references/obsidian-bases/GUIDE.md`.
-- CLI de Obsidian (leer, crear, buscar y gestionar notas desde terminal): `references/obsidian-cli/GUIDE.md`.
-
-- Operación del vault: capturas, flashcards, triage de inbox, MOCs (ex agente-obsidian-brain): `references/obsidian-brain.md`.
+- Nunca modificar `## Captura`; nunca borrar contenido; nunca `reviewed_by_user: true`.
+- Propuestas sólo en `+/Propuestas IA/`; nada al Atlas ni a los MOCs sin aprobación.
+- Dataview **no** está instalado: usar Bases (bloques ```base) y Tasks. Mermaid nativo y LaTeX `$...$`.
+- Herramientas: `descubrir_clase.py`, `verificar_clase.py`, `mapa_clases.py`, `repaso.py`, `prompt_materia.py`, `figuras.py`, `ocr_imagen.ps1`, `diapositivas.ps1`.
