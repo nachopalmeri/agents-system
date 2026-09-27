@@ -1,6 +1,6 @@
 ---
 name: obsidian-vault
-description: "Trabajar con el vault de Obsidian UADE-Vault (D:\Facultad\UADE-Vault): clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault."
+description: "Trabajar con el vault de Obsidian UADE-Vault (D:/Facultad/UADE-Vault): clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault."
 ---
 
 # Vault de Obsidian — UADE (Q2 2026)

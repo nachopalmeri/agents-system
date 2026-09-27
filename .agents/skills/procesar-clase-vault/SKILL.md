@@ -1,6 +1,6 @@
 ---
 name: procesar-clase-vault
-description: "Usar cuando el usuario pide \"procesar clase\", \"terminó la clase\", \"nueva clase\" o \"repasar <materia>\" del vault UADE (D:\Facultad\UADE-Vault): captura + transcripción + PPT + calendario, OCR, gráficos SVG, first principles y 80/20, tareas y entregas, verificación."
+description: "Usar cuando el usuario pide \"procesar clase\", \"terminó la clase\", \"nueva clase\" o \"repasar <materia>\" del vault UADE (D:/Facultad/UADE-Vault): captura + transcripción + PPT + calendario, OCR, gráficos SVG, first principles y 80/20, tareas y entregas, verificación."
 ---
 
 # Procesar una clase (o repasar una materia) del vault UADE
