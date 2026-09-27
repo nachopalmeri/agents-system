@@ -10,7 +10,7 @@ Estados permitidos: `candidate`, `active`, `promoted`, `rejected`. Una correcci�
 - Tipo: ROUTING
 - Señal: validación de la Fase A — la simulación reveló que start.md busca `tasks/` en CWD, no en `.agents/tasks/`
 - Contexto: auditoría del sistema de aprendizaje durante sesión de reparación del agents-system
-- Corrección/error: todos los workflows referenciaban `tasks/lessons.md` como path relativo. start.md nunca encontraba las lecciones porque el CWD es `C:\Users\ignac` y el archivo está en `.agents/tasks/`
+- Corrección/error: todos los workflows referenciaban `tasks/lessons.md` como path relativo. start.md nunca encontraba las lecciones porque el CWD es `C:\Users\Nacho` y el archivo está en `.agents/tasks/`
 - Causa raíz: al diseñar los workflows, se asumió que `tasks/` resolvería desde la raíz del sistema, pero no se explicitó el path base. Los flujos de archivo necesitan paths absolutos o relativos a `.agents/`
 - Lección: Siempre usar `.agents/tasks/` como prefijo explícito en todos los workflows del sistema de agentes. No confiar en CWD para resolver paths internos.
 - Aplicación inmediata: ya aplicado — todos los workflows del sistema cambiaron de `tasks/` a `.agents/tasks/`

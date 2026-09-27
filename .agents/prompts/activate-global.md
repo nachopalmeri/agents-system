@@ -17,7 +17,7 @@
 
 ## 1.5. Ubicación del Sistema
 
-- **Repo local:** `C:\Users\ignac\CascadeProjects\cv-palmeri\agents-system`
+- **Repo local:** `C:\Users\Nacho\CascadeProjects\cv-palmeri\agents-system`
 - **Repo remoto:** https://github.com/nachopalmeri/agents-system
 - **Directorio del sistema:** `.agents/` dentro del repo
 

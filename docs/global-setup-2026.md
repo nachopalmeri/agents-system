@@ -2,14 +2,14 @@
 
 Objetivo: el sistema más completo posible sin gastar tokens de más. Lo que se usa todos los días se precarga. Lo de nicho (video, 3D, documentos, marketing…) queda a un paso, en `skills-library/`, sin costo hasta que se usa.
 
-## Instalar en Windows (usuario `ignac`)
+## Instalar en Windows
 
 Requisitos: Git y PowerShell 7 (`winget install Microsoft.PowerShell`).
 
 ```powershell
 # 1. Traer el repo (primera vez) o actualizarlo
-gh repo clone nachopalmeri/agents-system C:\Users\ignac\agents-system   # o: git clone https://github.com/nachopalmeri/agents-system
-cd C:\Users\ignac\agents-system
+gh repo clone nachopalmeri/agents-system C:\Users\Nacho\agents-system   # o: git clone https://github.com/nachopalmeri/agents-system
+cd C:\Users\Nacho\agents-system
 git pull
 
 # 2. Ver qué hay hoy en tu PC (sólo lectura)
@@ -27,10 +27,10 @@ pwsh .\bin\install-external-skills.ps1                                        # 
 pwsh .\bin\install-external-skills.ps1 -AcceptTerms tesseract,anthropic-docs  # sólo después de leer los términos
 
 # Volver atrás
-pwsh .\bin\sync-runtime.ps1 -Restore C:\Users\ignac\.agents-system-sync\backups\<id>\manifest.json
+pwsh .\bin\sync-runtime.ps1 -Restore C:\Users\Nacho\.agents-system-sync\backups\<id>\manifest.json
 ```
 
-Si `~/.agents` es un symlink o junction de una instalación vieja, el sync se detiene y te da el comando para borrar sólo el link (`cmd /c rmdir "C:\Users\ignac\.agents"`, que no toca el repo).
+Si `~/.agents` es un symlink o junction de una instalación vieja, el sync se detiene y te da el comando para borrar sólo el link (`cmd /c rmdir "C:\Users\Nacho\.agents"`, que no toca el repo).
 
 ### Qué hace el sync (modo merge)
 
