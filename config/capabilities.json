@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T10:36:40.9752340+00:00",
+  "generatedAt": "2026-09-27T00:28:27.9451384+00:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -91,7 +91,7 @@
     },
     {
       "name": "obsidian-vault",
-      "description": "Trabajar con el vault de Obsidian Q1-2026-UADE. Estructura PARA, Zettelkasten, Dataview, MOCs, templates de clase y daily notes. Usar cuando se trabaje en notas, clases, proyectos o cualquier contenido del vault.",
+      "description": "Trabajar con el vault de Obsidian UADE-Vault. Estructura PARA, Zettelkasten, Dataview, MOCs, templates de clase y daily notes. Usar cuando se trabaje en notas, clases, proyectos o cualquier contenido del vault.",
       "path": "skills/obsidian-vault/SKILL.md"
     },
     {

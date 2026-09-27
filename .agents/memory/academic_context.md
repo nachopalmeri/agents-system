@@ -24,7 +24,7 @@ Al explicar un tema, sugerir: "Podés escuchar el podcast de esta clase en Noteb
 
 ## Esquema del vault (estable, no cambia por cuatrimestre)
 
-Vault real: `C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE\`
+Vault real: `D:\Facultad\UADE-Vault\`
 Notas de clase en: `Efforts/A Q1 2026/[MATERIA]/`
 
 Frontmatter de notas de clase:

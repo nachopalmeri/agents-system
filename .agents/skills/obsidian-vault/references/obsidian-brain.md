@@ -39,7 +39,7 @@ Seguí `shared/proceso-desarrollo-estandar.md`. Delta específico: la skill rele
 
 ## Flujo: Triaje de Inbox
 1. Listar notas en `+/` y `Clippings/`
-2. Clasificar: mover a Efforts, Atlas/Dots, Proyects, o Archives
+2. Clasificar: mover a Efforts (incluye Efforts/Proyectos), Atlas/Dots, o Archives
 3. Agregar frontmatter faltante
 4. Conectar con MOCs relevantes
 

@@ -396,7 +396,7 @@ Este es tu sistema personal. Modificá reglas, agregá skills, experimentá. Cua
 
 ## Notas
 
-- El vault de Obsidian (`Q1-2026-UADE`) se sincroniza vía OneDrive, no está en este repo
+- El vault de Obsidian (`UADE-Vault`, en `D:\Facultad\UADE-Vault\`) no está en este repo; se versiona aparte (repo `Q1-2026-UADE` si no se renombró)
 - Las API keys y `.env` nunca deben commitearse (están en `.gitignore` global)
 - Cada proyecto creado con `nuevo-proyecto` hereda las reglas pero tiene su propio `AGENTS.md` local
 - `awesome-opencode` y OpenCode Studio son opcionales: evaluar antes de instalar o importar
