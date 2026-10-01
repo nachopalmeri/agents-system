@@ -15,7 +15,7 @@ Agent files currently follow this shape:
 
 ```yaml
 ---
-name: agente-principal
+name: implementador
 description: Short routing description and usage guidance.
 model: inherit
 color: cyan
@@ -41,25 +41,25 @@ The repository already has a human-readable registry in `.agents/AGENTS.md` unde
 
 Current custom agents:
 
-- `agente-principal`
-- `agente-design`
-- `agente-tests`
-- `agente-docs`
-- `agente-seo`
-- `agente-marketing-strategist`
-- `agente-growth-seo-geo`
-- `agente-product-founder`
-- `agente-ai-architect`
-- `agente-security-auditor`
-- `agente-mcp-architect`
-- `agente-obsidian-brain`
-- `agente-code-reviewer`
-- `agente-researcher`
-- `agente-release-manager`
-- `agente-academic-tutor`
-- `agente-x-content-strategist`
-- `kickoff-architect`
-- `workflow-pruner`
+- `implementador`
+- skill `frontend-design`
+- `verificador`
+- skill `technical-docs`
+- skill `seo-geo-growth`
+- skill `marketing-strategist`
+- skill `seo-geo-growth`
+- skill `product-founder`
+- `planner`
+- `reviewer`
+- `planner`
+- skill `obsidian-vault`
+- `reviewer`
+- `explorador`
+- `reviewer`
+- skill `academic-tutor`
+- skill `x-content-strategist`
+- `planner`
+- skill `token-efficiency-check`
 
 ## Gap
 

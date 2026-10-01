@@ -6,7 +6,7 @@ $ErrorActionPreference = "Stop"
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $skillPath = Join-Path $repoRoot ".agents\skills\frontend-design\SKILL.md"
 $rubricPath = Join-Path $repoRoot ".agents\skills\frontend-design\reference\visual-qa-rubric.md"
-$agentPath = Join-Path $repoRoot ".agents\agents\agente-design.md"
+$agentPath = Join-Path $repoRoot ".agents/agents/implementador.md"
 $failures = @()
 
 function Require-Pattern {
@@ -42,8 +42,8 @@ if (-not (Test-Path $rubricPath)) {
 }
 
 $agent = Get-Content $agentPath -Raw
-if ($agent.Length -gt 2500) { $failures += "design agent duplicates too much workflow ($($agent.Length) chars)" }
-if ($agent -notmatch "frontend-design/SKILL.md") { $failures += "design agent does not delegate to frontend skill" }
+if ($agent.Length -gt 2500) { $failures += "implementador duplicates too much workflow ($($agent.Length) chars)" }
+if ($agent -notmatch "frontend-design") { $failures += "implementador does not delegate UI work to frontend-design" }
 
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Host "[FAIL] $_" -ForegroundColor Red }

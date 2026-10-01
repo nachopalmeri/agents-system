@@ -25,13 +25,11 @@ Usar subagentes o worktrees paralelos cuando:
 
 ## Roles típicos
 
-- `agente-principal`: lógica e integraciones.
-- `agente-design`: UI/CSS/responsive.
-- `agente-seo`: SEO técnico.
-- `agente-tests`: tests y E2E.
-- `agente-docs`: documentación.
-- `agente-ai-architect`: AI/RAG production.
-- `agente-security-auditor`: secretos, permisos, supply-chain, MCP/plugin risk.
+- `explorador`: búsqueda y research (modelo barato, sólo lectura).
+- `planner`: plan y arquitectura (modelo fuerte, sólo lectura).
+- `implementador`: un tramo del plan con sus propios archivos (el dominio lo da la skill: frontend-design, seo-geo-growth, etc.).
+- `reviewer`: review, seguridad, secretos, MCP/plugins y release.
+- `verificador`: tests, build y E2E con evidencia.
 
 ## Proceso
 

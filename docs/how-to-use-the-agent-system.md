@@ -80,7 +80,7 @@ Usar cuando ya existe código.
 ### Comando
 
 ```powershell
-cd C:\Users\ignac\CascadeProjects\jobbot
+cd C:\Users\Nacho\CascadeProjects\jobbot
 opencode
 ```
 
@@ -111,8 +111,8 @@ opencode
 | “arreglá este bug” | debugging + validation |
 | “agregá esta feature grande” | phases + spec-kit si aplica |
 | “hacé la UI más premium” | web_briefing + web-presentation-premium |
-| “esto es AI/RAG serio” | ai_production + agente-ai-architect |
-| “subilo a GitHub” | agente-release-manager + agente-security-auditor |
+| “esto es AI/RAG serio” | ai_production + planner |
+| “subilo a GitHub” | reviewer + reviewer |
 
 ## Camino 3 — Vault Obsidian / estudiar
 
@@ -121,7 +121,7 @@ Usar cuando trabajás con notas, clases, MOCs, flashcards o proyectos documentad
 ### Comando
 
 ```powershell
-cd "C:\Users\ignac\OneDrive\Desktop\Q1\Q1-2026-UADE"
+cd "D:\Facultad\UADE-Vault"
 opencode
 ```
 
@@ -138,7 +138,6 @@ opencode
 
 Usa:
 
-- `agente-obsidian-brain`
 - skill `obsidian-vault`
 
 Puede combinarse con:
@@ -181,17 +180,17 @@ nuevo-proyecto mi-saas saas-mvp
 Ruta típica:
 
 ```text
-agente-product-founder
+skill product-founder
 → venture_loop.md
 → web_briefing.md
-→ agente-growth-seo-geo
+→ skill seo-geo-growth
 → validation.md
 ```
 
 Si hay marketing:
 
 ```text
-marketing.md + agente-marketing-strategist
+marketing.md + skill marketing-strategist
 ```
 
 Reglas:
@@ -206,7 +205,7 @@ Reglas:
 ```text
 start.md
 → index.md
-→ phases.md si no trivial
+→ lane (SIMPLE / SPECIALIZED / PARALLEL / HIGH_RISK) según AGENTS.md
 → agente/skill especializado
 → tools
 → validation.md
@@ -310,7 +309,7 @@ No hace falta decir:
 ```text
 "usá product_foundry.md"
 "activá seo_geo_growth.md"
-"leé phases.md"
+"leé index.md"
 ```
 
 Eso lo decide internamente el sistema.

@@ -63,7 +63,9 @@ if ($Check) {
     $openCode = Get-Content (Join-Path $repoRoot "config\opencode\opencode.jsonc") -Raw | ConvertFrom-Json
     $actual = @($openCode.instructions | ForEach-Object { ([string]$_).Replace("~/.agents/", ".agents/") })
     $expected = @($manifest.preloadAllowlist)
-    if (($actual -join "|") -cne ($expected -join "|")) { $failures += "OpenCode instructions differ from preload allowlist" }
+    # An empty optional preset uses OpenCode's native AGENTS.md discovery.
+    # Explicit instruction lists must still match the approved preload exactly.
+    if ($actual.Count -gt 0 -and ($actual -join "|") -cne ($expected -join "|")) { $failures += "OpenCode instructions differ from preload allowlist" }
     if ($failures.Count -gt 0) {
         foreach ($failure in $failures) { Write-Host "[FAIL] $failure" -ForegroundColor Red }
         exit 1

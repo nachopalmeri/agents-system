@@ -42,3 +42,7 @@ When reviewing an artifact, return:
 - what to shorten
 - what to make optional
 - what to delete
+
+## Referencias
+
+- Podar workflows del sistema de agentes: `references/workflow-pruner.md`.

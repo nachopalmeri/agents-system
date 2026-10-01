@@ -162,11 +162,15 @@ try {
         Add-Ok "Agent registry validation"
     }
 
-    & "$PSScriptRoot\run-runtime-evals.ps1" -Category routing
-    if ($LASTEXITCODE -ne 0) {
-        Add-Failure "Runtime routing evaluator failed"
-    } else {
-        Add-Ok "Runtime routing evaluator"
+    foreach ($check in @(
+        @{ Script = "check-runtime-graph.ps1"; Params = @{}; Label = "Runtime graph" },
+        @{ Script = "render-agents.ps1"; Params = @{ Check = $true }; Label = "Generated agents" },
+        @{ Script = "render-commands.ps1"; Params = @{ Check = $true }; Label = "Generated commands" },
+        @{ Script = "generate-skill-index.ps1"; Params = @{ Check = $true }; Label = "Skills library index" }
+    )) {
+        $checkParams = $check.Params
+        & (Join-Path $PSScriptRoot $check.Script) @checkParams
+        if ($LASTEXITCODE -ne 0) { Add-Failure "$($check.Label) failed" } else { Add-Ok $check.Label }
     }
 
     Write-Host ""

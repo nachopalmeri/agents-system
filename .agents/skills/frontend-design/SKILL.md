@@ -80,3 +80,9 @@ Read only the reference needed for the current decision:
 - `reference/typography.md`
 - `reference/ux-writing.md`
 - `reference/visual-qa-rubric.md`
+
+## Referencias
+
+- Criterios de diseño visual, responsive, accesibilidad y motion (ex agente-design): `references/agente-design.md`.
+- Refinar una UI existente (audit, polish, animate…): skill de biblioteca `ui-refine`.
+- Web 3D (three.js / React Three Fiber): skill de biblioteca `web-3d`.

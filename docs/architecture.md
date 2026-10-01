@@ -53,7 +53,7 @@ La capa de modelo razona sobre el pedido, elige el menor workflow suficiente y d
 Incluye:
 
 - Routing invisible según `workflows/index.md`.
-- Fases de ejecución según `workflows/phases.md`.
+- Lanes de ejecución según `.agents/AGENTS.md` (SIMPLE, SPECIALIZED, PARALLEL, HIGH_RISK).
 - Selección de agente especializado.
 - Selección de skill.
 - Decisión entre ejecución lineal, `/loop` o Routine.
@@ -62,9 +62,8 @@ Incluye:
 Workflows relacionados:
 
 - `workflows/index.md`
-- `workflows/phases.md`
 - `workflows/skills_routing.md`
-- `workflows/project_types.md`
+- `archive/workflows/project_types.md` (archivado, sólo referencia histórica)
 
 Regla clave:
 
@@ -113,7 +112,7 @@ Workflows relacionados:
 - `workflows/mcp_security.md`
 - `workflows/mcp_adoption.md`
 - `workflows/mcp_catalog.md`
-- `workflows/opencode_ecosystem.md`
+- `docs/opencode-ecosystem.md`
 - `workflows/parallel_agents.md`
 
 Reglas clave:
@@ -218,16 +217,16 @@ Próximo paso:
 
 | Agente | Input principal | Decisión principal | Tools típicas | Output |
 |---|---|---|---|---|
-| `agente-product-founder` | Idea, mercado, problema | BUILD / PARK / KILL | Read, research, docs | MVP patineta + kill/scale |
-| `agente-growth-seo-geo` | Producto, ICP, búsquedas | Keyword map y backlog | Read, research, MCPs SEO | Plan SEO/GEO + métricas |
-| `agente-seo` | Web/código | Prioridades técnicas SEO | Read/Edit | Auditoría técnica |
-| `agente-marketing-strategist` | Producto/canal | GO / NO-GO / PIVOT | Research/docs | Playbook GTM |
-| `agente-ai-architect` | App AI/RAG | Demo/MVP/producción | Read/Edit | Capas, evals, observabilidad |
-| `agente-security-auditor` | Config/diffs/secrets | Riesgo y mitigación | Read/Grep/commands seguros | Auditoría seguridad |
-| `agente-principal` | Código y tarea | Implementación mínima | Read/Edit/commands | Cambio funcional |
-| `agente-design` | UI/brief | Dirección visual | Read/Edit/browser | UI pulida |
-| `agente-tests` | Código y criterios | Cobertura necesaria | Read/Edit/commands | Tests/evidencia |
-| `agente-docs` | Sistema/cambio | Documentación necesaria | Read/Edit | README/docs |
+| skill `product-founder` | Idea, mercado, problema | BUILD / PARK / KILL | Read, research, docs | MVP patineta + kill/scale |
+| skill `seo-geo-growth` | Producto, ICP, búsquedas | Keyword map y backlog | Read, research, MCPs SEO | Plan SEO/GEO + métricas |
+| skill `seo-geo-growth` | Web/código | Prioridades técnicas SEO | Read/Edit | Auditoría técnica |
+| skill `marketing-strategist` | Producto/canal | GO / NO-GO / PIVOT | Research/docs | Playbook GTM |
+| `planner` | App AI/RAG | Demo/MVP/producción | Read/Edit | Capas, evals, observabilidad |
+| `reviewer` | Config/diffs/secrets | Riesgo y mitigación | Read/Grep/commands seguros | Auditoría seguridad |
+| `implementador` | Código y tarea | Implementación mínima | Read/Edit/commands | Cambio funcional |
+| skill `frontend-design` | UI/brief | Dirección visual | Read/Edit/browser | UI pulida |
+| `verificador` | Código y criterios | Cobertura necesaria | Read/Edit/commands | Tests/evidencia |
+| skill `technical-docs` | Sistema/cambio | Documentación necesaria | Read/Edit | README/docs |
 
 ## Loop, `/loop` y Routine
 

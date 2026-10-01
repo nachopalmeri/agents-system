@@ -1,0 +1,18 @@
+{
+  "_note": "Hooks gestionados por bin/sync-claude-settings.ps1 dentro de ~/.claude/settings.json. Se identifican por '/.agents/hooks/' en el comando; el resto de tus hooks y settings no se toca.",
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "pwsh -NoProfile -File \"$HOME/.agents/hooks/session-todo.ps1\"", "timeout": 10 } ] }
+    ],
+    "PreToolUse": [
+      { "matcher": "Bash|Read", "hooks": [ { "type": "command", "command": "pwsh -NoProfile -File \"$HOME/.agents/hooks/guard.ps1\"", "timeout": 10 } ] }
+    ],
+    "PostToolUse": [
+      { "matcher": "Edit|Write|MultiEdit", "hooks": [ { "type": "command", "command": "pwsh -NoProfile -File \"$HOME/.agents/hooks/lint-edited.ps1\"", "timeout": 60 } ] },
+      { "matcher": "Agent|Task|Skill", "hooks": [ { "type": "command", "command": "pwsh -NoProfile -File \"$HOME/.agents/hooks/log-usage.ps1\"", "timeout": 10 } ] }
+    ],
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "pwsh -NoProfile -File \"$HOME/.agents/hooks/stop-unpushed.ps1\"", "timeout": 15 } ] }
+    ]
+  }
+}

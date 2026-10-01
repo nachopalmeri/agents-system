@@ -1,6 +1,6 @@
 ---
 name: client-work
-description: Usar para trabajo con clientes reales de Pisculichi Labs: brief, propuesta, pricing, entregas, feedback y cierre
+description: "Usar para trabajo con clientes reales de Pisculichi Labs: brief, propuesta, pricing, entregas, feedback y cierre."
 ---
 
 # Client Work

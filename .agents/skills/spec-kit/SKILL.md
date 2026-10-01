@@ -1,6 +1,6 @@
 ---
 name: spec-kit
-description: Usar GitHub Spec Kit / Spec-Driven Development para proyectos o features medianas-grandes donde conviene definir constitution, spec, plan, tasks e implementación antes de codear. No usar para fixes chicos, SEO puntual, cambios visuales simples o tareas de menos de 3 pasos.
+description: "Usar Spec-Driven Development (GitHub Spec Kit) en features medianas o grandes: constitution, spec, plan y tasks antes de codear. No para fixes chicos ni tareas de menos de 3 pasos."
 ---
 
 # Spec Kit — Spec-Driven Development
@@ -69,11 +69,11 @@ Spec Kit agrega una capa de especificación para trabajos grandes.
 ```
 
 ## Routing recomendado
-- Producto/alcance → `agente-principal` o `kickoff-architect`
-- Arquitectura AI/RAG → `agente-ai-architect`
-- Narrativa/docs/spec → `agente-docs`
-- Tests y aceptación → `agente-tests`
-- UI/experiencia → `agente-design`
+- Producto/alcance y arquitectura (incl. AI/RAG) → subagente `planner`
+- Implementación por tramos → `implementador`
+- Narrativa/docs/spec → skill `technical-docs`
+- Tests y aceptación → `verificador`
+- UI/experiencia → skill `frontend-design`
 
 ## Regla final
 Usar Spec Kit cuando el costo de no tener especificación sea mayor que el costo de escribirla.

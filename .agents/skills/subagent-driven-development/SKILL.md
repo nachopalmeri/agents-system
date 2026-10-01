@@ -19,7 +19,7 @@ digraph when_to_use {
     "Tasks mostly independent?" [shape=diamond];
     "Stay in this session?" [shape=diamond];
     "subagent-driven-development" [shape=box];
-    "executing-plans" [shape=box];
+    "executing-plans (sección de abajo)" [shape=box];
     "Manual execution or brainstorm first" [shape=box];
 
     "Have implementation plan?" -> "Tasks mostly independent?" [label="yes"];
@@ -27,7 +27,7 @@ digraph when_to_use {
     "Tasks mostly independent?" -> "Stay in this session?" [label="yes"];
     "Tasks mostly independent?" -> "Manual execution or brainstorm first" [label="no - tightly coupled"];
     "Stay in this session?" -> "subagent-driven-development" [label="yes"];
-    "Stay in this session?" -> "executing-plans" [label="no - parallel session"];
+    "Stay in this session?" -> "executing-plans (sección de abajo)" [label="no - parallel session"];
 }
 ```
 
@@ -267,11 +267,15 @@ Done!
 **Required workflow skills:**
 - **using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
 - **writing-plans** - Creates the plan this skill executes
-- **requesting-code-review** - Code review template for reviewer subagents
+- **code-review** - Code review template for reviewer subagents (`code-review/reviewer-prompt.md`)
 - **finishing-a-development-branch** - Complete development after all tasks
 
 **Subagents should use:**
 - **test-driven-development** - Subagents follow TDD for each task
 
 **Alternative workflow:**
-- **executing-plans** - Use for parallel session instead of same-session execution
+- **Sin subagentes o en otra sesión** (sección de abajo) - Use for parallel session instead of same-session execution
+
+## Sin subagentes o en otra sesión (ex executing-plans)
+
+Si el cliente no tiene subagentes o el plan se ejecuta en otra sesión: cargá el plan, revisalo críticamente, planteá dudas antes de empezar, ejecutá por lotes de ~3 tareas con un checkpoint de review (`code-review`) entre lotes y frená ante cualquier bloqueo en vez de adivinar. Detalle: `references/executing-plans/GUIDE.md`.

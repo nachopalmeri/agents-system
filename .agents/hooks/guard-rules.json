@@ -1,0 +1,11 @@
+{
+  "_note": "Reglas únicas de la guardia; las usan hooks/guard.ps1 (Claude Code) y el plugin de opencode. Regex case-insensitive.",
+  "bash": [
+    { "pattern": "git\\s+push\\b[^;&|]*\\s(-f|--force|--force-with-lease)(\\s|=|$)", "reason": "force-push bloqueado por la política (nunca force-push)." },
+    { "pattern": "git\\s+push\\b[^;&|]*\\s\\+\\S", "reason": "push con refspec forzado (+) bloqueado." },
+    { "pattern": "\\brm\\s+-[a-z]*(rf|fr)[a-z]*\\s+(/|~/?|\\$HOME/?|\\.\\.?/?|\\*|[a-z]:[\\\\/]?)(\\s|$)", "reason": "rm -rf sobre raíz, home, directorio padre o comodín bloqueado." },
+    { "pattern": "remove-item\\b[^;&|]*-recurse[^;&|]*\\s(~|\\$home|\\$env:userprofile|[a-z]:\\\\?)(\\\\|/)?(\\s|$)", "reason": "Remove-Item -Recurse sobre home o unidad bloqueado." },
+    { "pattern": "\\b(cat|type|less|more|head|tail|bat|get-content|gc)\\b[^;&|]*(^|[\\s\\\\/'\"])\\.env(\\.(?!example\\b|sample\\b|template\\b)[a-z0-9_-]+)?(['\"\\s]|$)", "reason": "leer archivos .env está bloqueado (secretos). Usá .env.example." }
+  ],
+  "readPath": { "pattern": "(^|[\\\\/])\\.env(\\.(?!example$|sample$|template$)[a-z0-9_-]+)?$", "reason": "leer archivos .env está bloqueado (secretos). Usá .env.example." }
+}

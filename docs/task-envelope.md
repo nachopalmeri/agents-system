@@ -49,7 +49,7 @@ The first implementation is intentionally rule-based:
 - design/UI tasks route to design;
 - product and growth language routes to product/growth agents;
 - high-risk tasks force approval;
-- unknown tasks fall back to `agente-principal`.
+- unknown tasks fall back to `implementador`.
 
 This keeps the system predictable before adding external integrations.
 

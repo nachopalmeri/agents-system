@@ -83,8 +83,5 @@
       "permission": { "edit": "allow", "bash": "ask" }
     }
   },
-  "instructions": [
-    "~/.agents/AGENTS.md",
-    "~/.agents/workflows/index.md"
-  ]
+  "instructions": []
 }

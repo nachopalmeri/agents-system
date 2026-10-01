@@ -26,7 +26,13 @@ git config --global user.email "ipalmeri@uade.edu.ar"
 | Repo | Propósito |
 |---|---|
 | `nachopalmeri/agents-system` | Sistema de agentes, workflows, skills (este repo) |
-| `nachopalmeri/Q1-2026-UADE` | Vault de Obsidian (Ideaverse) |
+| `nachopalmeri/Q1-2026-UADE` | Vault de Obsidian (Ideaverse) — nombre del repo sin confirmar si se renombró junto con la carpeta local |
+
+## Rutas locales
+
+| Qué | Dónde |
+|---|---|
+| Vault de Obsidian (UADE-Vault) | `D:\Facultad\UADE-Vault\` — proyectos en `Efforts\Proyectos\` |
 
 ## Reglas que aplican siempre
 

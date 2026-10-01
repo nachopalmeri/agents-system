@@ -248,10 +248,10 @@ ai-prod — AI/RAG production architecture
 7. Antes de agregar una dependencia nueva o tomar un shortcut tecnico, registrar la deuda en tasks/tech-debt.md
 
 ## Agentes
-- agente-ai-architect → arquitectura AI/RAG y capas production-ready
-- agente-principal → lógica e implementación
-- agente-tests → tests y evaluación
-- agente-docs → docs de arquitectura/API/deploy
+- planner → arquitectura AI/RAG y capas production-ready (skill ai-production-architecture)
+- implementador → lógica e implementación
+- verificador → tests y evaluación
+- skill technical-docs → docs de arquitectura/API/deploy
 
 ## Validación
 1. git diff --stat
@@ -464,10 +464,10 @@ if ($Stack -in @("saas-mvp", "local-business", "seo-growth", "product-foundry"))
     }
 
     $primaryAgents = switch ($Stack) {
-        "saas-mvp" { "agente-product-founder, agente-principal, agente-design, agente-growth-seo-geo" }
-        "local-business" { "agente-product-founder, agente-growth-seo-geo, agente-marketing-strategist, agente-seo" }
-        "seo-growth" { "agente-growth-seo-geo, agente-seo, agente-marketing-strategist" }
-        "product-foundry" { "agente-product-founder, kickoff-architect, agente-growth-seo-geo" }
+        "saas-mvp" { "planner, implementador + skills product-founder, frontend-design, seo-geo-growth" }
+        "local-business" { "planner + skills product-founder, seo-geo-growth, marketing-strategist" }
+        "seo-growth" { "skills seo-geo-growth, marketing-strategist" }
+        "product-foundry" { "planner + skills product-founder, lean-project-kickoff, seo-geo-growth" }
     }
 
     $agentsContent = @"
@@ -480,7 +480,7 @@ $presetTitle
 $primaryWorkflow
 
 ## Workflow maestro
-Seguir docs/world-class-workflow.md del sistema global si existe. Si no está disponible, usar AGENTS.md + start.md + index.md + phases.md + validation.md.
+Seguir docs/world-class-workflow.md del sistema global si existe. Si no está disponible, usar AGENTS.md + start.md + index.md + validation.md.
 
 ## Agentes sugeridos
 $primaryAgents

@@ -20,9 +20,8 @@ Cuando haya tensión entre documentos, usar esta jerarquía:
 1. `.agents/AGENTS.md` — reglas globales y guardrails.
 2. `.agents/memory/` — tech radar, lecciones globales y crecimiento profesional.
 3. `.agents/workflows/index.md` — router invisible.
-4. `.agents/workflows/phases.md` — modo de ejecución.
-5. Workflow específico activo — `venture_loop.md`, `seo_geo_growth.md`, `validation.md`, etc.
-6. Skill o agente especializado.
+4. Workflow específico activo (`validation.md`, `parallel_agents.md`, etc.) o skill elegida desde `workflows/index.md`.
+5. Skill o agente especializado.
 7. Documentación en `docs/`.
 8. Nota Obsidian o bitácora del proyecto.
 
@@ -33,7 +32,7 @@ La documentación nunca debe contradecir a los workflows. Si se detecta contradi
 ```text
 start.md
 → index.md
-→ phases.md si no trivial
+→ lane (SIMPLE / SPECIALIZED / PARALLEL / HIGH_RISK) según AGENTS.md
 → modo: simple / plan / /loop / Routine / Task Ledger / multiagent review / Venture Loop
 → agente o skill especializado
 → tools con matriz de riesgo
