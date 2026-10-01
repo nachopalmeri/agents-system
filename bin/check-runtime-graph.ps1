@@ -45,7 +45,14 @@ $ledger = Get-Content $ledgerPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $registry = Get-Content $registryPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $manifest = Get-Content $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $fixtureIds = @((Get-Content $corpusPath -Raw -Encoding UTF8 | ConvertFrom-Json).cases.id)
-$entries = @($ledger.capabilities)
+$entries = @($ledger.capabilities | Where-Object { $_ })
+if ($entries.Count -eq 0) {
+    # capabilities.json is also consumed by adapters in its legacy agents/skills shape.
+    $entries = @(
+        $ledger.agents | ForEach-Object { [pscustomobject]@{ kind = "agent"; id = $_.name; component = ".agents/$($_.path)"; mode = "automatic"; triggers = @($_.description); fixtureIds = @() } }
+        $ledger.skills | ForEach-Object { [pscustomobject]@{ kind = "skill"; id = $_.name; component = ".agents/$($_.path)"; mode = "on-demand"; triggers = @($_.description); fixtureIds = @() } }
+    )
+}
 $keys = @{}
 
 foreach ($entry in $entries) {
@@ -60,10 +67,10 @@ foreach ($entry in $entries) {
     if (@($entry.triggers).Count -eq 0) {
         Add-Failure "Capability has no triggers: $key"
     }
-    if (@($entry.fixtureIds).Count -eq 0) {
+    if ($ledger.capabilities -and @($entry.fixtureIds).Count -eq 0) {
         Add-Failure "Capability has no fixture ids: $key"
     }
-    foreach ($fixtureId in @($entry.fixtureIds)) {
+    foreach ($fixtureId in @($entry.fixtureIds | Where-Object { $_ })) {
         if ($fixtureIds -notcontains $fixtureId) {
             Add-Failure "Unknown fixture '$fixtureId' in $key"
         }
@@ -98,14 +105,16 @@ foreach ($agent in @($registry.agents)) {
 
 $activeSkillDirs = @(Get-ChildItem (Join-Path $repoRoot ".agents\skills") -Directory | Where-Object { Test-Path (Join-Path $_.FullName "SKILL.md") })
 $activeSkillIds = @($activeSkillDirs.Name)
+$migrations = Get-Content (Join-Path $repoRoot 'config/capability-migrations.json') -Raw | ConvertFrom-Json
 foreach ($item in @($baseline.skills)) {
     if ($item.sha256 -notmatch "^[a-f0-9]{64}$") {
         Add-Failure "Invalid baseline hash for skill:$($item.id)"
     }
-    if ($activeSkillIds -notcontains $item.id) {
+    $activeId = if ($migrations.skills.($item.id)) { $migrations.skills.($item.id) } else { $item.id }
+    if ($activeSkillIds -notcontains $activeId) {
         Add-Failure "Baseline skill removed: $($item.id)"
     }
-    if (-not $keys.ContainsKey("skill:$($item.id)")) {
+    if (-not $keys.ContainsKey("skill:$activeId")) {
         Add-Failure "Baseline skill unreachable: $($item.id)"
     }
 }

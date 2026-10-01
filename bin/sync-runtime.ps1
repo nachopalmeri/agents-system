@@ -291,7 +291,7 @@ foreach ($target in $targets) {
     if ($null -eq $stateEntry) {
         if (-not $Force) { Write-Warning "Unmanaged target detected at $($target.targetPath); skipping. Use -Force to overwrite."; continue }
     } elseif ($currentHash -ne [string]$stateEntry.installedHash) {
-        if (-not $Force) { Write-Warning "Managed drift detected at $($target.targetPath); skipping. Use -Force to overwrite."; continue }
+        if (-not $Force) { throw "Managed drift detected at $($target.targetPath); refusing sync. Use -Force only after reviewing the drift." }
     }
     $validTargets += $target
 }

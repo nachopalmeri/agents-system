@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["objective", "taskClass", "risk", "sensitiveData", "operation", "workspace"],
+  "properties": {
+    "objective": { "type": "string", "minLength": 1, "maxLength": 12000 },
+    "taskClass": { "type": "string" },
+    "risk": { "enum": ["low", "medium", "high"] },
+    "sensitiveData": { "const": false },
+    "operation": { "enum": ["read", "edit"] },
+    "workspace": { "type": "string", "minLength": 1 },
+    "allowedPaths": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "sameHarnessAvailable": { "type": "boolean" },
+    "prefer": { "enum": ["same-harness", "opencode"] },
+    "trivial": { "type": "boolean" },
+    "subtasks": { "type": "array", "maxItems": 3, "items": { "type": "object", "required": ["objective", "operation"], "properties": { "objective": { "type": "string", "minLength": 1, "maxLength": 4000 }, "operation": { "enum": ["read", "edit"] }, "allowedPaths": { "type": "array", "items": { "type": "string" } } } } }
+  },
+  "allOf": [{ "if": { "properties": { "operation": { "const": "edit" } } }, "then": { "required": ["allowedPaths"], "properties": { "allowedPaths": { "minItems": 1 } } } }]
+}

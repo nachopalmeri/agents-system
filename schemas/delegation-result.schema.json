@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["state", "summary", "evidence", "changedFiles", "uncertainty"],
+  "properties": {
+    "state": { "enum": ["SUCCESS", "BLOCKED"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "evidence": { "type": "array" },
+    "changedFiles": { "type": "array", "items": { "type": "string" } },
+    "uncertainty": { "type": "array" }
+  }
+}

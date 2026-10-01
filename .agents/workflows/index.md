@@ -22,6 +22,7 @@ Primero clasificá SIMPLE, SPECIALIZED, PARALLEL o HIGH_RISK con `../../config/r
 | Council explícito | `workflows/multiagent_review_loop.md` | nunca automático |
 | Acción sensible | `workflows/validation.md` + auditor/release | siempre requiere gate humano aplicable |
 | Cierre | `workflows/validation.md` | evidencia insuficiente implica replan/bloqueo |
+| Trabajo acotado delegable | `workflows/delegation.md` | menor modelo nativo u OpenCode; costo de handoff justificado |
 
 La lista de agentes/skills no se duplica acá: se descubre desde el ledger. `archive/` queda disponible sólo como historia opcional, nunca como ruta ejecutable.
 

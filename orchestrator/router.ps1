@@ -16,7 +16,7 @@ function ConvertTo-RouteText {
 function Test-RoutePatterns {
     param(
         [Parameter(Mandatory = $true)] [string] $Text,
-        [Parameter(Mandatory = $true)] [object[]] $Patterns
+        [AllowNull()] [AllowEmptyCollection()] [object[]] $Patterns = @()
     )
 
     foreach ($pattern in $Patterns) {
@@ -106,7 +106,7 @@ function Get-AgentRoute {
             } else {
                 $matches = @()
                 foreach ($rule in ($Rules.specialists | Sort-Object priority)) {
-                    if (Test-RoutePatterns -Text $text -Patterns @($rule.patterns)) {
+                    if ((Test-RoutePatterns -Text $text -Patterns @($rule.patterns)) -and -not (Test-RoutePatterns -Text $text -Patterns @($rule.negativeTriggers))) {
                         $matches += $rule
                     }
                 }

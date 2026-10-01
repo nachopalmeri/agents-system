@@ -1,0 +1,10 @@
+{
+  "objective": "Inspect README.md and report three concrete stale documentation claims with file evidence. Do not edit files.",
+  "taskClass": "repo-exploration",
+  "risk": "low",
+  "sensitiveData": false,
+  "operation": "read",
+  "workspace": ".",
+  "sameHarnessAvailable": false,
+  "prefer": "opencode"
+}

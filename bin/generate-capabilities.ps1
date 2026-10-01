@@ -1,10 +1,12 @@
 # Genera config/capabilities.json escaneando el frontmatter (name + description)
 # de agents/*.md y skills/*/SKILL.md (o skills/*.md sueltos). Se corre en vez de
 # mantener el ledger a mano, para que nunca vuelva a desincronizarse.
+[CmdletBinding()]
+param([string] $RepoRoot = (Split-Path $PSScriptRoot -Parent))
 $ErrorActionPreference = "Stop"
 
-$agentsRoot = "$env:USERPROFILE\.agents"
-$configRoot = "$env:USERPROFILE\config"
+$agentsRoot = Join-Path $RepoRoot '.agents'
+$configRoot = Join-Path $RepoRoot 'config'
 New-Item -ItemType Directory -Force -Path $configRoot | Out-Null
 
 function Get-Frontmatter($path) {
@@ -60,6 +62,15 @@ $capabilities = [ordered]@{
     generatedBy = "bin/generate-capabilities.ps1"
     agents = $agents
     skills = $skills
+}
+
+# Preserve executable metadata if a richer ledger is already present.
+$existingPath = Join-Path $configRoot 'capabilities.json'
+if (Test-Path $existingPath) {
+    $existing = Get-Content $existingPath -Raw | ConvertFrom-Json
+    foreach ($property in $existing.PSObject.Properties) {
+        if ($property.Name -notin @('generatedAt','generatedBy','agents','skills')) { $capabilities[$property.Name] = $property.Value }
+    }
 }
 
 $outPath = "$configRoot\capabilities.json"

@@ -1,0 +1,13 @@
+{
+  "objective": "Use the task tool to run each named worker once. Aggregate their tiny results in the required JSON. This is a smoke test: do not read or edit any files, and do not run shell commands.",
+  "taskClass": "mechanical-check",
+  "risk": "low",
+  "sensitiveData": false,
+  "operation": "read",
+  "workspace": ".",
+  "prefer": "opencode",
+  "subtasks": [
+    { "objective": "Compute 12+30 without tools. Return JSON state SUCCESS, summary containing 42, evidence [], changedFiles [], uncertainty [].", "operation": "read" },
+    { "objective": "Compute 9*9 without tools. Return JSON state SUCCESS, summary containing 81, evidence [], changedFiles [], uncertainty [].", "operation": "read" }
+  ]
+}

@@ -6,7 +6,11 @@
   "preloadAllowlist": [".agents/AGENTS.md", ".agents/workflows/index.md"],
   "installTargets": [
     { "client": "cli", "sourcePath": ".agents", "targetPath": ".agents", "kind": "directory" },
-    { "client": "opencode", "sourcePath": "config/opencode/opencode.jsonc", "targetPath": ".config/opencode/opencode.jsonc", "kind": "file" }
+    { "client": "opencode", "sourcePath": "config/opencode/opencode.jsonc", "targetPath": ".config/opencode/opencode.jsonc", "kind": "file" },
+    { "client": "delegation", "sourcePath": "bin/select-delegation.ps1", "targetPath": "bin/select-delegation.ps1", "kind": "file" },
+    { "client": "delegation", "sourcePath": "bin/invoke-delegation.ps1", "targetPath": "bin/invoke-delegation.ps1", "kind": "file" },
+    { "client": "delegation", "sourcePath": "config/model-routing.json", "targetPath": "config/model-routing.json", "kind": "file" },
+    { "client": "opencode", "sourcePath": "config/opencode/agents", "targetPath": ".config/opencode/agents", "kind": "directory" }
   ],
   "contextBudgets": {
     "canonicalMaxChars": 6000,

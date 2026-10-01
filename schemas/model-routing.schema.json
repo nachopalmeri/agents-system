@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schemaVersion", "tiers", "taskClasses", "rules"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "tiers": { "type": "object", "minProperties": 4 },
+    "taskClasses": { "type": "object" },
+    "rules": { "type": "object" }
+  }
+}

@@ -16,3 +16,15 @@ jobs:
       - name: Validate agent registry
         shell: pwsh
         run: ./bin/validate-agents.ps1
+
+      - name: Validate delegation policy
+        shell: pwsh
+        run: |
+          ./bin/test-delegation.ps1
+          ./bin/test-model-routing.ps1
+
+      - name: Validate runtime graph and routing
+        shell: pwsh
+        run: |
+          ./bin/check-runtime-graph.ps1
+          ./bin/run-runtime-evals.ps1
