@@ -2,6 +2,7 @@
 
 Runtime personal para Codex/ChatGPT, Claude, Gemini, OpenCode y otros clientes. El usuario habla normal; el agente carga sólo las capacidades necesarias, ejecuta la tarea y valida el resultado.
 
+
 ## Arquitectura
 
 - `.agents/AGENTS.md`: política canónica, límites y routing por riesgo.
