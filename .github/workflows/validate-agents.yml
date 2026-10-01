@@ -17,9 +17,18 @@ jobs:
         shell: pwsh
         run: ./bin/validate-agents.ps1
 
-      - name: Check runtime graph
+      - name: Validate delegation policy
         shell: pwsh
-        run: ./bin/check-runtime-graph.ps1
+        run: |
+          ./bin/test-delegation.ps1
+          ./bin/test-model-routing.ps1
+          ./bin/render-runtime-adapters.ps1 -Check
+
+      - name: Validate runtime graph and routing
+        shell: pwsh
+        run: |
+          ./bin/check-runtime-graph.ps1
+          ./bin/test-task-routing.ps1
 
       - name: Check skills-library index
         shell: pwsh

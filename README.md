@@ -1,21 +1,36 @@
-# Agents System — Dotfiles de Nacho Palmeri
+# Agents System — Pisculichi Labs
 
-Sistema global de agentes, workflows, skills y scaffolding para desarrollo con IA multi-herramienta.
+Runtime personal para Codex/ChatGPT, Claude, Gemini, OpenCode y otros clientes. El usuario habla normal; el agente carga sólo las capacidades necesarias, ejecuta la tarea y valida el resultado.
 
-## Qué contiene
+## Arquitectura
 
-- `.agents/` — Reglas globales, workflows, skills, agentes personalizados
-- `bin/` — Scripts `nuevo-proyecto.ps1` y `nuevo-proyecto.sh`
-- `config/opencode/` — Configuración de OpenCode (`AGENTS.md`, `opencode.jsonc`)
-- `config/windsurf/` — Estructura local de Windsurf (planes, etc)
-- `docs/` — Guías de instalación privada, laptop bootstrap y ecosistema OpenCode
+- `.agents/AGENTS.md`: política canónica, límites y routing por riesgo.
+- `config/capabilities.json`: catálogo generado de roles y skills de núcleo y biblioteca.
+- `agents.registry.json`: contratos y permisos de los agentes.
+- `.agents/workflows/index.md`: intención → componente mínimo.
+- `config/routing-rules.json`: reglas ejecutables de SIMPLE, SPECIALIZED, PARALLEL y HIGH_RISK.
+- `config/model-routing.json`: modelos menores del mismo harness y candidatos gratuitos de OpenCode.
+- `schemas/`: contratos portables de tareas, sesiones y proveedores.
+- `bin/`: routing, ejecución, validación, instalación y sincronización.
+- `orchestrator/router.ps1`: selección determinista por riesgo e intención.
 
-## Principios operativos
+Las skills cubren desarrollo, diseño, testing, AI/RAG, SEO/GEO, contenido, producto, estudio y Obsidian. Se descubren por metadata; no se carga la biblioteca completa. `.agents/archive/` conserva componentes históricos y no es una ruta ejecutable.
 
-- La interfaz es chat; los workflows son motor interno.
-- El agente debe elegir el menor workflow suficiente y explicar la eleccion cuando haya ambiguedad real.
-- Validar significa aportar evidencia observable o declarar la limitacion.
-- Cuando el routing o el output fallan, usar `.agents/workflows/feedback_loop.md` para convertir el error en una regla, checklist, test o poda concreta.
+## Delegación interna
+
+El primary elige entre ejecución directa, un worker menor del mismo harness o OpenCode. Ejemplo: Sol → Luna cuando la herramienta nativa permita seleccionar ese modelo; Sol/Claude → OpenCode → Muse Spark para tareas acotadas. Los nombres de modelos son preferencias configurables, no un ranking de calidad.
+
+OpenCode puede investigar, escribir tests, editar documentación e implementar cambios locales en archivos declarados. Para unidades independientes, el bridge crea hasta tres subagentes con permisos y ownership separados. El primary revisa evidencia y diff, corre la validación final y sintetiza el resultado.
+
+```powershell
+pwsh -NoProfile -File bin/invoke-delegation.ps1 -RequestPath examples/tasks/delegation.json -DryRun
+pwsh -NoProfile -File bin/invoke-delegation.ps1 -RequestPath examples/tasks/delegation.json
+```
+
+La solicitud declara objetivo, workspace, operación, riesgo y archivos permitidos. El bridge descubre modelos gratuitos disponibles, limita intentos y tiempo y devuelve un recibo con uso/costo reportados por el proveedor. No se usan candidatos pagos automáticamente. La interfaz web de ChatGPT necesita un entorno con terminal para ejecutar el puente.
+
+Ver [guía completa y evidencia](docs/delegation.md), [workflow](.agents/workflows/delegation.md) y [política](config/model-routing.json). Los tests locales no demuestran ahorro de tokens; hay que medir el encargo completo y la revisión del primary.
+
 
 ## Requisitos previos
 

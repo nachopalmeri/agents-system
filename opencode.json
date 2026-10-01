@@ -1,9 +1,4 @@
 {
-  "version": 2,
-  "agents": {
-    "AGENTS.md": {
-      "source": "AGENTS.md",
-      "auto_load": true
-    }
-  }
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [".agents/AGENTS.md", ".agents/workflows/index.md"]
 }

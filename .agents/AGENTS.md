@@ -37,6 +37,10 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 ## Ejecución y cierre
 
+- Antes de trabajo delegable, consultá `rules/model_routing.md` y `workflows/delegation.md`: elegí el modelo menor disponible en el mismo harness o ejecutá OpenCode desde terminal. Delegá tareas acotadas de lectura o edición local, incluso implementación y tests cuando el scope sea claro. Mantené síntesis y validación en el primary; tareas triviales van directas. Nunca afirmes cambio de modelo o delegación sin una invocación real.
+- Para búsqueda e investigación, preferí OpenCode cuando sea adecuado y no dupliques el trabajo con otra investigación paralela del primary. Pedí fuentes verificables, cobertura, bloqueos y resultados breves; cargá sólo la evidencia necesaria para comprobarlos.
+- Usá únicamente candidatos gratuitos verificados en los workers OpenCode, salvo autorización explícita para modelos pagos. Conservá el alcance autorizado y registrá proveedor, modelo, resultado y costo disponible. Si el proveedor está bloqueado, retorná el encargo al primary con el motivo, sin cambiar permisos silenciosamente.
+
 - Planificá cuando haya más de tres pasos significativos, varios archivos o riesgo; los cambios chicos van directos.
 - Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin.
 - Corregí causas raíz con impacto mínimo. Si algo sale mal, replanificá antes de seguir.

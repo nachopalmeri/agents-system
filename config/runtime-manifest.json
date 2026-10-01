@@ -6,6 +6,9 @@
   "preloadAllowlist": [".agents/AGENTS.md", ".agents/workflows/index.md"],
   "preserveIfExists": [".agents/memory", ".agents/tasks", ".agents/projects-index.md"],
   "installTargets": [
+    { "client": "delegation", "sourcePath": "bin/select-delegation.ps1", "targetPath": "bin/select-delegation.ps1", "kind": "file" },
+    { "client": "delegation", "sourcePath": "bin/invoke-delegation.ps1", "targetPath": "bin/invoke-delegation.ps1", "kind": "file" },
+    { "client": "delegation", "sourcePath": "config/model-routing.json", "targetPath": "config/model-routing.json", "kind": "file" },
     { "client": "cli", "sourcePath": ".agents", "targetPath": ".agents", "kind": "directory", "mode": "merge" },
     { "client": "claude", "sourcePath": ".agents/skills", "targetPath": ".claude/skills", "kind": "directory", "mode": "merge" },
     { "client": "antigravity", "sourcePath": ".agents/skills", "targetPath": ".gemini/antigravity/skills", "kind": "directory", "mode": "merge" },

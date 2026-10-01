@@ -7,6 +7,10 @@
     "PARALLEL": { "allowedTools": ["Read", "Grep", "Edit", "Write"], "requiresApproval": false },
     "HIGH_RISK": { "allowedTools": ["Read", "Grep"], "requiresApproval": true }
   },
-  "externalWriteTools": ["Bash", "Browser"],
+  "externalWriteTools": ["Bash", "Browser", "Publish", "Deploy", "Message"],
+  "delegatedWorkers": {
+    "free-fast": { "allowedTools": ["Read", "Grep", "Browser"], "allowLocalEdit": false, "requiresParentReview": true },
+    "free-worker": { "allowedTools": ["Read", "Grep", "Edit", "Write"], "allowLocalEdit": true, "requiresParentReview": true, "denyPaths": [".env*", "**/secrets/**", ".git/**", "production/**"] }
+  },
   "allowedMcpServers": []
 }

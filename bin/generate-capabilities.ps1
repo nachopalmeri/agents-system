@@ -1,11 +1,13 @@
 # Genera config/capabilities.json escaneando el frontmatter (name + description)
 # de agents/*.md, skills/*/SKILL.md y skills-library/*/SKILL.md del repo. Se corre en vez de
 # mantener el ledger a mano, para que nunca vuelva a desincronizarse.
+[CmdletBinding()]
+param([string] $RepoRoot = (Split-Path $PSScriptRoot -Parent))
 $ErrorActionPreference = "Stop"
 
-$repoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
-$agentsRoot = Join-Path $repoRoot ".agents"
-$configRoot = Join-Path $repoRoot "config"
+$agentsRoot = Join-Path $RepoRoot '.agents'
+$configRoot = Join-Path $RepoRoot 'config'
+New-Item -ItemType Directory -Force -Path $configRoot | Out-Null
 
 function Get-Frontmatter($path) {
     $text = Get-Content -Raw -Encoding utf8 -Path $path
@@ -65,7 +67,16 @@ $capabilities = [ordered]@{
     skills = $skills
 }
 
-$outPath = (Join-Path $configRoot "capabilities.json")
+# Preserve executable metadata if a richer ledger is already present.
+$existingPath = Join-Path $configRoot 'capabilities.json'
+if (Test-Path $existingPath) {
+    $existing = Get-Content $existingPath -Raw | ConvertFrom-Json
+    foreach ($property in $existing.PSObject.Properties) {
+        if ($property.Name -notin @('generatedAt','generatedBy','agents','skills')) { $capabilities[$property.Name] = $property.Value }
+    }
+}
+
+$outPath = Join-Path $configRoot "capabilities.json"
 $json = $capabilities | ConvertTo-Json -Depth 5
 [System.IO.File]::WriteAllText($outPath, $json, (New-Object System.Text.UTF8Encoding($false)))
 Write-Host "Escrito $outPath ($($agents.Count) agentes, $($skills.Count) skills)" -ForegroundColor Green
