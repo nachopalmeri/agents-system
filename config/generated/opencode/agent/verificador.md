@@ -1,7 +1,7 @@
 ---
 description: "Runs tests, builds and checks without editing, and reports evidence. Use before declaring multi-file work done or when a fix needs independent confirmation. Not for one-line changes."
 mode: subagent
-model: anthropic/claude-sonnet-5
+model: opencode/muse-spark-1.3-contributor-free
 tools:
   bash: true
   edit: false

@@ -93,28 +93,22 @@ if ($emptyWorkflows.Count -eq 0) {
     Write-Pass "Todos los workflows tienen contenido sustancial"
 }
 
-# 6. Skills - contar vacias vs llenas
-Write-Step "Test 6: Skills (vacias vs llenas)"
-$skillDirs = Get-ChildItem "$AgentsRoot\skills" -Directory -ErrorAction SilentlyContinue
-$emptySkills = 0
-$filledSkills = 0
-foreach ($s in $skillDirs) {
-    $items = Get-ChildItem $s.FullName -ErrorAction SilentlyContinue
-    if ($items.Count -eq 0) {
-        $emptySkills++
-    } else {
-        $filledSkills++
+# 6. Count only discoverable SKILL.md entrypoints in both active tiers.
+Write-Step "Test 6: Skills activas (nucleo + library)"
+$activeSkills = @()
+foreach ($tier in @("skills", "skills-library")) {
+    $tierPath = Join-Path $AgentsRoot $tier
+    if (-not (Test-Path $tierPath)) { Write-Fail "Falta carpeta $tier"; continue }
+    foreach ($directory in @(Get-ChildItem $tierPath -Directory)) {
+        $entrypoint = Join-Path $directory.FullName "SKILL.md"
+        if (-not (Test-Path $entrypoint -PathType Leaf)) { continue }
+        $activeSkills += $entrypoint
+        $content = Get-Content -LiteralPath $entrypoint -Raw
+        $body = ([string]$content -replace '(?s)^---\r?\n.*?\r?\n---', '').Trim()
+        if ([string]::IsNullOrWhiteSpace($body)) { Write-Fail "Skill sin contenido: $tier/$($directory.Name)/SKILL.md" }
     }
 }
-$totalSkills = $emptySkills + $filledSkills
-if ($totalSkills -gt 0) {
-    $emptyPct = [math]::Round(($emptySkills / $totalSkills) * 100, 1)
-    if ($emptyPct -gt 50) {
-        Write-Warn "Skills: $filledSkills llenas / $totalSkills total ($emptyPct% vacias)"
-    } else {
-        Write-Pass "Skills: $filledSkills llenas / $totalSkills total ($emptyPct% vacias)"
-    }
-}
+Write-Pass "Skills activas: $($activeSkills.Count) (nucleo + library)"
 
 # 7. Agentes tienen frontmatter name + description
 Write-Step "Test 7: Agentes con frontmatter completo"

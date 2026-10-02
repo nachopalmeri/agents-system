@@ -29,7 +29,7 @@ foreach ($path in @($request.allowedPaths | Where-Object { $_ })) {
     }
 }
 $command = Get-Command $OpenCodeCommand -ErrorAction Stop
-$available = @(& $command.Source models 2>$null)
+$available = @(& $command.Source models --pure 2>$null)
 if ($LASTEXITCODE -ne 0) { throw 'Could not discover OpenCode models.' }
 $models = @($route.modelCandidates | Where-Object { $available -contains $_ -and ($_ -match '^opencode/.+-free$' -or $_ -match '^ollama/') } | Select-Object -First $route.maxAttempts)
 if ($models.Count -eq 0) { [ordered]@{state='UNAVAILABLE'; executor='primary'; reason='No configured free model available'} | ConvertTo-Json; return }

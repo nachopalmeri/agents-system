@@ -38,7 +38,8 @@ foreach ($file in @(Get-ChildItem (Join-Path $repoRoot ".agents/agents") -Filter
     $generated["claude/agents/$name.md"] = "---`nname: $name`ndescription: $(Quote $description)`ntools: $($access.claude)`nmodel: $($tier.claude)`n---`n$stamp`n`n$body"
 
     $ocTools = ($access.opencode.GetEnumerator() | Sort-Object Name | ForEach-Object { "  $($_.Name): $($_.Value.ToString().ToLower())" }) -join "`n"
-    $generated["opencode/agent/$name.md"] = "---`ndescription: $(Quote $description)`nmode: subagent`nmodel: $($tier.opencode)`ntools:`n$ocTools`n---`n$stamp`n`n$body"
+    $ocModel = if ($tier.opencode) { "`nmodel: $($tier.opencode)" } else { "" }
+    $generated["opencode/agent/$name.md"] = "---`ndescription: $(Quote $description)`nmode: subagent$ocModel`ntools:`n$ocTools`n---`n$stamp`n`n$body"
 
     $geminiModel = if ($tier.gemini) { "`nmodel: $($tier.gemini)" } else { "" }
     $geminiTools = ($access.gemini | ForEach-Object { "  - $_" }) -join "`n"

@@ -32,7 +32,7 @@ git config --global user.email "ipalmeri@uade.edu.ar"
 
 | Qué | Dónde |
 |---|---|
-| Vault de Obsidian (UADE-Vault) | `D:\Facultad\UADE-Vault\` — proyectos en `Efforts\Proyectos\` |
+| Vault de Obsidian (UADE-Vault) | Resolver `uadeVault` de `~/.agents/local-paths.json` con `~/bin/resolve-vault.ps1`; proyectos en `Efforts\Proyectos\` |
 
 ## Reglas que aplican siempre
 

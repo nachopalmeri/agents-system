@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T00:28:27.9451384+00:00",
+  "generatedAt": "2026-10-02T18:09:15.6093172-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -91,12 +91,12 @@
     },
     {
       "name": "obsidian-vault",
-      "description": "Trabajar con el vault de Obsidian UADE-Vault. Estructura PARA, Zettelkasten, Dataview, MOCs, templates de clase y daily notes. Usar cuando se trabaje en notas, clases, proyectos o cualquier contenido del vault.",
+      "description": "\"Trabajar con el vault UADE configurado en esta PC: clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault.\"",
       "path": "skills/obsidian-vault/SKILL.md"
     },
     {
       "name": "procesar-clase-vault",
-      "description": "\"Usar cuando el usuario pide \\\"procesar clase\\\", \\\"terminó la clase\\\" o \\\"nueva clase\\\" para pasar material universitario al vault de Obsidian (MOC, Atlas/Dots) sin perder contenido.\"",
+      "description": "\"Usar cuando el usuario pide \\\"procesar clase\\\", \\\"terminó la clase\\\", \\\"nueva clase\\\" o \\\"repasar <materia>\\\" del vault UADE configurado localmente: captura + transcripción + PPT + calendario, OCR, gráficos SVG, first principles y 80/20, tareas y entregas, verificación.\"",
       "path": "skills/procesar-clase-vault/SKILL.md"
     },
     {

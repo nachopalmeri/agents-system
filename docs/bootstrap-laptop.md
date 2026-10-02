@@ -41,7 +41,23 @@ Verificar que existan:
 
 - `$env:USERPROFILE\.agents`
 - `$env:USERPROFILE\bin\nuevo-proyecto.ps1`
-- `$env:USERPROFILE\.config\opencode\opencode.jsonc`
+- Los adapters declarados por `config/runtime-manifest.json`. El archivo personal `opencode.jsonc` es opcional y no se sobrescribe.
+
+### Vault y skills opcionales
+
+En cada PC, configurá `~/.agents/local-paths.json` con la raíz real del vault (no sólo `Efforts`):
+
+```json
+{ "uadeVault": "C:/ruta/UADE-Vault" }
+```
+
+Validá con `~/bin/resolve-vault.ps1`. Requiere `.obsidian` y `AGENTS.md`; no crea ni migra notas. La sincronización preserva este archivo local.
+
+Las skills de terceros se instalan por separado con `bin/install-external-skills.ps1`; consultá primero su ayuda y `-List`. Instalar instrucciones no instala automáticamente sus runtimes ni acepta términos: PDF/Office, Remotion y Tesseract pueden necesitar herramientas adicionales. No copies credenciales entre PCs ni instales dependencias sin autorización.
+
+Para Tesseract, seguí `skills-library/tesseract-video/references/installation.md` de la instalación local y la versión fijada en `references/cli-version.txt`. Verificá `tsrct --version`; no habilites telemetría automáticamente.
+
+OpenCode requiere dos verificaciones distintas: `opencode models --pure` para descubrimiento y una invocación acotada real para inferencia. Si la API falla, conservá el bloqueo y devolvé el trabajo al primary; no cambies a modelos pagos ni amplíes permisos.
 
 ## 5. Actualizar después
 

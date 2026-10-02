@@ -43,7 +43,7 @@ function Test-CanonicalInstall {
 
 function Test-OpenCodePreload {
     $configTarget = @($manifest.installTargets | Where-Object { $_.client -eq "opencode" -and $_.targetPath -match 'opencode\.jsonc$' }) | Select-Object -First 1
-    if ($null -eq $configTarget) { return [pscustomobject]@{ Ok = $false; Detail = "preload target undeclared" } }
+    if ($null -eq $configTarget) { return [pscustomobject]@{ Ok = $true; Detail = "native AGENTS.md discovery; personal OpenCode config is unmanaged" } }
     $path = Join-Path $homeRoot ([string]$configTarget.targetPath)
     if (-not (Test-Path $path -PathType Leaf)) { return [pscustomobject]@{ Ok = $false; Detail = "preload config missing" } }
     $sourcePath = Join-Path $repoRoot ([string]$configTarget.sourcePath)
@@ -87,7 +87,8 @@ function Test-Client([string] $Name) {
         Write-Status "not-installed" $Name $targetPath
         return
     }
-    $sourcePath = Join-Path $repoRoot ([string]$adapter.repoPath)
+    $sourceRelative = if ($adapter.globalSourcePath) { [string]$adapter.globalSourcePath } else { [string]$adapter.repoPath }
+    $sourcePath = Join-Path $repoRoot $sourceRelative
     $sourceHash = Get-FileSha256 $sourcePath
     $targetHash = Get-FileSha256 $targetPath
     if ($sourceHash -ne $targetHash) {

@@ -1,11 +1,11 @@
 ---
 name: procesar-clase-vault
-description: "Usar cuando el usuario pide \"procesar clase\", \"terminó la clase\", \"nueva clase\" o \"repasar <materia>\" del vault UADE (D:/Facultad/UADE-Vault): captura + transcripción + PPT + calendario, OCR, gráficos SVG, first principles y 80/20, tareas y entregas, verificación."
+description: "Usar cuando el usuario pide \"procesar clase\", \"terminó la clase\", \"nueva clase\" o \"repasar <materia>\" del vault UADE configurado localmente: captura + transcripción + PPT + calendario, OCR, gráficos SVG, first principles y 80/20, tareas y entregas, verificación."
 ---
 
 # Procesar una clase (o repasar una materia) del vault UADE
 
-La fuente canónica es **`D:\Facultad\UADE-Vault\AGENTS.md`** (sección "Procesar clase" y "Repasar"). Leela entera y seguila; esta skill sólo la dispara y no la duplica, para que no diverjan. Complementos: `docs/ESTILO-NOTAS.md` (formato y criterio pedagógico), `docs/FLUJO-IA.md` y, si el chat es de una materia, `docs/prompts-materias/<Materia>.md`.
+Resolvé la raíz con `pwsh -NoProfile -File ~/bin/resolve-vault.ps1` (configuración: `uadeVault` en `~/.agents/local-paths.json`). La fuente canónica es **`AGENTS.md` de esa raíz** (sección "Procesar clase" y "Repasar"). Leela entera y seguila; esta skill sólo la dispara y no la duplica, para que no diverjan. Complementos: `docs/ESTILO-NOTAS.md` (formato y criterio pedagógico), `docs/FLUJO-IA.md` y, si el chat es de una materia, `docs/prompts-materias/<Materia>.md`.
 
 ## Uso
 
@@ -20,7 +20,7 @@ El mejor profesor del mundo de la materia, nivel Stanford: rigor, first principl
 
 ## Secuencia (resumen; el detalle está en AGENTS.md)
 
-1. Descubrir: `python scripts/descubrir_clase.py <materia> <DD/MM>` (siempre desde `D:\Facultad\UADE-Vault`; una carpeta "NO ACCESIBLE" se reporta).
+1. Descubrir: `python scripts/descubrir_clase.py <materia> <DD/MM>` (desde la raíz resuelta; una carpeta "NO ACCESIBLE" se reporta).
 2. Analizar captura, fotos, transcripción y PPT con citas `[TRANSCRIPCIÓN mm:ss]` y `[PPT X, diap. N]`; consultar el calendario.
 3. Imágenes ilegibles: mirarlas y, si hace falta, `scripts\ocr_imagen.ps1`; lo ilegible es `[ilegible]`. Diapositivas con gráficos o tablas clave: `scripts\diapositivas.ps1` → `## Diapositivas clave`.
 4. Formato: `props_clase.py`, `nav_clases.py --apply`, Intuición con LaTeX, gráficos SVG (`figuras.py`), Mermaid, Apoyo visual, Aplicación y práctica, Preparación próxima clase.

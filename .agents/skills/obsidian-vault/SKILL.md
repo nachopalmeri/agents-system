@@ -1,11 +1,11 @@
 ---
 name: obsidian-vault
-description: "Trabajar con el vault de Obsidian UADE-Vault (D:/Facultad/UADE-Vault): clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault."
+description: "Trabajar con el vault UADE configurado en esta PC: clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault."
 ---
 
 # Vault de Obsidian — UADE (Q2 2026)
 
-Vault único vigente: `D:\Facultad\UADE-Vault` (las copias en `D:\BACKUP*` y `D:\Windows11-Backup*` son viejas). El contrato de agentes manda: **`AGENTS.md`** y `docs/FLUJO-IA.md`; el formato, `docs/ESTILO-NOTAS.md`. Procesar una clase o repasar: skill `procesar-clase-vault`.
+Resolvé la raíz con `pwsh -NoProfile -File ~/bin/resolve-vault.ps1`: usa `uadeVault` en `~/.agents/local-paths.json`; sin configuración prueba la ruta histórica `D:\Facultad\UADE-Vault`. `Efforts` es una carpeta interna, no la raíz. Si falla, pedí la ruta real; no elijas backups ni crees un vault. El contrato de agentes manda: **`AGENTS.md`** y `docs/FLUJO-IA.md`; el formato, `docs/ESTILO-NOTAS.md`. Procesar una clase o repasar: skill `procesar-clase-vault`.
 
 ## Estructura (PARA + Zettelkasten)
 
