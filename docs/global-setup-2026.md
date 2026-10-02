@@ -28,7 +28,7 @@ After registration, the primary `agents` shim provides `help`, `doctor`, `check`
 
 The canonical runtime has 30 core skills plus an on-demand library. Five role files are registered. A role file describes how to perform a role; it does not create a native subagent. Native subagents are available only when the active harness exposes them. Do not create cloud chats as a substitute for delegation.
 
-OpenCode 1.18.33's Muse free-tier probe was rejected with “free tier can only be used from within OpenCode.” Permissions were not relaxed and there is no paid fallback. Updated OpenCode 1.18.34 starts successfully; that does not establish free-provider access. The bridge recognizes this refusal even with HTTP 400, stops after one attempt and returns the task to the primary.
+OpenCode 1.18.34's normal scoped bridge now has live Muse free-tier evidence: valid JSON completion plus a file-read/exact-file-edit task, both with reported cost $0. No runtime permissions were changed. The earlier all-denied probe still fails on the same version and is not a valid availability test for the normal bridge. Provider refusal handling remains in place; there is no paid fallback. See [live verification](opencode-live-verification-2026-10-02.md). Internal multi-agent execution and other free models are not yet live-verified.
 
 ## Verified on this PC
 

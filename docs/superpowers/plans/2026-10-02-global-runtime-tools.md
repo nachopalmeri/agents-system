@@ -13,6 +13,6 @@
 - [x] Install selected missing tools. Smoke-test independent PATH, CLI startup and an offline Evalite check; probe OpenCode within bounded time, report failures without paid fallback.
 - [x] Document ordinary-language use and actual prerequisites; retire the destructive setup-local import path without deleting user data.
 - [x] Run focused tests, release/secret/graph checks, managed sync, doctor and no-drift checks. Preserve existing personal configuration.
-- [ ] Review diff/identity, commit and push only fix/runtime-setup-gaps, verify remote parity, record state. Never merge main.
+- [x] Review diff/identity, commit and push only fix/runtime-setup-gaps, verify remote parity, record state. Never merge main. Completed by 16c0696; follow-up live OpenCode evidence is recorded separately.
 
 Bounds: at most three workers concurrently, depth one, two provider smoke attempts at 45s each, three repair rounds per issue. No Docker daemon/startup policy changes, model downloads, billing, credentials, external publishing or global project dependency injection.
