@@ -37,7 +37,7 @@ git config --global user.email "ipalmeri@uade.edu.ar"
 ## Reglas que aplican siempre
 
 - **Push obligatorio** a GitHub para cualquier cambio del sistema (ver `rules/git.md`).
-- **Español rioplatense** en toda la comunicación.
+- **Idioma:** cambios clave en inglés simple; el resto sigue el idioma del usuario (español rioplatense). Correcciones breves del inglés del prompt, sin frenar la ejecución; contrato canónico en `AGENTS.md`.
 - **TDAH-aware:** secciones cortas, sin sobrecarga, prioridad ejecutable.
 - **Anti-cementerio:** no acumular información sin acción (ver `rules/anti-cemetery.md`).
 
