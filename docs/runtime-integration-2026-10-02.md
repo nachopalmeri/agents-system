@@ -24,6 +24,8 @@ Base checked: `a2b89ed553c2f114d5945148a93bd88228cbe03a`. Implementation/evidenc
 
 One isolated Luna reviewer inspects executable and policy changes from the fixed base; the primary runs verification. A reviewer summary is not a human approval.
 
+The pre-merge Linux CI uncovered stale native failure exit codes after successful negative diagnostic tests. A regression using GitHub's shared-shell exit postlude failed locally before the fix. Successful diagnostics now explicitly return exit 0 after cleanup; exceptions still fail. This is test-process status handling, not a skipped or weakened validation. `bin/test-ci-exit-contract.ps1` is also exercised by CI.
+
 ## Known limits and handoff
 
 Docker's engine remains stopped. Evalite's deterministic in-memory smoke passed; SQLite persistence on this Node 24 PC needs C++ build tools and remains unavailable. OpenCode-internal multi-agent execution, other free models, web research and large implementations are not live-verified. No token-savings percentage is claimed.

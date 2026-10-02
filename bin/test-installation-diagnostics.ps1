@@ -27,3 +27,5 @@ try {
     if (-not $resolved.StartsWith([IO.Path]::GetTempPath(), [StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe fixture cleanup.' }
     Remove-Item -LiteralPath $resolved -Recurse -Force
 }
+# Expected negative subprocess checks must not leak a failure to CI's shared shell.
+exit 0

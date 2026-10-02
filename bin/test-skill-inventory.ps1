@@ -21,3 +21,4 @@ try {
     if (-not $resolved.StartsWith([IO.Path]::GetTempPath(), [StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe fixture cleanup.' }
     Remove-Item -LiteralPath $resolved -Recurse -Force
 }
+exit 0
