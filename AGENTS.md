@@ -1,4 +1,4 @@
-<!-- managed-runtime-adapter; canonical-sha256: e232f6163887b39b275021fff07c370d221c74609072c99bd73678d9397804cd -->
+<!-- managed-runtime-adapter; canonical-sha256: 9e0fdd799f95e759042068a47986d8708a6fe9d50cdfd807257d380289bce57c -->
 # Runtime adapter
 
 Canonical policy: `.agents/AGENTS.md`.

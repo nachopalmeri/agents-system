@@ -4,16 +4,16 @@
     "free-fast": {
       "purpose": "Bounded research, extraction, exploration, mechanical checks, preliminary red-team, and harmless local edits.",
       "candidates": ["opencode/muse-spark-1.3-contributor-free", "opencode/mimo-v2.6-flash-free", "opencode/nemotron-3.5-lightning-free", "ollama/qwen2.5-coder:7b"],
-      "maxAttempts": 2,
-      "maxOutputTokens": 4000
+      "maxAttempts": 1,
+      "maxOutputTokens": 2000
     },
     "free-worker": {
       "purpose": "Bounded local implementation delegated from a stronger primary agent.",
       "candidates": ["opencode/muse-spark-1.3-contributor-free", "opencode/mimo-v2.6-flash-free", "ollama/qwen2.5-coder:7b"],
-      "maxAttempts": 2,
-      "maxOutputTokens": 8000
+      "maxAttempts": 1,
+      "maxOutputTokens": 4000
     },
-    "cheap": { "purpose": "Same-harness lower-cost worker when model selection is supported.", "candidates": ["gpt-6-luna", "gpt-5.6-luna"], "maxAttempts": 2, "maxOutputTokens": 8000 },
+    "cheap": { "purpose": "Routine bounded same-harness work when model selection is supported; primary retains judgment.", "candidates": ["gpt-6-luna", "gpt-5.6-luna"], "maxAttempts": 1, "maxOutputTokens": 4000 },
     "strong": { "purpose": "Primary implementation, complex debugging, and synthesis.", "candidates": ["inherit-primary"], "maxAttempts": 1, "maxOutputTokens": 20000 },
     "frontier": { "purpose": "High-impact architecture and security judgment.", "candidates": ["inherit-primary"], "maxAttempts": 1, "maxOutputTokens": 30000 }
   },

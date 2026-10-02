@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T19:00:51.9483857-03:00",
+  "generatedAt": "2026-10-02T20:51:23.3780257-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -56,7 +56,7 @@
     },
     {
       "name": "code-review",
-      "description": "\"Use before merge/PR, after a major feature or each plan task, or when asked to review a diff: review against repo standards and the spec from a fixed point. Explicit \\\"judgment day\\\" = blind dual review.\"",
+      "description": "\"Review a requested diff, material feature or release against spec and repo standards; tiny edits do not trigger automatic reviewers. Explicit judgment day selects blind dual review.\"",
       "path": "skills/code-review/SKILL.md"
     },
     {
@@ -136,7 +136,7 @@
     },
     {
       "name": "subagent-driven-development",
-      "description": "Use when executing implementation plans with independent tasks in the current session",
+      "description": "Execute a plan with independent scoped workers when delegation is worth its handoff; coupled or trivial tasks stay primary.",
       "path": "skills/subagent-driven-development/SKILL.md"
     },
     {
@@ -176,7 +176,7 @@
     },
     {
       "name": "writing-plans",
-      "description": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "description": "Plan multi-file or multi-step implementation with material dependencies or risk; small direct changes do not need a saved plan.",
       "path": "skills/writing-plans/SKILL.md"
     },
     {
