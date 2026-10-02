@@ -2,6 +2,7 @@
 [CmdletBinding()]
 param(
     [string] $Client,
+    [switch] $GlobalCommands,
     [string] $HomePath = $env:USERPROFILE
 )
 
@@ -43,7 +44,7 @@ function Test-CanonicalInstall {
 
 function Test-OpenCodePreload {
     $configTarget = @($manifest.installTargets | Where-Object { $_.client -eq "opencode" -and $_.targetPath -match 'opencode\.jsonc$' }) | Select-Object -First 1
-    if ($null -eq $configTarget) { return [pscustomobject]@{ Ok = $false; Detail = "preload target undeclared" } }
+    if ($null -eq $configTarget) { return [pscustomobject]@{ Ok = $true; Detail = "native AGENTS.md discovery; personal OpenCode config is unmanaged" } }
     $path = Join-Path $homeRoot ([string]$configTarget.targetPath)
     if (-not (Test-Path $path -PathType Leaf)) { return [pscustomobject]@{ Ok = $false; Detail = "preload config missing" } }
     $sourcePath = Join-Path $repoRoot ([string]$configTarget.sourcePath)
@@ -87,7 +88,8 @@ function Test-Client([string] $Name) {
         Write-Status "not-installed" $Name $targetPath
         return
     }
-    $sourcePath = Join-Path $repoRoot ([string]$adapter.repoPath)
+    $sourceRelative = if ($adapter.globalSourcePath) { [string]$adapter.globalSourcePath } else { [string]$adapter.repoPath }
+    $sourcePath = Join-Path $repoRoot $sourceRelative
     $sourceHash = Get-FileSha256 $sourcePath
     $targetHash = Get-FileSha256 $targetPath
     if ($sourceHash -ne $targetHash) {
@@ -125,5 +127,26 @@ if ($Client) {
     foreach ($adapter in @($manifest.adapters)) { Test-Client ([string]$adapter.client) }
 }
 
+if ($GlobalCommands) {
+    foreach ($entry in @($manifest.installTargets | Where-Object { $_.targetPath -match '^bin/agents\.(ps1|cmd)$' })) {
+        $target = Join-Path $homeRoot $entry.targetPath
+        $expected = Get-FileSha256 (Join-Path $repoRoot $entry.sourcePath)
+        if ((Get-FileSha256 $target) -ne $expected) {
+            Write-Status 'unsupported' $entry.targetPath 'missing or drifted global command; rerun setup-global-runtime.ps1'
+            $script:hasInvalidInstall = $true
+        } else { Write-Status 'supported' $entry.targetPath 'managed global command' }
+    }
+    $pointerPath = Join-Path $homeRoot '.agents/local-runtime.json'
+    if (-not (Test-Path -LiteralPath $pointerPath)) {
+        Write-Status 'not-installed' 'global checkout' 'run bin/setup-global-runtime.ps1'
+        $script:hasInvalidInstall = $true
+    } else {
+        try {
+            $pointer = Get-Content -LiteralPath $pointerPath -Raw | ConvertFrom-Json
+            if ([IO.Path]::GetFullPath([string]$pointer.repoPath) -ne $repoRoot) { throw 'Registered checkout differs from the one being checked.' }
+            Write-Status 'supported' 'global checkout' 'registered local checkout'
+        } catch { Write-Status 'unsupported' 'global checkout' 'invalid or mismatched pointer'; $script:hasInvalidInstall = $true }
+    }
+}
 if ($script:hasInvalidInstall) { exit 1 }
 exit 0

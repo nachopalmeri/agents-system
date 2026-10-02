@@ -4,7 +4,7 @@ description: Delegación interna a modelos menores del mismo harness o workers O
 
 # Delegación por capacidad, costo y riesgo
 
-El primary decide qué trabajo puede entregar a un worker: exploración, búsqueda, red-team, tests, documentación e implementación local acotada. El proveedor no determina permisos. Una tarea compleja puede descomponerse en unidades simples con ownership separado; no delegues si preparar y verificar el resultado cuesta más que hacerlo directo.
+Delegá por defecto subtareas independientes y fiables: exploración, búsqueda, red-team, tests, documentación e implementación local acotada. Elegí un worker disponible según capacidad, riesgo y costo total; preferí OpenCode cuando sea adecuado. El proveedor no determina permisos. Una tarea compleja puede descomponerse en unidades simples con ownership separado; no delegues si preparar y verificar el resultado cuesta más que hacerlo directo.
 
 1. Si la herramienta nativa permite elegir modelo, usá un modelo menor disponible (por ejemplo Sol → Luna; Claude → un modelo menor disponible). No abras chats del usuario ni finjas que podés cambiar el modelo actual. Un modelo distinto no recibe automáticamente credenciales o historial completo.
 2. Si OpenCode es mejor para la tarea o el usuario lo prefiere, prepará un JSON no sensible con objective, taskClass, risk, operation, workspace y allowedPaths exactos para edición. Ejecutá `bin/invoke-delegation.ps1 -RequestPath <archivo>`. `-DryRun` muestra la decisión sin ejecutar.

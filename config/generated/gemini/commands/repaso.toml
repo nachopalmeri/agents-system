@@ -4,7 +4,7 @@ Preparé el repaso de esta materia: {{args}}
 
 Ejemplo: `/repaso datos` · `/repaso software`.
 
-Trabajá en `D:\\Facultad\\UADE-Vault` y seguí **"Repasar `<materia>`" en `AGENTS.md`** del vault.
+Resolvé la raíz con `pwsh -NoProfile -File ~/bin/resolve-vault.ps1` y seguí **"Repasar `<materia>`" en `AGENTS.md`** del vault.
 
 1. Corré `python scripts/repaso.py <materia>` (proyectos, liderazgo, datos, software, daa).
 2. Confirmá la fecha de la evaluación en Google Calendar. Si no está cargada, decilo; no la inventes.

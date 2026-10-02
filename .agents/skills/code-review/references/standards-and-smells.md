@@ -5,9 +5,9 @@ Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 - **Standards**: does the code conform to this repo's documented coding standards?
 - **Spec**: does the code faithfully implement the originating issue / spec?
 
-Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
+Review both axes separately. Use the normal `code-review` workflow; parallel reviewers are optional when explicitly requested or justified, and unavailable subagents are not a blocker.
 
-The issue tracker should have been provided to you. If `docs/agents/issue-tracker.md` is missing, tell the user to run `/setup-matt-pocock-skills`.
+Use the project's documented issue tracker when available. No setup command is required: the user's request or approved plan can be the specification.
 
 ## Process
 
@@ -23,7 +23,7 @@ Before going further, confirm the fixed point resolves (`git rev-parse <fixed-po
 
 Look for the originating spec, in this order:
 
-1. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.), fetched via the workflow in `docs/agents/issue-tracker.md`.
+1. Issue references in commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.), read through the available tracker tools. Follow `docs/agents/issue-tracker.md` only if it exists.
 2. A path the user passed as an argument.
 3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
 4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
@@ -52,7 +52,9 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 - **Middle Man**: a class or function that mostly just delegates onward. → cut it, call the real target direct.
 - **Refused Bequest**: a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.
 
-### 4. Spawn both sub-agents in parallel
+### 4. Review both axes; delegate only when justified
+
+By default, perform both reviews in the primary. If parallel review is justified or explicitly requested, use the prompts below with separate reviewers; no nested delegation.
 
 **Standards sub-agent prompt** should include:
 

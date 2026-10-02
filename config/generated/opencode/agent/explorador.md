@@ -1,7 +1,7 @@
 ---
 description: "Read-only searcher. Use to find or read across many files (>~5), map unfamiliar code, or research current external docs; returns a short summary with file:line evidence. Not for a file you already know."
 mode: subagent
-model: anthropic/claude-haiku-4-5
+model: opencode/muse-spark-1.3-contributor-free
 tools:
   bash: false
   edit: false

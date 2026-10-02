@@ -13,7 +13,7 @@ function loadRules() {
   }
 }
 
-export function checkTool(rules, tool, args) {
+function checkTool(rules, tool, args) {
   if (!rules || !args) return null
   if (tool === "bash") {
     const command = String(args.command ?? "")

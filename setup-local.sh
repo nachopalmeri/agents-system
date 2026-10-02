@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+printf '%s\n' 'Legacy import disabled. See docs/global-setup-2026.md for managed setup.' >&2
+exit 1
+# Historical implementation below is unreachable.
 # Script para copiar tu sistema actual a este repo local
 # Ejecutar desde: ~/agents-system/
 

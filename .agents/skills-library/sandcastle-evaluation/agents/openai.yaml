@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sandcastle evaluation"
+  short_description: "Evaluate isolated multi-harness orchestration on demand"
+policy:
+  allow_implicit_invocation: false

@@ -23,6 +23,9 @@ try {
     $request.objective='Return fixture refusal'; Route|Out-Null
     $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
     if($receipt.state -ne 'PROVIDER_REFUSAL' -or $receipt.attempts.Count -ne 1 -or $receipt.fallbackExecutor -ne 'primary'){throw '403 must stop without paid fallback.'}
+    $request.objective='Return fixture free-tier policy refusal'; Route|Out-Null
+    $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
+    if($receipt.state -ne 'PROVIDER_REFUSAL' -or $receipt.attempts.Count -ne 1 -or $receipt.fallbackExecutor -ne 'primary'){throw '400 free-tier policy refusal must stop after one attempt and fall back to primary.'}
     $request.objective='Return fixture malformed'; Route|Out-Null
     $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
     if($receipt.state -eq 'SUCCESS' -or $receipt.attempts.Count -ne 2){throw 'Malformed outputs must exhaust bounded attempts.'}

@@ -1,7 +1,6 @@
 ---
 description: "Strong-model planner, read-only. Use before tasks with >3 steps, several files, architecture, AI/RAG or MCP design, or new projects; returns an ordered plan with risks and verification. Not for small direct changes."
 mode: subagent
-model: anthropic/claude-opus-5-5
 tools:
   bash: false
   edit: false

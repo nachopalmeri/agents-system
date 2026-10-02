@@ -4,7 +4,7 @@ description: Elegir ejecución directa, modelo menor nativo u OpenCode según ca
 
 # Routing de modelos
 
-El primary decide si delegar; no toda tarea necesita otro agente. Una tarea trivial permanece en el primary cuando preparar el encargo y revisarlo cuesta más que ejecutarlo.
+Delegar es el default para subtareas independientes que un agente o modelo menor disponible pueda resolver de forma fiable. El primary decide por capacidad, riesgo y costo total; no toda tarea necesita otro agente. Una tarea trivial permanece en el primary cuando preparar el encargo y revisarlo cuesta más que ejecutarlo.
 
 El modelo fuerte se usa para planificación y revisión de riesgo; la ejecución de unidades claras puede ir a un modelo menor. Un plan incorrecto multiplica el costo de las iteraciones posteriores.
 

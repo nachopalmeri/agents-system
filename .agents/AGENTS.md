@@ -5,7 +5,8 @@ Esta es la única política editable del runtime. Todas las rutas son relativas 
 ## Contrato de interacción
 
 - El usuario habla normal. Enrutá internamente al menor componente suficiente, sin exigir nombres de workflows, agentes ni comandos internos.
-- Comunicá en español rioplatense, con secciones cortas y una prioridad ejecutable.
+- Explain key changes in simple English, with short sections and one actionable priority. Otherwise follow the user's language; Spanish means rioplatense.
+- If a prompt contains English mistakes, add one brief corrected version without changing its meaning. Never delay execution for language correction or require a rewrite.
 - No inventes requisitos. Preguntá sólo cuando una decisión humana cambie materialmente el resultado.
 
 ## Límites no negociables
@@ -37,7 +38,7 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 ## Ejecución y cierre
 
-- Antes de trabajo delegable, consultá `rules/model_routing.md` y `workflows/delegation.md`: elegí el modelo menor disponible en el mismo harness o ejecutá OpenCode desde terminal. Delegá tareas acotadas de lectura o edición local, incluso implementación y tests cuando el scope sea claro. Mantené síntesis y validación en el primary; tareas triviales van directas. Nunca afirmes cambio de modelo o delegación sin una invocación real.
+- Use delegation by default when a subtask is independent and can be handled reliably by another agent or a smaller model. Consultá `rules/model_routing.md` y `workflows/delegation.md`: elegí el modelo menor disponible en el mismo harness u OpenCode cuando sea adecuado. Incluye lectura, edición local, implementación y tests acotados. Mantené síntesis y validación en el primary; tareas triviales van directas si el handoff cuesta más. Nunca afirmes delegación sin una invocación real.
 - Para búsqueda e investigación, preferí OpenCode cuando sea adecuado y no dupliques el trabajo con otra investigación paralela del primary. Pedí fuentes verificables, cobertura, bloqueos y resultados breves; cargá sólo la evidencia necesaria para comprobarlos.
 - Usá únicamente candidatos gratuitos verificados en los workers OpenCode, salvo autorización explícita para modelos pagos. Conservá el alcance autorizado y registrá proveedor, modelo, resultado y costo disponible. Si el proveedor está bloqueado, retorná el encargo al primary con el motivo, sin cambiar permisos silenciosamente.
 
@@ -57,7 +58,7 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 ## Delegación
 
-- Delegá sólo: (a) búsqueda o lectura amplia cuyo resultado cabe en un resumen, (b) trabajos independientes con archivos separados, (c) review o verificación con ojos frescos. Lo lineal o chico lo hacés vos: cada subagente arranca en frío.
+- Aplicá el default anterior a búsqueda resumible, trabajo independiente con archivos separados y review/verificación con ojos frescos. Lo lineal, trivial o sin un worker fiable disponible queda en el primary: cada subagente arranca en frío.
 - El encargo incluye objetivo, alcance (rutas), qué no tocar y formato de salida.
 - El subagente devuelve un resumen: conclusión, evidencia como `archivo:línea`, cambios hechos y bloqueos. Nunca vuelca archivos enteros ni logs crudos.
 - Profundidad máxima 1: un subagente no lanza otros subagentes. Si necesita más, devuelve el pedido al principal.

@@ -2,6 +2,8 @@
 
 No se cargan solas. Si la tarea encaja con una fila, leé `~/.agents/skills-library/<skill>/SKILL.md` completo y seguilo. No leas otras.
 
+Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `matt-catalog.json` contiene pin, procedencia y hashes para tooling, no para preload.
+
 - `academic-tutor` — Use as an intensive university tutor: explain concepts in depth, evaluate honestly, generate exercises and…
 - `affirmations` — Reset your own trajectory when you're stuck, looping, or demoralized — read these affirmations, then…
 - `agent-browser` — Browser automation for AI agents via inference.sh.
@@ -32,6 +34,43 @@ No se cargan solas. Si la tarea encaja con una fila, leé `~/.agents/skills-libr
 - `linkedin-content` — LinkedIn post writing with hook formulas, formatting rules, and engagement patterns.
 - `logo-design-guide` — Logo design principles and AI image generation best practices for creating logos.
 - `marketing-strategist` — Use for marketing strategy: positioning, GTM, campaigns and audience research.
+- `matt-ask-matt` — Use when choosing a Matt Pocock skill or workflow for a concrete task.
+- `matt-claude-handoff` — Experimental;
+- `matt-code-review` — Use when requesting Matt-style standards/spec review of a branch, PR or diff.
+- `matt-codebase-design` — Use when designing deep modules, interfaces, seams or testable boundaries.
+- `matt-diagnosing-bugs` — Use when requesting Matt-style diagnosis of a hard bug or performance regression.
+- `matt-domain-modeling` — Use when refining domain terminology, GLOSSARY.md or architectural decisions.
+- `matt-git-guardrails-claude-code` — Use when explicitly configuring Claude Code hooks for dangerous Git operations.
+- `matt-grill-me` — Use when requesting a focused stress-test interview of a plan or design.
+- `matt-grill-with-docs` — Use when stress-testing a design while recording glossary and ADR decisions.
+- `matt-grilling` — Use when requesting Matt-style questioning of a decision or idea.
+- `matt-handoff` — Use when preparing a compact, pointer-based handoff for another session.
+- `matt-implement` — Use when implementing an approved, bounded spec or ticket.
+- `matt-implement-spec` — Use when implementing an approved spec and dependency-linked task graph.
+- `matt-improve-codebase-architecture` — Use when scanning a codebase for deep-module architecture opportunities.
+- `matt-loop-me` — Experimental;
+- `matt-migrate-to-shoehorn` — Use when explicitly migrating TypeScript test assertions to shoehorn.
+- `matt-pr` — Use when preparing a PR body with evidence and integration risk.
+- `matt-prototype` — Use when a disposable prototype can answer a specific design question.
+- `matt-research` — Use when gathering primary-source evidence for a bounded research question.
+- `matt-retro` — Use when requesting a coding-session retrospective or last-ten-session navigation audit.
+- `matt-scaffold-exercises` — Use when scaffolding course exercises, solutions and explainers.
+- `matt-setup-matt-pocock-skills` — Use when explicitly configuring Matt workflows for a project's tracker and docs.
+- `matt-setup-pre-commit` — Use when explicitly configuring pre-commit formatting, types and tests.
+- `matt-setup-ts-deep-modules` — Experimental;
+- `matt-tdd` — Use when requesting Matt-style test-first feature or bugfix development.
+- `matt-teach` — Use when requesting guided learning of a concept within a workspace.
+- `matt-to-questionnaire` — Use when preparing unanswered decisions as a questionnaire for another person.
+- `matt-to-spec` — Use when turning an existing discussion into a specification.
+- `matt-to-tickets` — Use when breaking an approved spec into dependency-linked implementation tickets.
+- `matt-triage` — Use when analyzing issues or external PRs and preparing actionable briefs.
+- `matt-wait-what` — Use when requesting a clearer restatement of the last explanation.
+- `matt-wayfinder` — Use when planning work too large for one session through decision tickets.
+- `matt-wizard` — Use when a human needs a guided setup, credential or migration checklist.
+- `matt-writing-beats` — Experimental;
+- `matt-writing-for-agents` — Use when writing or editing agent-consumed skills, AGENTS.md or CLAUDE.md.
+- `matt-writing-fragments` — Experimental;
+- `matt-writing-shape` — Experimental;
 - `mcts-planner` — Usa esta skill para arquitecturas complejas, refactors masivos o cuando un plan lineal ("Chain of…
 - `monetization-architect` — Usa esta skill siempre que vayas a implementar, modificar o auditar flujos de pago, suscripciones o…
 - `newsletter-curation` — Newsletter curation with content sourcing, editorial structure, and subscriber growth strategies.
@@ -51,6 +90,7 @@ No se cargan solas. Si la tarea encaja con una fila, leé `~/.agents/skills-libr
 - `python-testing-patterns` — Implement comprehensive testing strategies with pytest, fixtures, mocking, and test-driven development.
 - `related-skill` — Discover and install related skills from inference.sh skill registry.
 - `remembering-conversations` — Use when user asks 'how should I...' or 'what's the best approach...' after exploring code, OR when you've…
+- `sandcastle-evaluation` — Use when evaluating Sandcastle for isolated multi-harness orchestration, OpenCode/Codex workers or…
 - `seo-content-brief` — SEO content brief creation with keyword research, search intent analysis, and content structure.
 - `social-media-carousel` — Multi-slide carousel design for Instagram, LinkedIn, and Twitter/X with layout rules and hooks.
 - `storyboard-creation` — Film and video storyboarding with shot vocabulary, continuity rules, and panel layout.
@@ -67,6 +107,7 @@ No se cargan solas. Si la tarea encaja con una fila, leé `~/.agents/skills-libr
 - `video-prompting-guide` — Best practices and techniques for writing effective AI video generation prompts.
 - `web-3d` — Use to build 3D on the web with three.js or React Three Fiber: hero scenes, product viewers, immersive…
 - `widgets-ui` — Declarative UI widgets from JSON for React/Next.js from ui.inference.sh.
+- `worker-quality-evaluation` — Use when comparing free OpenCode or smaller-model workers for quality, latency, token use and reliable…
 - `x-algorithm-optimizer` — Skill para diagnosticar y optimizar contenido de X según el algoritmo Phoenix de xAI.
 - `x-content-strategist` — Use for X/Twitter content strategy: post ideas, threads, hooks, calendar and diagnosing underperforming posts.
 - `youtube-thumbnail-design` — YouTube thumbnail design with specific dimensions, contrast rules, and mobile preview optimization.

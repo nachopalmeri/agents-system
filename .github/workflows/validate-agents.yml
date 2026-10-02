@@ -17,6 +17,20 @@ jobs:
         shell: pwsh
         run: ./bin/validate-agents.ps1
 
+      - name: Validate installation diagnostics
+        shell: pwsh
+        run: |
+          ./bin/test-installation-diagnostics.ps1
+          ./bin/test-skill-inventory.ps1
+          ./bin/test-vault-resolution.ps1
+
+      - name: Validate shared-shell exit contract
+        shell: pwsh
+        run: ./bin/test-ci-exit-contract.ps1
+
+      - name: Validate OpenCode guard exports
+        run: node --test bin/test-opencode-guard.mjs
+
       - name: Validate delegation policy
         shell: pwsh
         run: |

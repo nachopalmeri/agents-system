@@ -24,6 +24,8 @@ desktop.ini
 *.pem
 secrets/
 credentials/
+.agents/local-runtime.json
+.agents/local-runtime.json.backup-*
 
 # Node (si algún día se usa para docs)
 node_modules/

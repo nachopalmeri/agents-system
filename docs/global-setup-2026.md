@@ -1,163 +1,45 @@
-# Setup global y flujo de trabajo (septiembre 2026)
+# Global runtime setup (October 2026)
 
-Objetivo: el sistema más completo posible sin gastar tokens de más. Lo que se usa todos los días se precarga. Lo de nicho (video, 3D, documentos, marketing…) queda a un paso, en `skills-library/`, sin costo hasta que se usa.
+This repository provides one shared global runtime for supported local coding harnesses. It keeps 30 core skills available by default and the remaining skills on demand in `skills-library/`, including 37 Matt entries (27 promoted, 4 miscellaneous, and 6 experimental). Shared adapters expose the runtime through each harness's supported conventions. Web ChatGPT cannot read this filesystem or run its CLI tools; use the local runtime from a local harness.
 
-## Instalar en Windows
+## Register this checkout on Windows
 
-Requisitos: Git y PowerShell 7 (`winget install Microsoft.PowerShell`).
+Use PowerShell 7 and run the setup script from this checkout:
 
 ```powershell
-# 1. Traer el repo (primera vez) o actualizarlo
-gh repo clone nachopalmeri/agents-system C:\Users\Nacho\agents-system   # o: git clone https://github.com/nachopalmeri/agents-system
-cd C:\Users\Nacho\agents-system
-git pull
-
-# 2. Ver qué hay hoy en tu PC (sólo lectura)
-pwsh .\bin\inventory-agents.ps1          # agentes/subagentes en .claude, .config/opencode, .codex, .gemini, .hermes
-pwsh .\bin\audit-skill-dirs.ps1          # skills sueltas y cuánto cuestan por sesión
-
-# 3. Simular y aplicar
-pwsh .\bin\sync-runtime.ps1 -WhatIf      # qué escribiría y qué conserva
-pwsh .\bin\sync-runtime.ps1 -Force       # aplica: reemplaza sólo lo que gestiona el repo, con backup
-pwsh .\bin\sync-runtime.ps1 -Check       # verifica que todo quedó igual al repo
-
-# 4. Skills externas (video, documentos, arte, Vercel) desde su fuente oficial
-pwsh .\bin\install-external-skills.ps1 -List
-pwsh .\bin\install-external-skills.ps1                                        # las que no tienen términos propios
-pwsh .\bin\install-external-skills.ps1 -AcceptTerms tesseract,anthropic-docs  # sólo después de leer los términos
-
-# Volver atrás
-pwsh .\bin\sync-runtime.ps1 -Restore C:\Users\Nacho\.agents-system-sync\backups\<id>\manifest.json
+pwsh bin/setup-global-runtime.ps1
 ```
 
-Si `~/.agents` es un symlink o junction de una instalación vieja, el sync se detiene y te da el comando para borrar sólo el link (`cmd /c rmdir "C:\Users\Nacho\.agents"`, que no toca el repo).
+This is a local Windows installer. It backs up the local checkout pointer and managed files it replaces, and adds `~/bin` to the current user's PATH. It does not initialize projects automatically. Keep the registered checkout in place: global commands resolve repository-dependent actions through it.
 
-### Qué hace el sync (modo merge)
+To install the pinned global tools as part of setup, opt in:
 
-- Escribe sólo lo que existe en el repo, skill por skill y archivo por archivo. Lo tuyo que no está en el repo se conserva y aparece como `[keep]`.
-- Sin `-Force` no reemplaza nada que ya exista con otro contenido. Con `-Force` reemplaza sólo eso, con backup.
-- Copias viejas del repo (skills que pasaron a la library o se fusionaron, los 19 agentes anteriores) aparecen como `[stale]`: con `-Force` se quitan, con backup. Así Codex, Gemini y opencode dejan de precargar las 115 skills viejas de `~/.agents/skills`.
-- Nunca pisa `~/.agents/memory`, `~/.agents/tasks` ni `~/.agents/projects-index.md`.
-- En `~/.claude/settings.json` sólo agrega o actualiza sus hooks (los identifica por `/.agents/hooks/`). El resto de tu configuración no se toca. Para quitarlos: `pwsh .\bin\sync-claude-settings.ps1 -Remove`.
-- No toca tu `opencode.jsonc`. `config/opencode/opencode.jsonc` es sólo una plantilla opcional.
-- `-Restore` devuelve el home al estado exacto previo, incluido `settings.json`. Está probado con hash de cada archivo.
-- Para el día a día: `pwsh .\bin\update-system.ps1` hace `git pull`, sync, `check-runtime-graph` y `-Check`.
-
-## Entornos cloud de Claude Code (contenedores efímeros)
-
-Pegá esto como **Setup script** del entorno (menú del entorno en la barra de título de la sesión → Edit). Así cada sesión nueva arranca con todo instalado:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/nachopalmeri/agents-system/main/bin/cloud-setup.sh | bash
+```powershell
+pwsh bin/setup-global-runtime.ps1 -InstallTools
 ```
 
-Hasta que se mergee el PR, usá la rama: `curl -fsSL https://raw.githubusercontent.com/nachopalmeri/agents-system/claude/adoring-cray-bcle5y/bin/cloud-setup.sh | BRANCH=claude/adoring-cray-bcle5y bash`. Para instalar también las skills con términos propios, agregá `ACCEPT_TERMS=tesseract,anthropic-docs` antes de `bash`.
+Pinned versions: PowerShell 7.6.6, ripgrep 15.2.0, uv 0.12.22, pnpm 12.8.1, sandcastle 0.12.0, evalite 0.19.0, Vitest 4.1.2, OpenCode 1.18.34. Dependency lifecycle scripts are disabled by default; only reviewed pnpm/OpenCode native CLI hooks are explicitly rebuilt. Docker is installed but stopped; setup does not start its daemon or promise sandbox execution.
 
-## Qué recibe cada herramienta
+Evalite's SQLite addon cannot build on this PC's Node 24 without the C++ build toolchain. Explicit in-memory storage is available; persistent SQLite is not verified. CLI help alone does not prove live LLM evaluation or sandbox execution.
 
-✅ instalado · ⚠️ parcial · ❌ no aplica o falta
+After registration, the primary `agents` shim provides `help`, `doctor`, `check`, `catalog`, `route`, `delegate`, `update`, and `tools` actions. Use `agents help` for current usage and `agents doctor` or `agents check` to inspect the local setup.
 
-| | Claude Code | opencode | Codex | Gemini CLI | Antigravity | Chat web |
-|---|---|---|---|---|---|---|
-| Reglas | ✅ `~/.claude/CLAUDE.md` → `@~/.agents/AGENTS.md` | ✅ `~/.config/opencode/AGENTS.md` | ✅ `~/.codex/AGENTS.md` | ✅ `~/.gemini/GEMINI.md` | ✅ `~/.gemini/GEMINI.md` | ⚠️ pegar `config/global/chat-web.md` (~230 tokens) |
-| Skills núcleo (30) | ✅ `~/.claude/skills` | ⚠️ `~/.agents/skills` + `~/.claude/skills` (duplicadas) | ✅ `~/.agents/skills` | ✅ `~/.agents/skills` | ✅ `~/.gemini/antigravity/skills` | ❌ |
-| Skills library (68 + 15 externas) | ✅ vía `INDEX.md` | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Agentes (5) | ✅ `~/.claude/agents` | ✅ `~/.config/opencode/agent` | ⚠️ roles vía `AGENTS.md` | ⚠️ `~/.gemini/agents` (verificar soporte) | ⚠️ roles vía `AGENTS.md` | ❌ |
-| Comandos (3) | ✅ `~/.claude/commands` | ✅ `~/.config/opencode/command` | ⚠️ `~/.codex/prompts` (verificar soporte) | ✅ `~/.gemini/commands` | ❌ | ❌ |
-| Hooks | ✅ 5 hooks en `settings.json` | ⚠️ sólo guardia (plugin) | ❌ | ❌ | ❌ | ❌ |
-| MCPs | ❌ a propósito | ⚠️ plantilla, apagados | ❌ a propósito | ❌ a propósito | ❌ a propósito | ❌ |
+## Runtime inventory and delegation
 
-Qué falta y cómo lo cubre cada herramienta:
+The canonical runtime has 30 core skills plus an on-demand library. Five role files are registered. A role file describes how to perform a role; it does not create a native subagent. Native subagents are available only when the active harness exposes them. Do not create cloud chats as a substitute for delegation.
 
-- **Codex y Antigravity:** no conozco una forma estable de definir subagentes por archivo. `AGENTS.md` lista los roles y manda a leer `~/.agents/agents/<rol>.md` para aplicarlo. Para trabajo en paralelo, Codex usa tareas en la nube y Antigravity su Agent Manager.
-- **Codex `prompts/` y Gemini `agents/`:** se instalan, pero conviene verificar que tu versión los lea. Si alguno no aparece, avisame y ajusto el formato en `bin/render-*.ps1`.
-- **Hooks fuera de Claude:** opencode tiene la guardia como plugin. Codex, Gemini y Antigravity no reciben hooks.
-- **Skills duplicadas en opencode:** opencode también lee `~/.claude/skills`, así que ve el núcleo dos veces. Se evita desactivando su compatibilidad con Claude Code; verificá el nombre de la opción en tu versión.
-- **MCPs:** apagados por política. `config/mcp.example.json` tiene los servidores verificados, para activar por proyecto.
+OpenCode 1.18.34's normal scoped bridge now has live Muse free-tier evidence: valid JSON completion plus a file-read/exact-file-edit task, both with reported cost $0. No runtime permissions were changed. The earlier all-denied probe still fails on the same version and is not a valid availability test for the normal bridge. Provider refusal handling remains in place; there is no paid fallback. See [live verification](opencode-live-verification-2026-10-02.md). Internal multi-agent execution and other free models are not yet live-verified.
 
-## Tokens: antes → después
+## Verified on this PC
 
-| Por sesión | Antes | Después |
-|---|---:|---:|
-| Metadata de skills precargada | ~9.300 (115 skills) | ~1.475 (30) |
-| Reglas globales | ~60 (puntero roto: no cargaba las reglas) | ~1.180 (`AGENTS.md` completo) |
-| Descripciones de agentes | 0 (no estaban instalados) | ~245 (5) |
-| Comandos | 0 | ~50 (3) |
-| **Total fijo** | **~9.360** | **~2.950** |
+Global `agents doctor`, `agents check`, `agents catalog retro` and `agents tools` passed from a PATH reconstructed only from Windows machine/user settings. All eight pinned tool commands resolve independently of Codex's bundled tools; pnpm and OpenCode report their pinned versions. Managed sync reports 316 matching destinations, preserving the unmanaged Obsidian skill and personal OpenCode configuration.
 
-Bajo demanda (sólo cuando se usan):
+Release, global entrypoint, installation diagnostics, delegation, model-routing, Matt catalog and graph checks passed. Evalite ran one deterministic offline evaluation with explicit in-memory storage: 21 → 42, score 100%, no LLM call. Fixture: `%APPDATA%/npm/node_modules/agents-runtime-smoke`; run `evalite run --threshold 100` there. This is a smoke test, not a model-quality benchmark. Isolated Luna workers performed bounded coverage, implementation and review; no token-savings percentage is claimed.
 
-- `skills-library/INDEX.md`: ~2.400 tokens.
-- Prompts de agentes: 1.308 tokens en total, contra 11.346 antes.
-- `tasks/todo.md` al iniciar sesión: ≤200 tokens.
+Windows registration was exercised; other-platform installers were not. Legacy `setup-local` imports are disabled because they could overwrite canonical files or import personal configuration. Other legacy shell installers remain unverified; do not use them as a workaround.
 
-## Roles (subagentes)
+## Current branch and safety
 
-| Rol | Modelo | Herramientas | Se usa | No se usa |
-|---|---|---|---|---|
-| `explorador` | Haiku | lectura + web | búsqueda en más de ~5 archivos o research externo | archivo ya conocido |
-| `planner` | Opus | lectura + web | más de 3 pasos, varios archivos, arquitectura | cambios chicos |
-| `implementador` | Sonnet | todas | tramos independientes de un plan, en paralelo | trabajo lineal (lo hace el principal) |
-| `reviewer` | Opus | lectura + bash de lectura | antes de merge/PR, seguridad, release | cambios triviales |
-| `verificador` | Sonnet | lectura + bash | antes de declarar listo trabajo multi-archivo | cambios de una línea |
+This work was prepared on `fix/runtime-setup-gaps`; [PR #7](https://github.com/nachopalmeri/agents-system/pull/7) records its explicitly authorized integration into `main`. Use `main` after that PR is merged. The permanent policy still leaves merges to the director unless the user explicitly overrides it for a particular integration. Do not remove a checkout or a `.agents` path as a setup workaround. Inspect the installer output and use its managed backup/recovery path if repair is needed. See the [integration record](runtime-integration-2026-10-02.md).
 
-- Se definen una sola vez en `.agents/agents/`. Los modelos se eligen en `config/model-tiers.json`, y `bin/render-agents.ps1` los genera para cada cliente.
-- Reglas de delegación (en `AGENTS.md`): el subagente devuelve un resumen, nunca volcados; profundidad máxima 1; máximo 3 en paralelo.
-
-## Comandos
-
-| Comando | Qué hace |
-|---|---|
-| `/planear <tarea>` | Plan con el `planner`; espera tu OK antes de implementar |
-| `/revisar [foco]` | Review del diff de la rama con el `reviewer`: P0/P1/P2 y veredicto |
-| `/cerrar [nota]` | Verifica, actualiza `tasks/todo.md` y `lessons.md`, y hace commit y push de la rama (nunca a main) |
-
-Se llaman así, y no `/plan` o `/review`, porque Claude Code ya trae comandos con esos nombres.
-
-## Hooks (Claude Code)
-
-| Hook | Evento | Costo | Qué hace |
-|---|---|---|---|
-| `session-todo` | SessionStart | ≤200 tokens | inyecta las primeras 30 líneas de `tasks/todo.md` del proyecto |
-| `guard` | PreToolUse (Bash, Read) | 0 salvo que bloquee | bloquea force-push, `rm -rf` sobre raíz/home/`..`, `Remove-Item -Recurse` sobre home o unidad, y lectura de `.env` |
-| `lint-edited` | PostToolUse (Edit, Write) | 0 salvo error | valida el archivo tocado: JSON, PowerShell, Python o eslint del proyecto |
-| `log-usage` | PostToolUse (Agent, Skill) | 0 | registra en `~/.agents/tasks/usage-log.md` qué se usa de verdad, para podar con datos |
-| `stop-unpushed` | Stop | 0 (sólo te avisa a vos) | recuerda si quedaron commits sin pushear o cambios sin commitear |
-
-Las reglas de la guardia están en un solo archivo, `~/.agents/hooks/guard-rules.json`, que usan el hook y el plugin de opencode.
-
-## Capacidades a un paso (library, 0 tokens hasta usarlas)
-
-- **Video:** `tesseract-video` y `tesseract-motion` (edición con motion graphics, render local) y `remotion-*` (video programático con React).
-- **Web 3D:** `web-3d` (three.js/R3F con presupuesto de performance, fallback mobile y accesibilidad). También `ui-refine` (16 modos de refinamiento) y `react-view-transitions`.
-- **Documentos:** `pdf`, `docx`, `xlsx`, `pptx`.
-- **Arte:** `canvas-design`, `algorithmic-art`, `logo-design-guide`, `youtube-thumbnail-design`…
-- **Deploy y calidad web:** `deploy-to-vercel`, `web-design-guidelines`.
-- **Negocio y contenido:** `product-founder`, `marketing-strategist`, `x-content-strategist`, `technical-docs`, `linkedin-content`…
-- **Estudio:** `academic-tutor`, `exercise-generator`, `grilling`.
-
-Para sumar una skill:
-
-1. Ponela en `.agents/skills-library/<nombre>/`, o si es de terceros, en `config/external-skills.json`.
-2. Corré `pwsh .\bin\generate-skill-index.ps1` y `pwsh .\bin\generate-capabilities.ps1`.
-3. Pasala al núcleo sólo si la usás todas las semanas.
-
-## Flujo de trabajo que ahorra tokens
-
-1. **Una tarea por sesión.** `/cerrar` al terminar y sesión nueva: el hook retoma desde `tasks/todo.md`.
-2. **Plan con modelo fuerte, ejecución con el medio.** `/planear` para lo que tenga más de 3 pasos; las tareas chicas van directo.
-3. **Subagentes sólo** para búsqueda amplia, tramos independientes o review/verificación con ojos frescos. Cada uno arranca en frío.
-4. **Buscá, no leas:** grep/glob y lectura por rangos. Nunca leas `capabilities.json` entero ni `archive/`.
-5. **MCPs apagados por defecto;** se prenden por proyecto.
-6. **No edites las reglas globales en medio de una sesión:** invalida el caché del prompt.
-7. **Council o multiagente sólo si lo pedís explícitamente.**
-
-## Qué herramienta para qué
-
-| Tarea | Herramienta |
-|---|---|
-| Implementar, refactor, PRs, debugging | Claude Code (sistema completo: agentes, comandos, hooks) |
-| Tareas repetitivas o triviales sin costo | opencode + Ollama local |
-| Verificación visual y en browser | Antigravity |
-| Tareas largas en background | Codex / Claude Code en la web |
-| Ideas y borradores sin repo | Chat web con `config/global/chat-web.md` |
+Never expose credentials, install unpinned tools, or write to production as part of runtime setup. Global tool installation is optional and explicitly selected with `-InstallTools`.

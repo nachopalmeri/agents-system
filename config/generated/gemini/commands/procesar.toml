@@ -4,7 +4,7 @@ Procesá esta clase en el vault de Obsidian: {{args}}
 
 Ejemplos: `/procesar daa 25/09` · `/procesar datos 23/09, falté a esta clase`.
 
-Trabajá en `D:\\Facultad\\UADE-Vault`. La fuente canónica del flujo es **`AGENTS.md` del vault, sección "Procesar clase"**: leela entera y seguila (este comando no la duplica). Complementos: `docs/ESTILO-NOTAS.md` y `docs/FLUJO-IA.md`. Si el cliente tiene la skill `procesar-clase-vault`, cargala; hace lo mismo.
+Resolvé la raíz con `pwsh -NoProfile -File ~/bin/resolve-vault.ps1` y trabajá ahí. La fuente canónica del flujo es **`AGENTS.md` del vault, sección "Procesar clase"**: leela entera y seguila (este comando no la duplica). Complementos: `docs/ESTILO-NOTAS.md` y `docs/FLUJO-IA.md`. Si el cliente tiene la skill `procesar-clase-vault`, cargala; hace lo mismo.
 
 Orden obligatorio:
 

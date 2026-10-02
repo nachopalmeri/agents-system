@@ -29,7 +29,7 @@ foreach ($path in @($request.allowedPaths | Where-Object { $_ })) {
     }
 }
 $command = Get-Command $OpenCodeCommand -ErrorAction Stop
-$available = @(& $command.Source models 2>$null)
+$available = @(& $command.Source models --pure 2>$null)
 if ($LASTEXITCODE -ne 0) { throw 'Could not discover OpenCode models.' }
 $models = @($route.modelCandidates | Where-Object { $available -contains $_ -and ($_ -match '^opencode/.+-free$' -or $_ -match '^ollama/') } | Select-Object -First $route.maxAttempts)
 if ($models.Count -eq 0) { [ordered]@{state='UNAVAILABLE'; executor='primary'; reason='No configured free model available'} | ConvertTo-Json; return }
@@ -107,7 +107,8 @@ foreach ($model in $models) {
     }
     if($partial.Count -gt 0){$receipt.partialChanges=$partial; break}
     $providerErrors=@($events | Where-Object type -eq 'error')
-    if(@($providerErrors | Where-Object { $_.error.data.statusCode -in @(401,403) }).Count -gt 0){$receipt.state='PROVIDER_REFUSAL'; $receipt.fallbackExecutor='primary'; break}
+    $freeTierPolicyMessage = "OpenCode's free tier can only be used from within OpenCode"
+    if(@($providerErrors | Where-Object { $_.error.data.statusCode -in @(401,403) -or ([string]$_.error.data.message).Contains($freeTierPolicyMessage) }).Count -gt 0){$receipt.state='PROVIDER_REFUSAL'; $receipt.fallbackExecutor='primary'; break}
     if(@($providerErrors | Where-Object { $_.error.data.statusCode -eq 429 }).Count -gt 0){$receipt.state='RATE_LIMITED'; $receipt.fallbackExecutor='primary'}
 }
 $receipt.elapsedSeconds=[math]::Round(([DateTime]::UtcNow-$started).TotalSeconds,2)

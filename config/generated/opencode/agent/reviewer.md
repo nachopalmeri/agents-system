@@ -1,7 +1,6 @@
 ---
 description: "Read-only reviewer on a strong model. Use before merge/PR, after a major feature, or for security, payments, credentials, MCP/plugins or releases. Returns P0/P1/P2 findings and a verdict. Not for trivial changes."
 mode: subagent
-model: anthropic/claude-opus-5-5
 tools:
   bash: true
   edit: false

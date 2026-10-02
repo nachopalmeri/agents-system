@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T00:28:27.9451384+00:00",
+  "generatedAt": "2026-10-02T19:00:51.9483857-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -91,12 +91,12 @@
     },
     {
       "name": "obsidian-vault",
-      "description": "Trabajar con el vault de Obsidian UADE-Vault. Estructura PARA, Zettelkasten, Dataview, MOCs, templates de clase y daily notes. Usar cuando se trabaje en notas, clases, proyectos o cualquier contenido del vault.",
+      "description": "\"Trabajar con el vault UADE configurado en esta PC: clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault.\"",
       "path": "skills/obsidian-vault/SKILL.md"
     },
     {
       "name": "procesar-clase-vault",
-      "description": "\"Usar cuando el usuario pide \\\"procesar clase\\\", \\\"terminó la clase\\\" o \\\"nueva clase\\\" para pasar material universitario al vault de Obsidian (MOC, Atlas/Dots) sin perder contenido.\"",
+      "description": "\"Usar cuando el usuario pide \\\"procesar clase\\\", \\\"terminó la clase\\\", \\\"nueva clase\\\" o \\\"repasar <materia>\\\" del vault UADE configurado localmente: captura + transcripción + PPT + calendario, OCR, gráficos SVG, first principles y 80/20, tareas y entregas, verificación.\"",
       "path": "skills/procesar-clase-vault/SKILL.md"
     },
     {
@@ -330,6 +330,191 @@
       "path": "skills-library/marketing-strategist/SKILL.md"
     },
     {
+      "name": "matt-ask-matt",
+      "description": "\"Use when choosing a Matt Pocock skill or workflow for a concrete task.\" disable-model-invocation: true",
+      "path": "skills-library/matt-ask-matt/SKILL.md"
+    },
+    {
+      "name": "matt-claude-handoff",
+      "description": "\"Experimental; use when explicitly requesting a fresh-agent conversation handoff.\" disable-model-invocation: true",
+      "path": "skills-library/matt-claude-handoff/SKILL.md"
+    },
+    {
+      "name": "matt-code-review",
+      "description": "\"Use when requesting Matt-style standards/spec review of a branch, PR or diff.\" disable-model-invocation: true",
+      "path": "skills-library/matt-code-review/SKILL.md"
+    },
+    {
+      "name": "matt-codebase-design",
+      "description": "\"Use when designing deep modules, interfaces, seams or testable boundaries.\" disable-model-invocation: true",
+      "path": "skills-library/matt-codebase-design/SKILL.md"
+    },
+    {
+      "name": "matt-diagnosing-bugs",
+      "description": "\"Use when requesting Matt-style diagnosis of a hard bug or performance regression.\" disable-model-invocation: true",
+      "path": "skills-library/matt-diagnosing-bugs/SKILL.md"
+    },
+    {
+      "name": "matt-domain-modeling",
+      "description": "\"Use when refining domain terminology, GLOSSARY.md or architectural decisions.\" disable-model-invocation: true",
+      "path": "skills-library/matt-domain-modeling/SKILL.md"
+    },
+    {
+      "name": "matt-git-guardrails-claude-code",
+      "description": "\"Use when explicitly configuring Claude Code hooks for dangerous Git operations.\" disable-model-invocation: true",
+      "path": "skills-library/matt-git-guardrails-claude-code/SKILL.md"
+    },
+    {
+      "name": "matt-grill-me",
+      "description": "\"Use when requesting a focused stress-test interview of a plan or design.\" disable-model-invocation: true",
+      "path": "skills-library/matt-grill-me/SKILL.md"
+    },
+    {
+      "name": "matt-grill-with-docs",
+      "description": "\"Use when stress-testing a design while recording glossary and ADR decisions.\" disable-model-invocation: true",
+      "path": "skills-library/matt-grill-with-docs/SKILL.md"
+    },
+    {
+      "name": "matt-grilling",
+      "description": "\"Use when requesting Matt-style questioning of a decision or idea.\" disable-model-invocation: true",
+      "path": "skills-library/matt-grilling/SKILL.md"
+    },
+    {
+      "name": "matt-handoff",
+      "description": "\"Use when preparing a compact, pointer-based handoff for another session.\" disable-model-invocation: true",
+      "path": "skills-library/matt-handoff/SKILL.md"
+    },
+    {
+      "name": "matt-implement",
+      "description": "\"Use when implementing an approved, bounded spec or ticket.\" disable-model-invocation: true",
+      "path": "skills-library/matt-implement/SKILL.md"
+    },
+    {
+      "name": "matt-implement-spec",
+      "description": "\"Use when implementing an approved spec and dependency-linked task graph.\" disable-model-invocation: true",
+      "path": "skills-library/matt-implement-spec/SKILL.md"
+    },
+    {
+      "name": "matt-improve-codebase-architecture",
+      "description": "\"Use when scanning a codebase for deep-module architecture opportunities.\" disable-model-invocation: true",
+      "path": "skills-library/matt-improve-codebase-architecture/SKILL.md"
+    },
+    {
+      "name": "matt-loop-me",
+      "description": "\"Experimental; use when explicitly designing a bounded agent workflow loop.\" disable-model-invocation: true",
+      "path": "skills-library/matt-loop-me/SKILL.md"
+    },
+    {
+      "name": "matt-migrate-to-shoehorn",
+      "description": "\"Use when explicitly migrating TypeScript test assertions to shoehorn.\" disable-model-invocation: true",
+      "path": "skills-library/matt-migrate-to-shoehorn/SKILL.md"
+    },
+    {
+      "name": "matt-pr",
+      "description": "\"Use when preparing a PR body with evidence and integration risk.\" disable-model-invocation: true",
+      "path": "skills-library/matt-pr/SKILL.md"
+    },
+    {
+      "name": "matt-prototype",
+      "description": "\"Use when a disposable prototype can answer a specific design question.\" disable-model-invocation: true",
+      "path": "skills-library/matt-prototype/SKILL.md"
+    },
+    {
+      "name": "matt-research",
+      "description": "\"Use when gathering primary-source evidence for a bounded research question.\" disable-model-invocation: true",
+      "path": "skills-library/matt-research/SKILL.md"
+    },
+    {
+      "name": "matt-retro",
+      "description": "\"Use when requesting a coding-session retrospective or last-ten-session navigation audit.\" disable-model-invocation: true",
+      "path": "skills-library/matt-retro/SKILL.md"
+    },
+    {
+      "name": "matt-scaffold-exercises",
+      "description": "\"Use when scaffolding course exercises, solutions and explainers.\" disable-model-invocation: true",
+      "path": "skills-library/matt-scaffold-exercises/SKILL.md"
+    },
+    {
+      "name": "matt-setup-matt-pocock-skills",
+      "description": "\"Use when explicitly configuring Matt workflows for a project's tracker and docs.\" disable-model-invocation: true",
+      "path": "skills-library/matt-setup-matt-pocock-skills/SKILL.md"
+    },
+    {
+      "name": "matt-setup-pre-commit",
+      "description": "\"Use when explicitly configuring pre-commit formatting, types and tests.\" disable-model-invocation: true",
+      "path": "skills-library/matt-setup-pre-commit/SKILL.md"
+    },
+    {
+      "name": "matt-setup-ts-deep-modules",
+      "description": "\"Experimental; use when explicitly configuring TypeScript module-boundary checks.\" disable-model-invocation: true",
+      "path": "skills-library/matt-setup-ts-deep-modules/SKILL.md"
+    },
+    {
+      "name": "matt-tdd",
+      "description": "\"Use when requesting Matt-style test-first feature or bugfix development.\" disable-model-invocation: true",
+      "path": "skills-library/matt-tdd/SKILL.md"
+    },
+    {
+      "name": "matt-teach",
+      "description": "\"Use when requesting guided learning of a concept within a workspace.\" disable-model-invocation: true",
+      "path": "skills-library/matt-teach/SKILL.md"
+    },
+    {
+      "name": "matt-to-questionnaire",
+      "description": "\"Use when preparing unanswered decisions as a questionnaire for another person.\" disable-model-invocation: true",
+      "path": "skills-library/matt-to-questionnaire/SKILL.md"
+    },
+    {
+      "name": "matt-to-spec",
+      "description": "\"Use when turning an existing discussion into a specification.\" disable-model-invocation: true",
+      "path": "skills-library/matt-to-spec/SKILL.md"
+    },
+    {
+      "name": "matt-to-tickets",
+      "description": "\"Use when breaking an approved spec into dependency-linked implementation tickets.\" disable-model-invocation: true",
+      "path": "skills-library/matt-to-tickets/SKILL.md"
+    },
+    {
+      "name": "matt-triage",
+      "description": "\"Use when analyzing issues or external PRs and preparing actionable briefs.\" disable-model-invocation: true",
+      "path": "skills-library/matt-triage/SKILL.md"
+    },
+    {
+      "name": "matt-wait-what",
+      "description": "\"Use when requesting a clearer restatement of the last explanation.\" disable-model-invocation: true",
+      "path": "skills-library/matt-wait-what/SKILL.md"
+    },
+    {
+      "name": "matt-wayfinder",
+      "description": "\"Use when planning work too large for one session through decision tickets.\" disable-model-invocation: true",
+      "path": "skills-library/matt-wayfinder/SKILL.md"
+    },
+    {
+      "name": "matt-wizard",
+      "description": "\"Use when a human needs a guided setup, credential or migration checklist.\" disable-model-invocation: true",
+      "path": "skills-library/matt-wizard/SKILL.md"
+    },
+    {
+      "name": "matt-writing-beats",
+      "description": "\"Experimental; use when shaping collected writing material into narrative beats.\" disable-model-invocation: true",
+      "path": "skills-library/matt-writing-beats/SKILL.md"
+    },
+    {
+      "name": "matt-writing-for-agents",
+      "description": "\"Use when writing or editing agent-consumed skills, AGENTS.md or CLAUDE.md.\" disable-model-invocation: true",
+      "path": "skills-library/matt-writing-for-agents/SKILL.md"
+    },
+    {
+      "name": "matt-writing-fragments",
+      "description": "\"Experimental; use when collecting raw writing fragments before structuring them.\" disable-model-invocation: true",
+      "path": "skills-library/matt-writing-fragments/SKILL.md"
+    },
+    {
+      "name": "matt-writing-shape",
+      "description": "\"Experimental; use when shaping raw writing material into an article.\" disable-model-invocation: true",
+      "path": "skills-library/matt-writing-shape/SKILL.md"
+    },
+    {
       "name": "mcts-planner",
       "description": "Usa esta skill para arquitecturas complejas, refactors masivos o cuando un plan lineal (\"Chain of Thought\") es demasiado riesgoso. Reemplaza el razonamiento lineal por un árbol de decisión simulado.",
       "path": "skills-library/mcts-planner/SKILL.md"
@@ -425,6 +610,11 @@
       "path": "skills-library/remembering-conversations/SKILL.md"
     },
     {
+      "name": "sandcastle-evaluation",
+      "description": "\"Use when evaluating Sandcastle for isolated multi-harness orchestration, OpenCode/Codex workers or reusable sandboxes.\" disable-model-invocation: true",
+      "path": "skills-library/sandcastle-evaluation/SKILL.md"
+    },
+    {
       "name": "seo-content-brief",
       "description": "\"SEO content brief creation with keyword research, search intent analysis, and content structure. Covers SERP analysis, heading hierarchy, word count targets, and internal linking strategy. Use for: content briefs, SEO writing, blog strategy, content planning, keyword targeting. Triggers: seo content brief, content brief, seo brief, keyword research, search intent, content strategy, blog brief, seo writing, content planning, keyword targeting, serp analysis, content outline, seo article, blog seo\" allowed-tools: Bash(belt *)",
       "path": "skills-library/seo-content-brief/SKILL.md"
@@ -503,6 +693,11 @@
       "name": "widgets-ui",
       "description": "\"Declarative UI widgets from JSON for React/Next.js from ui.inference.sh. Render rich interactive UIs from structured agent responses. Capabilities: forms, buttons, cards, layouts, inputs, selects, checkboxes. Use for: agent-generated UIs, dynamic forms, data display, interactive cards. Triggers: widgets, declarative ui, json ui, widget renderer, agent widgets, dynamic ui, form widgets, card widgets, shadcn widgets, structured output ui\"",
       "path": "skills-library/widgets-ui/SKILL.md"
+    },
+    {
+      "name": "worker-quality-evaluation",
+      "description": "\"Use when comparing free OpenCode or smaller-model workers for quality, latency, token use and reliable delegation.\" disable-model-invocation: true",
+      "path": "skills-library/worker-quality-evaluation/SKILL.md"
     },
     {
       "name": "x-algorithm-optimizer",
