@@ -40,6 +40,6 @@ Windows registration was exercised; other-platform installers were not. Legacy `
 
 ## Current branch and safety
 
-The current working branch is `fix/runtime-setup-gaps`; a human handles the merge. Do not use old setup examples that point to a different branch. Do not remove a checkout or a `.agents` path as a setup workaround. Inspect the installer output and use its managed backup/recovery path if repair is needed.
+This work was prepared on `fix/runtime-setup-gaps`; [PR #7](https://github.com/nachopalmeri/agents-system/pull/7) records its explicitly authorized integration into `main`. Use `main` after that PR is merged. The permanent policy still leaves merges to the director unless the user explicitly overrides it for a particular integration. Do not remove a checkout or a `.agents` path as a setup workaround. Inspect the installer output and use its managed backup/recovery path if repair is needed. See the [integration record](runtime-integration-2026-10-02.md).
 
 Never expose credentials, install unpinned tools, or write to production as part of runtime setup. Global tool installation is optional and explicitly selected with `-InstallTools`.
