@@ -1,4 +1,6 @@
-# Script para copiar tu sistema actual a este repo local
+# Retired: importing the entire global configuration can overwrite canonical files or leak credentials.
+throw 'Legacy import disabled. Use: pwsh bin/setup-global-runtime.ps1'
+# Historical implementation below is unreachable.
 $ErrorActionPreference = "Stop"
 
 Write-Host "=== Copiando sistema actual al repo ===" -ForegroundColor Cyan

@@ -2,6 +2,7 @@
 [CmdletBinding()]
 param(
     [string] $Client,
+    [switch] $GlobalCommands,
     [string] $HomePath = $env:USERPROFILE
 )
 
@@ -126,5 +127,26 @@ if ($Client) {
     foreach ($adapter in @($manifest.adapters)) { Test-Client ([string]$adapter.client) }
 }
 
+if ($GlobalCommands) {
+    foreach ($entry in @($manifest.installTargets | Where-Object { $_.targetPath -match '^bin/agents\.(ps1|cmd)$' })) {
+        $target = Join-Path $homeRoot $entry.targetPath
+        $expected = Get-FileSha256 (Join-Path $repoRoot $entry.sourcePath)
+        if ((Get-FileSha256 $target) -ne $expected) {
+            Write-Status 'unsupported' $entry.targetPath 'missing or drifted global command; rerun setup-global-runtime.ps1'
+            $script:hasInvalidInstall = $true
+        } else { Write-Status 'supported' $entry.targetPath 'managed global command' }
+    }
+    $pointerPath = Join-Path $homeRoot '.agents/local-runtime.json'
+    if (-not (Test-Path -LiteralPath $pointerPath)) {
+        Write-Status 'not-installed' 'global checkout' 'run bin/setup-global-runtime.ps1'
+        $script:hasInvalidInstall = $true
+    } else {
+        try {
+            $pointer = Get-Content -LiteralPath $pointerPath -Raw | ConvertFrom-Json
+            if ([IO.Path]::GetFullPath([string]$pointer.repoPath) -ne $repoRoot) { throw 'Registered checkout differs from the one being checked.' }
+            Write-Status 'supported' 'global checkout' 'registered local checkout'
+        } catch { Write-Status 'unsupported' 'global checkout' 'invalid or mismatched pointer'; $script:hasInvalidInstall = $true }
+    }
+}
 if ($script:hasInvalidInstall) { exit 1 }
 exit 0

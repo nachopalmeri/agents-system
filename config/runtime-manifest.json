@@ -4,8 +4,10 @@
   "activeInstructionRoots": [".agents/agents", ".agents/rules", ".agents/skills", ".agents/skills-library", ".agents/workflows"],
   "excludedRuntimePaths": [".agents/archive", ".git", "node_modules", "dist", "build", "runtime/traces"],
   "preloadAllowlist": [".agents/AGENTS.md", ".agents/workflows/index.md"],
-  "preserveIfExists": [".agents/memory", ".agents/tasks", ".agents/projects-index.md", ".agents/local-paths.json"],
+  "preserveIfExists": [".agents/memory", ".agents/tasks", ".agents/projects-index.md", ".agents/local-paths.json", ".agents/local-runtime.json"],
   "installTargets": [
+    { "client": "cli", "sourcePath": "bin/agents.ps1", "targetPath": "bin/agents.ps1", "kind": "file" },
+    { "client": "cli", "sourcePath": "bin/agents.cmd", "targetPath": "bin/agents.cmd", "kind": "file" },
     { "client": "cli", "sourcePath": "bin/resolve-vault.ps1", "targetPath": "bin/resolve-vault.ps1", "kind": "file" },
     { "client": "cli", "sourcePath": "config/capabilities.json", "targetPath": "config/capabilities.json", "kind": "file" },
     { "client": "cli", "sourcePath": "config/routing-rules.json", "targetPath": "config/routing-rules.json", "kind": "file" },

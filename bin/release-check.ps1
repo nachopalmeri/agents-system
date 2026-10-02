@@ -163,6 +163,7 @@ try {
     }
 
     foreach ($check in @(
+        @{ Script = "test-global-entrypoint.ps1"; Params = @{}; Label = "Global entrypoint" },
         @{ Script = "test-matt-catalog.ps1"; Params = @{}; Label = "Matt on-demand catalog" },
         @{ Script = "check-runtime-graph.ps1"; Params = @{}; Label = "Runtime graph" },
         @{ Script = "render-agents.ps1"; Params = @{ Check = $true }; Label = "Generated agents" },
