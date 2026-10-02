@@ -13,7 +13,7 @@
 - [x] Test every OpenCode plugin export as a factory returning hooks; repair helper export without changing safety rules.
 - [x] Verify pure model discovery and generated agents with inherited model; remove unavailable hardcoded provider IDs.
 - [x] Run regression suites, graph and release checks; primary diff review. Independent OpenCode review blocked by live API failures.
-- [ ] Commit and push feature branch, never merge.
+- [x] Commit and push feature branch, never merge. Implementation commit `0f2d676`; remote SHA parity verified.
 - [x] Sync changes with backup and recheck actual local installation and OpenCode startup.
 - [x] Install authorized optional skills and Tesseract CLI; configure vault locally and verify its root.
 - [ ] Live free-worker response: blocked by connection/timeouts; do not represent fixtures as provider success.
