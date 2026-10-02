@@ -22,4 +22,4 @@ No framework/dependency installation, hook activation, external issue/PR writes,
 
 ## Delivery
 
-Feature branch: fix/runtime-setup-gaps. Commit/push parity is verified at handoff; main is not merged by this task. Use this branch on another PC until the director integrates it.
+Feature branch: fix/runtime-setup-gaps. Implementation commit 38053ce9cc28944a8ed623c434a85eba6e2fd3a1 was pushed and verified equal to the remote branch. A final release-check passed after that push. Main is not merged by this task. Use this branch on another PC until the director integrates it.
