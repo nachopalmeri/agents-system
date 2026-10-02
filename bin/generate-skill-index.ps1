@@ -28,6 +28,8 @@ $lines = @(
     "# Skills library (on-demand)",
     "",
     "No se cargan solas. Si la tarea encaja con una fila, leé ``~/.agents/skills-library/<skill>/SKILL.md`` completo y seguilo. No leas otras.",
+    "",
+    "Catálogo Matt: las entradas ``matt-*`` conservan su estado en la descripción; ``matt-catalog.json`` contiene pin, procedencia y hashes para tooling, no para preload.",
     ""
 )
 foreach ($dir in @(Get-ChildItem $libraryRoot -Directory | Sort-Object { $_.Name } -Culture "en-US")) {

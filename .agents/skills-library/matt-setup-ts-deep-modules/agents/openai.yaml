@@ -1,0 +1,5 @@
+interface:
+  display_name: "Matt: setup-ts-deep-modules"
+  short_description: "experimental Matt workflow, loaded on demand"
+policy:
+  allow_implicit_invocation: false

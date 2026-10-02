@@ -1,0 +1,5 @@
+interface:
+  display_name: "Worker quality evaluation"
+  short_description: "Compare worker reliability and total effort on demand"
+policy:
+  allow_implicit_invocation: false

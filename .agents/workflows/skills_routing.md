@@ -43,3 +43,9 @@ Skills `core` se activan por contexto. Skills `specialized` se usan cuando el ti
 
 ## Invocación explícita
 Nombrar la skill directamente: "Usá `systematic-debugging`". No cargues skills desde `archive/`: una capacidad histórica debe revisarse, promoverse al catálogo activo y recibir un fixture antes de volver al runtime.
+
+## Catálogo Matt Pocock (global, on demand)
+
+Si el usuario pide una técnica de Matt o una capacidad que no cubre el core, buscá la entrada `matt-*` relevante en `skills-library/INDEX.md`; leé sólo su wrapper y referencias necesarias. No hace falta que el usuario recuerde el comando. Las 27 promovidas, 4 misc y 6 experimentales están namespaced y fuera del preload; estas últimas requieren un pedido claro para su propósito. La política canónica conserva permisos, límites y selección de modelos.
+
+Sandcastle y Evalite son guías de evaluación on-demand (`sandcastle-evaluation`, `worker-quality-evaluation`), no frameworks instalados. El catálogo no ejecuta hooks, migraciones, publicación ni merges por descubrirlo.

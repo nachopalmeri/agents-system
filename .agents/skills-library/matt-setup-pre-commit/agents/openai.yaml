@@ -1,0 +1,5 @@
+interface:
+  display_name: "Matt: setup-pre-commit"
+  short_description: "misc Matt workflow, loaded on demand"
+policy:
+  allow_implicit_invocation: false
