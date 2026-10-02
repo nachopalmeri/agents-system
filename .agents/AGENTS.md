@@ -43,6 +43,7 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 - Usá únicamente candidatos gratuitos verificados en los workers OpenCode, salvo autorización explícita para modelos pagos. Conservá el alcance autorizado y registrá proveedor, modelo, resultado y costo disponible. Si el proveedor está bloqueado, retorná el encargo al primary con el motivo, sin cambiar permisos silenciosamente.
 
 - Planificá cuando haya más de tres pasos significativos, varios archivos o riesgo; los cambios chicos van directos.
+- Para features medianas/grandes, usá `workflows/ticket_sessions.md`: decisiones pendientes → spec compartida → tickets → handoffs compactos; sesiones nuevas sólo con autorización explícita, sin overhead para tareas chicas.
 - Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin.
 - Corregí causas raíz con impacto mínimo. Si algo sale mal, replanificá antes de seguir.
 - Validá proporcionalmente con tests, parse, build, diff, logs o evidencia equivalente. No declares victoria sin evidencia fresca.

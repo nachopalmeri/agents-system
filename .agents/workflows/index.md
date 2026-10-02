@@ -9,6 +9,7 @@ Primero clasificá SIMPLE, SPECIALIZED, PARALLEL o HIGH_RISK con `../../config/r
 | Intención | Componente mínimo | Escalar sólo si |
 |---|---|---|
 | Cambio o explicación directa | el agente principal, sin subagentes | aparece riesgo o expertise material |
+| Feature mediana/grande o trabajo que excede una sesión enfocada | `workflows/ticket_sessions.md` | Matt por fase; chats nuevos sólo con autorización explícita |
 | Bug o test rojo | `skills/systematic-debugging/SKILL.md` | hay trabajos independientes |
 | UI/landing material | `skills/frontend-design/SKILL.md` | requiere revisión visual separada |
 | SEO técnico | `skills/seo-geo-growth/references/seo-tecnico.md` | incluye adquisición/GEO |

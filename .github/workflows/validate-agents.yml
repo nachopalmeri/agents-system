@@ -28,6 +28,10 @@ jobs:
         shell: pwsh
         run: ./bin/test-ci-exit-contract.ps1
 
+      - name: Validate ticket-session workflow contract
+        shell: pwsh
+        run: ./bin/test-ticket-session-workflow.ps1
+
       - name: Validate OpenCode guard exports
         run: node --test bin/test-opencode-guard.mjs
 
