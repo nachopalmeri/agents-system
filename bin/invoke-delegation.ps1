@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([Parameter(Mandatory)] [string] $RequestPath, [switch] $DryRun, [string] $OpenCodeCommand = 'opencode')
+param([Parameter(Mandatory)] [string] $RequestPath, [switch] $DryRun, [string] $OpenCodeCommand)
 $ErrorActionPreference = 'Stop'
 $request = Get-Content -LiteralPath $RequestPath -Raw | ConvertFrom-Json
 $route = & (Join-Path $PSScriptRoot 'select-delegation.ps1') -RequestPath $RequestPath | ConvertFrom-Json
@@ -28,11 +28,41 @@ foreach ($path in @($request.allowedPaths | Where-Object { $_ })) {
         $cursor = Split-Path $cursor -Parent
     }
 }
+if (-not $OpenCodeCommand) {
+    $pinnedWorker=Join-Path $PSScriptRoot 'opencode-worker.ps1'
+    $OpenCodeCommand=if(Test-Path -LiteralPath $pinnedWorker -PathType Leaf){$pinnedWorker}else{'opencode'}
+}
 $command = Get-Command $OpenCodeCommand -ErrorAction Stop
-$available = @(& $command.Source models --pure 2>$null)
-if ($LASTEXITCODE -ne 0) { throw 'Could not discover OpenCode models.' }
+$versionOutput = [string](@(& $command.Source --version 2>$null) -join ' ')
+if ($LASTEXITCODE -ne 0 -or $versionOutput -notmatch '(?:^|\s)v?(\d+)\.\d+\.\d+') {
+    [ordered]@{state='UNAVAILABLE'; executor='primary'; reason='Cannot identify OpenCode CLI version safely'} | ConvertTo-Json
+    return
+}
+# Only V1 has the verified inline-config transport used by this bridge.
+$isV2 = [int]$Matches[1] -ge 2
+if ($isV2) {
+    # Verified against the installed V2 runtime: inline config is not consumed.
+    # Never run a worker with ambient permissive rules while claiming scoped access.
+    [ordered]@{
+        state='UNSUPPORTED_CONFIGURATION'; executor='primary'; cliVersion=$versionOutput
+        reason='OpenCode V2 does not load the scoped inline configuration used by this bridge'
+        recovery='Use the repository-pinned official opencode-ai CLI, or a separately verified V2 file/session adapter'
+    } | ConvertTo-Json
+    return
+}
+$transportFlag = '--pure'
+$previousConfig = $env:OPENCODE_CONFIG_CONTENT
+try {
+    $env:OPENCODE_CONFIG_CONTENT = '{"autoupdate":false}'
+    $available = @(& $command.Source models $transportFlag 2>$null)
+    $discoveryExit = $LASTEXITCODE
+} finally { $env:OPENCODE_CONFIG_CONTENT = $previousConfig }
+if ($discoveryExit -ne 0) {
+    [ordered]@{state='UNAVAILABLE'; executor='primary'; reason='OpenCode model discovery failed'; cliVersion=$versionOutput; discoveryExitCode=$discoveryExit} | ConvertTo-Json
+    return
+}
 $models = @($route.modelCandidates | Where-Object { $available -contains $_ -and ($_ -match '^opencode/.+-free$' -or $_ -match '^ollama/') } | Select-Object -First $route.maxAttempts)
-if ($models.Count -eq 0) { [ordered]@{state='UNAVAILABLE'; executor='primary'; reason='No configured free model available'} | ConvertTo-Json; return }
+if ($models.Count -eq 0) { [ordered]@{state='UNAVAILABLE'; executor='primary'; reason='No configured free model available'; cliVersion=$versionOutput; discoveredModelCount=$available.Count} | ConvertTo-Json; return }
 $edits = [ordered]@{'*'='deny'}
 foreach ($path in @($request.allowedPaths | Where-Object { $_ })) { Add-EditScope $edits $path }
 $permissions = [ordered]@{'*'='deny'; read=@{'*'='allow'; '*.env*'='deny'; '**/.env*'='deny'; '**/secrets/**'='deny'}; glob='allow'; grep='allow'; edit=$edits; bash=@{'*'='ask'; 'git status --short'='allow'; 'git diff --stat'='allow'; 'git diff --check'='allow'}; webfetch='allow'; websearch='allow'; external_directory='deny'; task='deny'}
@@ -55,6 +85,7 @@ if ($subtasks.Count -gt 0) {
     }
     $config.agent.build.permission=$permissions
 }
+$config.autoupdate=$false
 $started = [DateTime]::UtcNow
 $receipt = [ordered]@{state='BLOCKED'; executor='opencode'; attempts=@(); parentReviewRequired=$true; finalSynthesis='primary'}
 foreach ($model in $models) {
@@ -67,7 +98,7 @@ foreach ($model in $models) {
         $info.FileName = (Get-Command pwsh -ErrorAction Stop).Source
         foreach ($arg in @('-NoProfile','-File',$command.Source)) { $info.ArgumentList.Add($arg) }
     } else { $info.FileName=$command.Source }
-    foreach ($arg in @('run','--pure','--format','json','--agent','build','--model',$model,$prompt)) { $info.ArgumentList.Add($arg) }
+    foreach ($arg in @('run',$transportFlag,'--format','json','--agent','build','--model',$model,$prompt)) { $info.ArgumentList.Add($arg) }
     $info.WorkingDirectory=$workspace
     $info.UseShellExecute=$false; $info.CreateNoWindow=$true
     $info.RedirectStandardOutput=$true; $info.RedirectStandardError=$true

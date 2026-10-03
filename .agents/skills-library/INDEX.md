@@ -2,8 +2,6 @@
 
 No se cargan solas. Si la tarea encaja con una fila, leé `~/.agents/skills-library/<skill>/SKILL.md` completo y seguilo. No leas otras.
 
-- `project-learning-guide` — concise, visually rich English guide for learning engineering/UX from a project; save under the matching UADE `Efforts/Proyectos/` folder and link relevant class notes when evidence supports it.
-
 Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `matt-catalog.json` contiene pin, procedencia y hashes para tooling, no para preload.
 
 - `academic-tutor` — Use as an intensive university tutor: explain concepts in depth, evaluate honestly, generate exercises and…
@@ -86,6 +84,7 @@ Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `m
 - `product-founder` — Use to decide what to build next: product ideas, indie hacking, MVP scoping, validation experiments and…
 - `product-hunt-launch` — Product Hunt launch optimization with specific specs, timing, and gallery strategy.
 - `product-photography` — AI product photography with studio lighting, lifestyle shots, and packshot conventions.
+- `project-learning-guide` — Use at a substantial project milestone or when the user wants to learn from a project.
 - `prompt-engineering` — Master prompt engineering for AI models: LLMs, image generators, video models.
 - `python-executor` — Execute Python code in a safe sandboxed environment via [inference.sh](https://inference.sh).
 - `python-sdk` — Python SDK for inference.sh - run AI apps, build agents, and integrate with all models.

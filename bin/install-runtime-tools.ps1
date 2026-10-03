@@ -17,11 +17,18 @@ foreach ($tool in $selected) {
         # Winget reports an already-installed package with a nonzero no-update status.
         if ($LASTEXITCODE -notin @(0,-1978335189)) { throw "Winget installation failed for $($tool.name): $LASTEXITCODE" }
     } else {
-        & npm install --global "$($tool.package)@$($tool.version)" --ignore-scripts --no-audit --no-fund
+        $installArgs=@('install','--global',"$($tool.package)@$($tool.version)",'--ignore-scripts','--no-audit','--no-fund')
+        if ($tool.package -eq 'opencode-ai') {
+            $workerHome=if($env:USERPROFILE){$env:USERPROFILE}else{[Environment]::GetFolderPath('UserProfile')}
+            $workerPrefix=Join-Path $workerHome '.agents-tools/opencode-v1'
+            $installArgs+=@('--prefix',$workerPrefix)
+        }
+        & npm @installArgs
         if ($LASTEXITCODE -ne 0) { throw "npm installation failed for $($tool.name)" }
         # Only these pinned, reviewed packages need hooks to place native Windows binaries.
         if ($tool.package -in @('pnpm','opencode-ai')) {
-            & npm rebuild --global $tool.package --foreground-scripts
+            if ($tool.package -eq 'opencode-ai') { & npm rebuild --global $tool.package --prefix $workerPrefix --foreground-scripts }
+            else { & npm rebuild --global $tool.package --foreground-scripts }
             if ($LASTEXITCODE -ne 0) { throw "Native CLI setup failed for $($tool.name)" }
         }
     }

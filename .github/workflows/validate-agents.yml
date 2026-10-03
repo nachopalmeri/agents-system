@@ -39,6 +39,8 @@ jobs:
         shell: pwsh
         run: |
           ./bin/test-delegation.ps1
+          ./bin/test-delegation-v2.ps1
+          ./bin/test-opencode-worker.ps1
           ./bin/test-model-routing.ps1
           ./bin/render-runtime-adapters.ps1 -Check
 

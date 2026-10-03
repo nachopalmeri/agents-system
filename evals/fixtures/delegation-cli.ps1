@@ -1,3 +1,4 @@
+if ($args[0] -eq '--version') { '1.16.2'; exit 0 }
 # Offline CLI transport fixture; never contacts a provider or edits a workspace.
 if ($args[0] -eq 'models') {
     if ($args -notcontains '--pure') { throw 'Model discovery must not load external plugins.' }
