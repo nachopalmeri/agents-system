@@ -38,11 +38,12 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 ## Ejecución y cierre
 
-- Use delegation by default when a subtask is independent and can be handled reliably by another agent or a smaller model. Consultá `rules/model_routing.md` y `workflows/delegation.md`: elegí el modelo menor disponible en el mismo harness u OpenCode cuando sea adecuado. Incluye lectura, edición local, implementación y tests acotados. Mantené síntesis y validación en el primary; tareas triviales van directas si el handoff cuesta más. Nunca afirmes delegación sin una invocación real.
+- Use delegation by default when a subtask is independent and can be handled reliably by another agent or a smaller model. Elegí con `rules/model_routing.md` y ejecutá con `workflows/delegation.md`; mantené síntesis y validación en el primary. Tareas triviales van directas si el handoff cuesta más. Nunca afirmes delegación sin una invocación real.
 - Para búsqueda e investigación, preferí OpenCode cuando sea adecuado y no dupliques el trabajo con otra investigación paralela del primary. Pedí fuentes verificables, cobertura, bloqueos y resultados breves; cargá sólo la evidencia necesaria para comprobarlos.
 - Usá únicamente candidatos gratuitos verificados en los workers OpenCode, salvo autorización explícita para modelos pagos. Conservá el alcance autorizado y registrá proveedor, modelo, resultado y costo disponible. Si el proveedor está bloqueado, retorná el encargo al primary con el motivo, sin cambiar permisos silenciosamente.
 
 - Planificá cuando haya más de tres pasos significativos, varios archivos o riesgo; los cambios chicos van directos.
+- Para features medianas/grandes, usá `workflows/ticket_sessions.md`: decisiones pendientes → spec compartida → tickets → handoffs compactos; sesiones nuevas sólo con autorización explícita, sin overhead para tareas chicas.
 - Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin.
 - Corregí causas raíz con impacto mínimo. Si algo sale mal, replanificá antes de seguir.
 - Validá proporcionalmente con tests, parse, build, diff, logs o evidencia equivalente. No declares victoria sin evidencia fresca.
@@ -68,5 +69,6 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 ## Economía de tokens
 
 - Buscá con grep/glob y leé rangos; no leas archivos enteros para ubicar algo.
-- Una tarea por sesión: al cerrar, dejá estado en `tasks/todo.md` y empezá limpio.
+- Lean por defecto: rutina con el menor modelo capaz disponible y modo Standard; esfuerzo proporcional, sin reviews/councils automáticos por microtarea. Detalle y medición sólo cuando sean necesarios: `workflows/token_budget.md`.
+- Cerrá unidades sustanciales con estado compacto en `tasks/todo.md`; nueva sesión en un límite natural, no por cada edición. No reinicia la cuota de la cuenta.
 - MCPs apagados por defecto; habilitalos por proyecto cuando se usen.

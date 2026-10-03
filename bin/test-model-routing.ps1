@@ -4,6 +4,10 @@ param()
 $ErrorActionPreference = "Stop"
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $config = Get-Content (Join-Path $root "config\model-routing.json") -Raw | ConvertFrom-Json
+foreach ($tier in @('free-fast','free-worker','cheap')) {
+    if ($config.tiers.$tier.maxAttempts -ne 1) { throw "Lean workers must return to primary after one model attempt: $tier" }
+}
+if ($config.tiers.'free-fast'.maxOutputTokens -gt 2000 -or $config.tiers.'free-worker'.maxOutputTokens -gt 4000 -or $config.tiers.cheap.maxOutputTokens -gt 4000) { throw 'Lean worker output guidance exceeds its default budget.' }
 if ($config.tiers.'free-fast'.candidates -notcontains "opencode/muse-spark-1.3-contributor-free") { throw "free-fast-muse-missing" }
 if ($config.rules.freeTiersMayNotWriteOutsideWorkspace -ne $true) { throw "free-workspace-policy-missing" }
 if ($config.rules.freeWorkerRequiresParentReview -ne $true) { throw "free-worker-review-policy-missing" }

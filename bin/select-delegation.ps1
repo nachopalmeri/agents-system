@@ -34,4 +34,7 @@ if ($delegate) {
     $executor = if ($request.sameHarnessAvailable -eq $true -and $request.prefer -ne 'opencode') { 'same-harness' } else { 'opencode' }
     if ($executor -eq 'same-harness') { $tier = 'cheap' }
 }
-[ordered]@{ delegate=$delegate; executor=$executor; tier=$tier; modelCandidates=@($policy.tiers.$tier.candidates); parentReviewRequired=$true; maxAttempts=2; maxWorkers=3; maxWallSeconds=180; finalSynthesis='primary'; reason=if($delegate){'bounded-task'}else{'primary-task'} } | ConvertTo-Json -Depth 8
+$maxAttempts = $policy.tiers.$tier.maxAttempts
+if ($maxAttempts -isnot [long] -and $maxAttempts -isnot [int]) { throw 'Model attempt budget must be an integer.' }
+if ($maxAttempts -lt 1 -or $maxAttempts -gt 2) { throw 'Model attempt budget must be between one and two.' }
+[ordered]@{ delegate=$delegate; executor=$executor; tier=$tier; modelCandidates=@($policy.tiers.$tier.candidates); parentReviewRequired=$true; maxAttempts=$maxAttempts; maxWorkers=3; maxWallSeconds=180; finalSynthesis='primary'; reason=if($delegate){'bounded-task'}else{'primary-task'} } | ConvertTo-Json -Depth 8

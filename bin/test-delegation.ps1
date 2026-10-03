@@ -6,6 +6,7 @@ try {
     $request=@{objective='Add isolated test fixtures'; risk='low'; sensitiveData=$false; operation='edit'; taskClass='tests-and-fixtures'; allowedPaths=@('tests/example.json')}
     function Route { $request | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $path; & (Join-Path $PSScriptRoot 'select-delegation.ps1') -RequestPath $path | ConvertFrom-Json }
     $route=Route; if($route.executor -ne 'opencode' -or $route.tier -ne 'free-worker'){throw 'Local edits should delegate.'}
+    if ($route.maxAttempts -ne 1) { throw 'Selector ignored free-worker policy attempt budget.' }
     $request.sameHarnessAvailable=$true; if((Route).executor -ne 'same-harness'){throw 'Same-harness cheaper worker preferred.'}
     $request.risk='high'; if((Route).delegate){throw 'High risk must stay primary.'}
     $request.risk='low'; $request.trivial=$true; if((Route).delegate){throw 'Trivial task must avoid overhead.'}
@@ -28,6 +29,6 @@ try {
     if($receipt.state -ne 'PROVIDER_REFUSAL' -or $receipt.attempts.Count -ne 1 -or $receipt.fallbackExecutor -ne 'primary'){throw '400 free-tier policy refusal must stop after one attempt and fall back to primary.'}
     $request.objective='Return fixture malformed'; Route|Out-Null
     $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
-    if($receipt.state -eq 'SUCCESS' -or $receipt.attempts.Count -ne 2){throw 'Malformed outputs must exhaust bounded attempts.'}
+    if($receipt.state -eq 'SUCCESS' -or $receipt.attempts.Count -ne 1){throw 'Malformed outputs must return after one lean attempt.'}
     'DELEGATION_TESTS_OK'
 } finally { Remove-Item -LiteralPath $path -ErrorAction SilentlyContinue; Remove-Item -LiteralPath $dir }

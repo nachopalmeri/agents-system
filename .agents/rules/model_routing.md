@@ -6,7 +6,7 @@ description: Elegir ejecución directa, modelo menor nativo u OpenCode según ca
 
 Delegar es el default para subtareas independientes que un agente o modelo menor disponible pueda resolver de forma fiable. El primary decide por capacidad, riesgo y costo total; no toda tarea necesita otro agente. Una tarea trivial permanece en el primary cuando preparar el encargo y revisarlo cuesta más que ejecutarlo.
 
-El modelo fuerte se usa para planificación y revisión de riesgo; la ejecución de unidades claras puede ir a un modelo menor. Un plan incorrecto multiplica el costo de las iteraciones posteriores.
+Rutina clara: preferí Luna o el menor modelo capaz disponible, en Standard y con esfuerzo low/medium si el cliente lo soporta. Reservá modelos fuertes para arquitectura difícil, diagnóstico incierto y juicio de riesgo; un plan corto no exige un frontier. No confundas preferencia con cambio real del modelo o modo actual. Fast/Ultrafast sólo si la latencia justifica el mayor consumo y el usuario lo elige.
 
 | Trabajo | Ruta preferida |
 |---|---|
@@ -24,6 +24,6 @@ Delegar permite edición local con archivos exactos y unidades reversibles, no s
 
 La ruta es una elección por tarea entre backends disponibles, no una escalera obligatoria que ejecuta todos los modelos. Si se agota el límite de intentos o el proveedor rechaza la sesión, devolvé el motivo al primary. No ensanches permisos para ocultar un fallo.
 
-Elegí esfuerzo proporcional. Los niveles y nombres de modelos son específicos de cada proveedor; consultá el catálogo real. El bridge aplica límites de pasos, tiempo e intentos; el presupuesto de output de la política es orientativo y debe ser configurado por el adapter si el proveedor lo permite.
+Elegí esfuerzo proporcional. Los niveles y nombres de modelos son específicos de cada proveedor. Workers: un intento de modelo por encargo; fallo vuelve al primary, que cambia contexto o plan antes de reintentar. El bridge aplica límites de pasos, tiempo e intentos; `maxOutputTokens` es guía, no un cap ejecutable hasta que el adapter lo soporte. No truncar evidencia necesaria para respetar una guía de longitud.
 
 Registrá provider/model, costo y uso reportados, evidencia y cambios reales. El costo gratuito no prueba ahorro total de tokens: compará también la preparación, el contexto inicial y la revisión del primary.
