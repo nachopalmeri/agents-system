@@ -1,11 +1,15 @@
 ---
 name: obsidian-vault
-description: "Trabajar con el vault UADE configurado en esta PC: clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault."
+description: "Work in the configured UADE Obsidian vault, including project documentation, classes, concepts, and evaluations; follow its folder and approval rules."
 ---
 
 # Vault de Obsidian — UADE (Q2 2026)
 
 Resolvé la raíz con `pwsh -NoProfile -File ~/bin/resolve-vault.ps1`: usa `uadeVault` en `~/.agents/local-paths.json`; sin configuración prueba la ruta histórica `D:\Facultad\UADE-Vault`. `Efforts` es una carpeta interna, no la raíz. Si falla, pedí la ruta real; no elijas backups ni crees un vault. El contrato de agentes manda: **`AGENTS.md`** y `docs/FLUJO-IA.md`; el formato, `docs/ESTILO-NOTAS.md`. Procesar una clase o repasar: skill `procesar-clase-vault`.
+
+## Project documentation
+
+Before documenting a project, inspect `Efforts/Proyectos/` for the matching project folder and relevant notes. Add the documentation to a relevant existing note there; if the project folder is missing, create a clearly named folder inside `Efforts/Proyectos/` and a descriptive note in it. Never overwrite unrelated notes. Do not update `Proyectos.md` or another MOC unless requested. Project documentation belongs with its project; concept/class proposals remain in `+/Propuestas IA/`.
 
 ## Estructura (PARA + Zettelkasten)
 

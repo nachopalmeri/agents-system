@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T20:51:23.3780257-03:00",
+  "generatedAt": "2026-10-02T21:15:33.0995326-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -91,7 +91,7 @@
     },
     {
       "name": "obsidian-vault",
-      "description": "\"Trabajar con el vault UADE configurado en esta PC: clases Q2 2026, propuestas IA, Atlas/Dots, MOCs, Bases y apoyo visual con Mermaid. Usar cuando se trabaje en notas, clases, conceptos, evaluaciones o cualquier contenido del vault.\"",
+      "description": "\"Work in the configured UADE Obsidian vault, including project documentation, classes, concepts, and evaluations; follow its folder and approval rules.\"",
       "path": "skills/obsidian-vault/SKILL.md"
     },
     {
