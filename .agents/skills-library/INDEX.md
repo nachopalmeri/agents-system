@@ -2,6 +2,8 @@
 
 No se cargan solas. Si la tarea encaja con una fila, leé `~/.agents/skills-library/<skill>/SKILL.md` completo y seguilo. No leas otras.
 
+- `project-learning-guide` — concise, visually rich English guide for learning engineering/UX from a project; save under the matching UADE `Efforts/Proyectos/` folder and link relevant class notes when evidence supports it.
+
 Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `matt-catalog.json` contiene pin, procedencia y hashes para tooling, no para preload.
 
 - `academic-tutor` — Use as an intensive university tutor: explain concepts in depth, evaluate honestly, generate exercises and…

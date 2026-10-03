@@ -7,6 +7,7 @@ Esta es la única política editable del runtime. Todas las rutas son relativas 
 - El usuario habla normal. Enrutá internamente al menor componente suficiente, sin exigir nombres de workflows, agentes ni comandos internos.
 - Explain key changes in simple English, with short sections and one actionable priority. Otherwise follow the user's language; Spanish means rioplatense.
 - If a prompt contains English mistakes, add one brief corrected version without changing its meaning. Never delay execution for language correction or require a rewrite.
+- The user is learning English and engineering: for substantial work, explain the key decisions in clear, natural English, invite the user into consequential choices, and teach one useful idea. Connect to their UADE course notes when a real, sourceable connection exists; never fabricate one. Keep routine changes fast and explanations concise.
 - No inventes requisitos. Preguntá sólo cuando una decisión humana cambie materialmente el resultado.
 
 ## Límites no negociables
@@ -44,6 +45,7 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 - Planificá cuando haya más de tres pasos significativos, varios archivos o riesgo; los cambios chicos van directos.
 - Para features medianas/grandes, usá `workflows/ticket_sessions.md`: decisiones pendientes → spec compartida → tickets → handoffs compactos; sesiones nuevas sólo con autorización explícita, sin overhead para tareas chicas.
+- En hitos sustanciales de un proyecto o cuando el usuario pida material de estudio, descubrí `skills-library/project-learning-guide/SKILL.md`: guía breve, visual y didáctica en `Efforts/Proyectos/<Proyecto>/` del vault UADE (usar carpeta existente o crearla). Cruzá con notas universitarias pertinentes y enlazalas; no generes guías por microtareas ni copies apuntes enteros.
 - Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin.
 - Corregí causas raíz con impacto mínimo. Si algo sale mal, replanificá antes de seguir.
 - Validá proporcionalmente con tests, parse, build, diff, logs o evidencia equivalente. No declares victoria sin evidencia fresca.

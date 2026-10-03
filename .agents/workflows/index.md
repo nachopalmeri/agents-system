@@ -19,6 +19,7 @@ Primero clasificá SIMPLE, SPECIALIZED, PARALLEL o HIGH_RISK con `../../config/r
 | AI/RAG productivo | `skills/ai-production-architecture/SKILL.md` | seguridad independiente necesaria |
 | Obsidian | `skills/obsidian-vault/SKILL.md` | edición cruza otros repos |
 | Estudio/examen | `workflows/academic_tutor.md` | se pide persistir al vault |
+| Aprender ingeniería/UX de un proyecto o documentarlo para estudiar | `skills-library/project-learning-guide/SKILL.md` + `skills/obsidian-vault/SKILL.md` | hito sustancial o pedido explícito; cruzar apuntes sólo con evidencia |
 | Research actual | subagente `agents/explorador.md` | dos tracks independientes |
 | Paralelismo explícito | `workflows/parallel_agents.md` | council fue pedido explícitamente |
 | Council explícito | `workflows/multiagent_review_loop.md` | nunca automático |

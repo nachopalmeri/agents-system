@@ -11,6 +11,8 @@ Resolvé la raíz con `pwsh -NoProfile -File ~/bin/resolve-vault.ps1`: usa `uade
 
 Before documenting a project, inspect `Efforts/Proyectos/` for the matching project folder and relevant notes. Add the documentation to a relevant existing note there; if the project folder is missing, create a clearly named folder inside `Efforts/Proyectos/` and a descriptive note in it. Never overwrite unrelated notes. Do not update `Proyectos.md` or another MOC unless requested. Project documentation belongs with its project; concept/class proposals remain in `+/Propuestas IA/`.
 
+For a substantial project learning guide or an explicit request to learn from a project, also load `skills-library/project-learning-guide/SKILL.md`. The user wants concise, visually engaging English teaching and evidence-based links to relevant UADE class notes. This does not mean documenting every small task.
+
 ## Estructura (PARA + Zettelkasten)
 
 | Carpeta | Propósito |

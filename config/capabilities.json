@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T21:15:33.0995326-03:00",
+  "generatedAt": "2026-10-03T08:41:03.4156307-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -578,6 +578,11 @@
       "name": "product-photography",
       "description": "\"AI product photography with studio lighting, lifestyle shots, and packshot conventions. Covers angles, backgrounds, shadow types, hero shots, and e-commerce image requirements. Use for: product photos, e-commerce images, Amazon listings, packshots, lifestyle photography. Triggers: product photography, product photo, packshot, e-commerce photography, product shot, product image, studio photography, lifestyle product, amazon product photo, product listing image, hero shot, product mockup, commercial photography\" allowed-tools: Bash(belt *)",
       "path": "skills-library/product-photography/SKILL.md"
+    },
+    {
+      "name": "project-learning-guide",
+      "description": "\"Use at a substantial project milestone or when the user wants to learn from a project. Create a concise, beautiful Obsidian learning guide that explains the product, UX, workflows, stack and code, and connects verified concepts to the user's UADE class notes.\"",
+      "path": "skills-library/project-learning-guide/SKILL.md"
     },
     {
       "name": "prompt-engineering",
