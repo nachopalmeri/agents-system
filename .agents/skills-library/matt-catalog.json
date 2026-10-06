@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mattpocock/skills",
-  "ref": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+  "ref": "6fd947921b935b7e1e69293a200400f0fdd5c15f",
   "license": "MIT",
   "loading": "on-demand-only",
   "skills": [
@@ -9,7 +9,7 @@
       "upstreamName": "ask-matt",
       "path": "skills/engineering/ask-matt/SKILL.md",
       "maturity": "promoted",
-      "sha256": "3f0f34614070aba3d9a7e2bd210718d78b9b942dd0f9af0c5869234fe34e16af"
+      "sha256": "32b3c71d6dbb5a7c15147e8a503a9df28e9a567f45eba6a6bb42aa903225c6ff"
     },
     {
       "name": "matt-code-review",
@@ -58,7 +58,7 @@
       "upstreamName": "implement",
       "path": "skills/engineering/implement/SKILL.md",
       "maturity": "promoted",
-      "sha256": "6d3fd9e83b8f36e5213854779db49b256a457a7ebb4a503e53fa7dcff696adc3"
+      "sha256": "f28bed1a2a7dcf604c802a99869bae9d577b6bfc2061fe655c8b0dbb1ee16cfd"
     },
     {
       "name": "matt-improve-codebase-architecture",
@@ -121,7 +121,7 @@
       "upstreamName": "to-tickets",
       "path": "skills/engineering/to-tickets/SKILL.md",
       "maturity": "promoted",
-      "sha256": "5c9fba69845c2519b9b35b9af42ae5142c21f8ca15ac2123dc2722002c8058ae"
+      "sha256": "56ec23c5b2782785d4e65bff9e315b6d3aeb4ef977c174a219e99489fada1995"
     },
     {
       "name": "matt-triage",
@@ -145,11 +145,18 @@
       "sha256": "bdf31d48211ea559878f95a4f344aeabf8d85897488ba564382bab0b000daac1"
     },
     {
+      "name": "matt-chief-of-staff",
+      "upstreamName": "chief-of-staff",
+      "path": "skills/in-progress/chief-of-staff/SKILL.md",
+      "maturity": "experimental",
+      "sha256": "6cc6e47ab5022f3e45e5be0fedbb0f6e645f4f0190d6b0c51c7cd60c2d7c1d98"
+    },
+    {
       "name": "matt-claude-handoff",
       "upstreamName": "claude-handoff",
       "path": "skills/in-progress/claude-handoff/SKILL.md",
       "maturity": "experimental",
-      "sha256": "6738e8b7c7899ea0038fb7a5c859ca1b90c7b1eb40123dcdbe94c51b5b119f12"
+      "sha256": "79357a18425d66d4c24048bedf83dceb79d3bba356f38014950f764a7fab4026"
     },
     {
       "name": "matt-loop-me",
@@ -233,7 +240,7 @@
       "upstreamName": "handoff",
       "path": "skills/productivity/handoff/SKILL.md",
       "maturity": "promoted",
-      "sha256": "7c62de979fdc7ac32fb5ddb2146156c917f80ee070d30fadc9d40343c4b6ed25"
+      "sha256": "4cbb043950dad2ffd3662ff1a5a0b51ae676004b5cae10e3787e8ee7a4ee69d3"
     },
     {
       "name": "matt-teach",

@@ -1,18 +1,18 @@
 #!/usr/bin/env pwsh
 [CmdletBinding()]
-param([string] $AgentsRoot = (Join-Path (Split-Path $PSScriptRoot -Parent) '.agents'))
+param([string] $AgentsRoot = (Join-Path (Split-Path $PSScriptRoot -Parent) '.agents'), [int] $ExpectedCoreCount = 30)
 $ErrorActionPreference = 'Stop'
 $manifestPath = Join-Path $AgentsRoot 'skills-library/matt-catalog.json'
 if (-not (Test-Path -LiteralPath $manifestPath)) { throw 'Matt on-demand catalog manifest missing.' }
 $catalog = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
-if ($catalog.ref -ne 'd81f3a183412e71a5b1e84ca21bc1a35eea03a60') { throw 'Upstream ref is not pinned.' }
-if (@($catalog.skills).Count -ne 37) { throw 'Expected all 37 upstream skills (27 promoted, 10 optional).' }
+if ($catalog.ref -ne '6fd947921b935b7e1e69293a200400f0fdd5c15f') { throw 'Upstream ref is not pinned.' }
+if (@($catalog.skills).Count -ne 38) { throw 'Expected all 38 upstream skills (27 promoted, 11 optional).' }
 if (@($catalog.skills | Where-Object maturity -eq 'promoted').Count -ne 27) { throw 'Promoted count mismatch.' }
 if (@($catalog.skills | Where-Object maturity -eq 'misc').Count -ne 4) { throw 'Misc count mismatch.' }
-if (@($catalog.skills | Where-Object maturity -eq 'experimental').Count -ne 6) { throw 'Experimental count mismatch.' }
-if (@($catalog.skills.name | Sort-Object -Unique).Count -ne 37) { throw 'Duplicate catalog names.' }
+if (@($catalog.skills | Where-Object maturity -eq 'experimental').Count -ne 7) { throw 'Experimental count mismatch.' }
+if (@($catalog.skills.name | Sort-Object -Unique).Count -ne 38) { throw 'Duplicate catalog names.' }
 $core = @(Get-ChildItem (Join-Path $AgentsRoot 'skills') -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'SKILL.md') })
-if ($core.Count -ne 30) { throw "Core preload changed: $($core.Count)" }
+if ($core.Count -ne $ExpectedCoreCount) { throw "Core preload changed: $($core.Count)" }
 $gate = Get-Content (Join-Path $AgentsRoot 'rules/matt-skills.md') -Raw
 foreach ($required in @('main', '3', 'depth', 'OpenCode', 'authorization', 'GLOSSARY.md')) {
     if (-not $gate.Contains($required)) { throw "Compatibility gate missing $required" }
@@ -48,4 +48,4 @@ foreach ($name in @('sandcastle-evaluation', 'worker-quality-evaluation')) {
     if (-not (Test-Path (Join-Path $AgentsRoot "skills-library/$name/SKILL.md"))) { throw "Missing evaluation guide: $name" }
     if (-not $index.Contains(('`' + $name + '`'))) { throw "Index missing evaluation guide: $name" }
 }
-"MATT_CATALOG_OK: 37 upstream entries, 2 evaluation guides, 30 core skills unchanged."
+"MATT_CATALOG_OK: 38 upstream entries, 2 evaluation guides, $ExpectedCoreCount core skills unchanged."

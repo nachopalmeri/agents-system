@@ -1,0 +1,5 @@
+interface:
+  display_name: "Matt: chief-of-staff"
+  short_description: "Experimental Matt workflow, explicitly requested only"
+policy:
+  allow_implicit_invocation: false

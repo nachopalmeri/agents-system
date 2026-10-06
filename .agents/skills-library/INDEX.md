@@ -35,6 +35,7 @@ Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `m
 - `logo-design-guide` — Logo design principles and AI image generation best practices for creating logos.
 - `marketing-strategist` — Use for marketing strategy: positioning, GTM, campaigns and audience research.
 - `matt-ask-matt` — Use when choosing a Matt Pocock skill or workflow for a concrete task.
+- `matt-chief-of-staff` — Experimental, opt-in: coordinate an explicitly requested long-running goal through bounded subagents.
 - `matt-claude-handoff` — Experimental;
 - `matt-code-review` — Use when requesting Matt-style standards/spec review of a branch, PR or diff.
 - `matt-codebase-design` — Use when designing deep modules, interfaces, seams or testable boundaries.
