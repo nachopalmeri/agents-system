@@ -8,6 +8,7 @@ if (-not $request.objective -or $request.objective.Length -gt 12000) { throw 'Pr
 if ($request.risk -notin @('low','medium','high')) { throw 'Explicit risk is required.' }
 if ($request.sensitiveData -isnot [bool] -or $request.sensitiveData -ne $false) { throw 'Delegation requires explicitly non-sensitive input.' }
 if ($request.operation -notin @('read','edit')) { throw 'Only scoped local read/edit delegation is supported.' }
+if ($null -ne $request.maxWallSeconds -and (-not ($request.maxWallSeconds -is [int] -or $request.maxWallSeconds -is [long]) -or $request.maxWallSeconds -lt 30 -or $request.maxWallSeconds -gt 900)) { throw 'maxWallSeconds must be an integer from 30 to 900.' }
 $subtasks = @($request.subtasks | Where-Object { $_ })
 if ($subtasks.Count -gt 3) { throw 'At most three workers are allowed.' }
 $owned = @{}
@@ -34,4 +35,5 @@ if ($delegate) {
     $executor = if ($request.sameHarnessAvailable -eq $true -and $request.prefer -ne 'opencode') { 'same-harness' } else { 'opencode' }
     if ($executor -eq 'same-harness') { $tier = 'cheap' }
 }
-[ordered]@{ delegate=$delegate; executor=$executor; tier=$tier; modelCandidates=@($policy.tiers.$tier.candidates); parentReviewRequired=$true; maxAttempts=2; maxWorkers=3; maxWallSeconds=180; finalSynthesis='primary'; reason=if($delegate){'bounded-task'}else{'primary-task'} } | ConvertTo-Json -Depth 8
+$wallSeconds = if ($null -ne $request.maxWallSeconds) { $request.maxWallSeconds } else { 180 }
+[ordered]@{ delegate=$delegate; executor=$executor; tier=$tier; modelCandidates=@($policy.tiers.$tier.candidates); parentReviewRequired=$true; maxAttempts=2; maxWorkers=3; maxWallSeconds=$wallSeconds; finalSynthesis='primary'; reason=if($delegate){'bounded-task'}else{'primary-task'} } | ConvertTo-Json -Depth 8

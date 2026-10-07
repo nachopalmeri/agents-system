@@ -17,6 +17,8 @@ Para OpenCode multiagente, proporcionar hasta tres `subtasks`. Cada uno declara 
 
 El bridge usa los agentes nativos de OpenCode para mantener compatibilidad con los modelos gratuitos. Descubre los candidatos disponibles mediante `opencode models`, selecciona exclusivamente IDs gratuitos configurados o Ollama local, usa `--pure` para no cargar plugins externos y limita pasos, intentos y tiempo de ejecución. El resultado incluye evidencia, incertidumbre y uso/costo reportados por el proveedor. Una respuesta malformada o fallo no se considera éxito. Cambios parciales requieren revisión antes de otro intento.
 
+El presupuesto global predeterminado es 180 segundos. Las investigaciones multiagente que necesitan más tiempo pueden declarar `maxWallSeconds` en la solicitud (entero entre 30 y 900); el límite es compartido por todos los workers y no cambia la cantidad de intentos ni habilita modelos pagos. Si vence, el resultado sigue siendo `TIMEOUT`, nunca éxito implícito.
+
 La prueba real de investigación terminó en `SUCCESS` con `opencode/muse-spark-1.3-contributor-free`: leyó README y verificó estructuras del repositorio, devolviendo tres hallazgos con evidencia y sin modificar archivos. El proveedor reportó costo cero. Los tests de transporte verifican respuestas por pasos, JSON malformado y rechazo 403; no sustituyen esta prueba de proveedor.
 
 También pasaron dos pruebas en vivo: un coordinador lanzó dos workers mediante `task` (recibo `workerCalls: 2`), y un worker creó un archivo temporal declarado, cuyo contenido fue verificado por el primary. En ambos casos el proveedor reportó costo cero. Los scopes de edición se calculan respecto del workspace y del worktree raíz, como requiere OpenCode; no se habilitan directorios enteros.

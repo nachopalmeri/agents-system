@@ -12,6 +12,7 @@
     "allowedPaths": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
     "sameHarnessAvailable": { "type": "boolean" },
     "prefer": { "enum": ["same-harness", "opencode"] },
+    "maxWallSeconds": { "type": "integer", "minimum": 30, "maximum": 900 },
     "trivial": { "type": "boolean" },
     "subtasks": { "type": "array", "maxItems": 3, "items": { "type": "object", "required": ["objective", "operation"], "properties": { "objective": { "type": "string", "minLength": 1, "maxLength": 4000 }, "operation": { "enum": ["read", "edit"] }, "allowedPaths": { "type": "array", "items": { "type": "string" } } } } }
   },
