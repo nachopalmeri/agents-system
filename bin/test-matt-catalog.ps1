@@ -5,7 +5,7 @@ $ErrorActionPreference = 'Stop'
 $manifestPath = Join-Path $AgentsRoot 'skills-library/matt-catalog.json'
 if (-not (Test-Path -LiteralPath $manifestPath)) { throw 'Matt on-demand catalog manifest missing.' }
 $catalog = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
-if ($catalog.ref -ne '6fd947921b935b7e1e69293a200400f0fdd5c15f') { throw 'Upstream ref is not pinned.' }
+if ($catalog.ref -ne '49dd158d1076134a641b33efb035946536778336') { throw 'Upstream ref is not pinned.' }
 if (@($catalog.skills).Count -ne 38) { throw 'Expected all 38 upstream skills (27 promoted, 11 optional).' }
 if (@($catalog.skills | Where-Object maturity -eq 'promoted').Count -ne 27) { throw 'Promoted count mismatch.' }
 if (@($catalog.skills | Where-Object maturity -eq 'misc').Count -ne 4) { throw 'Misc count mismatch.' }

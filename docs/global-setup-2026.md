@@ -1,6 +1,6 @@
 # Global runtime setup (October 2026)
 
-This repository provides one shared global runtime for supported local coding harnesses. It keeps 30 core skills available by default and the remaining skills on demand in `skills-library/`, including 37 Matt entries (27 promoted, 4 miscellaneous, and 6 experimental). Shared adapters expose the runtime through each harness's supported conventions. Web ChatGPT cannot read this filesystem or run its CLI tools; use the local runtime from a local harness.
+This repository provides one shared global runtime for supported local coding harnesses. It keeps 30 core skills available by default and the remaining skills on demand in `skills-library/`, including 38 Matt entries (27 promoted, 4 miscellaneous, and 7 experimental). Shared adapters expose the runtime through each harness's supported conventions. Web ChatGPT cannot read this filesystem or run its CLI tools; use the local runtime from a local harness.
 
 ## Register this checkout on Windows
 
