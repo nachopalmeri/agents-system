@@ -14,4 +14,4 @@ Status: misc. On-demand reference; not a core replacement.
 
 Resolve original Matt skill names through the compatibility mapping; do not execute installation/setup or external writes just because the upstream guide suggests them.
 
-Source: [mattpocock/skills](https://github.com/mattpocock/skills/blob/6fd947921b935b7e1e69293a200400f0fdd5c15f/skills/misc/scaffold-exercises/SKILL.md), MIT, copyright 2026 Matt Pocock. Original material and attribution are preserved under references/upstream.
+Source: [mattpocock/skills](https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/misc/scaffold-exercises/SKILL.md), MIT, copyright 2026 Matt Pocock. Original material and attribution are preserved under references/upstream.

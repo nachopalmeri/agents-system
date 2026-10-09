@@ -1,6 +1,6 @@
 # Matt Pocock: globally discoverable, on demand
 
-All 38 upstream skills at commit 6fd947921b935b7e1e69293a200400f0fdd5c15f are installed as namespaced runtime references: 27 promoted, 4 misc and 7 experimental. They live in ~/.agents/skills-library/matt-<name>, outside the 30 core skills and client metadata preload. The existing global adapters discover them through the library index; their contents are loaded only for a matching requested task.
+All 38 upstream skills at commit 49dd158d1076134a641b33efb035946536778336 are installed as namespaced runtime references: 27 promoted, 4 misc and 7 experimental. They live in ~/.agents/skills-library/matt-<name>, outside the 30 core skills and client metadata preload. The existing global adapters discover them through the library index; their contents are loaded only for a matching requested task.
 
 Use ordinary language: "review my last ten coding sessions for navigation problems", "prepare a PR body with evidence", or "make a compact handoff". The runtime selects matt-retro, matt-pr or matt-handoff; slash-command UI registration is not required or promised. Current chats may need a fresh turn/session to refresh client discovery.
 
@@ -17,7 +17,11 @@ sandcastle-evaluation and worker-quality-evaluation capture the reviewed Sandcas
 
 ## Verification and portability
 
-Run bin/test-matt-catalog.ps1, bin/check-runtime-graph.ps1 and bin/release-check.ps1. Use the existing bin/sync-runtime.ps1 to distribute the canonical library and index globally with its managed backup/ownership checks, then -Check to verify drift. For this update, the user explicitly authorized a direct commit and push to main. On another PC, update the checkout from main and sync the managed library; preserve any compact local core/preload override.
+Run bin/test-matt-catalog.ps1, bin/check-runtime-graph.ps1 and bin/release-check.ps1. Use the existing bin/sync-runtime.ps1 to distribute the canonical library and index globally with its managed backup/ownership checks, then -Check to verify drift. System updates are committed and pushed only on a feature branch; the director integrates them. On another PC, update the checkout from the integrated branch and sync the managed library; preserve any compact local core/preload override.
+
+## Update 2026-10-09
+
+Refreshed nine changed skill guides plus wizard/setup references from upstream. No new skills were added; all 38 paths and their maturity remain unchanged. Clarified that upstream tracker operations, branch pushes and PRs require explicit user authorization. Updated per-guide hashes and source links. No new dependencies, hooks, scheduled tasks or paid routing.
 
 ## Update 2026-10-06
 
