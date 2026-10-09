@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T16:28:03.2610730-03:00",
+  "generatedAt": "2026-10-09T10:46:55.3283107-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -96,7 +96,7 @@
     },
     {
       "name": "procesar-clase-vault",
-      "description": "\"Usar cuando el usuario pide \\\"procesar clase\\\", \\\"terminó la clase\\\", \\\"nueva clase\\\" o \\\"repasar <materia>\\\" del vault UADE configurado localmente: captura + transcripción + PPT + calendario, OCR, gráficos SVG, first principles y 80/20, tareas y entregas, verificación.\"",
+      "description": "\"Usar cuando el usuario pide procesar o repasar una clase del vault UADE: descubrir materiales, enseñar desde first principles, priorizar con evidencia, elegir apoyos visuales útiles, practicar y verificar.\"",
       "path": "skills/procesar-clase-vault/SKILL.md"
     },
     {
