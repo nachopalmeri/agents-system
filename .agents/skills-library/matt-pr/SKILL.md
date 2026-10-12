@@ -14,4 +14,4 @@ Status: promoted. On-demand reference; not a core replacement.
 
 Resolve original Matt skill names through the compatibility mapping; do not execute installation/setup or external writes just because the upstream guide suggests them.
 
-Source: [mattpocock/skills](https://github.com/mattpocock/skills/blob/b0618bc436ad893b3c5e84e55fba86586d34a404/skills/engineering/pr/SKILL.md), MIT, copyright 2026 Matt Pocock. Original material and attribution are preserved under references/upstream.
+Source: [mattpocock/skills](https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/pr/SKILL.md), MIT, copyright 2026 Matt Pocock. Original material and attribution are preserved under references/upstream.

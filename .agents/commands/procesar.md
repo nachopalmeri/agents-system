@@ -1,20 +1,11 @@
 ---
-description: Procesar una clase del vault UADE (captura + transcripción + PPT + calendario, estilo prolijo, gráficos, verificación)
+description: Procesar una clase UADE con el flujo y método pedagógico canónicos del vault
 argument-hint: "<materia> <DD/MM> [falté]"
 ---
 Procesá esta clase en el vault de Obsidian: {{args}}
 
-Ejemplos: `/procesar daa 25/09` · `/procesar datos 23/09, falté a esta clase`.
+Resolvé el vault configurado con pwsh -NoProfile -File ~/bin/resolve-vault.ps1. Leé y seguí su AGENTS.md completo; es la fuente canónica para descubrir materiales, preservar y mejorar Captura, citar evidencia, conectar clases, revisar tareas y calendario, guardar propuestas y verificar el resultado.
 
-Resolvé la raíz con `pwsh -NoProfile -File ~/bin/resolve-vault.ps1` y trabajá ahí. La fuente canónica del flujo es **`AGENTS.md` del vault, sección "Procesar clase"**: leela entera y seguila (este comando no la duplica). Complementos: `docs/ESTILO-NOTAS.md` y `docs/FLUJO-IA.md`. Si el cliente tiene la skill `procesar-clase-vault`, cargala; hace lo mismo.
+Leé también docs/METODO-ESTUDIO.md, docs/ESTILO-NOTAS.md y docs/FLUJO-IA.md. En un chat dedicado a una materia, aplicá además docs/prompts-materias/<Materia>.md. Esos documentos definen first principles, priorización basada en evidencia, recursos y visuales útiles, práctica, y cómo distinguir lo que dijo el profesor de una inferencia. No dupliques ni contradigas sus pasos.
 
-Orden obligatorio:
-
-1. **Descubrir con el script, no a mano:** `python scripts/descubrir_clase.py <materia> <DD/MM>` (materias: proyectos, liderazgo, datos, software, daa). Cubre Sources, `D:\Q2 2026`, Drive, ambas carpetas Downloads, `+/Fotos/`, figuras y calendario. Si algo dice "NO ACCESIBLE", reportalo; no lo des por vacío. `docs/mapa-clases.json` dice qué archivo corresponde a cada clase (la cátedra puede numerar distinto). Aunque la nota ya figure como procesada, el descubrimiento se hace igual y no preguntás si revisar: revisás.
-2. **Analizar** captura, fotos, transcripción y PPT, citando `[TRANSCRIPCIÓN mm:ss]` y `[PPT X, diap. N]`. Imágenes ilegibles: mirarlas y, si no alcanza, OCR con `scripts/ocr_imagen.ps1 "<imagen>"` (lo ilegible se marca `[ilegible]`, nunca se inventa). Gráficos, tablas o diagramas clave de la PPT: exportar la diapositiva con `scripts/diapositivas.ps1` (`-Listar` primero) y embeberla en `## Diapositivas clave` con su pie de cita (2 a 6 por clase; detalle en AGENTS.md, paso 4b).
-3. **Formato y contenido** según AGENTS.md, con su criterio pedagógico (paso 4c: rol del mejor profesor del mundo, first principles, 🎯 80/20, ejemplo resuelto, errores típicos) (props, navegación, Intuición con LaTeX, figuras SVG, Mermaid, Aplicación y práctica, Preparación próxima clase). **Último paso de contenido:** con transcripción, PPT, cronograma oficial y calendario ya leídos, cerrar con `## Tareas, entregas y fechas` en formato Tasks (`- [ ] qué 📅 YYYY-MM-DD — fuente`), ⏰ lo que vence en 14 días y las tareas abiertas de clases anteriores; sin fechas inventadas (AGENTS.md, paso 6). Si faltó a clase: nota autosuficiente y `## Autoevaluación`.
-4. **Verificar antes de cerrar:** `python scripts/verificar_clase.py "<nota>"`. Con errores no cerrás: corregís y repetís.
-5. **Calendario:** en OpenCode usá el MCP `calendar` (Google Calendar de Nacho) para confirmar parciales, entregas y clases; `scripts/materias.py` es sólo respaldo si el MCP falla, y en ese caso decilo.
-6. Mostrá el resumen del diff. Commit y push sólo si Nacho lo pide (`Nacho Palmeri <ipalmeri@uade.edu.ar>`), nunca a `main` ni con force-push.
-
-Reglas duras: nunca modificar `## Captura`; nunca borrar contenido; nunca `reviewed_by_user: true`; propuestas sólo en `+/Propuestas IA/`; no tocar Atlas ni MOCs sin aprobación; no copiar PPTs/PDFs/grabaciones al repo; español rioplatense.
+Al cerrar, mostrá un resumen claro de fuentes, cambios, faltantes y verificación. Commit y push sólo cuando Nacho lo pida; nunca hagas force-push ni merges a main.

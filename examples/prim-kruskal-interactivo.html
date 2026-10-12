@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prim o Kruskal · Comparar el trabajo</title>
+<style>
+:root{color-scheme:light dark;font-family:system-ui;--bg:#f5f4ef;--fg:#192923;--panel:#fff;--line:#c9d5cc;--p:#2563eb;--k:#b45309}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg)}main{max-width:880px;margin:auto;padding:32px 20px}h1{font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.1}p{line-height:1.6;max-width:72ch}.card{padding:24px;border:1px solid var(--line);background:var(--panel);border-radius:14px;margin:20px 0}.controls{display:grid;gap:20px}label{display:grid;gap:8px}input{width:100%;accent-color:var(--p)}button{padding:10px 16px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--fg);font:inherit;cursor:pointer}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--p);outline-offset:4px}.buttons{display:flex;gap:10px;flex-wrap:wrap}svg{display:block;width:100%;height:auto}text{fill:var(--fg);font:16px system-ui}.small{font-size:.9rem;opacity:.8}output{font-weight:600}#result{min-height:5em}@media(prefers-color-scheme:dark){:root{--bg:#111d19;--fg:#e9f1eb;--panel:#192a22;--line:#496152;--p:#7caeff;--k:#f9b771}}@media(max-width:500px){.card{padding:16px}main{padding:20px 12px}}
+</style>
+<main><p class="small">Prueba didáctica · DAA · clase 10</p><h1>¿Prim o Kruskal?<br>La cantidad de aristas cambia la respuesta.</h1>
+<p>Compará las implementaciones de clase: Prim con costo cuadrático y Kruskal con costo dependiente de las aristas. Primero elegí un grafo. Después anticipá qué algoritmo hará menos trabajo y revelá la comparación.</p>
+<section class="card" aria-label="Entrada"><div class="controls">
+<label for="n">Vértices n: <output id="nv" for="n">100</output><input id="n" type="range" min="4" max="200" value="100"></label>
+<label for="a">Aristas a: <output id="av" for="a">99</output><input id="a" type="range" min="99" max="4950" value="99"></label>
+<p id="density"></p><div class="buttons"><button id="sparse">Pocas aristas</button><button id="dense">Grafo completo</button><button id="reset">Reiniciar</button></div></div></section>
+<section class="card"><h2>Predecí antes de mirar</h2><p>Si aumentan las conexiones pero n se mantiene, ¿cuál de los dos costos aumenta?</p><button id="reveal">Mostrar comparación</button><div id="answer" hidden>
+<svg viewBox="0 0 660 210" role="img" aria-labelledby="chart-title chart-desc"><title id="chart-title">Comparación de las expresiones de costo</title><desc id="chart-desc">Prim n al cuadrado frente a Kruskal a por logaritmo base dos de n. Las barras se escalan respecto del mayor valor actual.</desc><text x="0" y="28">Prim · n²</text><rect id="pb" x="0" y="42" height="28" fill="var(--p)" rx="4"/><text id="pt" x="0" y="95"></text><text x="0" y="128">Kruskal · a log₂(n)</text><rect id="kb" x="0" y="142" height="28" fill="var(--k)" rx="4"/><text id="kt" x="0" y="195"></text></svg>
+<p id="result" role="status"></p><p class="small">Valores ilustrativos de las expresiones, sin constantes de implementación. No son segundos ni un conteo exacto de operaciones. La escala de barras se recalcula para cada entrada.</p></div></section>
+<section class="card"><h2>La respuesta para desarrollar</h2><p>Depende de la densidad del grafo de entrada. Si a crece como n, Kruskal queda en O(n log n), menor que O(n²). Si a crece como n², Kruskal queda en O(n² log n), mayor que O(n²): conviene Prim para estas implementaciones.</p><p>a cuenta las aristas originales, no las n−1 del árbol resultado. Ambos encuentran un árbol de peso mínimo; aquí comparamos el trabajo necesario para obtenerlo.</p><details><summary>¿Qué cambia con otra implementación?</summary><p>Prim con lista de adyacencia y heap puede costar O(a log n). Esa versión requiere otra comparación. Kruskal también se expresa como O(a log a); en grafos simples conexos ambas expresiones logarítmicas son equivalentes en orden.</p></details></section>
+<p class="small">Modelo didáctico para un grafo simple, no dirigido y conexo. Mínimo n−1 aristas; máximo n(n−1)/2. Fuente de la explicación: nota local DAA, Clase 10 del 09/10/2026. Prototipo original, inspirado en el criterio de modelo y lectura sincronizados de <a href="https://github.com/wheresryan22/anatomy">Anatomy</a> y la exploración controlada de <a href="https://hairline.lucasmarkes.com/skill">Hairline</a>. No usa sus bibliotecas.</p>
+<noscript><p>Sin JavaScript podés estudiar la respuesta de arriba: en grafos dispersos favorece Kruskal; en grafos densos, Prim cuadrático, para las versiones comparadas.</p></noscript></main>
+<script>
+const byId=id=>document.getElementById(id);
+const n=byId('n'), a=byId('a');
+function model(n,a){return {prim:n*n,kruskal:a*Math.log2(n),min:n-1,max:n*(n-1)/2};}
+function update(){
+ const count=Number(n.value);const limits=model(count,0);
+ a.min=limits.min;a.max=limits.max;a.value=Math.min(limits.max,Math.max(limits.min,Number(a.value)));
+ const edges=Number(a.value), state=model(count,edges), scale=Math.max(state.prim,state.kruskal);
+ byId('nv').textContent=count;byId('av').textContent=edges;
+ byId('density').textContent=`Con ${count} vértices, la entrada puede tener de ${state.min} a ${state.max} aristas. Elegiste ${edges}.`;
+ byId('pb').setAttribute('width',630*state.prim/scale);byId('kb').setAttribute('width',630*state.kruskal/scale);
+ byId('pt').textContent=`${count}² = ${state.prim.toLocaleString('es-AR')}`;
+ byId('kt').textContent=`${edges} × ${Math.log2(count).toFixed(2)} ≈ ${Math.round(state.kruskal).toLocaleString('es-AR')}`;
+ byId('result').textContent=`Para esta entrada, la expresión de ${state.prim<state.kruskal?'Prim':'Kruskal'} es menor. Aumentar a sólo cambia el costo de Kruskal en este modelo; el de Prim sigue siendo n². La comparación numérica ilustra las fórmulas: no mide tiempo real.`;
+ byId('answer').hidden=true;
+}
+n.addEventListener('input',update);a.addEventListener('input',update);
+byId('sparse').onclick=()=>{a.value=Number(n.value)-1;update();};
+byId('dense').onclick=()=>{a.value=Number(n.value)*(Number(n.value)-1)/2;update();};
+byId('reset').onclick=()=>{n.value=100;a.value=99;update();};
+byId('reveal').onclick=()=>{byId('answer').hidden=false;};
+update();
+</script></html>

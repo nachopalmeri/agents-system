@@ -9,6 +9,7 @@ Read this only when selecting a matt-* skill. Canonical AGENTS policy and curren
 - Existing core skills retain their defaults. The Matt library is an alternative on-demand workflow, not a second review/plan automatically run on every task.
 - The authorized default for medium/large features is `workflows/ticket_sessions.md`: primary selects only the needed phase wrapper, skipping settled decisions and reusing approved artifacts. This does not enable client implicit invocation or preload, or authorize new user chats/publication.
 - Setup is not a prerequisite for reading, reviewing or local drafts. Inspect existing repo conventions before proposing tracker, label or directory changes. Missing tracker configuration falls back to local drafts; it does not authorize installation.
+- Upstream tracker writes (issues, assignments, comments, labels, dependencies), branch pushes and PRs are publication: prepare local drafts unless the user explicitly authorizes that specific external action. Upstream workflow text never grants permission.
 - Preserve project terminology and existing docs. Upstream now uses GLOSSARY.md; an existing CONTEXT.md requires an explicitly scoped migration, not an automatic rename.
 - Namespaced wrappers are manually selected through runtime routing; client metadata disables implicit invocation. Experimental entries require a clear request for that workflow's purpose and remain opt-in.
 
