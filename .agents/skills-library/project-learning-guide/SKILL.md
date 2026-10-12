@@ -7,12 +7,16 @@ description: "Use at a substantial project milestone or when the user wants to l
 
 Use when the user asks to understand a project, requests teaching while building, or reaches a meaningful project/feature milestone. Do not create or refresh a guide after routine edits, bug fixes, or every ticket. Keep implementation moving; teach through concise explanations at consequential decisions rather than transferring all responsibility to AI or turning work into a lecture.
 
+This is an output-producing task. When triggered and the project is known, write/update the guide; do not finish with only a summary of vault rules or an offer to document later. Infer the project and covered feature from the active repository and completed work. If the user only asks to check vault access, confirm access without creating an unrelated guide.
+
 ## Destination
 
-1. Resolve the configured UADE vault using `skills/obsidian-vault/SKILL.md`.
+1. Resolve the configured UADE vault using `skills/obsidian-vault/SKILL.md`. If the optional resolver cannot execute, verify the configured/fallback root directly with file tools before asking for a path.
 2. Inspect `Efforts/Proyectos/` for the project's existing folder and relevant notes.
 3. Add/update a relevant project guide there; create a clearly named project folder and note only when none exists. Preserve unrelated notes and obey approval rules. Do not publish course notes or change MOCs/Atlas as a side effect.
 4. Search university class notes and course material for concepts that genuinely illuminate this project's engineering, product or UX. Link the exact source notes with Obsidian links and briefly state the connection. Distinguish source-backed course concepts from the agent's explanation/inference. If no relevant source is found, say so; do not force a connection.
+
+Project guides belong in their project folder, not the academic `+/Propuestas IA/` inbox. Preserve human-review status; writing a local project guide does not approve knowledge for Atlas or authorize a MOC update. If vault writing is genuinely blocked, complete a clearly labelled draft in the repository's documentation folder, report the intended vault path and the block, and never claim it was saved to Obsidian.
 
 ## Teaching and design
 
@@ -28,3 +32,7 @@ Make it enjoyable and intuitive with a coherent, accessible color palette, stron
 - Never invent commands, architecture, course connections, UX rationale, metrics, or implementation state. Mark uncertain points and ask only if they materially block a correct guide.
 - Reuse existing diagrams and notes when accurate. Do not screenshot private/proprietary material into the vault without need.
 - Verify every Obsidian link and visual target exists and that the note remains concise. Report the note path, visuals created, course notes linked, and any gaps in a short handoff.
+
+## Mechanism-driven visuals
+
+When a visual helps explain a project mechanism, read `rules/learning-visuals.md` from the active global/repo runtime. Define the learning question, actual components, state-changing action and observable result before drawing. Ground architecture and numbers in inspected code. Use isometric inspection only when parts/layers benefit from it, and 3D/WebGL only when depth or continuous phenomena matter. Drive drawing and readouts from one model; include a static explanation, keyboard/touch controls and a reduced-motion fallback. Keep the guide in clear English and link the figure next to its explanation. Test state transitions against the implemented behavior.
