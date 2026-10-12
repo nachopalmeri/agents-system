@@ -21,7 +21,7 @@ $index = Get-Content (Join-Path $AgentsRoot 'skills-library/INDEX.md') -Raw
 foreach ($entry in $catalog.skills) {
     $dir = Join-Path $AgentsRoot "skills-library/$($entry.name)"
     $body = Get-Content (Join-Path $dir 'SKILL.md') -Raw
-    if ($body -notmatch "(?m)^name: $([regex]::Escape($entry.name))$") { throw "Wrong namespace: $($entry.name)" }
+    if ($body -notmatch "(?m)^name: $([regex]::Escape($entry.name))\r?$") { throw "Wrong namespace: $($entry.name)" }
     foreach ($required in @('../../rules/matt-skills.md', 'references/upstream/GUIDE.md')) {
         if (-not $body.Contains($required)) { throw "$($entry.name) missing reference $required" }
     }
