@@ -1,6 +1,6 @@
 # Matt Pocock: globally discoverable, on demand
 
-All 38 upstream skills at commit 6fd947921b935b7e1e69293a200400f0fdd5c15f are installed as namespaced runtime references: 27 promoted, 4 misc and 7 experimental. They live in ~/.agents/skills-library/matt-<name>, outside the 30 core skills and client metadata preload. The existing global adapters discover them through the library index; their contents are loaded only for a matching requested task.
+All 38 upstream skills at commit b0618bc436ad893b3c5e84e55fba86586d34a404 are installed as namespaced runtime references: 27 promoted, 4 misc and 7 experimental. They live in ~/.agents/skills-library/matt-<name>, outside the 30 core skills and client metadata preload. The existing global adapters discover them through the library index; their contents are loaded only for a matching requested task.
 
 Use ordinary language: "review my last ten coding sessions for navigation problems", "prepare a PR body with evidence", or "make a compact handoff". The runtime selects matt-retro, matt-pr or matt-handoff; slash-command UI registration is not required or promised. Current chats may need a fresh turn/session to refresh client discovery.
 
@@ -22,3 +22,7 @@ Run bin/test-matt-catalog.ps1, bin/check-runtime-graph.ps1 and bin/release-check
 ## Update 2026-10-06
 
 Pinned all upstream skills to 6fd947921b935b7e1e69293a200400f0fdd5c15f (version metadata 1.3.1, plus main-branch patches). Refreshed skill loading, ticket/sub-issue relationships, GitHub PR listing and safe handoff text. Added chief-of-staff as experimental, opt-in only. The compact local runtime retains 12 active skills; the source distribution retains 30. No new dependencies, hooks, scheduled tasks or paid routing. Existing project terminology is preserved.
+
+## Update 2026-10-08
+
+Refreshed to b0618bc436ad893b3c5e84e55fba86586d34a404 (nine skill guides plus tracker and wizard fixes). Preserved on-demand discovery and existing permission boundaries. Improved ticket identification, review standards discovery, regression-test evidence, interview recommendations, teaching workspace paths and environment-file handling. These are pending upstream patches beyond 1.3.1 metadata.

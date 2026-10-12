@@ -1,4 +1,6 @@
 ---
+Word each question so "yes" accepts your recommended answer.
+
 name: grilling
 description: "Use when the user wants a plan, decision or idea stress-tested (\"grill me\", \"interrogame\"). Optional: record ADRs and glossary as you go."
 ---

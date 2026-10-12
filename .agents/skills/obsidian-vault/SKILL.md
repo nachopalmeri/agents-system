@@ -5,9 +5,18 @@ description: "Work in the configured UADE Obsidian vault, including project docu
 
 # Vault de Obsidian — UADE (Q2 2026)
 
-Resolvé la raíz con `pwsh -NoProfile -File ~/bin/resolve-vault.ps1`: usa `uadeVault` en `~/.agents/local-paths.json`; sin configuración prueba la ruta histórica `D:\Facultad\UADE-Vault`. `Efforts` es una carpeta interna, no la raíz. Si falla, pedí la ruta real; no elijas backups ni crees un vault. El contrato de agentes manda: **`AGENTS.md`** y `docs/FLUJO-IA.md`; el formato, `docs/ESTILO-NOTAS.md`. Procesar una clase o repasar: skill `procesar-clase-vault`.
+Read `uadeVault` in `~/.agents/local-paths.json` when present; otherwise test `D:\Facultad\UADE-Vault` directly. `Efforts` is inside the vault, not its root. `~/bin/resolve-vault.ps1` is a convenience, not a prerequisite: if nested `pwsh` cannot run, verify the candidate directory, `.obsidian/` and `AGENTS.md` with the available file tools. A shell denial does not prove the vault is missing. Ask for a path only after those checks fail; report a permission block separately. Never select backups or create a replacement vault. Read the vault's `AGENTS.md` and the relevant sections of `docs/FLUJO-IA.md` and `docs/ESTILO-NOTAS.md`. Process/review classes with `procesar-clase-vault`.
 
 ## Project documentation
+
+Route by the requested artifact before applying the academic proposal workflow:
+
+| Artifact | Destination and behavior |
+|---|---|
+| Project documentation or learning guide | `Efforts/Proyectos/<Project>/`; write/update the relevant guide when requested or at a substantial milestone. |
+| New class/concept proposal | `+/Propuestas IA/`; keep proposal status and require approval for Atlas/MOC promotion. |
+
+The academic proposal inbox is not a requirement for project guides. Read the project-specific rules if present. Infer the project from the active repository and task; do not ask what to document when that context already identifies it. Merely checking access to the vault does not require inventing a project or creating a guide.
 
 Before documenting a project, inspect `Efforts/Proyectos/` for the matching project folder and relevant notes. Add the documentation to a relevant existing note there; if the project folder is missing, create a clearly named folder inside `Efforts/Proyectos/` and a descriptive note in it. Never overwrite unrelated notes. Do not update `Proyectos.md` or another MOC unless requested. Project documentation belongs with its project; concept/class proposals remain in `+/Propuestas IA/`.
 
@@ -20,7 +29,7 @@ For a substantial project learning guide or an explicit request to learn from a 
 | `Efforts/Universidad/2026/Q2/<Materia>/{Clases,Evaluaciones,MOC}` | Cursada actual: 5 materias |
 | `Atlas/Dots` | Conceptos atómicos aprobados (`estado: validado`) |
 | `Atlas/Utilities/{Figuras,Diapositivas}` | SVG generados y capturas de diapositivas |
-| `+/Propuestas IA` | Única bandeja de borradores (`estado: propuesta`) |
+| `+/Propuestas IA` | Bandeja de nuevos borradores académicos/conceptuales (`estado: propuesta`); documentación de proyectos va en `Efforts/Proyectos/<Project>/` |
 | `+/Fotos` | Fotos del cuaderno o pizarrón para OCR |
 | `Sources/Material Q2/<Materia>` | Texto extraído de PPTs y transcripciones |
 | `Bases`, `Calendar`, `Templates`, `Archives`, `docs`, `scripts` | Vistas, daily notes, plantillas, archivo, documentación y herramientas |
@@ -30,6 +39,6 @@ Materias: Dirección de Proyectos de Tecnología (lun), Liderazgo y Negociación
 ## Reglas
 
 - Nunca modificar `## Captura`; nunca borrar contenido; nunca `reviewed_by_user: true`.
-- Propuestas sólo en `+/Propuestas IA/`; nada al Atlas ni a los MOCs sin aprobación.
+- Nuevas propuestas académicas/conceptuales sólo en `+/Propuestas IA/`; las guías de proyectos se escriben en su carpeta de `Efforts/Proyectos/`. Nada al Atlas ni a los MOCs sin aprobación.
 - Dataview **no** está instalado: usar Bases (bloques ```base) y Tasks. Mermaid nativo y LaTeX `$...$`.
 - Herramientas: `descubrir_clase.py`, `verificar_clase.py`, `mapa_clases.py`, `repaso.py`, `prompt_materia.py`, `figuras.py`, `ocr_imagen.ps1`, `diapositivas.ps1`.

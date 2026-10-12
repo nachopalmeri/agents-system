@@ -18,6 +18,8 @@ Revisá desde un **punto fijo** (commit, rama, tag o merge-base) sobre dos ejes:
 
 ## Cómo
 
+Search the relevant repo paths for documented standards, including CODING_STANDARDS.md and CONTRIBUTING.md when present. Pass their paths to any delegated reviewer and collect its returned report before finalizing.
+
 1. `BASE=$(git merge-base HEAD origin/main)`; revisá `git diff $BASE...HEAD`.
 2. Hacé una revisión combinada de spec/calidad. Delegá un reviewer cuando riesgo, complejidad o independencia lo justifiquen, con `reviewer-prompt.md`: pedido/spec, BASE, HEAD y archivos propios. Nunca el historial completo; un modelo fuerte no es requisito de reviews rutinarias.
 3. Salida por severidad: **P0** bloquea (bug, seguridad, pérdida de datos), **P1** antes de mergear, **P2** opcional. Cada hallazgo con `archivo:línea` y cómo verificarlo.

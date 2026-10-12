@@ -1,4 +1,4 @@
-<!-- managed-runtime-adapter; canonical-sha256: aaf0b5fd89a466fd11bb98a164ee7d05c77b3e76a2608580f54b29e2d5a772aa -->
+<!-- managed-runtime-adapter; canonical-sha256: ba9ec64c02e83dfe24007504f8bfb2bd234f680e8ffb4165cb89db47ba9529a3 -->
 # Runtime adapter: gemini
 
 Canonical policy: `.agents/AGENTS.md`. Load capabilities on demand from `config/capabilities.json`.

@@ -46,6 +46,7 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 - Planificá cuando haya más de tres pasos significativos, varios archivos o riesgo; los cambios chicos van directos.
 - Para features medianas/grandes, usá `workflows/ticket_sessions.md`: decisiones pendientes → spec compartida → tickets → handoffs compactos; sesiones nuevas sólo con autorización explícita, sin overhead para tareas chicas.
 - En hitos sustanciales de un proyecto o cuando el usuario pida material de estudio, descubrí `skills-library/project-learning-guide/SKILL.md`: guía breve, visual y didáctica en `Efforts/Proyectos/<Proyecto>/` del vault UADE (usar carpeta existente o crearla). Cruzá con notas universitarias pertinentes y enlazalas; no generes guías por microtareas ni copies apuntes enteros.
+- When a project guide is triggered, infer the project from the active repo and actually write/update it in simple English; a vault-rules summary is not the deliverable. The academic proposal inbox does not apply to project guides. If vault writing is blocked, finish a repo draft and report the block.
 - Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin.
 - Corregí causas raíz con impacto mínimo. Si algo sale mal, replanificá antes de seguir.
 - Validá proporcionalmente con tests, parse, build, diff, logs o evidencia equivalente. No declares victoria sin evidencia fresca.

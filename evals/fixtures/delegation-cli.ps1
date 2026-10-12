@@ -7,7 +7,8 @@ if ($args[0] -eq 'models') {
 $prompt=$args[-1]
 if($prompt -match 'fixture refusal'){ @{type='error';error=@{data=@{statusCode=403;message='Fixture provider refusal'}}}|ConvertTo-Json -Depth 5 -Compress; exit 1 }
 if($prompt -match 'free-tier policy refusal'){ @{type='error';error=@{data=@{statusCode=400;message="Error from provider (Console): OpenCode's free tier can only be used from within OpenCode."}}}|ConvertTo-Json -Depth 5 -Compress; exit 1 }
-$answer=if($prompt -match 'fixture malformed'){'not json'}else{@{state='SUCCESS';summary='Offline fixture';evidence=@();changedFiles=@();uncertainty=@()}|ConvertTo-Json -Compress}
+if($prompt -match 'fixture partial edit (\S+)'){ Set-Content -LiteralPath $Matches[1] -Value 'fixture changed'; @{type='text';part=@{text='Edit applied — verifying the final state.'}}|ConvertTo-Json -Depth 5 -Compress; exit 0 }
+$answer=if($prompt -match 'fixture malformed'){'not json'}elseif($prompt -match 'fixture multi output'){@{state='done';summary='Merged two specialists';evidence=@('worker-0: README.md:1','worker-1: docs/delegation.md:1');changedFiles=@();uncertainty='Both workers completed.'}|ConvertTo-Json -Compress}elseif($prompt -match 'fixture absolute changed file (\S+)'){@{state='SUCCESS';summary='Reported one changed file';evidence=@('Scoped path fixture');changedFiles=@($Matches[1]);uncertainty=@()}|ConvertTo-Json -Compress}else{@{state='SUCCESS';summary='Offline fixture';evidence=@();changedFiles=@();uncertainty=@()}|ConvertTo-Json -Compress}
 @{type='text';part=@{text='Interim progress, not the final response.'}}|ConvertTo-Json -Depth 5 -Compress
 @{type='text';part=@{text=$answer}}|ConvertTo-Json -Depth 5 -Compress
 @{type='step_finish';part=@{cost=0;tokens=@{input=10;output=5}}}|ConvertTo-Json -Depth 5 -Compress

@@ -21,3 +21,20 @@ Correcciones necesarias para la ejecución real:
 - Write/Edit usan permisos exactos calculados también respecto de la raíz del worktree.
 
 La instalación local del bridge y la política tiene un backup previo en `.agents-system-sync/backups/`. La rama de implementación se mantiene separada de main.
+
+## Follow-up — 04/10/2026
+
+The global entrypoint points to this checkout through `~/.agents/local-runtime.json`. A live two-worker request completed both tasks, but the coordinator emitted `state: "done"` and a scalar `uncertainty`. The bridge accepted only `SUCCESS`/`BLOCKED` and array-valued fields, so it silently kept its initial `BLOCKED` receipt. The provider and worker calls had succeeded.
+
+The bridge now normalizes `done`/`completed` to `SUCCESS`, `failed` to `BLOCKED`, singleton result fields to arrays, and worker-reported paths only when each resolves to an exact file declared by the parent. Invalid final output now includes a reason and `fallbackExecutor: primary`; it also records any authorized file changed before the worker stopped, so the primary can inspect it.
+
+Verification:
+
+- `bin/test-delegation.ps1` — pass, including the original schema mismatch, absolute in-scope file paths, and unstructured output after a partial edit.
+- `bin/test-delegation-v2.ps1` — pass; V2 stays fail-closed pending a verified scoped adapter.
+- `bin/test-global-entrypoint.ps1` — pass.
+- `bin/test-system.ps1` — zero errors, one pre-existing warning (`matt-skills.md` frontmatter description).
+- Live call through `~/.agents/bin/invoke-delegation.ps1`: Muse Spark free model, two worker calls, both findings returned, cost reported `$0`.
+- Live exact-file edit: the worker changed only the declared file, then stopped with progress text instead of a structured final report. The bridge correctly returned `BLOCKED`, listed `sample.txt`, and handed it back to the primary for verification. It did not misreport this as a complete task.
+
+This fixes the multi-agent false-blocking issue and makes incomplete worker output actionable. Exact-file edit success still depends on the worker returning a verifiable completion report; otherwise parent review remains required by design.

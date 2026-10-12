@@ -73,7 +73,7 @@ $config = [ordered]@{'$schema'='https://opencode.ai/config.json'; permission=$pe
 $subtasks=@($request.subtasks | Where-Object { $_ })
 if ($subtasks.Count -gt 0) {
     $permissions.task=[ordered]@{'*'='deny'}
-    $prompt='Coordinate these independent workers using the task tool. Spawn only the named workers, then aggregate their evidence into JSON with state, summary, evidence, changedFiles, uncertainty. Do not implement yourself. '+$request.objective
+    $prompt='Coordinate these independent workers using the task tool. Spawn only the named workers and aggregate their results; do not do their assigned work yourself. Return exactly one JSON object with this schema: {"state":"SUCCESS or BLOCKED","summary":"non-empty string","evidence":["strings"],"changedFiles":["workspace-relative paths"],"uncertainty":["strings"]}. Use SUCCESS only if the requested work completed; otherwise use BLOCKED and explain why. Every list must be an array, including uncertainty when there is one item. No markdown fences or extra prose. '+$request.objective
     for($i=0;$i -lt $subtasks.Count;$i++) {
         $name="delegated-worker-$i"; $permissions.task[$name]='allow'
         $childEdits=[ordered]@{'*'='deny'}
@@ -81,7 +81,7 @@ if ($subtasks.Count -gt 0) {
         $childPermissions=[ordered]@{'*'='deny'; read=$permissions.read; glob='allow'; grep='allow'; edit=if($subtasks[$i].operation -eq 'edit'){$childEdits}else{'deny'}; bash=$permissions.bash; webfetch='allow'; websearch='allow'; external_directory='deny'; task='deny'}
         $childPermissions.write=$childPermissions.edit
         $config.agent[$name]=@{mode='subagent'; description=$subtasks[$i].objective; steps=8; permission=$childPermissions}
-        $prompt+="`nWorker ${name}: Return JSON state, summary, evidence, changedFiles, uncertainty. Complete only: "+$subtasks[$i].objective
+        $prompt+="`nWorker ${name}: Complete only this assigned task and return a compact JSON object with state, summary, evidence (array), changedFiles (array), and uncertainty (array): "+$subtasks[$i].objective
     }
     $config.agent.build.permission=$permissions
 }
@@ -132,11 +132,59 @@ foreach ($model in $models) {
     $receipt.actualChangedFiles=$partial
     if ($process.ExitCode -eq 0 -and $answer) {
         $result=$null
-        try { $result=($answer -replace '^\s*```(?:json)?\s*|\s*```\s*$','') | ConvertFrom-Json -ErrorAction Stop } catch { }
-        $scopeValid=@($result.changedFiles | Where-Object { $request.allowedPaths -notcontains $_ }).Count -eq 0
-        if ($result.state -in @('SUCCESS','BLOCKED') -and $result.summary -is [string] -and $result.summary -and $result.evidence -is [array] -and $result.changedFiles -is [array] -and $result.uncertainty -is [array] -and $scopeValid) { $receipt.state=$result.state; $receipt.result=$result; break }
+        $parseError=$null
+        try { $result=($answer -replace '^\s*```(?:json)?\s*|\s*```\s*$','') | ConvertFrom-Json -ErrorAction Stop } catch { $parseError=$_.Exception.Message }
+        if ($result) {
+            # Coordinators sometimes use natural completion labels or emit a single
+            # uncertainty as a string. Normalize those harmless variants at the
+            # provider boundary, while keeping the receipt schema deterministic.
+            $normalizedState=([string]$result.state).Trim().ToUpperInvariant()
+            if ($normalizedState -in @('DONE','COMPLETED')) { $normalizedState='SUCCESS' }
+            if ($normalizedState -eq 'FAILED') { $normalizedState='BLOCKED' }
+            foreach ($field in @('evidence','changedFiles','uncertainty')) {
+                if ($null -eq $result.$field) { $result.$field=@() }
+                elseif ($result.$field -isnot [array]) { $result.$field=@([string]$result.$field) }
+            }
+            # Workers may report an authorized edit as an absolute path or a
+            # worktree-relative path. Resolve each report and accept it only if
+            # it maps to an exact file declared by the parent request.
+            $allowedFiles=@{}
+            foreach($allowedPath in @($request.allowedPaths | Where-Object { $_ })) {
+                $allowedFiles[[IO.Path]::GetFullPath((Join-Path $workspace ([string]$allowedPath)))]=[string]$allowedPath
+            }
+            $normalizedFiles=[System.Collections.Generic.List[string]]::new()
+            $scopeValid=$true
+            foreach($reportedPath in @($result.changedFiles)) {
+                $reported=[string]$reportedPath
+                if(-not $reported) { $scopeValid=$false; break }
+                $candidates=[System.Collections.Generic.List[string]]::new()
+                if([IO.Path]::IsPathRooted($reported)) { $candidates.Add([IO.Path]::GetFullPath($reported)) }
+                else {
+                    $candidates.Add([IO.Path]::GetFullPath((Join-Path $workspace $reported)))
+                    $fromWorktree=[IO.Path]::GetFullPath((Join-Path $worktree $reported))
+                    if(-not $candidates.Contains($fromWorktree)) { $candidates.Add($fromWorktree) }
+                }
+                $authorized=$null
+                foreach($candidate in $candidates) { if($allowedFiles.ContainsKey($candidate)) { $authorized=$allowedFiles[$candidate]; break } }
+                if($null -eq $authorized) { $scopeValid=$false; break }
+                if(-not $normalizedFiles.Contains($authorized)) { $normalizedFiles.Add($authorized) }
+            }
+            if ($normalizedState -in @('SUCCESS','BLOCKED') -and $result.summary -is [string] -and $result.summary.Trim() -and $scopeValid) {
+                $result.state=$normalizedState
+                $result.changedFiles=@($normalizedFiles)
+                $receipt.state=$normalizedState
+                $receipt.result=$result
+                if ($normalizedState -eq 'BLOCKED') { $receipt.fallbackExecutor='primary' }
+                break
+            }
+            $receipt.resultValidation='Response did not contain a supported completion state and non-empty summary, or a changed file outside the declared exact-file scope.'
+            $receipt.fallbackExecutor='primary'
+        } else {
+            $receipt.resultValidation=if($parseError){'Final response was not valid JSON: '+$parseError}else{'No final JSON response was returned.'}
+            $receipt.fallbackExecutor='primary'
+        }
     }
-    if($partial.Count -gt 0){$receipt.partialChanges=$partial; break}
+    if($partial.Count -gt 0){$receipt.partialChanges=$partial; $receipt.fallbackExecutor='primary'; break}
     $providerErrors=@($events | Where-Object type -eq 'error')
     $freeTierPolicyMessage = "OpenCode's free tier can only be used from within OpenCode"
     if(@($providerErrors | Where-Object { $_.error.data.statusCode -in @(401,403) -or ([string]$_.error.data.message).Contains($freeTierPolicyMessage) }).Count -gt 0){$receipt.state='PROVIDER_REFUSAL'; $receipt.fallbackExecutor='primary'; break}
