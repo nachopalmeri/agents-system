@@ -1,6 +1,10 @@
 # Matt Pocock: globally discoverable, on demand
 
-All 38 upstream skills at commit 49dd158d1076134a641b33efb035946536778336 are installed as namespaced runtime references: 27 promoted, 4 misc and 7 experimental. They live in ~/.agents/skills-library/matt-<name>, outside the 30 core skills and client metadata preload. The existing global adapters discover them through the library index; their contents are loaded only for a matching requested task.
+## Update 2026-10-20
+
+Refreshed the experimental `chief-of-staff` reference to upstream commit `5beb35b040e3de97e54fa9e386d7e42d15c295c2`. Adopted its dated, commit-cited wiki practices for durable project memory and compact handoffs. Kept the skill experimental and opt-in; repo authorization rules still govern writes and schedules, and the upstream blanket subagent mandate is not adopted. No new skill, dependency, schedule, or always-on context was added. See the [upstream change](https://github.com/mattpocock/skills/commit/5beb35b040e3de97e54fa9e386d7e42d15c295c2).
+
+All 38 upstream skills at commit `5beb35b040e3de97e54fa9e386d7e42d15c295c2` are installed as namespaced runtime references: 27 promoted, 4 misc and 7 experimental. They live in `~/.agents/skills-library/matt-<name>`, outside the 30 core skills and client metadata preload. The existing global adapters discover them through the library index; their contents are loaded only for a matching requested task.
 
 Use ordinary language: "review my last ten coding sessions for navigation problems", "prepare a PR body with evidence", or "make a compact handoff". The runtime selects matt-retro, matt-pr or matt-handoff; slash-command UI registration is not required or promised. Current chats may need a fresh turn/session to refresh client discovery.
 
