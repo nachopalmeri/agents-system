@@ -21,6 +21,10 @@ Documentation is maintained in the existing UADE project folder. Course links st
 
 The PR's first Linux CI run exposed a pre-existing test portability bug: the absolute-file and partial-edit fixtures built paths with a literal Windows separator. `bin/test-delegation.ps1` now uses `Join-Path` consistently for those fixture paths, preserving the same exact-file authorization assertions. The CI failure is the observed Linux regression evidence; Windows and Linux results are reported separately.
 
+## Pragmatic validation follow-up
+
+Follow-up from the supplied engineering discussion: planning now uses a concrete user-action/result example and a diagram only when it resolves ambiguity. Game rules and win/lose conditions belong in the existing spec or a compact GDD when needed. Validation selects test levels by affected behavior and boundaries, reuses the project's runner and distinguishes an expected failing test from evidence of completion. Existing TDD, framework conventions, learning comments and bounded agent roles already cover the other useful suggestions; no duplicate skills or universal three-agent/testing pipeline was added. The post's claimed 80% improvement remains unverified.
+
 ## Public source context
 
 - [Clean Code publisher page](https://www.informit.com/store/clean-code-a-handbook-of-agile-software-craftsmanship-9780132350884) and [Clean Code/Clean Coder publisher sample](https://ptgmedia.pearsoncmg.com/images/9780132928472/samplepages/0132928477.pdf).

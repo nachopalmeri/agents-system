@@ -8,6 +8,8 @@ description: Validacion central para cerrar trabajo, dejar handoff, revisar deud
 
 Nunca declarar victoria sin evidencia. Validar no es "me parece correcto"; es contrastar el resultado contra tests, diff, build, logs, captura, fuente externa o una limitacion explicitamente informada.
 
+Un test rojo demuestra el problema o comportamiento faltante; no demuestra que el trabajo terminó. Cerrar requiere cumplir los criterios de aceptación, revisar el diff y observar los checks relevantes en verde. No cambiar el esperado ni eliminar tests sólo para lograr verde; un cambio de contrato aprobado debe explicar también sus cambios de tests. Informar qué quedó sin verificar.
+
 ## Orden de cierre
 
 1. Checklist tecnico: scope, tests, secrets y riesgos.
@@ -29,21 +31,18 @@ Nunca declarar victoria sin evidencia. Validar no es "me parece correcto"; es co
 
 ### 2. Tests y build
 
-- Correr tests si existen.
+- Elegir tests por el comportamiento y los límites afectados, usando el framework existente: unitarios para lógica, integración para contratos reales y E2E para recorridos críticos que cambian. No exigir los tres niveles en cada tarea ni instalar un framework como paso implícito.
+- Reutilizar los tests existentes y agregar cobertura cuando el comportamiento o una regresión lo justifique; no crear tests que sólo repiten el texto o la implementación.
 - Correr lint/build si existen y el cambio puede afectarlos.
 - Si no hay tests, dejar validacion alternativa explicita.
 
-### 2.5. Playwright E2E (si aplica)
+### 2.5. E2E de recorridos afectados (si aplica)
 
-Si el proyecto tiene flujos de usuario criticos (login, signup, checkout, CRUD principal):
+Si el cambio afecta un flujo de usuario crítico (login, signup, checkout, CRUD principal) o se pide validar una entrega completa:
 
-- Definir tests E2E con `@playwright/test` para los flujos clave.
-- Ejemplo: un usuario puede hacer login, crear un proyecto, actualizar su perfil.
-- Los tests se definen una vez y se reutilizan en cada cambio.
-- Workflow: agente hace cambio → ejecuta Playwright → Playwright corre cada flujo en navegador real → si algo falla, se sabe exactamente donde se rompio.
-- Si hay MCP de Playwright disponible, el agente puede ejecutar el navegador directamente desde terminal sin intervención manual.
-- Playwright valida acciones reales de principio a fin, no solo partes aisladas.
-- No crear tests E2E para cambios que no afectan flujos de usuario.
+- Reutilizar el runner y los recorridos existentes; Playwright es una opción cuando ya está disponible o su instalación está autorizada.
+- Verificar el recorrido completo afectado, incluido el resultado visible y su persistencia cuando corresponda, no sólo que un botón reciba un clic.
+- Usar las herramientas de navegador permitidas por el entorno. Si no se puede ejecutar, registrar el bloqueo y la evidencia alternativa sin afirmar que E2E pasó.
 
 ### 3. Seguridad y secretos
 
@@ -63,7 +62,7 @@ Si el proyecto tiene flujos de usuario criticos (login, signup, checkout, CRUD p
 | Docs/prompts/workflows | Diff revisado + referencias internas + check del sistema |
 | Codigo | Tests relevantes o reproduccion manual + build/lint si aplica |
 | UI | Revision visual/responsive + consola sin errores si aplica |
-| UI con flujos criticos | Playwright E2E de flujos clave + revision visual + consola sin errores |
+| UI con flujos criticos afectados | E2E del recorrido afectado + revision visual + consola sin errores; declarar cualquier ejecución pendiente |
 | AI/RAG | Dataset/evals o limitacion explicita; no declarar production-ready sin evidencia |
 | Decision estrategica | Supuestos, trade-offs, criterio de decision y siguiente paso falsable |
 | Cliente | Entrega versionada + feedback registrado + scope claro |
