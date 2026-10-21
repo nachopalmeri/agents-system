@@ -17,6 +17,7 @@ Primero clasificá SIMPLE, SPECIALIZED, PARALLEL o HIGH_RISK con `../../config/r
 | SEO/GEO/AEO growth | `skills/seo-geo-growth/SKILL.md` | hay investigación independiente |
 | Producto/MVP | `skills/product-foundry/SKILL.md` | decisión irreversible o council explícito |
 | AI/RAG productivo | `skills/ai-production-architecture/SKILL.md` | seguridad independiente necesaria |
+| Feature AI acotada / comparación de modelos | `skills/ai-production-architecture/references/ai-engineering.md` | arquitectura productiva sólo si el alcance lo requiere |
 | Obsidian | `skills/obsidian-vault/SKILL.md` | edición cruza otros repos |
 | Estudio/examen | `workflows/academic_tutor.md` | se pide persistir al vault |
 | Aprender ingeniería/UX de un proyecto o documentarlo para estudiar | `skills-library/project-learning-guide/SKILL.md` + `skills/obsidian-vault/SKILL.md` | hito sustancial o pedido explícito; cruzar apuntes sólo con evidencia |

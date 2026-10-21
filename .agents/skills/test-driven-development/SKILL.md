@@ -21,10 +21,12 @@ Write the test first. Watch it fail. Write minimal code to pass.
 - Refactoring
 - Behavior changes
 
-**Exceptions (ask your human partner):**
+**Scope exceptions (use existing authorization and report the check used):**
 - Throwaway prototypes
 - Generated code
 - Configuration files
+
+Use proportionate syntax, build or smoke checks for these cases. Ask only when a missing behavior decision or permission changes the outcome. A prototype later promoted to production needs relevant behavioral tests.
 
 Thinking "skip TDD just this once"? Stop. That's rationalization.
 
@@ -34,15 +36,7 @@ Thinking "skip TDD just this once"? Stop. That's rationalization.
 NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 ```
 
-Write code before the test? Delete it. Start over.
-
-**No exceptions:**
-- Don't keep it as "reference"
-- Don't "adapt" it while writing tests
-- Don't look at it
-- Delete means delete
-
-Implement fresh from tests. Period.
+If implementation was written first, preserve existing and user-owned work. Add a behavioral regression test and demonstrate that it fails against the pre-change behavior using an isolated or safely reversible comparison. Then verify it passes with the change. Report this as a recovered regression check, not a test-first cycle you did not perform. Never delete unrelated work to retrofit TDD.
 
 ## Red-Green-Refactor
 
@@ -227,11 +221,12 @@ Automated tests are systematic. They run the same way every time.
 
 **"Deleting X hours of work is wasteful"**
 
-Sunk cost fallacy. The time is already gone. Your choice now:
-- Delete and rewrite with TDD (X more hours, high confidence)
-- Keep it and add tests after (30 min, low confidence, likely bugs)
-
-The "waste" is keeping code you can't trust. Working code without real tests is technical debt.
+Preserve the work and establish evidence. Derive the test from acceptance criteria,
+demonstrate its expected failure against the pre-change behavior with an isolated
+or safely reversible comparison, then show it passes with the implementation.
+Disclose this as regression recovery rather than a test-first cycle. If the old
+behavior cannot be reproduced safely, report that limitation instead of deleting
+code or claiming unobserved red/green evidence.
 
 **"TDD is dogmatic, being pragmatic means adapting"**
 
@@ -261,15 +256,15 @@ Tests-first force edge case discovery before implementing. Tests-after verify yo
 | "I'll test after" | Tests passing immediately prove nothing. |
 | "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
 | "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
-| "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
-| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
-| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
+| "Already wrote the implementation" | Preserve the work and use the documented regression recovery procedure; disclose that it was not test-first. |
+| "Keep as reference, call it test-first" | Do not relabel test-after work as TDD; demonstrate red/green against the pre-change behavior. |
+| "Need to explore first" | Keep exploratory work isolated; establish behavioral tests before promoting it to production. |
 | "Test hard = design unclear" | Listen to test. Hard to test = hard to use. |
 | "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
 | "Manual test faster" | Manual doesn't prove edge cases. You'll re-test every change. |
 | "Existing code has no tests" | You're improving it. Add tests for existing code. |
 
-## Red Flags - STOP and Start Over
+## Red Flags - Pause and Recover
 
 - Code before test
 - Test after implementation
@@ -285,7 +280,7 @@ Tests-first force edge case discovery before implementing. Tests-after verify yo
 - "TDD is dogmatic, I'm being pragmatic"
 - "This is different because..."
 
-**All of these mean: Delete code. Start over with TDD.**
+These trigger inspection and the recovery procedure above, not deletion. Establish a meaningful failure and passing evidence before claiming a verified regression fix; report missing evidence honestly.
 
 ## Example: Bug Fix
 
@@ -328,8 +323,8 @@ Extract validation for multiple fields if needed.
 
 Before marking work complete:
 
-- [ ] Every new function/method has a test
-- [ ] Watched each test fail before implementing
+- [ ] Changed public behaviors and acceptance criteria have appropriate tests
+- [ ] Observed the expected failure before implementing, or documented regression recovery / an applicable scope exception
 - [ ] Each test failed for expected reason (feature missing, not typo)
 - [ ] Wrote minimal code to pass each test
 - [ ] All tests pass
@@ -337,7 +332,7 @@ Before marking work complete:
 - [ ] Tests use real code (mocks only if unavoidable)
 - [ ] Edge cases and errors covered
 
-Can't check all boxes? You skipped TDD. Start over.
+If a relevant check is missing, recover its evidence or report the limitation. Do not delete existing work or claim a test-first cycle that did not happen.
 
 ## When Stuck
 
@@ -368,12 +363,12 @@ Production code → test exists and failed first
 Otherwise → not TDD
 ```
 
-No exceptions without your human partner's permission.
+Apply the scope exceptions and recovery procedure above within existing authorization; explain any remaining gap.
 
 ## Tests que valen la pena (adaptado de [mattpocock/skills](https://github.com/mattpocock/skills), MIT, © 2026 Matt Pocock)
 
-- **Seams:** testeá en la interfaz pública donde se observa el comportamiento, nunca internals. Antes del primer test, acordá con el usuario qué seams se testean.
+- **Seams:** testeá en la interfaz pública donde se observa el comportamiento, nunca internals. Usá los criterios de aceptación y seams ya aprobados; preguntá sólo si falta una decisión de comportamiento que cambie materialmente el resultado.
 - **Slices verticales:** un test → implementación mínima → repetir. Escribir todos los tests primero ("horizontal") prueba comportamiento imaginado.
 - **Anti-patrones:** test acoplado a la implementación (se rompe al refactorizar sin cambio de comportamiento); test tautológico (recalcula el esperado igual que el código: el esperado sale de un literal conocido, un ejemplo o la spec).
-- **Refactor fuera del loop:** va en la etapa de review (`code-review`), no dentro de red → green.
+- **Refactor con tests verdes:** simplificar después de green y volver a verificar. Un rediseño más amplio necesita su alcance propio; no mezclarlo con el fix.
 - Ejemplos: `references/tests.md`. Mocks: `references/mocking.md`.

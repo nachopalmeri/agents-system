@@ -14,10 +14,12 @@ description: "Diseñar o revisar apps AI/LLM en producción: RAG, agentes, promp
 ## Cuándo NO usarla
 - Landing pages, portfolios, sitios estáticos o CRUDs simples.
 - Prototipos de una tarde donde la prioridad es aprender rápido.
-- Features AI pequeñas dentro de una app no-AI, salvo que escalen a producto.
+- Para features AI pequeñas o prototipos, cargar sólo [la referencia de evaluación](references/ai-engineering.md) y aplicar los puntos relevantes; no ejecutar el checklist completo ni crear capas por rutina.
 
 ## Regla de diseño
-La demo puede ser un archivo. Producción necesita capas explícitas.
+Start with the user outcome, a simple baseline and an evaluation of representative cases. Before adding RAG, agents, fine-tuning, semantic caching or model routing, read [evaluation-first AI engineering](references/ai-engineering.md). Keep only components justified by measured failures, security needs or operating constraints.
+
+La demo puede ser un archivo. En producción, separar responsabilidades cuando lo justifiquen el comportamiento, los tests y la operación. Las capas y rutas siguientes son ejemplos adaptables al stack, no un scaffold obligatorio ni una razón para migrar una app existente.
 
 ## Capas recomendadas
 
@@ -67,6 +69,7 @@ Datos separados por estado:
 - `index_config/`
 
 ## Checklist production-ready
+Aplicar los puntos que correspondan al sistema real; una app sin retrieval no necesita un pipeline RAG. Registrar límites de calidad, latencia y costo según el caso de uso.
 - [ ] RAG pipeline separado de API layer
 - [ ] Prompts versionados, no hardcodeados
 - [ ] Input/content/output guards
@@ -79,7 +82,7 @@ Datos separados por estado:
 - [ ] Docs de arquitectura, API y deploy
 
 ## Versión reducida para MVP
-Si el proyecto está en MVP, usar mínimo:
+Si el MVP realmente necesita RAG, estas rutas ilustran una versión reducida:
 - `services/rag_pipeline.py`
 - `prompts/registry.py`
 - `security/input_guard.py`

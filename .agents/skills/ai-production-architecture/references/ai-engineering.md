@@ -1,0 +1,12 @@
+# Evaluation-first AI engineering
+
+Load when designing or materially changing an AI feature, choosing a model, or adding retrieval, tools or fine-tuning. This is a local adaptation informed by Chip Huyen's *AI Engineering*, using the [author's public companion resources](https://github.com/chiphuyen/aie-book), checked 2026-10-20. It does not claim access to the full book.
+
+1. Define the user outcome and failure cost. Choose representative real or clearly labelled synthetic cases, including important failures. Set an acceptance rule before comparing candidates; a tiny demonstration set is not evidence of production reliability.
+2. Establish the simplest feasible baseline, including deterministic software when sufficient. Compare candidates on the same held-out cases and conditions. Record model/provider version, prompt and data versions, sample count, quality, latency and available token/cost usage; distinguish estimates from reported measurements.
+3. Inspect failures before choosing a remedy: missing context may justify retrieval; unclear instructions may justify a prompt change; tool workflows may justify an agent; fine-tuning requires data and evidence simpler approaches are inadequate. Never promise that a larger model or more agents improves outcomes without a comparison.
+4. Use code assertions for objective properties and task-specific rubrics for subjective outputs. Calibrate model judges against human-labelled examples; inspect disagreements and bias. Keep development examples separate from evaluation cases and avoid training or tuning on the held-out set.
+5. For RAG, evaluate retrieval separately from answer correctness and source support. For agents, check tool arguments, task completion, side effects and stop conditions. Unit tests validate deterministic contracts; behavioral evals measure probabilistic quality. Neither replaces the other.
+6. At production boundaries, use scoped tools, validated structured outputs, timeouts and bounded retries. Treat retrieved/tool content as untrusted data. Add tracing, feedback and rollback appropriate to the failure cost; protect personal data in traces. Compare total request cost, including retries and primary review, before claiming savings.
+
+Return a compact decision: outcome and acceptance rule; baseline versus candidate; failure examples; evidence and uncertainty; next experiment. Do not invent benchmark scores, production traffic or token savings. Use the existing stack and storage before introducing evaluation infrastructure.
