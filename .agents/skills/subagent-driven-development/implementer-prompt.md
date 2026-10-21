@@ -29,10 +29,15 @@ Task tool (general-purpose):
     ## Your Job
 
     Once you're clear on requirements:
-    1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
-    3. Verify implementation works
-    4. Commit your work
+    1. Confirm the requested behavior and acceptance criteria
+    2. For features and bug fixes, follow the project's TDD skill: run one behavioral
+       test, observe its expected failure, then implement the smallest passing slice.
+       For a bug, reproduce it before fixing it. Apply documented exceptions to
+       configuration, generated code and disposable prototypes; report the check used.
+    3. Verify affected behavior and relevant integration boundaries; report commands,
+       observed red/green results and checks that could not run. Passing tests alone
+       do not prove every acceptance criterion or architecture decision is correct.
+    4. Commit only when the task explicitly authorizes it; primary owns integration
     5. Self-review (see below)
     6. Report back
 
@@ -53,6 +58,8 @@ Task tool (general-purpose):
       and note it as a concern in your report
     - In existing codebases, follow established patterns. Improve code you're touching
       the way a good developer would, but don't restructure things outside your task.
+    - For consequential maintainability decisions, load the local Clean Code reference
+      at skills/code-review/references/clean-code.md relative to the active runtime.
 
     ## When You're in Over Your Head
 
@@ -92,7 +99,8 @@ Task tool (general-purpose):
 
     **Testing:**
     - Do tests actually verify behavior (not just mock behavior)?
-    - Did I follow TDD if required?
+    - Did I observe the expected failing test before implementing feature/bug behavior,
+      or document an applicable exception and its verification?
     - Are tests comprehensive?
 
     If you find issues during self-review, fix them now before reporting.

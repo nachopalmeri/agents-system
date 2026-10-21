@@ -7,13 +7,17 @@ description: Use this skill for indie product ideation, MVP scoping, product val
 
 ## Goal
 
-Help create many small product bets, validate them quickly, and scale only the ones with real market signals.
+Help choose focused product bets, validate them cheaply, and scale only the ones with real market signals.
+
+## Scope and references
+
+Follow the user's chosen scope and constraints. For product differentiation or strategy questions, read [Zero to One principles](references/zero-to-one.md). Small code edits stay implementation tasks; do not add a strategy process.
 
 ## Mental model
 
-- Launch 15-20 small products before expecting a winner.
+- A portfolio of 15-20 small products is an optional exploration tactic, not a quota or a prerequisite for success.
 - Treat each product as a fishing rod in the market.
-- Launch every 1-2 weeks when exploring.
+- A 1-2 week launch cadence is optional when exploring; choose timing around the cheapest useful test and the user's capacity.
 - MVP means earliest testable/useful/lovable version.
 - Follow money flows.
 - Build for people already spending money or wasting time.
@@ -54,7 +58,7 @@ Score 1-5:
 - One visible result.
 - One CTA/payment/commitment.
 - Manual backend allowed.
-- Launchable in 1-2 weeks.
+- Fit the user's time budget; a 1-2 week MVP is an optional target.
 
 ## Validation signals
 
@@ -75,6 +79,8 @@ Weak:
 - Traffic with no conversion.
 
 ## Output template
+
+Use only fields relevant to the request. For strategy work, add the brief hypothesis and validation decision from the reference.
 
 ```text
 Resumen:

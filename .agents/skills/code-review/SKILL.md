@@ -28,6 +28,8 @@ Search the relevant repo paths for documented standards, including CODING_STANDA
 
 ## Smells (heurísticas, no violaciones)
 
+For material maintainability or design decisions, read [Clean Code in practice](references/clean-code.md). Apply the project's conventions and a concrete change-cost argument; style preferences alone do not justify a rewrite.
+
 Nombre que no revela intención, código duplicado en el diff, feature envy, data clumps, primitive obsession, switches repetidos, shotgun surgery, divergent change, generalidad especulativa y cadenas de mensajes. Catálogo con remedios: `references/standards-and-smells.md` (adaptado de [mattpocock/skills](https://github.com/mattpocock/skills), MIT, © 2026 Matt Pocock).
 
 ## Modo "judgment day" (sólo si se pide explícito)
