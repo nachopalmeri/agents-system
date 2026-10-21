@@ -10,3 +10,7 @@ Scope: integrate practical Clean Code/Clean Coder, AI Engineering and Zero to On
 Integration handoff: the user explicitly authorized commit, push and main merge. Use the associated PR's merge status and the final local/remote SHA as completion evidence. Global sync preserves local AGENTS.md and procesar-clase-vault overrides. Product-foundry's previously unmanaged global copy matched origin/main; it was backed up before applying the reviewed update. Global copies are verified against their canonical sources before handoff.
 
 Execution: primary owns engineering/TDD/integration; one independent worker owns product-foundry and its Zero to One reference. At most one corrective review before replan. No measured quality or token savings claimed.
+
+## Pragmatic validation follow-up
+
+Scope: reuse the merged foundations and add only missing behavior-example/diagram guidance and proportional test selection. Two canonical instruction files; documentation and this checkpoint record the delta. Verify diff, runtime graph and release checks, sync managed globals, then commit/push/integrate using the user's continuing authorization. Routine instruction maintenance does not trigger a separate learning guide or extra agent ceremony.
