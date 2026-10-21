@@ -19,6 +19,8 @@ Inspect the diff for scope, discoverable references, permission boundaries and c
 
 Documentation is maintained in the existing UADE project folder. Course links stay local to the private vault. Public repository content contains no course excerpts or private transcripts. No provider token savings or percentage quality gains have been measured.
 
+The PR's first Linux CI run exposed a pre-existing test portability bug: the absolute-file and partial-edit fixtures built paths with a literal Windows separator. `bin/test-delegation.ps1` now uses `Join-Path` consistently for those fixture paths, preserving the same exact-file authorization assertions. The CI failure is the observed Linux regression evidence; Windows and Linux results are reported separately.
+
 ## Public source context
 
 - [Clean Code publisher page](https://www.informit.com/store/clean-code-a-handbook-of-agile-software-craftsmanship-9780132350884) and [Clean Code/Clean Coder publisher sample](https://ptgmedia.pearsoncmg.com/images/9780132928472/samplepages/0132928477.pdf).

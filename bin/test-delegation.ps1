@@ -27,13 +27,14 @@ try {
     $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
     if($receipt.state -ne 'SUCCESS' -or $receipt.result.state -ne 'SUCCESS' -or $receipt.result.uncertainty.Count -ne 1 -or $receipt.result.evidence.Count -ne 2){throw 'Multi-agent completion wording and scalar uncertainty should normalize to the result contract.'}
     $request.Remove('subtasks')
-    $request.operation='edit'; $request.allowedPaths=@('fixture.txt'); Set-Content -LiteralPath (Join-Path $testRoot 'fixture.txt') -Value 'scope fixture'
-    $request.objective="Return fixture absolute changed file $testRoot\fixture.txt"
+    $fixtureFile=Join-Path $testRoot 'fixture.txt'
+    $request.operation='edit'; $request.allowedPaths=@('fixture.txt'); Set-Content -LiteralPath $fixtureFile -Value 'scope fixture'
+    $request.objective="Return fixture absolute changed file $fixtureFile"
     Route|Out-Null
     $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
     if($receipt.state -ne 'SUCCESS' -or $receipt.result.changedFiles.Count -ne 1 -or $receipt.result.changedFiles[0] -ne 'fixture.txt'){throw 'An absolute changed-file report should normalize only when it matches a parent-authorized file.'}
-    Set-Content -LiteralPath (Join-Path $testRoot 'fixture.txt') -Value 'scope fixture'
-    $request.objective="Return fixture partial edit $testRoot\fixture.txt"
+    Set-Content -LiteralPath $fixtureFile -Value 'scope fixture'
+    $request.objective="Return fixture partial edit $fixtureFile"
     Route|Out-Null
     $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
     if($receipt.state -ne 'BLOCKED' -or $receipt.fallbackExecutor -ne 'primary' -or $receipt.partialChanges[0] -ne 'fixture.txt'){throw 'Unstructured output after an edit must report the exact partial change and hand back to primary.'}
