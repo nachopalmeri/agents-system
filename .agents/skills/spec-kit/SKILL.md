@@ -1,6 +1,6 @@
 ---
 name: spec-kit
-description: "Usar Spec-Driven Development (GitHub Spec Kit) en features medianas o grandes: constitution, spec, plan y tasks antes de codear. No para fixes chicos ni tareas de menos de 3 pasos."
+description: "Use GitHub Spec Kit when the user requests it or the repository already uses .specify. Default feature work uses lightweight specs and vertical tickets."
 ---
 
 # Spec Kit — Spec-Driven Development
@@ -8,15 +8,14 @@ description: "Usar Spec-Driven Development (GitHub Spec Kit) en features mediana
 ## Objetivo
 Usar especificaciones como fuente de verdad ejecutable antes de implementar features complejas.
 
-Spec Kit sirve para pasar de “vibe coding” a un flujo con intención, gobernanza, plan técnico, tareas verificables y ejecución controlada.
+Spec Kit es una opción para equipos que ya usan sus artefactos o eligen adoptarlos. Para features habituales, seguir `../../workflows/ticket_sessions.md`: reutilizar decisiones aprobadas, spec breve y slices verticales verificables. Tener varios archivos o más de tres pasos no exige instalar Spec Kit ni crear una constitution nueva.
 
 ## Cuándo usarlo
-- Proyecto nuevo con requisitos medianos o grandes.
-- Feature compleja con varios archivos o módulos.
-- Producto AI/RAG que necesita trazabilidad.
-- Brownfield delicado donde hay riesgo de romper comportamiento existente.
-- Trabajo donde el “qué” todavía no está claro.
-- Cuando hace falta alinear producto, técnica, tests y documentación.
+- El usuario pide GitHub Spec Kit o sus comandos.
+- El repositorio ya usa `.specify/` y hace falta continuar su proceso.
+- Su gobernanza aporta a una necesidad concreta y se acuerda adoptarlo; no elegirlo por tamaño del diff solamente.
+
+Una spec define el comportamiento esperado; un slice vertical entrega un camino completo y verificable para el usuario. Son complementarios. Priorizar una primera entrega observable y ajustar el plan con feedback; no crear tickets sólo por capa (UI, API, base de datos) si eso impide probar el resultado.
 
 ## Cuándo NO usarlo
 - Fix chico y obvio.
@@ -26,7 +25,7 @@ Spec Kit sirve para pasar de “vibe coding” a un flujo con intención, gobern
 - Hotfix urgente.
 - Tarea de menos de 3 pasos.
 
-## Flujo base
+## Flujo cuando Spec Kit está seleccionado
 
 1. **Constitution** — principios y reglas del proyecto.
 2. **Specify** — qué se quiere construir y por qué.
@@ -44,7 +43,7 @@ Slash commands típicos:
 /speckit.implement
 ```
 
-Si la herramienta no soporta slash commands, replicar el flujo manualmente usando archivos en `.specify/`.
+Si la herramienta no soporta slash commands, seguir los artefactos y convenciones existentes. No crear `.specify/`, instalar el CLI o duplicar specs sólo por cargar esta skill; respetar la autorización aplicable.
 
 ## Convivencia con tu sistema
 
@@ -57,7 +56,9 @@ Spec Kit no reemplaza:
 
 Spec Kit agrega una capa de especificación para trabajos grandes.
 
-## Estructura mínima local
+## Estructura habitual de un repo que lo adopta
+
+Referencia, no scaffold obligatorio:
 
 ```text
 .specify/
@@ -69,11 +70,11 @@ Spec Kit agrega una capa de especificación para trabajos grandes.
 ```
 
 ## Routing recomendado
-- Producto/alcance y arquitectura (incl. AI/RAG) → subagente `planner`
-- Implementación por tramos → `implementador`
+- Producto/alcance y arquitectura (incl. AI/RAG) → primary o `planner` si la delegación aporta
+- Implementación por tramos → primary o `implementador` para trabajo independiente
 - Narrativa/docs/spec → skill `technical-docs`
 - Tests y aceptación → `verificador`
 - UI/experiencia → skill `frontend-design`
 
 ## Regla final
-Usar Spec Kit cuando el costo de no tener especificación sea mayor que el costo de escribirla.
+Necesitar una especificación no implica necesitar Spec Kit. Seleccionarlo según el pedido o la adopción del repo; conservar la documentación mínima que permita implementar y comprobar el comportamiento esperado.

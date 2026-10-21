@@ -3,6 +3,8 @@
 Load for implementation or review where naming, responsibilities, coupling or error handling affect maintainability. These are local engineering heuristics informed by Robert C. Martin's *Clean Code* and *The Clean Coder*, not a claim that the full books were read in this session.
 
 - Use domain names and cohesive units. Extract a function or module when it makes a responsibility, invariant or dependency easier to understand; avoid arbitrary line-count limits and wrappers that only add navigation.
+- Before adding code or a dependency, check suitable project helpers/components, platform or standard-library features, then installed packages. Preserve project conventions and justify any remaining new mechanism by the actual requirement. Shorter code is useful only when readable and complete.
+- For a changed contract or shared helper, search affected callers, exports, tests, fixtures and configuration. Finish the necessary updates without extending the feature scope; moving or simplifying code must preserve required validation, error handling, security and accessibility.
 - Separate business decisions from I/O where that creates a useful test boundary. Keep side effects and failure handling explicit. Preserve the framework's idioms; SOLID is a design lens, not a requirement for more classes.
 - Consolidate duplicated knowledge when it has the same reason to change. Similar-looking code with different responsibilities does not automatically need a shared abstraction. Add flexibility only for a demonstrated requirement.
 - Refactor in small steps with relevant tests green. Preserve behavior unless the approved task changes it; report the concrete maintenance problem and evidence that the change improves it.

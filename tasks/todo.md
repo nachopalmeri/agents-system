@@ -14,3 +14,7 @@ Execution: primary owns engineering/TDD/integration; one independent worker owns
 ## Pragmatic validation follow-up
 
 Scope: reuse the merged foundations and add only missing behavior-example/diagram guidance and proportional test selection. Two canonical instruction files; documentation and this checkpoint record the delta. Verify diff, runtime graph and release checks, sync managed globals, then commit/push/integrate using the user's continuing authorization. Routine instruction maintenance does not trigger a separate learning guide or extra agent ceremony.
+
+## Ponytail review and spec routing
+
+Reviewed pinned upstream Ponytail instructions. Keep its useful reuse/impact-check ideas in the existing Clean Code reference; no new skill installation. Make full Spec Kit conditional on an explicit request or existing repository adoption, retaining lightweight specs and vertical slices. Verify diff, discovery metadata and release checks; sync the changed global sources with backups/override preservation, commit/push and integrate under the continuing main-merge authorization. This is routine instruction maintenance; no new study guide or parallel research is needed.

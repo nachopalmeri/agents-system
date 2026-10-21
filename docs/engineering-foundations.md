@@ -25,6 +25,14 @@ The PR's first Linux CI run exposed a pre-existing test portability bug: the abs
 
 Follow-up from the supplied engineering discussion: planning now uses a concrete user-action/result example and a diagram only when it resolves ambiguity. Game rules and win/lose conditions belong in the existing spec or a compact GDD when needed. Validation selects test levels by affected behavior and boundaries, reuses the project's runner and distinguishes an expected failing test from evidence of completion. Existing TDD, framework conventions, learning comments and bounded agent roles already cover the other useful suggestions; no duplicate skills or universal three-agent/testing pipeline was added. The post's claimed 80% improvement remains unverified.
 
+## Ponytail and lightweight specifications
+
+Reviewed [Ponytail's skill](https://github.com/DietrichGebert/ponytail/blob/09c434ab73ca43761c5d8b0c5d341926c2fba710/skills/ponytail/SKILL.md) at `DietrichGebert/ponytail@09c434a` on 2026-10-20 (MIT). Most guidance overlaps the existing minimal-scope, testing and maintainability rules. Two useful local clarifications were added: inspect existing code/platform/installed packages before adding a mechanism, and check the callers/exports/fixtures/configuration affected by a changed contract. These are locally phrased adaptations; no upstream files, plugins, hooks or persistent session mode were installed.
+
+Spec Kit now activates for an explicit request or an existing `.specify` workflow. Ordinary features keep the existing lightweight spec and vertical-ticket route. Specifications define expected behavior; vertical slices deliver a small complete user outcome. AI pair programming is already supported through concise teaching at meaningful decisions and the project learning guides; no additional quiz or forced pause was added.
+
+The claim that one skill replaces all others is an opinion, not an evaluated result for this runtime. The supplied replies alone do not establish a need for Caveman, Context7 or gentle-shell. No whole-book preload, compressed teaching language or new infrastructure was added, and no measured savings are claimed.
+
 ## Public source context
 
 - [Clean Code publisher page](https://www.informit.com/store/clean-code-a-handbook-of-agile-software-craftsmanship-9780132350884) and [Clean Code/Clean Coder publisher sample](https://ptgmedia.pearsoncmg.com/images/9780132928472/samplepages/0132928477.pdf).
