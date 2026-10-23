@@ -1,4 +1,4 @@
-<!-- managed-runtime-adapter; canonical-sha256: ba9ec64c02e83dfe24007504f8bfb2bd234f680e8ffb4165cb89db47ba9529a3 -->
+<!-- managed-runtime-adapter; canonical-sha256: a3614a97d9d8dfb693f600047c4e4a4f427225553b989cf737871df9fddf27b7 -->
 # Runtime adapter: claude
 
 Canonical policy: `.agents/AGENTS.md`. Load capabilities on demand from `config/capabilities.json`.
