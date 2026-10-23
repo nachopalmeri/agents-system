@@ -1,5 +1,14 @@
 # Runtime Optimization v1
 
+## Runtime hardening checkpoint — 2026-10-23
+
+- [x] User explicitly authorized implementation, tests, commit/push and integration into main for this change only.
+- [x] Test-first guard fail-closed, metadata-only logs, managed Git hooks, diagnostics and existing-CLI fallback.
+- [x] Full local runtime/CI gate, secret scan and installed hook check passed; sources and limits in `docs/runtime-hardening-2026-10-23.md`.
+- [x] Managed global sync and active checkout registration completed; pre-existing policy/class overrides preserved.
+- [x] Live free-worker experiment reached the 180-second limit; no output or cost telemetry. Remaining cases were not run; no savings claim.
+- Integration proceeds through a reviewed PR after remote CI; see GitHub for the resulting merge commit/status rather than treating this checkpoint as a merge receipt.
+
 ## Objective
 
 Reduce default context and accidental orchestration while preserving the full capability catalog, repairing runtime integrity, and making the system portable across IDEs and CLI clients.

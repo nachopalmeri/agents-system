@@ -28,6 +28,18 @@ jobs:
         shell: pwsh
         run: ./bin/test-ci-exit-contract.ps1
 
+      - name: Validate global entrypoint
+        shell: pwsh
+        run: ./bin/test-global-entrypoint.ps1
+
+      - name: Validate usage log privacy
+        shell: pwsh
+        run: ./bin/test-usage-log.ps1
+
+      - name: Validate Git hooks
+        shell: pwsh
+        run: ./bin/test-git-hooks.ps1
+
       - name: Validate ticket-session workflow contract
         shell: pwsh
         run: ./bin/test-ticket-session-workflow.ps1

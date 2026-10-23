@@ -30,6 +30,10 @@ try {
     [IO.File]::WriteAllText((Join-Path $agentsDir 'local-runtime.json'), (@{repoPath=$root} | ConvertTo-Json))
     $registered = & pwsh -NoProfile -File $entry catalog matt-pr -HomePath $fixture 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0 -or $registered -notmatch 'matt-pr') { throw 'Registered checkout lookup failed.' }
+    $doctor = & pwsh -NoProfile -File $entry doctor -HomePath $fixture 2>&1 | Out-String
+    if ($LASTEXITCODE -ne 1 -or $doctor -notmatch '\[not-installed\] cli resource bin/agents.ps1' -or $doctor -notmatch 'client-loaded.*not verified') {
+        throw "Registered doctor must propagate incomplete installed-runtime checks and their limits: $doctor"
+    }
     $install = Get-Content (Join-Path $root 'bin/install-runtime-tools.ps1') -Raw
     if ($install -notmatch '\[switch\]\s*\$Apply' -or $install -notmatch 'ignore-scripts') { throw 'Tool installation is not opt-in and bounded.' }
     'GLOBAL_ENTRYPOINT_TESTS_OK'
@@ -38,3 +42,5 @@ try {
     if (-not $resolved.StartsWith([IO.Path]::GetTempPath(), [StringComparison]::OrdinalIgnoreCase)) { throw 'Unsafe test fixture cleanup.' }
     Remove-Item -LiteralPath $resolved -Recurse -Force
 }
+# Expected negative subprocess checks must not leak a failure to CI's shared shell.
+exit 0

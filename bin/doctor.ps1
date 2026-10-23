@@ -70,13 +70,14 @@ function Test-Client([string] $Name) {
     if ($Name -eq "cli") {
         $canonical = Test-CanonicalInstall
         Write-Status $canonical.Status "cli" $canonical.Detail
-        if ($canonical.Status -eq "unsupported") { $script:hasInvalidInstall = $true }
+        if ($canonical.Status -eq "unsupported" -or (($Client -or $GlobalCommands) -and $canonical.Status -eq "not-installed")) { $script:hasInvalidInstall = $true }
         return
     }
 
     $adapter = @($manifest.adapters | Where-Object { ([string]$_.client) -eq $Name }) | Select-Object -First 1
     if ($null -eq $adapter) {
         Write-Status "unsupported" $Name "client is not declared in runtime manifest"
+        if ($Client) { $script:hasInvalidInstall = $true }
         return
     }
     if (-not $adapter.globalTarget) {
@@ -86,6 +87,7 @@ function Test-Client([string] $Name) {
     $targetPath = Join-Path $homeRoot ([string]$adapter.globalTarget)
     if (-not (Test-Path $targetPath -PathType Leaf)) {
         Write-Status "not-installed" $Name $targetPath
+        if ($Client -or $GlobalCommands) { $script:hasInvalidInstall = $true }
         return
     }
     $sourceRelative = if ($adapter.globalSourcePath) { [string]$adapter.globalSourcePath } else { [string]$adapter.repoPath }
@@ -100,7 +102,7 @@ function Test-Client([string] $Name) {
     $canonical = Test-CanonicalInstall
     if ($canonical.Status -ne "supported") {
         Write-Status $canonical.Status $Name "$($canonical.Detail); sha256=$targetHash"
-        if ($canonical.Status -eq "unsupported") { $script:hasInvalidInstall = $true }
+        $script:hasInvalidInstall = $true
         return
     }
     if ($Name -eq "opencode") {
@@ -116,9 +118,91 @@ function Test-Client([string] $Name) {
     Write-Status "supported" $Name "sha256=$targetHash; canonical-sha256=$canonicalSourceHash"
 }
 
+function Test-PreservedResource([string] $RelativeTarget) {
+    foreach ($path in @($manifest.preserveIfExists)) {
+        $prefix = ([string]$path).Replace('\', '/').Trim('/')
+        if (($RelativeTarget -eq $prefix -or $RelativeTarget.StartsWith("$prefix/", [StringComparison]::OrdinalIgnoreCase)) -and
+            (Test-Path -LiteralPath (Join-Path $homeRoot $prefix))) { return $true }
+    }
+    return $false
+}
+
+function Test-InstalledResources {
+    # Common runtime/delegation files are shared dependencies of every installed client.
+    # A selected client must not receive missing reports for unrelated client exports.
+    $targets = @($manifest.installTargets | Where-Object {
+        -not $Client -or $_.client -in @('cli', 'delegation', $Client.ToLowerInvariant())
+    })
+    foreach ($entry in $targets) {
+        $name = "$($entry.client) resource $($entry.targetPath)"
+        $target = Join-Path $homeRoot ([string]$entry.targetPath)
+        $source = Join-Path $repoRoot ([string]$entry.sourcePath)
+        if ($entry.kind -eq 'directory') {
+            if (-not (Test-Path -LiteralPath $target -PathType Container)) {
+                Write-Status 'not-installed' $name 'managed directory missing; rerun sync-runtime.ps1'
+                $script:hasInvalidInstall = $true
+                continue
+            }
+            $missing = @()
+            foreach ($file in @(Get-ChildItem -LiteralPath $source -File -Recurse -Force)) {
+                # Match sync's manifest exclusions, including bare directory names at any depth.
+                $sourceRelative = [IO.Path]::GetRelativePath($repoRoot, $file.FullName).Replace('\', '/')
+                $excluded = $false
+                foreach ($path in @($manifest.excludedRuntimePaths)) {
+                    $prefix = ([string]$path).Replace('\', '/').Trim('/')
+                    if ($sourceRelative -eq $prefix -or $sourceRelative.StartsWith("$prefix/", [StringComparison]::OrdinalIgnoreCase) -or
+                        (-not $prefix.Contains('/') -and ("/$sourceRelative/").IndexOf("/$prefix/", [StringComparison]::OrdinalIgnoreCase) -ge 0)) {
+                        $excluded = $true
+                        break
+                    }
+                }
+                if ($excluded) { continue }
+                $relative = [IO.Path]::GetRelativePath($source, $file.FullName)
+                $targetRelative = "$($entry.targetPath)/$relative".Replace('\', '/')
+                if (Test-PreservedResource $targetRelative) { continue }
+                if (-not (Test-Path -LiteralPath (Join-Path $target $relative) -PathType Leaf)) { $missing += $relative }
+            }
+            foreach ($relative in $missing) {
+                Write-Status 'not-installed' "$name/$relative" 'managed file missing; rerun sync-runtime.ps1'
+                $script:hasInvalidInstall = $true
+            }
+            if ($missing.Count -eq 0) { Write-Status 'supported' $name 'managed files present; content drift not checked' }
+        } elseif (-not (Test-Path -LiteralPath $target -PathType Leaf)) {
+            Write-Status 'not-installed' $name 'managed file missing; rerun sync-runtime.ps1'
+            $script:hasInvalidInstall = $true
+        } else { Write-Status 'supported' $name 'managed file present; content drift not checked' }
+    }
+}
+
+function Test-InstalledHooks {
+    # Git resolves core.hooksPath and linked-worktree hooks; do not assume .git/hooks.
+    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+        Write-Status 'unsupported' 'git hooks' 'Git unavailable; presence cannot be checked'
+        $script:hasInvalidInstall = $true
+        return
+    }
+    $hooksPath = & git -C $repoRoot rev-parse --git-path hooks 2>$null
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($hooksPath)) {
+        Write-Status 'unsupported' 'git hooks' 'cannot resolve effective hooks directory'
+        $script:hasInvalidInstall = $true
+        return
+    }
+    $hooksPath = $hooksPath.Trim()
+    if (-not [IO.Path]::IsPathRooted($hooksPath)) { $hooksPath = Join-Path $repoRoot $hooksPath }
+    foreach ($hook in @('pre-commit','pre-push')) {
+        if (Test-Path -LiteralPath (Join-Path $hooksPath $hook) -PathType Leaf) {
+            Write-Status 'present' "git hook $hook" 'effective hook file exists; ownership and execution not verified'
+        } else {
+            Write-Status 'not-installed' "git hook $hook" 'effective hook file missing; review bin/install-hooks.ps1'
+            $script:hasInvalidInstall = $true
+        }
+    }
+}
+
 Write-Host "Agents System Doctor"
 Write-Host "Repo: $repoRoot"
 Write-Host "Home: $homeRoot"
+Write-Host 'Scope: installed filesystem only; client-loaded instructions, model skill activation and tool availability not verified.'
 
 if ($Client) {
     Test-Client $Client.ToLowerInvariant()
@@ -128,6 +212,8 @@ if ($Client) {
 }
 
 if ($GlobalCommands) {
+    Test-InstalledResources
+    Test-InstalledHooks
     foreach ($entry in @($manifest.installTargets | Where-Object { $_.targetPath -match '^bin/agents\.(ps1|cmd)$' })) {
         $target = Join-Path $homeRoot $entry.targetPath
         $expected = Get-FileSha256 (Join-Path $repoRoot $entry.sourcePath)
