@@ -40,12 +40,17 @@ Siempre requiere:
 
 ## Revision mensual
 
-Usar `workflows/vault_review.md` para:
+Revisar bajo demanda cuando una lección quede obsoleta, se contradiga con el
+código o se repita un error; también puede hacerse una revisión mensual manual.
+No depende de un workflow del vault ni activa una automatización:
 
 - Podar lecciones obsoletas.
 - Fusionar duplicados.
 - Mantener evidencia.
 - Actualizar `developer_growth.md` con hechos reales del mes.
+
+Conservar fuente y fecha de comprobación. Marcar una lección superada en vez de
+borrar evidencia; no promover inferencias ni guardar secretos o conversaciones.
 
 ## Como afecta proyectos nuevos
 

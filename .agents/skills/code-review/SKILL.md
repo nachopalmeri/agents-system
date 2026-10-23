@@ -26,6 +26,10 @@ Search the relevant repo paths for documented standards, including CODING_STANDA
 4. Arreglá P0 y P1. Si el reviewer se equivoca, respondé con evidencia (test, código), no con acuerdo performativo (ver `receiving-code-review`).
 5. Una pasada y como máximo una correctiva; verificá checks afectados. Fallo idéntico o criterio incierto exige replan/bloqueo, no un loop abierto. Nunca declares aprobación humana ni mergees main automáticamente.
 
+Si el cambio afecta autenticación, datos de usuarios, entradas externas, permisos
+o endpoints costosos, consultá [la checklist de seguridad](references/security-checklist.md)
+y aplicá sólo sus controles pertinentes; no lances otra auditoría para cambios de texto.
+
 ## Smells (heurísticas, no violaciones)
 
 For material maintainability or design decisions, read [Clean Code in practice](references/clean-code.md). Apply the project's conventions and a concrete change-cost argument; style preferences alone do not justify a rewrite.
