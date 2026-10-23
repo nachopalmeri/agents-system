@@ -23,7 +23,7 @@ function Invoke-Hook([string]$InputJson, [string]$TestHome) {
     $start.Environment['USAGE_TEST_HOME'] = $TestHome
     $start.Environment['USAGE_TEST_HOOK'] = $hook
     # Refuse to execute the real hook unless home isolation succeeded.
-    $bootstrap = 'if ($HOME -ne $env:USAGE_TEST_HOME) { exit 91 }; & $env:USAGE_TEST_HOOK'
+    $bootstrap = 'if ($HOME -ne $env:USAGE_TEST_HOME) { exit 91 }; & $env:USAGE_TEST_HOOK; exit $LASTEXITCODE'
     foreach ($argument in @('-NoLogo', '-NoProfile', '-NonInteractive', '-EncodedCommand',
         [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($bootstrap)))) {
         $start.ArgumentList.Add($argument)
@@ -40,7 +40,7 @@ function Invoke-Hook([string]$InputJson, [string]$TestHome) {
             $process.Kill($true)
             throw 'Hook exceeded the test timeout.'
         }
-        Assert-True ($process.ExitCode -eq 0) 'Hook failed or temporary home isolation failed.'
+        Assert-True ($process.ExitCode -eq 0) "Hook failed or temporary home isolation failed (exit $($process.ExitCode))."
         Assert-True ($stdout.GetAwaiter().GetResult().Length -eq 0) 'Hook emitted stdout.'
         Assert-True ($stderr.GetAwaiter().GetResult().Length -eq 0) 'Hook emitted stderr.'
     } finally { $process.Dispose() }
@@ -161,3 +161,4 @@ foreach ($blockedTarget in @('parent', 'log')) {
 
 # Retain only synthetic fixtures in the OS temp directory; never inspect a real home log.
 Write-Host "USAGE_LOG_TESTS_OK ($script:passed tests)"
+exit 0

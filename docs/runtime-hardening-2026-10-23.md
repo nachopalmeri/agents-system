@@ -34,6 +34,9 @@ hook installation/failure propagation, and the existing-CLI fallback. Local gate
   successful execution and failing validation/secret-check propagation.
 - All commands in `.github/workflows/validate-agents.yml`, plus the new hook,
   usage and global-entrypoint tests: `FULL_RUNTIME_GATE_OK` locally on Windows.
+- The first Linux CI run exposed a stale exit code after an expected negative
+  Git-hook test. The test now exits zero after success, and the shared-shell
+  regression contract also covers Git hooks, usage privacy and global entrypoints.
 - Managed hooks installed and checked in this checkout. Runtime changes synced
   globally with recoverable backups; pre-existing local policy/class overrides
   preserved. The global checkout registration now points to the active checkout.

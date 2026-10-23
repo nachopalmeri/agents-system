@@ -66,3 +66,5 @@ try {
     if (-not $resolved.StartsWith([IO.Path]::GetTempPath(), [StringComparison]::OrdinalIgnoreCase) -or (Split-Path $resolved -Leaf) -notlike 'agents-hooks-*') { throw 'Unsafe fixture cleanup.' }
     Remove-Item -LiteralPath $resolved -Recurse -Force
 }
+# Expected negative subprocesses must not leak failure into GitHub's shared shell.
+exit 0
