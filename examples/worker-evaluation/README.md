@@ -10,7 +10,7 @@ Define acceptance before execution, then use the existing delegation bridge:
    `strictEqual` versus `deepStrictEqual`, and cite the official source. Parent
    checks that `strictEqual(1, '1')` throws and deep equality compares structure.
 2. Scoped edit: modify **only** the copied `clamp.cjs` for finite numeric inputs
-   with min <= max. Parent runs `node clamp.test.cjs` and verifies file scope.
+   with min <= max. Parent runs `node clamp-check.cjs` and verifies file scope.
 3. Review (read): identify the authorization defect in `review.cjs`, with a line
    reference and a reproduction using a synthetic viewer. Parent checks mutation
    and the erroneous true result. No editing is authorized for this task.
@@ -19,3 +19,5 @@ One candidate/run per task, existing timeout/attempt limits, verified-free model
 only. Record correctness, scope, provider/model, reported usage/cost, elapsed time
 and primary preparation/review separately. Missing measurements stay unknown.
 One run is a smoke sample, not a reliable model ranking or savings benchmark.
+The deliberately failing check is not named `*.test.cjs`, so Node's default test
+discovery does not mistake this inert example for a runtime regression test.
