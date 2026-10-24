@@ -5,6 +5,8 @@ description: Protocolo para crear parciales realistas, evaluar con rubric, estim
 
 # Exam Simulator
 
+Para enseñanza o evaluación, leer `workflows/learning_protocol.md`. “Entrename” o “evaluame” corresponde a práctica de una tarea por vez; un pedido explícito de simulacro completo permite entregar todas las preguntas y corregir al final. Reutilizar el contexto conocido en vez de volver a preguntar. Las fases y composiciones siguientes son ejemplos ajustables, no requisitos para toda sesión.
+
 ## Activación
 - Cuando el estudiante diga "modo parcial"
 - Cuando pida "simulación de examen", "parcial de práctica" o "evaluame"
@@ -16,8 +18,8 @@ description: Protocolo para crear parciales realistas, evaluar con rubric, estim
 ### Fase 1: Diagnóstico (5 min)
 1. Preguntar: materia, temas, fecha del parcial, formato (MC, desarrollo, oral, código)
 2. Si hay parciales anteriores: analizarlos para replicar estilo
-3. Evaluar nivel actual con 5 preguntas rápidas de dificultad creciente
-4. Clasificar al estudiante: **ROJO** (errores conceptuales, no aprueba hoy), **AMARILLO** (bases ok pero falla en aplicación), **VERDE** (domina, aprueba cómodo)
+3. Si no hay evidencia del nivel, usar un diagnóstico breve proporcional; no exigir cinco preguntas por rutina.
+4. Describir dificultades y aciertos observados. Colores sólo si Nacho pide ese formato; no implican un pronóstico del examen real.
 
 ### Fase 2: Parcial Simulado
 Generar evaluación realista según la materia:
@@ -38,7 +40,7 @@ Generar evaluación realista según la materia:
 - **Tiempo:** estimar minutos por pregunta, dar total realista
 
 ### Fase 3: Corrección
-1. Esperar respuestas del estudiante (NO corregir pregunta por pregunta — dar el parcial completo)
+1. En un simulacro completo, esperar la entrega antes de corregir; en práctica guiada, corregir cada intento. Para apuntes o una solución solicitada, entregar el material completo sin esperar respuestas.
 2. Corregir con rubric detallada:
 
 ```
@@ -62,9 +64,9 @@ Generar evaluación realista según la materia:
 - Nivel de preparación: ROJO | AMARILLO | VERDE
 
 ## Criterios de nivel
-- ROJO: errores conceptuales graves, no aprueba si rinde hoy
-- AMARILLO: entiende las bases pero falla en aplicación o detalle, riesgo de 4-5
-- VERDE: domina los conceptos, comete errores menores, aprueba cómodo
+- ROJO: errores conceptuales observados en esta muestra
+- AMARILLO: bases correctas con errores de aplicación o detalle en esta muestra
+- VERDE: respuestas correctas con errores menores en esta muestra; no prueba dominio de temas no evaluados
 
 ## Fortalezas
 - [qué domina bien]
@@ -83,9 +85,9 @@ Generar evaluación realista según la materia:
 ### Fase 5: Post-mortem (opcional)
 Si el estudiante quiere profundizar:
 1. Repasar cada error conceptual con explicación completa
-2. Generar flashcards de los errores
+2. Ofrecer una recuperación breve de los errores; flashcards sólo si se piden y las reglas del vault lo permiten
 3. Crear ejercicios específicos para cada debilidad
-4. Programar fecha de re-evaluación
+4. Sugerir un próximo repaso si ayuda; programarlo sólo con autorización
 
 ## Formatos por Materia
 
@@ -128,5 +130,5 @@ Si el estudiante quiere profundizar:
 - NO ser blando con la corrección — el parcial real no perdona
 - NO dar parciales demasiado fáciles para que el estudiante "se sienta bien"
 - NO inventar formatos que el profesor nunca usaría
-- NO corregir mientras el estudiante responde — dar todo junto al final
+- En un simulacro completo, no corregir mientras el estudiante responde: corregir al final. En práctica guiada, dar feedback después de cada intento.
 - NO estimar "aprobado" si hay errores conceptuales graves

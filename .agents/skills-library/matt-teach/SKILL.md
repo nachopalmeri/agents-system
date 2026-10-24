@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Matt: teach
 
+For local teaching, also read `workflows/learning_protocol.md`. Respect the requested explain/practice/notes mode and its source and feedback rules; the upstream guide does not require a quiz, hints-only response or new persistent progress files when the user asked for a complete explanation or notes.
+
 Status: promoted. On-demand reference; not a core replacement.
 
 1. Read [runtime compatibility](../../rules/matt-skills.md) before executing this workflow.

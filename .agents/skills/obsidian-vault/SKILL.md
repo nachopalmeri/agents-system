@@ -42,3 +42,7 @@ Materias: Dirección de Proyectos de Tecnología (lun), Liderazgo y Negociación
 - Nuevas propuestas académicas/conceptuales sólo en `+/Propuestas IA/`; las guías de proyectos se escriben en su carpeta de `Efforts/Proyectos/`. Nada al Atlas ni a los MOCs sin aprobación.
 - Dataview **no** está instalado: usar Bases (bloques ```base) y Tasks. Mermaid nativo y LaTeX `$...$`.
 - Herramientas: `descubrir_clase.py`, `verificar_clase.py`, `mapa_clases.py`, `repaso.py`, `prompt_materia.py`, `figuras.py`, `ocr_imagen.ps1`, `diapositivas.ps1`.
+
+## Teaching requests
+
+For teaching or creating study material, read `workflows/learning_protocol.md` on demand. Distinguish explanation, interactive practice and complete notes. Do not load it for filing, linking, renaming or ordinary vault maintenance; current vault rules govern writing and approval.

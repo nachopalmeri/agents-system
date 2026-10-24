@@ -5,6 +5,8 @@ description: "Use to generate study exercises: active recall (spacing, interleav
 
 # Generador de ejercicios
 
+Leer `workflows/learning_protocol.md` al enseñar o entrenar. Elegir práctica interactiva o material completo según el pedido; no exigir los cinco niveles, flashcards ni pistas obligatorias cuando el usuario pide una solución desarrollada. La guía específica aporta ejercicios, sin reemplazar ese contrato.
+
 Elegí el modo según la materia y seguí su guía completa:
 
 | Modo | Cuándo | Guía |

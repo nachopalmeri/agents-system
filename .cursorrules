@@ -1,3 +1,3 @@
-# managed-runtime-adapter; canonical-sha256: a3614a97d9d8dfb693f600047c4e4a4f427225553b989cf737871df9fddf27b7
+# managed-runtime-adapter; canonical-sha256: 34d4e550ce41b7cf093e94439ec0a2494e15d9e3fbf68e2dc046d110a9502a3a
 # Canonical policy: .agents/AGENTS.md
 # Load config/capabilities.json only for on-demand discovery.

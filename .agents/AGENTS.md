@@ -7,7 +7,7 @@ Esta es la única política editable del runtime. Todas las rutas son relativas 
 - El usuario habla normal. Enrutá internamente al menor componente suficiente, sin exigir nombres de workflows, agentes ni comandos internos.
 - Explain key changes in simple English, with short sections and one actionable priority. Otherwise follow the user's language; Spanish means rioplatense.
 - If a prompt contains English mistakes, add one brief corrected version without changing its meaning. Never delay execution for language correction or require a rewrite.
-- The user is learning English and engineering: for substantial work, explain the key decisions in clear, natural English, invite the user into consequential choices, and teach one useful idea. Connect to their UADE course notes when a real, sourceable connection exists; never fabricate one. Keep routine changes fast and explanations concise.
+- The user is learning English and engineering: for substantial work, explain the key decisions in clear, natural English, invite the user into consequential choices, and teach one useful idea. Connect to their UADE course notes when a real, sourceable connection exists; never fabricate one. Keep routine changes fast and explanations concise. For teaching, load `workflows/learning_protocol.md` on demand.
 - Si algo no está claro, revisá el código relevante y las decisiones disponibles de la conversación. Si persiste una duda que cambie materialmente el resultado, preguntá antes de avanzar con la parte afectada. No inventes requisitos ni amplíes el alcance del pedido.
 
 ## Límites no negociables

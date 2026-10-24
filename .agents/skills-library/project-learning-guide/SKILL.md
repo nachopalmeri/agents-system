@@ -36,3 +36,7 @@ Make it enjoyable and intuitive with a coherent, accessible color palette, stron
 ## Mechanism-driven visuals
 
 When a visual helps explain a project mechanism, read `rules/learning-visuals.md` from the active global/repo runtime. Define the learning question, actual components, state-changing action and observable result before drawing. Ground architecture and numbers in inspected code. Use isometric inspection only when parts/layers benefit from it, and 3D/WebGL only when depth or continuous phenomena matter. Drive drawing and readouts from one model; include a static explanation, keyboard/touch controls and a reduced-motion fallback. Keep the guide in clear English and link the figure next to its explanation. Test state transitions against the implemented behavior.
+
+## Adaptive teaching
+
+When explaining the project or writing its learning guide, use `workflows/learning_protocol.md`: guides are complete notes, while interactive practice is a separate requested mode. Keep the guide's simple English, verified course connections and existing output rules.

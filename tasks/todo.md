@@ -26,3 +26,9 @@ Evidence: private notes created; local links, exact source-record/status coverag
 ## Ponytail review and spec routing
 
 Reviewed pinned upstream Ponytail instructions. Keep its useful reuse/impact-check ideas in the existing Clean Code reference; no new skill installation. Make full Spec Kit conditional on an explicit request or existing repository adoption, retaining lightweight specs and vertical slices. Verify diff, discovery metadata and release checks; sync the changed global sources with backups/override preservation, commit/push and integrate under the continuing main-merge authorization. This is routine instruction maintenance; no new study guide or parallel research is needed.
+
+# Adaptive tutoring — 2026-10-24
+- [x] Plan: one on-demand protocol; explain/practice/notes; retain source and vault boundaries.
+- [x] Replace obsolete tutor routing; preserve original material under archive/teaching.
+- [x] Connect class, vault and project-guide entry points without adding active skills.
+- [x] Verify routing and representative scenarios by instruction review; release checks passed. Runtime/vault synced with backups. Publication target: main, explicitly requested by the user.

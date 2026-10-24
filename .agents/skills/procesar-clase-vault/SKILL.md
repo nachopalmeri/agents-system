@@ -48,3 +48,7 @@ Para pedidos que incluyen grabación o transcripción, el cierre debe indicar qu
 ## Visuales que explican mecanismos
 
 Al procesar clases o resúmenes, aplicar `docs/VISUALES-DIDACTICOS.md` del vault: pregunta de aprendizaje → variables/partes → cambio de estado → resultado comprobable. Elegir SVG, isometría o HTML por lo que ayude a entender; 3D/WebGL sólo cuando la profundidad o el fenómeno lo requieran. Mantener Markdown autosuficiente, fuentes visibles y figuras junto a su explicación. Para pseudocódigo de cátedra, conservar nombres, flujo y notación en la adaptación Python; corregir errores explícitamente y hacer que la visualización use la misma lógica.
+
+## Enseñanza adaptable
+
+Al explicar, entrenar o elaborar material de estudio, leer `workflows/learning_protocol.md`. Procesar una clase corresponde al modo apuntes: completar los entregables sin esperar respuestas interactivas. “Entrename” activa práctica; “explicame” entrega una explicación autosuficiente. El protocolo no reemplaza las fuentes, notación ni reglas del vault.
