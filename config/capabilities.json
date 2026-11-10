@@ -85,6 +85,11 @@
       "path": "skills/frontend-design/SKILL.md"
     },
     {
+      "name": "multimodel-routing",
+      "description": "Usala cuando haya que elegir o mezclar modelos (DeepSeek flash o v4-pro y Claude Haiku, Sonnet u Opus), orquestar el pipeline fixer-reviewer-breaker, delegar desde Claude Code a OpenCode, o decidir si vale la pena escalar de un modelo barato a uno más caro.",
+      "path": "skills/multimodel-routing/SKILL.md"
+    },
+    {
       "name": "next-best-practices",
       "description": "Next.js best practices - file conventions, RSC boundaries, data patterns, async APIs, metadata, error handling, route handlers, image/font optimization, bundling user-invocable: false",
       "path": "skills/next-best-practices/SKILL.md"
