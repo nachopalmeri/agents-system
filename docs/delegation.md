@@ -21,7 +21,7 @@ La prueba real de investigación terminó en `SUCCESS` con `opencode/muse-spark-
 
 También pasaron dos pruebas en vivo: un coordinador lanzó dos workers mediante `task` (recibo `workerCalls: 2`), y un worker creó un archivo temporal declarado, cuyo contenido fue verificado por el primary. En ambos casos el proveedor reportó costo cero. Los scopes de edición se calculan respecto del workspace y del worktree raíz, como requiere OpenCode; no se habilitan directorios enteros.
 
-La lista en `config/model-routing.json` es una preferencia configurable, no un benchmark. Muse Spark es la primera opción solicitada. DeepSeek u otro proveedor se agrega sólo tras verificar ID, disponibilidad, condiciones de gratuidad y tratamiento de datos. No hay fallback automático a modelos pagos.
+La lista en `config/model-routing.json` es una preferencia configurable, no un benchmark. La cascada gratuita del bridge es la cadena Zen sin entrenamiento: `opencode/glm-5.3-flash-free` → `opencode/deepseek-v4.1-flash-free` → `opencode/minimax-m3.1-flash-free`, más Ollama local si está. No uses modelos gratis que entrenan con los datos (Muse Spark, Iceman, Nemotron, MiMo free). En esa ruta no hay fallback automático a modelos pagos.
 
 Los recibos resumen el uso de los eventos emitidos por la CLI; el uso de sesiones hijas no siempre aparece en el stream del coordinador y puede requerir consultar sus sesiones por separado. No se debe inferir un total completo cuando el proveedor no lo reporta.
 

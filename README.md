@@ -9,16 +9,55 @@ Runtime personal para Codex/ChatGPT, Claude, Gemini, OpenCode y otros clientes. 
 - `agents.registry.json`: contratos y permisos de los agentes.
 - `.agents/workflows/index.md`: intención → componente mínimo.
 - `config/routing-rules.json`: reglas ejecutables de SIMPLE, SPECIALIZED, PARALLEL y HIGH_RISK.
-- `config/model-routing.json`: modelos menores del mismo harness y candidatos gratuitos de OpenCode.
+- `config/model-routing.json` y `config/model-tiers.json`: cascada Opus/DeepSeek, candidatos gratuitos de OpenCode (cadena Zen sin entrenamiento) y modelos prohibidos.
 - `schemas/`: contratos portables de tareas, sesiones y proveedores.
 - `bin/`: routing, ejecución, validación, instalación y sincronización.
 - `orchestrator/router.ps1`: selección determinista por riesgo e intención.
 
 Las skills cubren desarrollo, diseño, testing, AI/RAG, SEO/GEO, contenido, producto, estudio y Obsidian. Se descubren por metadata; no se carga la biblioteca completa. `.agents/archive/` conserva componentes históricos y no es una ruta ejecutable.
 
+## Cascada de modelos
+
+Opus orquesta y planifica; DeepSeek hace el grind. Skill operativa: `multimodel-routing`. Política: `.agents/AGENTS.md`.
+
+Para un cambio no trivial:
+
+1. **fixer** (DeepSeek flash, o v4-pro si hace falta) implementa el tramo.
+2. **reviewer** (DeepSeek v4-pro) revisa.
+3. **breaker** (DeepSeek v4-pro) intenta romper el cambio.
+4. El fixer corrige hallazgos P0/P1 y el reviewer re-revisa.
+5. Merge solo con OK humano. El agente nunca mergea ni pushea a `main`.
+
+Límites de Claude por sesión de esta cascada: Haiku ≤ 2, Sonnet ≤ 2, Opus ≤ 1 (orquesta, no grind). Claude entra para planificar u orquestar, o cuando DeepSeek no alcanza.
+
+En OpenCode, los presets `mix` (Windows) y `mix-work` (WSL) son iguales: orquestador Claude Opus, con fallback a DeepSeek v4-pro y v4-flash. Desde Claude Code, explorador/implementador/designer/reviewer/breaker delegan con `opencode run --agent explorer|fixer|designer|reviewer|breaker`.
+
+### Modelos gratis
+
+Para exploración y workers acotados, sólo la cadena Zen sin entrenamiento: `opencode/glm-5.3-flash-free` → `opencode/deepseek-v4.1-flash-free` → `opencode/minimax-m3.1-flash-free`, más Ollama local si está. Lista: `config/model-routing.json`.
+
+No uses modelos gratis que entrenan con los datos: Muse Spark, Iceman, Nemotron, MiMo free.
+
+## Home Repo
+
+`agents-system` es el Home Repo: skills, adapters y punteros a los otros checkouts. Guía: `docs/home-repo.md`. Punteros: `.agents/repos.md`. Skill: `home-repo`.
+
+- Tarea en un solo repo: abrí el agente ahí; las skills compartidas ya están en `~/.agents`.
+- Tarea que cruza repos: abrí este checkout (`D:\Dev\repos\agents-system`), pedile que lea `.agents/repos.md` y que trabaje en una rama o worktree de cada hijo. No copies código de un hijo adentro del Home Repo.
+- No uses `C:\Users\Nacho\agents-system`: está atrasado.
+- Zentra no se unifica a la fuerza. El día a día del theme arranca en `/home/nacho/projects/zentra`, con el plugin `zentra@claude-zentra` y `CONTEXT.md`.
+
+## Skills de Matt (`matt-*`)
+
+Catálogo 1.3.2 (39 entradas: 27 promoted, 4 misc, 8 experimental) en `.agents/skills-library/matt-*`. Incluye `matt-prototype`. También en la biblioteca: `home-repo`, `ubiquitous-language` y `pr-walkthrough`. Guía: `docs/matt-on-demand.md`.
+
+Van namespaced y opt-in: no se precargan. Después de `bin/sync-runtime.ps1` quedan en `~/.agents/skills-library/`. Para que Claude Code y OpenCode las vean como skills activas en Windows, creá junctions (o symlinks) desde `~/.agents/skills-library/<nombre>` hacia `~/.agents/skills/<nombre>`. Invocalas a mano: `/matt-prototype` en Claude, `@matt-prototype` en OpenCode.
+
+En WSL (cuenta de Zentra) no actives el plugin del marketplace `mattpocock-skills`: pisa nombres del plugin del equipo (`tdd`, `handoff`, `domain-modeling`, `systematic-debugging`). Codex lee otra carpeta, así que ahí todavía no aparecen.
+
 ## Delegación interna
 
-El primary elige entre ejecución directa, un worker menor del mismo harness o OpenCode. Ejemplo: Sol → Luna cuando la herramienta nativa permita seleccionar ese modelo; Sol/Claude → OpenCode → Muse Spark para tareas acotadas. Los nombres de modelos son preferencias configurables, no un ranking de calidad.
+El primary elige entre ejecución directa, un worker menor del mismo harness o OpenCode. Ejemplo: Sol → Luna cuando la herramienta nativa permita seleccionar ese modelo; para el grind, Sol/Claude → OpenCode → DeepSeek (v4-pro o flash). Los nombres de modelos son preferencias configurables, no un ranking de calidad.
 
 OpenCode puede investigar, escribir tests, editar documentación e implementar cambios locales en archivos declarados. Para unidades independientes, el bridge crea hasta tres subagentes con permisos y ownership separados. El primary revisa evidencia y diff, corre la validación final y sintetiza el resultado.
 
@@ -27,7 +66,7 @@ pwsh -NoProfile -File bin/invoke-delegation.ps1 -RequestPath examples/tasks/dele
 pwsh -NoProfile -File bin/invoke-delegation.ps1 -RequestPath examples/tasks/delegation.json
 ```
 
-La solicitud declara objetivo, workspace, operación, riesgo y archivos permitidos. El bridge descubre modelos gratuitos disponibles, limita intentos y tiempo y devuelve un recibo con uso/costo reportados por el proveedor. No se usan candidatos pagos automáticamente. La interfaz web de ChatGPT necesita un entorno con terminal para ejecutar el puente.
+La solicitud declara objetivo, workspace, operación, riesgo y archivos permitidos. El bridge descubre modelos gratuitos disponibles de la cadena Zen, limita intentos y tiempo y devuelve un recibo con uso/costo reportados por el proveedor. En esa ruta no hay fallback automático a modelos pagos. La interfaz web de ChatGPT necesita un entorno con terminal para ejecutar el puente.
 
 Ver [guía completa y evidencia](docs/delegation.md), [workflow](.agents/workflows/delegation.md) y [política](config/model-routing.json). Los tests locales no demuestran ahorro de tokens; hay que medir el encargo completo y la revisión del primary.
 
@@ -54,6 +93,7 @@ pwsh .\bin\sync-runtime.ps1 -Check     # avisa si alguna copia quedó distinta d
 
 - Merge: sólo se escriben skills/archivos que existen en el repo. Lo tuyo que no está en el repo se conserva y se lista como `[keep]`. `~/.agents/memory`, `~/.agents/tasks` y `~/.agents/projects-index.md` nunca se pisan.
 - Si `~/.agents` es un symlink/junction de una instalación vieja, el sync se detiene y te dice cómo borrar sólo el link.
+- En esta PC el checkout canónico es `D:\Dev\repos\agents-system`. No uses `C:\Users\Nacho\agents-system`.
 - `nuevo-proyecto` no se agrega al PATH: correlo como `pwsh ~\agents-system\bin\nuevo-proyecto.ps1 <nombre> <tipo>`.
 - `install.sh` (Linux/Mac) todavía usa symlinks: preferí `pwsh bin/sync-runtime.ps1 -HomePath ~`.
 
@@ -137,8 +177,8 @@ Tiene que crear:
 ├── agents/            # 5 roles: explorador, planner, implementador, reviewer, verificador
 ├── commands/          # /planear, /revisar, /cerrar (fuente única)
 ├── hooks/             # guard, lint-edited, session-todo, stop-unpushed, log-usage + guard-rules.json
-├── skills/            # 30 skills núcleo (metadata precargada)
-├── skills-library/    # skills on-demand + INDEX.md (incluye externas instalables)
+├── skills/            # 31 skills núcleo (metadata precargada; incluye multimodel-routing)
+├── skills-library/    # on-demand + INDEX.md (matt-* 1.3.2, home-repo y otras)
 ├── workflows/  rules/  memory/  tasks/  prompts/  shared/  docs/
 └── archive/           # historia (agentes y skills viejos); nada lo carga
 

@@ -1,5 +1,9 @@
 # Matt Pocock: globally discoverable, on demand
 
+## Update 2026-11-14
+
+The catalog remains 39 skills from upstream 1.3.2 (27 promoted, 4 misc, 8 experimental). On Windows they are now active as junctions from `~/.agents/skills-library/matt-*` into `~/.agents/skills/matt-*`, so Claude Code and OpenCode can invoke them by name (`/matt-prototype`, `@matt-prototype`). They stay namespaced and opt-in: call them explicitly. In WSL leave the marketplace plugin `mattpocock-skills` disabled so it does not collide with the Zentra team plugin. Codex still reads another folder, so the skills are not visible there yet.
+
 ## Update 2026-11-13
 
 Refreshed vendored upstream guides to [mattpocock/skills](https://github.com/mattpocock/skills) commit `5863806dd4e15c63174bee4e7515a4256792ecfa` (package 1.3.2, 12 Nov 2026). Nine guides changed (code-review, implement-spec, improve-codebase-architecture, research, setup-matt-pocock-skills, wayfinder, chief-of-staff, grilling, plus new experimental `software-factory`). Catalog is now 39 entries: 27 promoted, 4 misc, 8 experimental. Wrappers stay namespaced and opt-in; `software-factory` is experimental and only runs when explicitly requested. The official Claude marketplace plugin may lag this pin (it was still 1.3.1 on 13 Nov 2026).

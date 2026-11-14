@@ -18,7 +18,7 @@ Rutina clara: preferí Luna o el menor modelo capaz disponible, en Standard y co
 
 `config/model-routing.json` contiene candidatos, no un ranking universal. Usá el modelo menor disponible en el mismo harness si la herramienta permite elegirlo; por ejemplo Sol → Luna. Para Claude, seleccioná un modelo menor realmente disponible en su runtime. Nunca afirmes que cambiaste modelo sin una llamada real.
 
-Si se elige OpenCode, usá `workflows/delegation.md` y `bin/invoke-delegation.ps1`. Muse Spark es el primer candidato gratuito solicitado; alternativas y modelos locales sólo se usan si están disponibles. DeepSeek se agrega cuando su ID y gratuidad estén verificados. No sustituyas un proveedor gratuito por uno pago automáticamente.
+Si se elige OpenCode, usá `workflows/delegation.md` y `bin/invoke-delegation.ps1`. La cascada gratuita es la cadena Zen sin entrenamiento: `opencode/glm-5.3-flash-free` → `opencode/deepseek-v4.1-flash-free` → `opencode/minimax-m3.1-flash-free`, más Ollama local si está. No uses modelos que entrenan con los datos (Muse Spark, Iceman, Nemotron, MiMo free). No sustituyas un proveedor gratuito por uno pago automáticamente.
 
 Delegar permite edición local con archivos exactos y unidades reversibles, no sólo lectura. El worker recibe el objetivo y contexto mínimo, sin secretos ni historia completa. El primary mantiene revisión del diff, validación y síntesis; el worker no puede autoaprobar su propia entrega.
 

@@ -4,7 +4,7 @@ Read this only when selecting a matt-* skill. Canonical AGENTS policy and curren
 
 ## Discovery and dependencies
 
-- The full catalog is pinned in skills-library/matt-catalog.json: 27 promoted, 4 misc, 7 experimental. Originals are retained as references/upstream/GUIDE.md. Load one matching wrapper and only its necessary references.
+- The full catalog is pinned in skills-library/matt-catalog.json to upstream 1.3.2: 39 entries (27 promoted, 4 misc, 8 experimental). Originals are retained as references/upstream/GUIDE.md. Load one matching wrapper and only its necessary references. On Windows they are now active as junctions from `~/.agents/skills-library/matt-*` into `~/.agents/skills/matt-*`; invoke them by name (`/matt-prototype` in Claude, `@matt-prototype` in OpenCode).
 - Resolve original /retro, /pr, /handoff and other Matt skill names to skills-library/matt-<original-name>/SKILL.md. Relative files inside a selected upstream folder remain there. Read a dependent wrapper before following its guide.
 - Existing core skills retain their defaults. The Matt library is an alternative on-demand workflow, not a second review/plan automatically run on every task.
 - The authorized default for medium/large features is `workflows/ticket_sessions.md`: primary selects only the needed phase wrapper, skipping settled decisions and reusing approved artifacts. This does not enable client implicit invocation or preload, or authorize new user chats/publication.
