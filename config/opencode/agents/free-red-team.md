@@ -1,7 +1,7 @@
 ---
 description: Preliminary read-only red-team review for bounded risks
 mode: subagent
-model: opencode/muse-spark-1.3-contributor-free
+model: opencode/glm-5.3-flash-free
 permission:
   edit: deny
   bash: ask

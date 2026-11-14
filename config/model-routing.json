@@ -3,13 +3,13 @@
   "tiers": {
     "free-fast": {
       "purpose": "Bounded research, extraction, exploration, mechanical checks, preliminary red-team, and harmless local edits.",
-      "candidates": ["opencode/muse-spark-1.3-contributor-free", "opencode/mimo-v2.6-flash-free", "opencode/nemotron-3.5-lightning-free", "ollama/qwen2.5-coder:7b"],
+      "candidates": ["opencode/glm-5.3-flash-free", "opencode/deepseek-v4.1-flash-free", "opencode/minimax-m3.1-flash-free", "ollama/qwen2.5-coder:7b"],
       "maxAttempts": 1,
       "maxOutputTokens": 2000
     },
     "free-worker": {
       "purpose": "Bounded local implementation delegated from a stronger primary agent.",
-      "candidates": ["opencode/muse-spark-1.3-contributor-free", "opencode/mimo-v2.6-flash-free", "ollama/qwen2.5-coder:7b"],
+      "candidates": ["opencode/glm-5.3-flash-free", "opencode/deepseek-v4.1-flash-free", "opencode/minimax-m3.1-flash-free", "ollama/qwen2.5-coder:7b"],
       "maxAttempts": 1,
       "maxOutputTokens": 4000
     },

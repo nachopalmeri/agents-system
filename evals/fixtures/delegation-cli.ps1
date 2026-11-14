@@ -2,7 +2,7 @@ if ($args[0] -eq '--version') { '1.16.2'; exit 0 }
 # Offline CLI transport fixture; never contacts a provider or edits a workspace.
 if ($args[0] -eq 'models') {
     if ($args -notcontains '--pure') { throw 'Model discovery must not load external plugins.' }
-    'opencode/muse-spark-1.3-contributor-free'; 'opencode/mimo-v2.6-flash-free'; exit 0
+    'opencode/glm-5.3-flash-free'; 'opencode/deepseek-v4.1-flash-free'; exit 0
 }
 $prompt=$args[-1]
 if($prompt -match 'fixture refusal'){ @{type='error';error=@{data=@{statusCode=403;message='Fixture provider refusal'}}}|ConvertTo-Json -Depth 5 -Compress; exit 1 }

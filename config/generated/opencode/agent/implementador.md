@@ -1,7 +1,7 @@
 ---
 description: "Implements one approved plan chunk with its own files, in parallel with others. Use only when there are independent chunks; linear or small work is done by the main agent."
 mode: subagent
-model: opencode/muse-spark-1.3-contributor-free
+model: deepseek/deepseek-v4-pro
 tools:
   bash: true
   edit: true

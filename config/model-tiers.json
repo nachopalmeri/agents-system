@@ -1,6 +1,6 @@
 {
-  "_note": "Claude usa alias por familia. En OpenCode, fast/balanced usan el candidato gratuito verificado; strong hereda el modelo elegido por el usuario, sin imponer proveedor pago. Null omite el campo model y hereda la sesión. Verificá disponibilidad con opencode models --pure y regenerá con bin/render-agents.ps1.",
-  "fast":     { "claude": "haiku",  "opencode": "opencode/muse-spark-1.3-contributor-free", "gemini": null },
-  "balanced": { "claude": "sonnet", "opencode": "opencode/muse-spark-1.3-contributor-free", "gemini": null },
+  "_note": "Claude usa alias por familia. En OpenCode, fast usa el gratis GLM-5.3-Flash de Zen (sin entrenamiento con datos) y balanced usa deepseek-v4-pro; strong hereda el modelo de la sesion. Los agentes con opencode_model: inherit toman el preset de oh-my-opencode-slim. Nunca usar modelos gratis que entrenan con los datos (Muse Spark, Iceman, Nemotron, MiMo free). Regenera con bin/render-agents.ps1.",
+  "fast":     { "claude": "haiku",  "opencode": "opencode/glm-5.3-flash-free", "gemini": null },
+  "balanced": { "claude": "sonnet", "opencode": "deepseek/deepseek-v4-pro", "gemini": null },
   "strong":   { "claude": "opus",   "opencode": null, "gemini": null }
 }

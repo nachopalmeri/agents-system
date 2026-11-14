@@ -2,6 +2,7 @@
 name: implementador
 description: "Implements one approved plan chunk with its own files, in parallel with others. Use only when there are independent chunks; linear or small work is done by the main agent."
 tier: fast
+opencode_model: deepseek/deepseek-v4-pro
 access: full
 ---
 

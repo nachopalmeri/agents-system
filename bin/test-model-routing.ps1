@@ -8,7 +8,12 @@ foreach ($tier in @('free-fast','free-worker','cheap')) {
     if ($config.tiers.$tier.maxAttempts -ne 1) { throw "Lean workers must return to primary after one model attempt: $tier" }
 }
 if ($config.tiers.'free-fast'.maxOutputTokens -gt 2000 -or $config.tiers.'free-worker'.maxOutputTokens -gt 4000 -or $config.tiers.cheap.maxOutputTokens -gt 4000) { throw 'Lean worker output guidance exceeds its default budget.' }
-if ($config.tiers.'free-fast'.candidates -notcontains "opencode/muse-spark-1.3-contributor-free") { throw "free-fast-muse-missing" }
+if ($config.tiers.'free-fast'.candidates[0] -ne "opencode/glm-5.3-flash-free") { throw "free-fast-glm-not-first" }
+$trainingModels = '(?i)muse-spark|iceman|nemotron|mimo-.*-free|contributor'
+foreach ($tierName in $config.tiers.PSObject.Properties.Name) { foreach ($candidate in $config.tiers.$tierName.candidates) { if ($candidate -match $trainingModels) { throw "training-model-in-routing: $tierName -> $candidate" } } }
+$tiersFile = Get-Content (Join-Path $root "config\model-tiers.json") -Raw | ConvertFrom-Json
+foreach ($t in @('fast','balanced','strong')) { if ([string]$tiersFile.$t.opencode -match $trainingModels) { throw "training-model-in-tiers: $t" } }
+foreach ($f in @(Get-ChildItem (Join-Path $root "config\opencode\agents") -Filter *.md) + @(Get-ChildItem (Join-Path $root "config\generated\opencode\agent") -Filter *.md -ErrorAction SilentlyContinue) + @(Get-Item (Join-Path $root "config\opencode\opencode.jsonc"))) { if ((Get-Content $f.FullName -Raw) -match "model.{0,4}opencode/\S*($trainingModels)") { throw "training-model-in-agent: $($f.Name)" } }
 if ($config.rules.freeTiersMayNotWriteOutsideWorkspace -ne $true) { throw "free-workspace-policy-missing" }
 if ($config.rules.freeWorkerRequiresParentReview -ne $true) { throw "free-worker-review-policy-missing" }
 if ($config.rules.highRiskRequiresPrimary -ne $true) { throw "high-risk-primary-policy-missing" }

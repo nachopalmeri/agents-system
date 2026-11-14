@@ -1,7 +1,7 @@
 ---
 description: Bounded harmless local implementation delegated by a stronger primary agent
 mode: subagent
-model: opencode/muse-spark-1.3-contributor-free
+model: opencode/glm-5.3-flash-free
 permission:
   bash: ask
 ---
