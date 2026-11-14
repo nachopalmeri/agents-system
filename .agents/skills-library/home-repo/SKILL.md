@@ -28,13 +28,13 @@ Fuente: [The Home Repo Pattern](https://www.aihero.dev/the-home-repo-pattern). P
 2. Confirmá en qué máquina estás y si las rutas existen. Si un checkout falta, proponé el `git clone` del remote del puntero; no clones en silencio.
 3. Si piden **armar** el patrón desde cero, usá el prompt oficial: solo lectura hasta el Paso 3, decisiones en rondas, "yes" acepta la recomendación. Recomendá adaptar **este** repo como Home Repo personal, no crear uno nuevo, salvo que Nacho pida otra cosa.
 4. Si el trabajo es en un hijo, abrilo en su path (o un worktree **dentro del hijo**). Traé skills y steering de acá o de `~/.agents`.
-5. Al agregar un repo, sumá una fila en `.agents/repos.md` (nombre, qué es, path, remote, hint). No inflés `.agents/AGENTS.md`.
+5. Al agregar un repo, sumá una fila en `.agents/repos.md` (nombre, qué es, path, remote, rama por defecto, hint de test/build). No inflés `.agents/AGENTS.md`.
 6. Devolvé: qué punteros usaste, qué abriste o qué faltó clonar, y qué quedó pendiente de aprobación.
 
 ## Claude Code y OpenCode
 
-- Windows / trabajo personal: sesión en `D:\Dev\repos\agents-system`. Claude Code ya importa `~/.agents/AGENTS.md`. OpenCode en esta PC no tiene el plugin `oh-my-opencode-slim`; si hace falta el grind barato, delegá solo si esa herramienta está configurada en esa máquina.
-- WSL / Zentra: no arranques en el Home Repo personal para el día a día del theme. Usá `/home/nacho/projects/zentra` y el plugin `zentra@claude-zentra`. El Home Repo sirve para ubicar ese checkout y para no mezclar convenciones.
+- Windows / trabajo personal: sesión en `D:\Dev\repos\agents-system` cuando el trabajo cruce repos. Claude Code ya importa `~/.agents/AGENTS.md`. OpenCode tiene oh-my-opencode-slim: preset `mix` en Windows (Opus orquesta; DeepSeek hace el grind) y `mix-work` en WSL. Los subagentes de Claude Code delegan con `opencode run --agent explorer|fixer|designer|reviewer|breaker`.
+- WSL: `~/.agents` es un symlink a `/mnt/c/Users/Nacho/.agents`, así que las skills del Home Repo (incluida esta) se ven igual. El día a día de Zentra no arranca en el Home Repo: usá `/home/nacho/projects/zentra` y el plugin `zentra@claude-zentra`. El Home Repo sirve para ubicar ese checkout y para no mezclar convenciones.
 
 ## Validación
 

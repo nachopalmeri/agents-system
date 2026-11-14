@@ -1,7 +1,6 @@
 ---
 description: "Adversarial reviewer / red team. Use after a feature or fix, before merge, to find vulnerabilities, broken edge cases, unmaintainable code and clear defects. Returns P0/P1/P2 findings. Does not edit. Not for typo-level changes."
 mode: subagent
-model: opencode/muse-spark-1.3-contributor-free
 tools:
   bash: true
   edit: false

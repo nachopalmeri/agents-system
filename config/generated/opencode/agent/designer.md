@@ -1,7 +1,6 @@
 ---
 description: "UI/UX and product-surface designer. Use for visual structure, component layout, copy hierarchy or interaction design of a concrete surface; returns a short design proposal with constraints. Not for system architecture or backend design."
 mode: subagent
-model: opencode/muse-spark-1.3-contributor-free
 tools:
   bash: true
   edit: true

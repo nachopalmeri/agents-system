@@ -39,7 +39,16 @@ foreach ($file in @(Get-ChildItem (Join-Path $repoRoot ".agents/agents") -Filter
     $generated["claude/agents/$name.md"] = "---`nname: $name`ndescription: $(Quote $description)`ntools: $($access.claude)`nmodel: $($tier.claude)`n---`n$stamp`n`n$body"
 
     $ocTools = ($access.opencode.GetEnumerator() | Sort-Object Name | ForEach-Object { "  $($_.Name): $($_.Value.ToString().ToLower())" }) -join "`n"
-    $ocModel = if ($tier.opencode) { "`nmodel: $($tier.opencode)" } else { "" }
+    # opencode_model: inherit — omit model so oh-my-opencode-slim presets (mix / mix-work) win.
+    $opencodeModelOverride = $null
+    if ($header -match "(?m)^opencode_model\s*:\s*(.+)$") { $opencodeModelOverride = $Matches[1].Trim().Trim('"') }
+    if ($opencodeModelOverride -eq "inherit" -or $opencodeModelOverride -eq "preset") {
+        $ocModel = ""
+    } elseif ($opencodeModelOverride) {
+        $ocModel = "`nmodel: $opencodeModelOverride"
+    } else {
+        $ocModel = if ($tier.opencode) { "`nmodel: $($tier.opencode)" } else { "" }
+    }
     $generated["opencode/agent/$name.md"] = "---`ndescription: $(Quote $description)`nmode: subagent$ocModel`ntools:`n$ocTools`n---`n$stamp`n`n$body"
 
     $geminiModel = if ($tier.gemini) { "`nmodel: $($tier.gemini)" } else { "" }

@@ -18,7 +18,7 @@ function Get-AdapterContent($Adapter) {
     $marker = "managed-runtime-adapter; canonical-sha256: $canonicalHash"
     switch ($Adapter.renderKind) {
         "root-template" { return $rootTemplate.Replace("{CANONICAL_SHA256}", $canonicalHash) }
-        "markdown-pointer" { return "<!-- $marker -->`n# Runtime adapter: $($Adapter.client)`n`nCanonical policy: ``.agents/AGENTS.md``. Load capabilities on demand from ``config/capabilities.json``.`n" }
+        "markdown-pointer" { return "<!-- $marker -->`n# Runtime adapter: $($Adapter.client)`n`nCanonical policy: ``.agents/AGENTS.md``. Load capabilities on demand from ``config/capabilities.json``.`n`nHome Repo pointers: ``.agents/repos.md``. Load that file only when a task crosses repos or you need to locate a checkout.`n" }
         "plain-pointer" { return "# $marker`n# Canonical policy: .agents/AGENTS.md`n# Load config/capabilities.json only for on-demand discovery.`n" }
         "aider-yaml" { return "# $marker`nread: .agents/AGENTS.md`n" }
         "zed-json" {

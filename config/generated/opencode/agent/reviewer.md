@@ -1,7 +1,6 @@
 ---
 description: "Read-only reviewer for merges, major features, security, payments, credentials, MCP/plugins or releases. Returns P0/P1/P2 findings and a verdict. Not for trivial changes. Delegates the heavy review to OpenCode when running from Claude Code."
 mode: subagent
-model: opencode/muse-spark-1.3-contributor-free
 tools:
   bash: true
   edit: false

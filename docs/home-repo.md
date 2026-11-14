@@ -14,16 +14,23 @@ Resuelve tres cosas: un solo lugar para steering y tooling, un solo lugar desde 
 
 - Punteros: `.agents/repos.md` (divulgación progresiva, para no inflar el `AGENTS.md` canónico).
 - Skill: `.agents/skills-library/home-repo/SKILL.md`.
-- Runtime Windows: `~/.agents` se sigue sincronizando desde este repo.
+- Runtime Windows: `~/.agents` se sigue sincronizando desde este repo con `bin/sync-runtime.ps1`.
+- En WSL, `~/.agents` es un symlink a `/mnt/c/Users/Nacho/.agents`, así que las skills compartidas se ven igual.
+- OpenCode usa oh-my-opencode-slim: preset `mix` en Windows (Opus orquesta; DeepSeek hace el grind) y `mix-work` en WSL. Los subagentes de Claude Code delegan con `opencode run --agent explorer|fixer|designer|reviewer|breaker`.
 - Zentra / WSL se documenta en los punteros, pero **no se unifica a la fuerza** con las convenciones de Matt (el equipo ya tiene `CONTEXT.md` y el plugin `zentra@claude-zentra`).
 
-## Cómo usarlo (plan corto)
+Los adapters de raíz (`AGENTS.md` y `CLAUDE.md`) apuntan a `.agents/AGENTS.md` y, en una línea, a `.agents/repos.md`. No los edites a mano: se generan con `bin/render-runtime-adapters.ps1`.
 
-1. En esta PC, trabajá sobre `D:\Dev\repos\agents-system` (no sobre `C:\Users\Nacho\agents-system`, que está atrasado).
-2. Revisá y, si hace falta, ajustá las rutas de `.agents/repos.md`.
-3. Para una tarea que cruza repos, abrí Claude Code u OpenCode **en el Home Repo**, pedile que lea `.agents/repos.md` y que trabaje en el checkout hijo (worktree en el hijo, como dijo Matt el 12/11).
-4. Skills nuevas transversales: agragalas acá y sincrónizalas a `~/.agents`. Skills de un solo producto: en ese repo, o en el plugin del equipo si es Zentra.
-5. No ejecutes el Paso 4 del prompt oficial (mover o borrar copias en los hijos) sin un plan aprobado por Nacho.
+## Quickstart (día a día)
+
+1. **Tarea en un solo repo** (por ejemplo un bug de fubol): abrí Claude Code u OpenCode en ese repo (`D:\Dev\fubol`). Las skills compartidas ya están en `~/.agents`; no hace falta arrancar en el Home Repo.
+2. **Tarea que cruza repos** (por ejemplo sumar HackaTwin al portfolio): abrí Claude Code u OpenCode en `D:\Dev\repos\agents-system`, pedile que lea `.agents/repos.md` y que trabaje en una rama o worktree de cada hijo. No copies el código de un hijo adentro del Home Repo.
+3. **Skill nueva transversal**: agregala en este repo (`.agents/skills` o `.agents/skills-library`) y corré `pwsh bin/sync-runtime.ps1` para copiarla a `~/.agents` (Windows y, por el symlink, WSL). Skill de un solo producto: en ese repo. Skill de Zentra: en el plugin del equipo.
+4. **Repo nuevo**: sumá una fila en `.agents/repos.md` (nombre, qué es, path, remote, rama por defecto, comando de test/build si es obvio). No inflés `.agents/AGENTS.md`.
+
+**Excepción Zentra:** el día a día del theme arranca en `/home/nacho/projects/zentra`, con el plugin `zentra@claude-zentra` y las reglas de `CONTEXT.md`. No corras `/setup-matt-pocock-skills` ni conviertas `CONTEXT.md` a `GLOSSARY.md` ahí. El Home Repo solo sirve para ubicar ese checkout.
+
+En esta PC, el checkout canónico es `D:\Dev\repos\agents-system`. No uses `C:\Users\Nacho\agents-system`, que está atrasado. No ejecutes el Paso 4 del prompt oficial (mover o borrar copias en los hijos) sin un plan aprobado por Nacho.
 
 ## Relación con un monorepo, `~/.claude/skills` y submodules
 
