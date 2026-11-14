@@ -6,7 +6,7 @@
       "name": "Explorador",
       "file": ".agents/agents/explorador.md",
       "division": "research",
-      "description": "Read-only search and research across many files or external docs; returns a short summary with file:line evidence.",
+      "description": "Read-only search and research across many files or external docs; from Claude Code delegates to OpenCode explorer; returns a short summary with file:line evidence.",
       "whenToUse": [
         "search across many files",
         "map unfamiliar code",
@@ -27,7 +27,8 @@
         "Grep",
         "Glob",
         "WebSearch",
-        "WebFetch"
+        "WebFetch",
+        "Bash"
       ],
       "requiresApproval": false,
       "memoryTags": [
@@ -76,7 +77,7 @@
       "name": "Implementador",
       "file": ".agents/agents/implementador.md",
       "division": "engineering",
-      "description": "Implements one approved plan chunk with its own files, in parallel with other chunks, and verifies it.",
+      "description": "Implements one approved plan chunk with its own files; from Claude Code delegates to OpenCode fixer, and verifies it.",
       "whenToUse": [
         "independent plan chunks",
         "parallel implementation with separate files"
@@ -111,7 +112,7 @@
       "name": "Reviewer",
       "file": ".agents/agents/reviewer.md",
       "division": "quality",
-      "description": "Strong-model read-only reviewer for merges, major features, security, credentials, MCP/plugins, payments and releases.",
+      "description": "Read-only reviewer for merges, major features, security, credentials, MCP/plugins, payments and releases; from Claude Code delegates to OpenCode reviewer.",
       "whenToUse": [
         "before merge or PR",
         "after a major feature",
@@ -170,6 +171,73 @@
       ],
       "requiresApproval": false,
       "memoryTags": [
+        "run"
+      ]
+    },
+    {
+      "id": "designer",
+      "name": "Designer",
+      "file": ".agents/agents/designer.md",
+      "division": "engineering",
+      "description": "UI/UX and product-surface designer; from Claude Code delegates to OpenCode designer and returns a concrete proposal.",
+      "whenToUse": [
+        "visual structure of a surface",
+        "component layout",
+        "interaction or copy hierarchy"
+      ],
+      "inputs": [
+        "surface brief",
+        "existing design tokens or STYLE"
+      ],
+      "outputs": [
+        "design proposal",
+        "files touched or to touch",
+        "out of scope"
+      ],
+      "riskLevel": "medium",
+      "tools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Edit",
+        "Write",
+        "Bash"
+      ],
+      "requiresApproval": true,
+      "memoryTags": [
+        "project",
+        "run"
+      ]
+    },
+    {
+      "id": "breaker",
+      "name": "Breaker",
+      "file": ".agents/agents/breaker.md",
+      "division": "quality",
+      "description": "Adversarial reviewer / red team after a feature or fix; from Claude Code delegates to OpenCode breaker. Does not edit.",
+      "whenToUse": [
+        "after a feature or fix",
+        "before merge",
+        "look for vulnerabilities or broken edge cases"
+      ],
+      "inputs": [
+        "BASE..HEAD",
+        "threat or quality focus"
+      ],
+      "outputs": [
+        "P0/P1/P2 findings",
+        "verdict"
+      ],
+      "riskLevel": "high",
+      "tools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash"
+      ],
+      "requiresApproval": false,
+      "memoryTags": [
+        "project",
         "run"
       ]
     }

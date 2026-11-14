@@ -1,7 +1,17 @@
 {
-  "generatedAt": "2026-11-13T22:32:32.0877180-03:00",
+  "generatedAt": "2026-11-13T22:43:30.4475073-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
+    {
+      "name": "breaker",
+      "description": "\"Adversarial reviewer / red team. Use after a feature or fix, before merge, to find vulnerabilities, broken edge cases, unmaintainable code and clear defects. Returns P0/P1/P2 findings. Does not edit. Not for typo-level changes.\"",
+      "path": "agents/breaker.md"
+    },
+    {
+      "name": "designer",
+      "description": "\"UI/UX and product-surface designer. Use for visual structure, component layout, copy hierarchy or interaction design of a concrete surface; returns a short design proposal with constraints. Not for system architecture or backend design.\"",
+      "path": "agents/designer.md"
+    },
     {
       "name": "explorador",
       "description": "\"Read-only searcher. Use to find or read across many files (>~5), map unfamiliar code, or research current external docs; returns a short summary with file:line evidence. Not for a file you already know.\"",
@@ -19,7 +29,7 @@
     },
     {
       "name": "reviewer",
-      "description": "\"Read-only reviewer on a strong model. Use before merge/PR, after a major feature, or for security, payments, credentials, MCP/plugins or releases. Returns P0/P1/P2 findings and a verdict. Not for trivial changes.\"",
+      "description": "\"Read-only reviewer for merges, major features, security, payments, credentials, MCP/plugins or releases. Returns P0/P1/P2 findings and a verdict. Not for trivial changes. Delegates the heavy review to OpenCode when running from Claude Code.\"",
       "path": "agents/reviewer.md"
     },
     {
@@ -463,6 +473,11 @@
       "name": "matt-setup-ts-deep-modules",
       "description": "\"Experimental; use when explicitly configuring TypeScript module-boundary checks.\" disable-model-invocation: true",
       "path": "skills-library/matt-setup-ts-deep-modules/SKILL.md"
+    },
+    {
+      "name": "matt-software-factory",
+      "description": "\"Experimental, opt-in: Matt Pocock software-factory workflow. Use only when explicitly requested.\" disable-model-invocation: true",
+      "path": "skills-library/matt-software-factory/SKILL.md"
     },
     {
       "name": "matt-tdd",

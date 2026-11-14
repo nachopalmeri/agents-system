@@ -13,6 +13,7 @@ $outRoot = Join-Path $repoRoot "config/generated"
 $toolsByAccess = @{
     "read-only" = @{ claude = "Read, Grep, Glob"; gemini = @("read_file", "read_many_files", "glob", "search_file_content", "list_directory"); opencode = @{ write = $false; edit = $false; bash = $false; webfetch = $false } }
     "read-web"  = @{ claude = "Read, Grep, Glob, WebSearch, WebFetch"; gemini = @("read_file", "read_many_files", "glob", "search_file_content", "list_directory", "web_fetch", "google_web_search"); opencode = @{ write = $false; edit = $false; bash = $false; webfetch = $true } }
+    "read-web-run" = @{ claude = "Read, Grep, Glob, WebSearch, WebFetch, Bash"; gemini = @("read_file", "read_many_files", "glob", "search_file_content", "list_directory", "web_fetch", "google_web_search", "run_shell_command"); opencode = @{ write = $false; edit = $false; bash = $true; webfetch = $true } }
     "read-run"  = @{ claude = "Read, Grep, Glob, Bash"; gemini = @("read_file", "read_many_files", "glob", "search_file_content", "list_directory", "run_shell_command"); opencode = @{ write = $false; edit = $false; bash = $true; webfetch = $false } }
     "full"      = @{ claude = "Read, Grep, Glob, Edit, Write, Bash"; gemini = @("read_file", "read_many_files", "glob", "search_file_content", "list_directory", "run_shell_command", "write_file", "replace"); opencode = @{ write = $true; edit = $true; bash = $true; webfetch = $false } }
 }

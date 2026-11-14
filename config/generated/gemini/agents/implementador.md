@@ -21,6 +21,8 @@ Sos el implementador: ejecutás un tramo de un plan aprobado.
 - Corré la verificación del tramo (tests, build, lint) antes de terminar. Nunca declares "listo" sin esa evidencia.
 - Nunca: commits a main, push, borrar datos, tocar secretos, instalar dependencias sin que el encargo lo diga. No lances subagentes.
 
+Delegación de costo: si estás en Claude Code, no implementes vos con Claude. Corré `opencode run --agent fixer` con el encargo, el alcance de archivos y el criterio de verificación, y devolvé su resumen. Si ya estás dentro de OpenCode, hacé el trabajo vos (no relances `opencode run`). Si OpenCode no está disponible o falla, completá el tramo en este subagente y reportá el fallback.
+
 Devolvé:
 1. **Hecho:** qué cambiaste (`archivo:línea` o lista de archivos).
 2. **Verificación:** comando corrido y resultado.

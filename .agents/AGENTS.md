@@ -56,9 +56,30 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 
 Punteros a los checkouts hermanos: `.agents/repos.md`. Cargalo solo cuando la tarea cruce repos o haya que ubicar un proyecto (fubol, portfolio, Zentra). Patrón y uso: `docs/home-repo.md` y la skill `home-repo`.
 
+## Flujo multiagente en cascada
+
+Para features o cambios no triviales (no typo ni una línea). Preferí DeepSeek vía OpenCode para no quemar la cuota de Claude, en especial la cuenta de trabajo (tope 90%).
+
+Pipeline:
+
+1. **fixer** (DeepSeek flash, OpenCode) implementa el tramo.
+2. **reviewer** (DeepSeek v4-pro) revisa.
+3. **breaker** (DeepSeek v4-pro) intenta romper el cambio (seguridad, casos borde, mantenibilidad).
+4. El fixer corrige hallazgos P0/P1.
+5. Re-review del reviewer.
+6. Merge solo con OK humano. El agente nunca mergea ni pushea a `main`.
+
+Límites de Claude en una sesión de esta cascada:
+
+- Haiku: máximo 2 invocaciones
+- Sonnet: máximo 2
+- Opus: máximo 1 (orquesta o planifica)
+
+Claude entra cuando hay que planificar/orquestar o cuando DeepSeek no alcanza. Skill operativa: `skills/multimodel-routing`.
+
 ## Descubrimiento
 
-- `skills/`: 30 skills núcleo; el cliente ve sólo su metadata.
+- `skills/`: 31 skills núcleo (incluye `multimodel-routing`); el cliente ve sólo su metadata.
 - `skills-library/`: resto del catálogo, fuera del preload.
 - **Regla:** si ninguna skill cargada encaja con la tarea, leé `skills-library/INDEX.md` antes de improvisar o buscar afuera, y cargá sólo la skill elegida.
 - `workflows/index.md`: intención → componente. `config/capabilities.json` es para tooling; no lo leas entero en una tarea.
@@ -71,7 +92,7 @@ Punteros a los checkouts hermanos: `.agents/repos.md`. Cargalo solo cuando la ta
 - El subagente devuelve un resumen: conclusión, evidencia como `archivo:línea`, cambios hechos y bloqueos. Nunca vuelca archivos enteros ni logs crudos.
 - Profundidad máxima 1: un subagente no lanza otros subagentes. Si necesita más, devuelve el pedido al principal.
 - Máximo 3 subagentes en paralelo, salvo que el usuario pida más.
-- Roles (`agents/`): `explorador` (búsqueda, barato), `planner` (plan, fuerte), `implementador` (tramo paralelo), `reviewer` (review/seguridad/release), `verificador` (tests). Sin subagentes en el cliente, aplicá el rol leyendo su archivo.
+- Roles (`agents/`): `explorador` (búsqueda, barato), `planner` (plan, Opus), `implementador` (tramo paralelo), `designer` (superficie UI), `reviewer` (review/seguridad/release), `breaker` (red team), `verificador` (tests, Sonnet). Desde Claude Code, explorador/implementador/designer/reviewer/breaker corren en Haiku y delegan a OpenCode (`opencode run --agent explorer|fixer|designer|reviewer|breaker`). Sin subagentes en el cliente, aplicá el rol leyendo su archivo.
 
 ## Economía de tokens
 
