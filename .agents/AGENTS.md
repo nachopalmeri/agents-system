@@ -52,6 +52,10 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 - Validá proporcionalmente con tests, parse, build, diff, logs o evidencia equivalente. No declares victoria sin evidencia fresca.
 - Para cambios del sistema: revisá diff, identidad Git `Nacho Palmeri <ipalmeri@uade.edu.ar>`, secretos, commit y push de la rama. Nunca mergees.
 
+## Other Repos (Home Repo)
+
+Punteros a los checkouts hermanos: `.agents/repos.md`. Cargalo solo cuando la tarea cruce repos o haya que ubicar un proyecto (fubol, portfolio, Zentra). Patrón y uso: `docs/home-repo.md` y la skill `home-repo`.
+
 ## Descubrimiento
 
 - `skills/`: 30 skills núcleo; el cliente ve sólo su metadata.

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T22:46:04.7910105-03:00",
+  "generatedAt": "2026-11-13T22:32:32.0877180-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -300,6 +300,11 @@
       "path": "skills-library/grilling/SKILL.md"
     },
     {
+      "name": "home-repo",
+      "description": "\"Usala cuando haya que armar, actualizar o explicar el Home Repo (punteros a otros repos, skills y steering compartidos, trabajo de agentes que cruza fubol, portfolio o Zentra), o cuando pidan el prompt de setup de Matt Pocock.\"",
+      "path": "skills-library/home-repo/SKILL.md"
+    },
+    {
       "name": "javascript-sdk",
       "description": "\"JavaScript/TypeScript SDK for inference.sh - run AI apps, build agents, integrate with all models. Package: @inferencesh/sdk (npm install). Full TypeScript support, streaming, file uploads. Build agents with template or ad-hoc patterns, tool builder API, skills, human approval. Use for: JavaScript integration, TypeScript, Node.js, React, Next.js, frontend apps. Triggers: javascript sdk, typescript sdk, npm install, node.js api, js client, react ai, next.js ai, frontend sdk, @inferencesh/sdk, typescript agent, browser sdk, js integration\" allowed-tools: Bash(npm *), Bash(npx *), Bash(node *), Bash(pnpm *), Bash(yarn *)",
       "path": "skills-library/javascript-sdk/SKILL.md"
@@ -560,6 +565,11 @@
       "path": "skills-library/pitch-deck-visuals/SKILL.md"
     },
     {
+      "name": "pr-walkthrough",
+      "description": "\"Usala cuando piden explicar un PR o un cambio con un walkthrough (resumen, mermaid, storyboard), un animatic, o un video que muestre cómo funciona el PR. No renderiza video por defecto.\"",
+      "path": "skills-library/pr-walkthrough/SKILL.md"
+    },
+    {
       "name": "press-release-writing",
       "description": "\"Press release writing in AP style with inverted pyramid structure. Covers formatting, datelines, quotes, boilerplates, and fact-checking. Use for: product launches, funding announcements, partnerships, company news, events. Triggers: press release, pr writing, media release, news release, announcement, product launch announcement, funding announcement, company news, media advisory, ap style, press statement, news wire\" allowed-tools: Bash(belt *)",
       "path": "skills-library/press-release-writing/SKILL.md"
@@ -678,6 +688,11 @@
       "name": "typescript-advanced-types",
       "description": "Master TypeScript's advanced type system including generics, conditional types, mapped types, template literals, and utility types for building type-safe applications. Use when implementing complex type logic, creating reusable type utilities, or ensuring compile-time type safety in TypeScript projects.",
       "path": "skills-library/typescript-advanced-types/SKILL.md"
+    },
+    {
+      "name": "ubiquitous-language",
+      "description": "\"Usala cuando haya que armar o afilar el lenguaje común de un repo (glosario, ubiquitous language, DDD), usarlo con el agente y refactorizar el código a esos términos; o cuando pidan grill-with-docs / domain-modeling / GLOSSARY.md / CONTEXT.md.\"",
+      "path": "skills-library/ubiquitous-language/SKILL.md"
     },
     {
       "name": "ui-refine",
