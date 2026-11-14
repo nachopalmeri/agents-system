@@ -60,6 +60,7 @@ Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `m
 - `matt-setup-matt-pocock-skills` — Use when explicitly configuring Matt workflows for a project's tracker and docs.
 - `matt-setup-pre-commit` — Use when explicitly configuring pre-commit formatting, types and tests.
 - `matt-setup-ts-deep-modules` — Experimental;
+- `matt-software-factory` — Experimental, opt-in: Matt Pocock software-factory workflow.
 - `matt-tdd` — Use when requesting Matt-style test-first feature or bugfix development.
 - `matt-teach` — Use when requesting guided learning of a concept within a workspace.
 - `matt-to-questionnaire` — Use when preparing unanswered decisions as a questionnaire for another person.

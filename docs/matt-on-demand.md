@@ -1,5 +1,9 @@
 # Matt Pocock: globally discoverable, on demand
 
+## Update 2026-11-13
+
+Refreshed vendored upstream guides to [mattpocock/skills](https://github.com/mattpocock/skills) commit `5863806dd4e15c63174bee4e7515a4256792ecfa` (package 1.3.2, 12 Nov 2026). Nine guides changed (code-review, implement-spec, improve-codebase-architecture, research, setup-matt-pocock-skills, wayfinder, chief-of-staff, grilling, plus new experimental `software-factory`). Catalog is now 39 entries: 27 promoted, 4 misc, 8 experimental. Wrappers stay namespaced and opt-in; `software-factory` is experimental and only runs when explicitly requested. The official Claude marketplace plugin may lag this pin (it was still 1.3.1 on 13 Nov 2026).
+
 ## Update 2026-10-20
 
 Refreshed the experimental `chief-of-staff` reference to upstream commit `5beb35b040e3de97e54fa9e386d7e42d15c295c2`. Adopted its dated, commit-cited wiki practices for durable project memory and compact handoffs. Kept the skill experimental and opt-in; repo authorization rules still govern writes and schedules, and the upstream blanket subagent mandate is not adopted. No new skill, dependency, schedule, or always-on context was added. See the [upstream change](https://github.com/mattpocock/skills/commit/5beb35b040e3de97e54fa9e386d7e42d15c295c2).

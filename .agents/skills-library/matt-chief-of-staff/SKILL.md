@@ -14,4 +14,4 @@ Status: experimental. On-demand reference; explicitly requested only.
 
 Existing permission, scope, delegation and scheduling rules govern execution. Environment changes and recurring schedules are not authorized by loading this guide.
 
-Source: [mattpocock/skills](https://github.com/mattpocock/skills/blob/5beb35b040e3de97e54fa9e386d7e42d15c295c2/skills/in-progress/chief-of-staff/SKILL.md), MIT, copyright 2026 Matt Pocock. Original material and attribution are preserved under references/upstream.
+Source: [mattpocock/skills](https://github.com/mattpocock/skills/blob/5863806dd4e15c63174bee4e7515a4256792ecfa/skills/in-progress/chief-of-staff/SKILL.md), MIT, copyright 2026 Matt Pocock. Original material and attribution are preserved under references/upstream.

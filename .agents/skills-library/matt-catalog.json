@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/mattpocock/skills",
-  "ref": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+  "ref": "5863806dd4e15c63174bee4e7515a4256792ecfa",
   "license": "MIT",
   "loading": "on-demand-only",
   "skills": [
@@ -16,7 +16,7 @@
       "upstreamName": "code-review",
       "path": "skills/engineering/code-review/SKILL.md",
       "maturity": "promoted",
-      "sha256": "09eb147f793e4647949edd32dbad278f0554dfb56e0d46b699cd4c2c55bf0357"
+      "sha256": "9c921a8d88138a41401d8897ca1bb852088ab1b7b605cdd04edc13e3e8aab6dd"
     },
     {
       "name": "matt-codebase-design",
@@ -51,7 +51,7 @@
       "upstreamName": "implement-spec",
       "path": "skills/engineering/implement-spec/SKILL.md",
       "maturity": "promoted",
-      "sha256": "7a22dd2e60b8fcece478ced9d2533582adf3520d695acd3ab715341535c9e56d"
+      "sha256": "1993a473cec40ac85d081c112cdffdc63ec3267c2e412055ad09e013a2f623d1"
     },
     {
       "name": "matt-implement",
@@ -65,7 +65,7 @@
       "upstreamName": "improve-codebase-architecture",
       "path": "skills/engineering/improve-codebase-architecture/SKILL.md",
       "maturity": "promoted",
-      "sha256": "552240a5ab5cec6b67c15dd1ad6e9f6962b1bca6ce870059a8c2713760c20392"
+      "sha256": "35b03a3db61e0f5aa333ea59b54963e45a3d2ace6649b2ef4f9576603e2582a6"
     },
     {
       "name": "matt-pr",
@@ -86,7 +86,7 @@
       "upstreamName": "research",
       "path": "skills/engineering/research/SKILL.md",
       "maturity": "promoted",
-      "sha256": "985569f15739c713d6784887c3d186d4ef9ac85bec5ad9c068d25bf0739928e4"
+      "sha256": "1f629e18ab899412683bc6a1c4efb4339999e27c2fdac328f26ee10a8c031d33"
     },
     {
       "name": "matt-retro",
@@ -100,7 +100,7 @@
       "upstreamName": "setup-matt-pocock-skills",
       "path": "skills/engineering/setup-matt-pocock-skills/SKILL.md",
       "maturity": "promoted",
-      "sha256": "f148858ffb7f63c03c06fca06e6fdb1d91a35c6b293244b8fdfacd5f4cc028c4"
+      "sha256": "b01e05bfe8c323171275c6ceec78b12f1bd4c62dfd26c2cfe8be806d3883f1ed"
     },
     {
       "name": "matt-tdd",
@@ -135,7 +135,7 @@
       "upstreamName": "wayfinder",
       "path": "skills/engineering/wayfinder/SKILL.md",
       "maturity": "promoted",
-      "sha256": "9be7b478c389605a24517d27752f278933588da97a1b5921b165f455edf4c5b7"
+      "sha256": "0c9fa96791aebf3b7d654cf35c6aadde97d81f57c17b07d13b27c14d9c46561f"
     },
     {
       "name": "matt-wizard",
@@ -149,7 +149,7 @@
       "upstreamName": "chief-of-staff",
       "path": "skills/in-progress/chief-of-staff/SKILL.md",
       "maturity": "experimental",
-      "sha256": "a187d9e36e65373d2d1f469790858dd57d6eb72b6ea16932df9c40616ac9f720"
+      "sha256": "f4c1d6533edece6b275155911cb627154a6b13e2bc19934f77330f3afdd07987"
     },
     {
       "name": "matt-claude-handoff",
@@ -233,7 +233,7 @@
       "upstreamName": "grilling",
       "path": "skills/productivity/grilling/SKILL.md",
       "maturity": "promoted",
-      "sha256": "befdff1e27a1dfe2a294d5871169ac1afe16d983911daa4f32627514a48c1e15"
+      "sha256": "a146842ed93ca43d833550fa9adf02e58cb63c83fea9d4b4522995b82242d4e2"
     },
     {
       "name": "matt-handoff",
@@ -269,6 +269,13 @@
       "path": "skills/productivity/writing-for-agents/SKILL.md",
       "maturity": "promoted",
       "sha256": "551adca942227b44192edba88acd4e8db911f0121ce58ad16944ccf6a896a74a"
+    },
+    {
+      "name": "matt-software-factory",
+      "upstreamName": "software-factory",
+      "path": "skills/in-progress/software-factory/SKILL.md",
+      "maturity": "experimental",
+      "sha256": "8a3d04e2ebcf2f863a514784ee0307ef8fb53ac0892deb29b75a406c0c84de7b"
     }
   ]
 }
