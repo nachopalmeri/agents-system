@@ -12,7 +12,7 @@ Primero clasificá SIMPLE, SPECIALIZED, PARALLEL o HIGH_RISK con `../../config/r
 | Cuota que se agota, contexto pesado o medir ahorro | `workflows/token_budget.md` | medir tres tickets reales; no agregar infraestructura por rutina |
 | Feature mediana/grande o trabajo que excede una sesión enfocada | `workflows/ticket_sessions.md` | Matt por fase; chats nuevos sólo con autorización explícita |
 | Bug o test rojo | `skills/systematic-debugging/SKILL.md` | hay trabajos independientes |
-| UI/landing material | `skills/frontend-design/SKILL.md` | requiere revisión visual separada |
+| UI/landing material | skill externa frontend-design (ver `../../config/external-skills.json`) + `skills-library/zentra-brand-brief/SKILL.md` | requiere revisión visual (`impeccable`) |
 | SEO técnico | `skills/seo-geo-growth/references/seo-tecnico.md` | incluye adquisición/GEO |
 | SEO/GEO/AEO growth | `skills/seo-geo-growth/SKILL.md` | hay investigación independiente |
 | Producto/MVP | `skills/product-foundry/SKILL.md` | decisión irreversible o council explícito |

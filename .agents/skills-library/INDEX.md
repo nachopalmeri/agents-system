@@ -23,6 +23,7 @@ Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `m
 - `data-visualization` — Data visualization with chart selection, color theory, and annotation best practices.
 - `defuddle` — Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save…
 - `doc-coauthoring` — Guide users through a structured workflow for co-authoring documentation.
+- `ecommerce-ui-guidelines` — Usala al diseñar, prototipar o revisar UI de ecommerce, mockups o experiencias de compra (ficha de…
 - `email-design` — Email marketing design with layout patterns, subject line formulas, and deliverability rules.
 - `exercise-generator` — Use to generate study exercises: active recall (spacing, interleaving), progressive programming exercises,…
 - `explainer-video-guide` — Explainer video production guide: scripting, voiceover, visuals, and assembly.
@@ -117,21 +118,30 @@ Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `m
 - `x-algorithm-optimizer` — Skill para diagnosticar y optimizar contenido de X según el algoritmo Phoenix de xAI.
 - `x-content-strategist` — Use for X/Twitter content strategy: post ideas, threads, hooks, calendar and diagnosing underperforming posts.
 - `youtube-thumbnail-design` — YouTube thumbnail design with specific dimensions, contrast rules, and mobile preview optimization.
+- `zentra-brand-brief` — Usala SIEMPRE antes de cualquier mockup, prototipo, rediseño o pieza de UI para Zentra (zentra.com.ar,…
 
 ## Externas (se instalan en la PC con `bin/install-external-skills.ps1`; si falta la carpeta, avisá cómo instalarla)
 
+- `accessibility` — Auditar y mejorar accesibilidad web según WCAG 2.2.
 - `algorithmic-art` — Arte generativo con p5.js: flow fields, partículas, aleatoriedad con semilla.
+- `best-practices` — Buenas prácticas web modernas: seguridad, compatibilidad y calidad de código.
 - `canvas-design` — Arte visual estático (pósters, piezas) en PNG/PDF con una filosofía de diseño.
+- `core-web-vitals` — Optimizar Core Web Vitals (LCP, INP, CLS) con evidencia de campo y laboratorio.
 - `deploy-to-vercel` — Deployar apps y sitios a Vercel (preview o producción).
 - `docx` — Crear y editar documentos Word (.docx). Requiere aceptar términos.
+- `frontend-design` — Dirección visual distintiva (tipografía, color, layout) para que la UI no se vea como plantilla de IA.
+- `impeccable` — Crítica, pulido y dirección anti-slop de interfaces (/impeccable critique, polish, bolder, typeset).
 - `pdf` — Leer, extraer, unir, dividir, llenar formularios y crear PDFs. Requiere aceptar términos.
+- `performance` — Optimizar performance web (carga, LCP y experiencia de usuario).
 - `pptx` — Crear y editar presentaciones PowerPoint (.pptx). Requiere aceptar términos.
 - `react-view-transitions` — Animaciones nativas con la View Transition API de React.
 - `remotion-best-practices` — Videos programáticos con React (Remotion): punto de entrada y router a las demás skills de Remotion.
 - `remotion-captions` — Transcribir, mostrar y animar subtítulos en videos Remotion.
 - `remotion-create` — Crear un video nuevo con Remotion.
 - `remotion-render` — Exportar/renderizar un video Remotion.
+- `seo` — SEO técnico: meta tags, datos estructurados, sitemap y visibilidad de búsqueda.
 - `tesseract-motion` — Motion graphics editables con Tesseract: escenas animadas, tipografía, diagramas, lower thirds y overlays. Requiere aceptar términos.
 - `tesseract-video` — Editar footage en videos terminados con Tesseract: cortes, diálogo, sonido, mezcla y motion graphics (runtime local). Requiere aceptar términos.
 - `web-design-guidelines` — Revisar UI contra las Web Interface Guidelines: accesibilidad, UX y buenas prácticas.
+- `web-quality-audit` — Auditoría de calidad web con evidencia: performance, accesibilidad, SEO y buenas prácticas.
 - `xlsx` — Crear, limpiar y analizar planillas Excel/CSV. Requiere aceptar términos.

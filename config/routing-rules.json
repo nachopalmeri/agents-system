@@ -227,7 +227,7 @@
       "priority": 70,
       "reason": "specialist-frontend-design",
       "primary": "implementador",
-      "component": ".agents/skills/frontend-design/SKILL.md",
+      "component": null,
       "patterns": [
         "\\bdesign a responsive\\b",
         "\\bvisual system\\b",

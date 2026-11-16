@@ -4,9 +4,9 @@ param()
 
 $ErrorActionPreference = "Stop"
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
-$skillPath = Join-Path $repoRoot ".agents\skills\frontend-design\SKILL.md"
-$rubricPath = Join-Path $repoRoot ".agents\skills\frontend-design\reference\visual-qa-rubric.md"
 $agentPath = Join-Path $repoRoot ".agents/agents/implementador.md"
+$externalPath = Join-Path $repoRoot "config/external-skills.json"
+$briefPath = Join-Path $repoRoot ".agents/skills-library/zentra-brand-brief/SKILL.md"
 $failures = @()
 
 function Require-Pattern {
@@ -14,36 +14,35 @@ function Require-Pattern {
     if ($Text -notmatch $Pattern) { $script:failures += "missing: $Label" }
 }
 
-$skill = Get-Content $skillPath -Raw
-foreach ($requirement in @(
-    @{ Pattern = "subject.*audience.*job-to-be-done"; Label = "subject grounding" },
-    @{ Pattern = "2(?:-| )3.*references"; Label = "2-3 references" },
-    @{ Pattern = "signature"; Label = "visual signature" },
-    @{ Pattern = "wireframe"; Label = "wireframe choice" },
-    @{ Pattern = "390.?844"; Label = "mobile screenshot" },
-    @{ Pattern = "1440.?900"; Label = "desktop screenshot" },
-    @{ Pattern = "14/18"; Label = "rubric threshold" },
-    @{ Pattern = "one-line|one line|cambio de una linea"; Label = "simple-change escape hatch" }
-)) {
-    Require-Pattern -Text $skill -Pattern $requirement.Pattern -Label $requirement.Label
+if (Test-Path (Join-Path $repoRoot ".agents/skills/frontend-design")) {
+    $failures += "core frontend-design still present; official skill is external and must not be vendored in .agents/skills"
+}
+if (Test-Path (Join-Path $repoRoot ".agents/skills/anti-slop-design")) {
+    $failures += "core anti-slop-design still present; it was retired and archived"
 }
 
-if ($skill -match "AskUserQuestionTool|STOP and STOP") {
-    $failures += "nonportable interaction syntax remains"
-}
-
-if (-not (Test-Path $rubricPath)) {
-    $failures += "visual QA rubric missing"
-} else {
-    $rubric = Get-Content $rubricPath -Raw
-    foreach ($dimension in @("subject specificity", "hierarchy", "composition", "typography", "color rationale", "responsive integrity", "accessibility", "motion/3D purpose", "generic-pattern avoidance")) {
-        Require-Pattern -Text $rubric -Pattern ([regex]::Escape($dimension)) -Label $dimension
-    }
-}
+$external = Get-Content $externalPath -Raw | ConvertFrom-Json
+$names = @($external.skills.name)
+if ($names -notcontains "frontend-design") { $failures += "frontend-design missing from config/external-skills.json" }
+if ($names -notcontains "impeccable") { $failures += "impeccable missing from config/external-skills.json" }
 
 $agent = Get-Content $agentPath -Raw
 if ($agent.Length -gt 2500) { $failures += "implementador duplicates too much workflow ($($agent.Length) chars)" }
 if ($agent -notmatch "frontend-design") { $failures += "implementador does not delegate UI work to frontend-design" }
+
+if (-not (Test-Path $briefPath)) {
+    $failures += "zentra-brand-brief missing"
+} else {
+    $brief = Get-Content $briefPath -Raw
+    foreach ($requirement in @(
+        @{ Pattern = "390"; Label = "mobile width 390" },
+        @{ Pattern = "1440"; Label = "desktop width 1440" },
+        @{ Pattern = "3 variantes"; Label = "three variants" },
+        @{ Pattern = "a confirmar"; Label = "unconfirmed placeholder" }
+    )) {
+        Require-Pattern -Text $brief -Pattern $requirement.Pattern -Label $requirement.Label
+    }
+}
 
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Host "[FAIL] $_" -ForegroundColor Red }

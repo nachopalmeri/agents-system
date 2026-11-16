@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T22:43:30.4475073-03:00",
+  "generatedAt": "2026-11-14T22:05:00.0000000-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -45,11 +45,6 @@
       "path": "skills/ai-production-architecture/SKILL.md"
     },
     {
-      "name": "anti-slop-design",
-      "description": "Usa esta skill para el desarrollo frontend o diseño UI/UX para evitar generar el típico \"Look de Inteligencia Artificial\" genérico.",
-      "path": "skills/anti-slop-design/SKILL.md"
-    },
-    {
       "name": "astro",
       "description": "Skill para proyectos Astro — estructura, reglas, comandos y errores comunes",
       "path": "skills/astro/SKILL.md"
@@ -88,11 +83,6 @@
       "name": "finishing-a-development-branch",
       "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
       "path": "skills/finishing-a-development-branch/SKILL.md"
-    },
-    {
-      "name": "frontend-design",
-      "description": "Create distinctive production-grade interfaces grounded in the real subject, audience, and content. Use for new pages, component suites, immersive/3D experiences, and material redesigns; skip the full ceremony for a one-line style fix.",
-      "path": "skills/frontend-design/SKILL.md"
     },
     {
       "name": "multimodel-routing",
@@ -288,6 +278,11 @@
       "name": "doc-coauthoring",
       "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
       "path": "skills-library/doc-coauthoring/SKILL.md"
+    },
+    {
+      "name": "ecommerce-ui-guidelines",
+      "description": "Usala al diseñar, prototipar o revisar UI de ecommerce, mockups o experiencias de compra (ficha de producto, carrito y checkout). Checklist destilada de Vercel Web Interface Guidelines, hallazgos públicos de Baymard y Laws of UX, más convenciones de Zentra.",
+      "path": "skills-library/ecommerce-ui-guidelines/SKILL.md"
     },
     {
       "name": "email-design",
@@ -758,6 +753,11 @@
       "name": "youtube-thumbnail-design",
       "description": "\"YouTube thumbnail design with specific dimensions, contrast rules, and mobile preview optimization. Covers safe zones, text placement, face expression psychology, and A/B testing. Use for: YouTube thumbnails, video cover images, click-through optimization. Triggers: youtube thumbnail, thumbnail design, video thumbnail, click through rate, ctr optimization, youtube cover, video cover image, thumbnail maker, thumbnail tips, youtube design, video preview image\" allowed-tools: Bash(belt *)",
       "path": "skills-library/youtube-thumbnail-design/SKILL.md"
+    },
+    {
+      "name": "zentra-brand-brief",
+      "description": "Usala SIEMPRE antes de cualquier mockup, prototipo, rediseño o pieza de UI para Zentra (zentra.com.ar, Tiendanube). Obliga a leer la marca real, armar un brief con referencias y dirección, generar 3 variantes realmente distintas y autocriticarlas contra la lista de AI slop antes de mostrarlas.",
+      "path": "skills-library/zentra-brand-brief/SKILL.md"
     }
   ]
 }

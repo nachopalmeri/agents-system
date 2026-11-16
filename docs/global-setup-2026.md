@@ -1,6 +1,6 @@
 # Global runtime setup (October 2026)
 
-This repository provides one shared global runtime for supported local coding harnesses. It keeps 31 core skills available by default and the remaining skills on demand in `skills-library/`, including 39 Matt entries (27 promoted, 4 miscellaneous, and 8 experimental). Shared adapters expose the runtime through each harness's supported conventions. Web ChatGPT cannot read this filesystem or run its CLI tools; use the local runtime from a local harness.
+This repository provides one shared global runtime for supported local coding harnesses. It keeps 29 core skills available by default and the remaining skills on demand in `skills-library/`, including 39 Matt entries (27 promoted, 4 miscellaneous, and 8 experimental). Shared adapters expose the runtime through each harness's supported conventions. Web ChatGPT cannot read this filesystem or run its CLI tools; use the local runtime from a local harness.
 
 ## Register this checkout on Windows
 
@@ -26,7 +26,7 @@ After registration, the primary `agents` shim provides `help`, `doctor`, `check`
 
 ## Runtime inventory and delegation
 
-The canonical runtime has 31 core skills plus an on-demand library. Five role files are registered. A role file describes how to perform a role; it does not create a native subagent. Native subagents are available only when the active harness exposes them. Do not create cloud chats as a substitute for delegation.
+The canonical runtime has 29 core skills plus an on-demand library. Five role files are registered. A role file describes how to perform a role; it does not create a native subagent. Native subagents are available only when the active harness exposes them. Do not create cloud chats as a substitute for delegation.
 
 Historical note (2 Oct 2026): OpenCode 1.18.34's normal scoped bridge had live Muse free-tier evidence: valid JSON completion plus a file-read/exact-file-edit task, both with reported cost $0. Muse Spark is no longer a candidate because it trains on data; the current free cascade is the Zen zero-retention chain in `config/model-routing.json`. No runtime permissions were changed. The earlier all-denied probe still fails on the same version and is not a valid availability test for the normal bridge. Provider refusal handling remains in place; there is no paid fallback. See [live verification](opencode-live-verification-2026-10-02.md).
 
@@ -43,3 +43,65 @@ Windows registration was exercised; other-platform installers were not. Legacy `
 This work was prepared on `fix/runtime-setup-gaps`; [PR #7](https://github.com/nachopalmeri/agents-system/pull/7) records its explicitly authorized integration into `main`. Use `main` after that PR is merged. The permanent policy still leaves merges to the director unless the user explicitly overrides it for a particular integration. Do not remove a checkout or a `.agents` path as a setup workaround. Inspect the installer output and use its managed backup/recovery path if repair is needed. See the [integration record](runtime-integration-2026-10-02.md).
 
 Never expose credentials, install unpinned tools, or write to production as part of runtime setup. Global tool installation is optional and explicitly selected with `-InstallTools`.
+
+## Diseño (2026-11-14)
+
+Setup de prototipado y anti-slop instalado en la PC de Nacho (Windows + WSL). Las skills propias están en este repo; las de terceros se instalan con `bin/install-external-skills.ps1` y no se copian al árbol.
+
+### Flujo (Zentra y mockups)
+
+1. **En Zentra, en WSL**, dentro del repo: `/requirements-interview` (`business` o `both`). Escribe la spec en `docs/specs/<nombre>.md`. No hay código durante la entrevista.
+2. **`@zentra-brand-brief`**: lee la marca real (`references/brand.md` y el sitio si hace falta), pide 2–3 referencias concretas, muestra el brief (objetivo, hipótesis e idea audaz de cada variante) y recién ahí se diseña.
+3. **Prototipo:** en el repo de Zentra usá `zentra-prototype` (skill del plugin de Leo; manda sobre `/matt-prototype`). Fuera de Zentra, `/matt-prototype`. Pedí 3 variantes HTML realmente distintas, cada una a **390 px** y **1440 px**, con `@frontend-design` y `@ecommerce-ui-guidelines`. Copy en rioplatense; lo no confirmado va como `[a confirmar]`.
+4. **Autocrítica:** `/impeccable critique` (y `polish` / `bolder` / `typeset` si hace falta) o `impeccable detect`. Corregí antes de mostrar screenshots.
+5. **Calidad web, a demanda:** `@web-quality-audit`, `@core-web-vitals`, `@accessibility`, `@performance`, `@seo`, `@best-practices`.
+6. **Cierre:** `/verify-completion`, `/smoke`, `/perf-check`, `/handoff`.
+
+No corras `/impeccable init` en el repo de Leo sin preguntarle: crea archivos en ese repo.
+
+### Skills propias (en el repo)
+
+- `zentra-brand-brief` (con `references/brand.md`) y `ecommerce-ui-guidelines` viven en `.agents/skills-library/`. Después de `bin/sync-runtime.ps1` quedan en `~/.agents/skills-library/`.
+- En Windows se activan con junctions hacia `~\.agents\skills\<nombre>` y `~\.claude\skills\<nombre>`. WSL `~/.agents` apunta al mismo directorio de Windows, así que esas junctions también se ven ahí. El Claude de trabajo en WSL puede necesitar un symlink propio en `~/.claude/skills/`.
+
+### Skills de terceros (no se copian al repo)
+
+Declaradas en `config/external-skills.json` (repo, path, licencia, commit de la instalación del 2026-11-14). Instalación:
+
+```powershell
+pwsh bin/install-external-skills.ps1 -Only frontend-design,impeccable,web-quality-audit,core-web-vitals,accessibility,performance,seo,best-practices
+# Junctions (PowerShell), una por skill:
+#   New-Item -ItemType Junction -Path "$env:USERPROFILE\.agents\skills\<name>" -Target "$env:USERPROFILE\.agents\skills-library\<name>"
+#   New-Item -ItemType Junction -Path "$env:USERPROFILE\.claude\skills\<name>" -Target "$env:USERPROFILE\.agents\skills-library\<name>"
+```
+
+| Skill | Fuente | Licencia | Commit instalado |
+|---|---|---|---|
+| `frontend-design` | [anthropics/skills](https://github.com/anthropics/skills) (`skills/frontend-design`) | Apache-2.0 | `1780c5e5a552fd4d1c9d6a7b0cab26b0c2bef064` |
+| `impeccable` 4.9.1 | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) (`.agents/skills/impeccable`) | Apache-2.0 | `1b2aa57ca0f1cd6e393689bba70a780cb701aacd` |
+| `web-quality-audit`, `core-web-vitals`, `accessibility`, `performance`, `seo`, `best-practices` | [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills) (`skills/<name>`) | MIT | `afa8da942115f2961fdbfa80807ea0b232ff6c00` |
+
+La skill oficial `frontend-design` se instala en `~/.agents/skills-library/frontend-design` y se activa con junctions hacia `~/.agents/skills/frontend-design` y `~/.claude/skills/frontend-design`. La adaptación local del 2026-09-25 se retiró del núcleo y quedó en el archivo histórico `.agents/archive/skills/frontend-design-adapted-20260925`. `bin/sync-runtime.ps1` trata las skills declaradas en `config/external-skills.json` como externas tanto en `skills-library/` como en las junctions de `skills/`, así que un `-Force` no borra ni pisa la copia oficial. Backup local: `C:\Users\Nacho\.agents\backup-design-skills-20261114\`.
+
+### Qué no se instaló (y por qué)
+
+- [anti-slop](https://github.com/miqdadbadjuber/anti-slop): se carga entera en cada sesión (~84 KB), frena al arrancar con una pregunta y se pisa con `impeccable`. En la cuenta de trabajo de Zentra no conviene ese costo de contexto.
+- `ui-ux-pro-max`: pack grande de tokens y patrones genéricos; se pisa con `impeccable` + `frontend-design` + el brief de marca, y no aporta criterio propio de Zentra ni de ecommerce.
+- `anti-slop-design` (skill de núcleo ~2026-09): se **retiró del runtime** porque forzaba animaciones con rebote y contradecía a `impeccable`. Queda en el archivo histórico `.agents/archive/skills/anti-slop-design`. Un `sync-runtime.ps1 -Force` la trata como copia stale y la quita (con backup) de `~/.agents/skills/`, no la reactiva. Backup local: `C:\Users\Nacho\.agents\backup-design-v2-20261114\`.
+
+### Rollback de diseño
+
+- Primera tanda (frontend-design oficial + ecommerce-ui-guidelines): `C:\Users\Nacho\.agents\backup-design-skills-20261114\ROLLBACK.txt`
+- Segunda tanda (impeccable, zentra-brand-brief, web-quality-skills, baja de anti-slop-design): `C:\Users\Nacho\.agents\backup-design-v2-20261114\ROLLBACK.txt`
+
+### Guardrails de Zentra (2026-11-14)
+
+No forman parte del merge de `config/claude-hooks.json` (ese archivo solo gestiona `.agents/hooks/`). Copias sanitizadas, sin secretos, en `config/zentra-guardrails/`.
+
+- `zentra-confirm.py`: PreToolUse de Claude Code; pide confirmación antes de deploy, push o cambios de producción.
+- `secrets-guard.py` + `secret-rules.json`: niega leer `.env*`, keys, credenciales y variables con tokens. En Windows, si falta Python, hoy puede fallar abierto.
+- `zentra-guard.js`: plugin de OpenCode con las mismas reglas de secretos; además bloquea OpenCode sobre el repo de Zentra hasta que Leo lo apruebe.
+- `/perf-check` y `/smoke`: Lighthouse 12 y Playwright (1366×900 y 390×844), sin pasar del primer pantallazo de checkout.
+- Skill `zentra-tiendanube-theme` (tooling local de la máquina, no está en este repo).
+
+Rollback: `/home/nacho/.claude/backups/guardrails-20261114/` (WSL) y los `*.bak-20261114-guardrails` en `C:\Users\Nacho\.claude\` y `C:\Users\Nacho\.config\opencode\`.

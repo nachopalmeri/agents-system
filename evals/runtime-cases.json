@@ -151,7 +151,7 @@
       "language": "en",
       "weight": 1,
       "task": { "id": "specialized-en-frontend", "title": "Design a responsive landing page", "body": "Create the visual system and accessible UI for a new product page.", "labels": [], "riskLevel": "low", "requiresApproval": false, "source": "eval" },
-      "expected": { "lane": "SPECIALIZED", "primary": "implementador", "maxAgents": 1, "approvalRequired": false, "requiredComponents": [".agents/skills/frontend-design/SKILL.md"], "forbiddenComponents": [".agents/workflows/multiagent_review_loop.md"] }
+      "expected": { "lane": "SPECIALIZED", "primary": "implementador", "maxAgents": 1, "approvalRequired": false, "requiredComponents": [], "forbiddenComponents": [".agents/workflows/multiagent_review_loop.md"] }
     },
     {
       "id": "specialized-en-research",

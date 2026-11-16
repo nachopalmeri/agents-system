@@ -1,0 +1,1 @@
+Archivo histórico (2026-11-14). Esta era la adaptación local del 2026-09-25; la skill activa es la oficial de Anthropic, declarada en config/external-skills.json e instalada con bin/install-external-skills.ps1. No forma parte del runtime: nada la carga desde archive/.

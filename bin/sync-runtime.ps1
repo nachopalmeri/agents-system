@@ -213,8 +213,10 @@ function Get-ForeignEntries([string] $TargetDir, [string] $TargetRelative, [hash
 
 $externalSkillNames = @((Get-Content (Join-Path $repoRoot "config/external-skills.json") -Raw | ConvertFrom-Json).skills.name)
 function Test-ExternalSkill([string] $RelativeTarget) {
-    if ($RelativeTarget -notmatch '^\.agents/skills-library/([^/]+)$') { return $false }
-    return $externalSkillNames -contains $Matches[1]
+    # Copia oficial en skills-library y junctions opt-in en skills/ (p. ej. ~/.agents/skills o ~/.claude/skills).
+    # Así un -Force no borra la skill oficial si el mismo nombre se retiró del núcleo (caso frontend-design).
+    if ($RelativeTarget -notmatch '(^|/)skills(?:-library)?/([^/]+)$') { return $false }
+    return $externalSkillNames -contains $Matches[2]
 }
 
 # Nombres que el repo gestionó antes y ya movió o retiró: si aparecen en un destino

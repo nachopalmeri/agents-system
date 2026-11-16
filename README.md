@@ -55,6 +55,15 @@ Van namespaced y opt-in: no se precargan. Después de `bin/sync-runtime.ps1` que
 
 En WSL (cuenta de Zentra) no actives el plugin del marketplace `mattpocock-skills`: pisa nombres del plugin del equipo (`tdd`, `handoff`, `domain-modeling`, `systematic-debugging`). Codex lee otra carpeta, así que ahí todavía no aparecen.
 
+
+## Diseño y prototipos
+
+Skills propias en `.agents/skills-library/`: `zentra-brand-brief` y `ecommerce-ui-guidelines`. Skills de terceros (no se copian al repo; `config/external-skills.json` + `bin/install-external-skills.ps1`): `frontend-design` (Anthropic, Apache-2.0), `impeccable` (pbakaus, Apache-2.0) y el pack `web-quality-skills` de Addy Osmani (MIT).
+
+Flujo: `/requirements-interview` → `@zentra-brand-brief` → `zentra-prototype` (en Zentra) o `/matt-prototype` (afuera) → `/impeccable critique` / `polish` → skills de web-quality a demanda → `/verify-completion` `/smoke` `/perf-check` → `/handoff`.
+
+No se instalaron `anti-slop` (miqdadbadjuber) ni `ui-ux-pro-max`. Las skills de núcleo `frontend-design` (adaptación 2026-09) y `anti-slop-design` se retiraron del runtime (quedan en `.agents/archive/skills/`) para que un `sync-runtime.ps1 -Force` no las reactive; la `frontend-design` oficial se instala como skill externa. Detalle, junctions, guardrails y rollback: [docs/global-setup-2026.md](docs/global-setup-2026.md#diseño-2026-11-14).
+
 ## Delegación interna
 
 El primary elige entre ejecución directa, un worker menor del mismo harness o OpenCode. Ejemplo: Sol → Luna cuando la herramienta nativa permita seleccionar ese modelo; para el grind, Sol/Claude → OpenCode → DeepSeek (v4-pro o flash). Los nombres de modelos son preferencias configurables, no un ranking de calidad.
@@ -177,8 +186,8 @@ Tiene que crear:
 ├── agents/            # 5 roles: explorador, planner, implementador, reviewer, verificador
 ├── commands/          # /planear, /revisar, /cerrar (fuente única)
 ├── hooks/             # guard, lint-edited, session-todo, stop-unpushed, log-usage + guard-rules.json
-├── skills/            # 31 skills núcleo (metadata precargada; incluye multimodel-routing)
-├── skills-library/    # on-demand + INDEX.md (matt-* 1.3.2, home-repo y otras)
+├── skills/            # 29 skills núcleo (metadata precargada; incluye multimodel-routing)
+├── skills-library/    # on-demand + INDEX.md (matt-* 1.3.2, zentra-brand-brief, ecommerce-ui-guidelines y otras)
 ├── workflows/  rules/  memory/  tasks/  prompts/  shared/  docs/
 └── archive/           # historia (agentes y skills viejos); nada lo carga
 
@@ -187,6 +196,7 @@ config/
 ├── model-tiers.json        # modelo por rol y cliente
 ├── claude-hooks.json       # hooks que se mergean en ~/.claude/settings.json
 ├── external-skills.json    # skills de terceros (se bajan de su fuente)
+├── zentra-guardrails/      # copias sanitizadas de hooks de Zentra (no las instala el sync)
 ├── generated/              # agentes y comandos por cliente (bin/render-*.ps1)
 ├── global/                 # CLAUDE.md global y versión chat web
 └── opencode/               # plugin de guardia + plantilla opcional opencode.jsonc
