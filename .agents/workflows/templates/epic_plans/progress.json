@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nachopalmeri/agents-system/main/schemas/plan-progress.schema.json",
+  "project": "<proyecto>",
+  "plan": "<nombre>",
+  "created": "2026-01-01",
+  "updated": "2026-01-01",
+  "executionMode": "pr",
+  "baseBranch": "dev",
+  "integrationBranch": "<usuario>/<nombre>",
+  "worktree": ".claude/worktrees/<nombre>",
+  "epics": [
+    {
+      "id": "00-spikes",
+      "title": "Verificar supuestos",
+      "status": "pending",
+      "blockedReason": null,
+      "mode": "single",
+      "branch": "<usuario>/<nombre>-spikes",
+      "requiredValidations": ["tests"],
+      "validations": {},
+      "merged": false,
+      "pr": null,
+      "commitHash": null,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+---
+description: "Listar los planes por épicas del proyecto y su avance (solo lectura)"
+---
+Listá los planes por épicas de este proyecto. $ARGUMENTS
+
+Solo lectura.
+
+1. Recorré `docs/plans/*/progress.json` en el repo y en las copias de worktrees (`git worktree list`, `.claude/worktrees/*/docs/plans/*`, `.worktrees/*/docs/plans/*`). Si un plan aparece en ambos, la copia del worktree gana.
+2. Incluí también carpetas `docs/plans/*/` con `requirements.md` pero sin `progress.json` como "en entrevista / sin descomponer".
+3. Mostrá una tabla: plan, modo, épicas completadas/total, épica en curso, bloqueos, `updated`, ubicación (repo o worktree).
+4. Cerrá sugiriendo el comando siguiente (`/run-plan`, `/decompose-plan` o `/requirements-interview`).

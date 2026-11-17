@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nachopalmeri/agents-system/schemas/plan-progress.schema.json",
+  "title": "Plan progress (epic plans)",
+  "description": "Fuente de verdad de docs/plans/<nombre>/progress.json. Ver .agents/workflows/epic_plans.md.",
+  "type": "object",
+  "required": ["project", "created", "updated", "executionMode", "baseBranch", "integrationBranch", "epics"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "project": { "type": "string", "minLength": 1 },
+    "plan": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "created": { "type": "string", "format": "date" },
+    "updated": { "type": "string", "format": "date" },
+    "executionMode": { "enum": ["pr", "local-only"] },
+    "baseBranch": { "type": "string", "minLength": 1 },
+    "integrationBranch": { "type": "string", "minLength": 1 },
+    "worktree": { "type": "string" },
+    "epics": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/epic" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "validationResult": { "enum": ["pending", "pass", "fail", "skipped"] },
+    "epic": {
+      "type": "object",
+      "required": ["id", "status", "mode", "branch", "requiredValidations", "validations", "merged"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[0-9]{2}-[a-z0-9][a-z0-9-]*$" },
+        "title": { "type": "string" },
+        "status": { "enum": ["pending", "in_progress", "completed", "blocked"] },
+        "blockedReason": {
+          "enum": [null, "waiting-user-ok", "waiting-previous-epic", "open-question", "validation-failing", "context-budget", "account-quota", "external-dependency", "scope-too-large"]
+        },
+        "mode": { "enum": ["single", "phased"] },
+        "branch": { "type": "string", "minLength": 1 },
+        "requiredValidations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["tests", "build", "typecheck", "lint", "e2e"] }
+        },
+        "validations": {
+          "type": "object",
+          "propertyNames": { "enum": ["tests", "build", "typecheck", "lint", "e2e"] },
+          "additionalProperties": { "$ref": "#/$defs/validationResult" }
+        },
+        "merged": { "type": "boolean" },
+        "pr": { "type": ["string", "null"] },
+        "commitHash": { "type": ["string", "null"], "pattern": "^[0-9a-f]{7,40}$" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        { "if": { "properties": { "status": { "const": "blocked" } } }, "then": { "required": ["blockedReason"], "properties": { "blockedReason": { "type": "string" } } } }
+      ]
+    }
+  }
+}
