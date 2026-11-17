@@ -183,6 +183,22 @@
       ]
     },
     {
+      "priority": 45,
+      "reason": "specialist-epic-plans",
+      "primary": "planner",
+      "component": ".agents/workflows/epic_plans.md",
+      "patterns": [
+        "\\bplan(?:es)? (?:por|de) epicas\\b",
+        "\\bepic plans?\\b",
+        "\\brequirements[- ]interview\\b",
+        "\\bentrevista de requisitos\\b",
+        "\\bdecompose[- ]plan\\b",
+        "\\brun[- ]plan\\b",
+        "\\bdescompon\\w*\\b.{0,30}\\bepicas\\b"
+      ],
+      "negativeTriggers": []
+    },
+    {
       "priority": 50,
       "reason": "specialist-product",
       "primary": "planner",

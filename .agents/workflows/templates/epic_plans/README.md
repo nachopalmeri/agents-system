@@ -23,7 +23,7 @@
 - Una épica por vez; la siguiente arranca cuando la anterior está mergeada en la integración y hay OK.
 - Cada épica sale de la integración recién pulleada, nunca de la épica anterior.
 - `progress.json` es la fuente de verdad; `handoff.md` se lee primero; `hallazgos.md` registra H#/D#.
-- Presupuesto de contexto: checkpoint al ~30 %, handoff al ~40 %. Cuota de cuenta > 90 %: parar.
+- Presupuesto de contexto: orquestador checkpoint ~40 % y nueva sesión principal ~50 %; runners de épica y workers checkpoint ~30 % y corte ~40 %. Cuota de cuenta > 90 %: parar.
 
 ## Mirada estratégica
 

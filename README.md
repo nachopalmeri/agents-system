@@ -47,6 +47,10 @@ No uses modelos gratis que entrenan con los datos: Muse Spark, Iceman, Nemotron,
 - No uses `C:\Users\Nacho\agents-system`: está atrasado.
 - Zentra no se unifica a la fuerza. El día a día del theme arranca en `/home/nacho/projects/zentra`, con el plugin `zentra@claude-zentra` y `CONTEXT.md`.
 
+## Planes por épicas
+
+Para trabajo mediano/grande: `/requirements-interview <nombre>` audita el repo y pregunta de a una hasta dejar `docs/plans/<nombre>/requirements.md` (la spec). Las skills Matt (`matt-prototype`, `matt-grill-with-docs`, `matt-domain-modeling`, `matt-research`) la enriquecen sin duplicarla. `/decompose-plan <nombre>` genera `README.md`, `epics/NN-*.md`, `progress.json` (schema `schemas/plan-progress.schema.json`), `handoff.md` y `hallazgos.md`. `/run-plan <nombre>` ejecuta una épica por sesión en un worktree con rama de integración propia; `/plan-status` y `/list-plans` son de solo lectura. Presupuesto de contexto: orquestador 40/50 %, runners y workers 30/40 %. Detalle: `.agents/workflows/epic_plans.md`.
+
 ## Skills de Matt (`matt-*`)
 
 Catálogo 1.3.2 (39 entradas: 27 promoted, 4 misc, 8 experimental) en `.agents/skills-library/matt-*`. Incluye `matt-prototype`. También en la biblioteca: `home-repo`, `ubiquitous-language` y `pr-walkthrough`. Guía: `docs/matt-on-demand.md`.
@@ -184,7 +188,7 @@ Tiene que crear:
 .agents/
 ├── AGENTS.md          # Política canónica (única fuente; se copia a cada cliente)
 ├── agents/            # 5 roles: explorador, planner, implementador, reviewer, verificador
-├── commands/          # /planear, /revisar, /cerrar (fuente única)
+├── commands/          # /planear, /revisar, /cerrar, /requirements-interview, /decompose-plan, /run-plan, /plan-status, /list-plans (fuente única)
 ├── hooks/             # guard, lint-edited, session-todo, stop-unpushed, log-usage + guard-rules.json
 ├── skills/            # 29 skills núcleo (metadata precargada; incluye multimodel-routing)
 ├── skills-library/    # on-demand + INDEX.md (matt-* 1.3.2, zentra-brand-brief, ecommerce-ui-guidelines y otras)

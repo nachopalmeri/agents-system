@@ -11,5 +11,5 @@ Seguí `~/.agents/workflows/epic_plans.md` (fase 1) y la plantilla `~/.agents/wo
 5. Si hay UI o comportamiento desconocido, proponé `matt-prototype` (descartable); si el dominio está difuso, `matt-domain-modeling`; para contrastar con glosario/ADRs, `matt-grill-with-docs`. Lo aprendido vuelve a este mismo archivo y a `hallazgos.md`.
 6. Al cerrar, poné "Estado: spec lista para decomponer (`/decompose-plan <nombre>`)" y completá § Épicas sugeridas.
 
-Presupuesto de contexto: checkpoint al ~30 % en `docs/plans/<nombre>/handoff.md`; al ~40 % pará y dejame un Prompt de continuación.
+Presupuesto de contexto (sesión principal): checkpoint al ~40 % en `docs/plans/<nombre>/handoff.md`; al ~50 % pará y dejame un bloque "Continuación · sesión coordinadora N" con Prompt de continuación. Workers que lances: checkpoint ~30 %, corte ~40 %.
 """

@@ -22,6 +22,25 @@
 
 <Una sola acción concreta.>
 
+<!-- Presupuesto: orquestador checkpoint ~40 % / nueva sesión principal ~50 %;
+     runner de épica y workers checkpoint ~30 % / corte ~40 %. -->
+
+<!-- Plantilla de bloque para la sesión principal siguiente:
+
+## Continuación · sesión coordinadora N (AAAA-MM-DD)
+
+- Épicas cerradas / en curso:
+- Decisiones nuevas (D#):
+- Próximo paso:
+
+### Prompt de continuación
+
+```
+Sos el orquestador del plan <nombre> en <worktree>. Leé sólo docs/plans/<nombre>/handoff.md
+(el último bloque manda) y seguí desde "Próximo paso". Presupuesto: checkpoint 40 %, corte 50 %.
+```
+-->
+
 <!-- Plantilla de bloque para sesiones siguientes:
 
 ## Continuación · sesión N (AAAA-MM-DD)

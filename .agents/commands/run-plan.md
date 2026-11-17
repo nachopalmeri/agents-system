@@ -6,7 +6,13 @@ Ejecutá la próxima épica del plan: {{args}}
 
 Seguí `~/.agents/workflows/epic_plans.md`. Leé primero `docs/plans/<nombre>/handoff.md` (el último bloque "Continuación" manda) y después `progress.json`; si hay copia en el worktree del plan, esa gana.
 
-1. **Cuota y contexto.** Revisá el uso de la cuenta: arriba del 90 % pará y avisame; nunca overage pago. Contexto: checkpoint en `handoff.md` al ~30 %, corte con Prompt de continuación al ~40 %.
+1. **Cuota y contexto.** Revisá el uso de la cuenta: arriba del 90 % pará y avisame; nunca overage pago. Presupuesto por rol:
+
+   | Rol | Checkpoint en `handoff.md` | Corte |
+   |---|---|---|
+   | Orquestador / sesión principal | ~40 % | ~50 %: nueva sesión principal con bloque "Continuación · sesión coordinadora N" + Prompt de continuación; la nueva lee sólo `handoff.md` primero |
+   | Runner de épica (esta sesión) | ~30 % | ~40 %: bloque "Continuación · sesión N" + Prompt de continuación, y pará |
+   | Worker | ~30 % | ~40 %: nota en `handoff.md` y resumen de 5 líneas |
 2. **Elegí la épica.** La primera `pending` cuyas dependencias estén `completed` y `merged: true`. Si la anterior no está mergeada o no di OK, pará.
 3. **Checkpoint pre-implementación** (de la épica): worktree correcto, árbol limpio, épica anterior mergeada, `git pull --ff-only` de la integración (salvo `local-only`), rama nueva `<usuario>/<nombre>-<corto>` desde la integración, diff estimado < 500 líneas (si no, proponé dividir).
 4. Marcá la épica `in_progress` en `progress.json` (y `updated`).

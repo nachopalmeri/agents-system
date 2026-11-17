@@ -10,7 +10,8 @@ Primero clasificá SIMPLE, SPECIALIZED, PARALLEL o HIGH_RISK con `../../config/r
 |---|---|---|
 | Cambio o explicación directa | el agente principal, sin subagentes | aparece riesgo o expertise material |
 | Cuota que se agota, contexto pesado o medir ahorro | `workflows/token_budget.md` | medir tres tickets reales; no agregar infraestructura por rutina |
-| Feature mediana/grande o trabajo que excede una sesión enfocada | `workflows/ticket_sessions.md` | Matt por fase; chats nuevos sólo con autorización explícita |
+| Feature mediana/grande o trabajo que excede una sesión enfocada | `workflows/epic_plans.md` (`/requirements-interview` → Matt enriquece → `/decompose-plan` → `/run-plan`) | pre-fase grill/spec en `workflows/ticket_sessions.md`; una sesión por épica sólo con la autorización del README del plan |
+| Estado de planes por épicas | `/plan-status`, `/list-plans` (solo lectura) | `progress.json` es la fuente de verdad |
 | Bug o test rojo | `skills/systematic-debugging/SKILL.md` | hay trabajos independientes |
 | UI/landing material | skill externa frontend-design (ver `../../config/external-skills.json`) + `skills-library/zentra-brand-brief/SKILL.md` | requiere revisión visual (`impeccable`) |
 | SEO técnico | `skills/seo-geo-growth/references/seo-tecnico.md` | incluye adquisición/GEO |

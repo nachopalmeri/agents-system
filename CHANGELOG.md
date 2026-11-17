@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-17 — planes por épicas
+- **Flujo nuevo** `workflows/epic_plans.md`: `/requirements-interview` → skills Matt enriquecen → `/decompose-plan` → `/run-plan` (una sesión por épica, un worktree y una rama de integración por plan, modo `local-only` opcional). `/plan-status` y `/list-plans` de solo lectura. Plantillas en `workflows/templates/epic_plans/` y `schemas/plan-progress.schema.json`.
+- **Reconciliación:** `ticket_sessions.md` queda como pre-fase; `/planear` sólo para planes de una sesión; `to-spec` → `requirements.md`, `to-tickets` → `/decompose-plan` (`matt-to-tickets` opcional para espejar issues). Orquestador exento del tope de Opus; presupuesto de contexto por rol.
+- **Delegación:** porta la intención de d346215: `SUCCESS` con bloqueos listados en `uncertainty`, normalizador de etiquetas `*_with_blockers`/`partial`, `maxWallSeconds` (30-900).
+
 ## 2026-09-24 (b) — propuestas 2, 7 y 12
 - **Fusiones:** 11 grupos, 32 skills retiradas con `mergedInto`, contenido original en `references/`. `code-review` reemplaza a `requesting-code-review`; nuevas en library: `grilling`, `exercise-generator`, `ui-refine`.
 - **Agentes:** 19 → 5 roles (`explorador`, `planner`, `implementador`, `reviewer`, `verificador`), definidos una vez y generados para Claude, opencode y Gemini (`render-agents.ps1`, `model-tiers.json`). El conocimiento de los viejos pasó a skills; los archivos originales, a `archive/agents/`.

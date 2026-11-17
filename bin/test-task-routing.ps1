@@ -14,6 +14,7 @@ $cases = @(
     @{ title = 'Work in parallel'; lane = 'PARALLEL'; agent = 'implementador' },
     @{ title = 'Tomame un parcial'; lane = 'SPECIALIZED'; agent = 'implementador' },
     @{ title = 'Actualizacion parcial de la aplicacion'; lane = 'SIMPLE'; agent = 'implementador' },
+    @{ title = 'Descomponer la spec en un plan por epicas'; lane = 'SPECIALIZED'; agent = 'planner' },
     @{ title = 'planner'; lane = 'SPECIALIZED'; agent = 'planner' }
 )
 foreach ($case in $cases) {

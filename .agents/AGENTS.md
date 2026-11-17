@@ -44,7 +44,7 @@ Precedencia: riesgo → agente explícito → paralelismo explícito → especia
 - Usá únicamente candidatos gratuitos verificados en los workers OpenCode, salvo autorización explícita para modelos pagos. Conservá el alcance autorizado y registrá proveedor, modelo, resultado y costo disponible. Si el proveedor está bloqueado, retorná el encargo al primary con el motivo, sin cambiar permisos silenciosamente.
 
 - Planificá cuando haya más de tres pasos significativos, varios archivos o riesgo; los cambios chicos van directos.
-- Para features medianas/grandes, usá `workflows/ticket_sessions.md`: decisiones pendientes → spec compartida → tickets → handoffs compactos; sesiones nuevas sólo con autorización explícita, sin overhead para tareas chicas.
+- Para features medianas/grandes: `/requirements-interview` → `docs/plans/<nombre>/requirements.md` (la spec; skills Matt sólo la enriquecen, ver `workflows/ticket_sessions.md`) → `/decompose-plan` → `/run-plan`, según `workflows/epic_plans.md`. `progress.json` del plan es la fuente de verdad. Sesiones nuevas sólo con autorización explícita, salvo la autorización permanente por épica que declare el README del plan; sin overhead para tareas chicas.
 - En hitos sustanciales de un proyecto o cuando el usuario pida material de estudio, descubrí `skills-library/project-learning-guide/SKILL.md`: guía breve, visual y didáctica en `Efforts/Proyectos/<Proyecto>/` del vault UADE (usar carpeta existente o crearla). Cruzá con notas universitarias pertinentes y enlazalas; no generes guías por microtareas ni copies apuntes enteros.
 - When a project guide is triggered, infer the project from the active repo and actually write/update it in simple English; a vault-rules summary is not the deliverable. The academic proposal inbox does not apply to project guides. If vault writing is blocked, finish a repo draft and report the block.
 - Todo loop debe tener iteraciones, replans y agentes máximos. Un fallo idéntico repetido termina en bloqueo, no en spin.
@@ -75,6 +75,8 @@ Límites de Claude en una sesión de esta cascada:
 - Sonnet: máximo 2
 - Opus: máximo 1 (orquesta o planifica)
 
+El orquestador de un plan por épicas (`workflows/epic_plans.md`) queda exento del tope de Opus; los topes aplican a los workers.
+
 Claude entra cuando hay que planificar/orquestar o cuando DeepSeek no alcanza. Skill operativa: `skills/multimodel-routing`.
 
 ## Descubrimiento
@@ -98,5 +100,6 @@ Claude entra cuando hay que planificar/orquestar o cuando DeepSeek no alcanza. S
 
 - Buscá con grep/glob y leé rangos; no leas archivos enteros para ubicar algo.
 - Lean por defecto: rutina con el menor modelo capaz disponible y modo Standard; esfuerzo proporcional, sin reviews/councils automáticos por microtarea. Detalle y medición sólo cuando sean necesarios: `workflows/token_budget.md`.
-- Cerrá unidades sustanciales con estado compacto en `tasks/todo.md`; nueva sesión en un límite natural, no por cada edición. No reinicia la cuota de la cuenta.
+- Presupuesto de contexto en planes por épicas (`workflows/epic_plans.md`): orquestador/sesión principal checkpoint en `handoff.md` al ~40 % y nueva sesión principal al ~50 % con Prompt de continuación; runners de épica y workers checkpoint al ~30 % y corte al ~40 %.
+- Cerrá unidades sustanciales con estado compacto en `tasks/todo.md` (en planes por épicas manda `progress.json`; `todo.md` sólo apunta al plan); nueva sesión en un límite natural, no por cada edición. No reinicia la cuota de la cuenta.
 - MCPs apagados por defecto; habilitalos por proyecto cuando se usen.

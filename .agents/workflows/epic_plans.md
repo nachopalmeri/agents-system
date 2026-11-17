@@ -15,6 +15,7 @@ Flujo único para trabajo mediano/grande que no entra en una sesión enfocada. R
    - `skills-library/matt-domain-modeling/SKILL.md` cuando el dominio está difuso.
    - `skills-library/matt-research/SKILL.md` u otras según necesidad.
    No crean una segunda spec: `to-spec` se mapea a `requirements.md` y `to-tickets` a `/decompose-plan`.
+   `skills-library/matt-to-tickets/SKILL.md` es **opcional** y sólo sirve para espejar como issues de GitHub épicas ya descompuestas por `/decompose-plan`; nunca es un segundo paso de planificación y nunca crea issues sin OK explícito del usuario.
 3. **Descomponer** (`/decompose-plan <nombre>`). Lee `requirements.md` (§ Épicas sugeridas) y genera en `docs/plans/<nombre>/`:
    - `README.md` (plantilla `workflows/templates/epic_plans/README.md`)
    - `progress.json` (plantilla `workflows/templates/epic_plans/progress.json`, schema `schemas/plan-progress.schema.json` del home repo)
@@ -36,12 +37,15 @@ Flujo único para trabajo mediano/grande que no entra en una sesión enfocada. R
 
 El README del plan tiene el campo **Autorización de sesiones**. Si dice `sí`, el usuario autorizó de antemano abrir una sesión/terminal nueva por épica de ese plan. Es la excepción explícita a "sesiones nuevas sólo con autorización explícita" (`.agents/AGENTS.md`, `workflows/ticket_sessions.md`); vale sólo para épicas de ese plan, no para publicar, mergear ni mensajes externos.
 
-## Presupuesto de contexto (requisito duro)
+## Presupuesto de contexto por rol (requisito duro)
 
-Nunca pasar del 30-40 % de la ventana de contexto, en ninguna sesión (orquestador, runner de épica o worker).
+| Rol | Checkpoint en `handoff.md` | Corte / handoff | Cómo sigue |
+|---|---|---|---|
+| Orquestador / sesión principal ("CTO") | ~40 % | ~50 % | Sesión principal **nueva**: bloque `## Continuación · sesión coordinadora N (AAAA-MM-DD)` + **Prompt de continuación** listo para pegar. La sesión nueva lee sólo `handoff.md` primero. |
+| Runner de épica (`/run-plan`) | ~30 % | ~40 % | Bloque `## Continuación · sesión N (AAAA-MM-DD)` + Prompt de continuación; no sigue implementando. |
+| Worker | ~30 % | ~40 % | Para, deja nota en `handoff.md` y devuelve el resumen de 5 líneas al runner. |
 
-- **~30 %:** escribí un checkpoint compacto en `docs/plans/<nombre>/handoff.md` (bloque "Continuación · sesión N": estado, archivos tocados, validaciones, próximo paso).
-- **~40 %:** pará y entregá un **Prompt de continuación** listo para pegar en una sesión nueva. No sigas implementando.
+- El checkpoint es compacto: estado, archivos tocados, validaciones, bloqueos y próximo paso. Nada de historiales copiados.
 - **Cuota de cuenta:** antes de empezar una épica revisá el uso de la cuenta (`/usage` o el panel del cliente). Arriba del 90 % pará y avisá. Nunca uses overage pago.
 - Si el cliente no expone el porcentaje, estimalo por volumen leído/escrito y cortá antes.
 
