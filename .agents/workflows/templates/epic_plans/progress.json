@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/nachopalmeri/agents-system/main/schemas/plan-progress.schema.json",
+  "$schema": "https://raw.githubusercontent.com/nachopalmeri/agents-system/main/.agents/workflows/templates/epic_plans/plan-progress.schema.json",
   "project": "<proyecto>",
   "plan": "<nombre>",
   "created": "2026-01-01",

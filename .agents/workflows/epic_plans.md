@@ -18,7 +18,7 @@ Flujo único para trabajo mediano/grande que no entra en una sesión enfocada. R
    `skills-library/matt-to-tickets/SKILL.md` es **opcional** y sólo sirve para espejar como issues de GitHub épicas ya descompuestas por `/decompose-plan`; nunca es un segundo paso de planificación y nunca crea issues sin OK explícito del usuario.
 3. **Descomponer** (`/decompose-plan <nombre>`). Lee `requirements.md` (§ Épicas sugeridas) y genera en `docs/plans/<nombre>/`:
    - `README.md` (plantilla `workflows/templates/epic_plans/README.md`)
-   - `progress.json` (plantilla `workflows/templates/epic_plans/progress.json`, schema `schemas/plan-progress.schema.json` del home repo)
+   - `progress.json` (plantilla `workflows/templates/epic_plans/progress.json`, schema `~/.agents/workflows/templates/epic_plans/plan-progress.schema.json`)
    - `epics/NN-<corto>.md` (plantilla `workflows/templates/epic_plans/epic.md`), con `00-spikes` si hay supuestos sin verificar
    - `handoff.md` y `hallazgos.md` (plantillas `workflows/templates/epic_plans/handoff.md` y `workflows/templates/epic_plans/hallazgos.md`)
    Mostrá el desglose y esperá OK antes de crear worktree o ramas.

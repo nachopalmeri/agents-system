@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/nachopalmeri/agents-system/schemas/plan-progress.schema.json",
+  "$id": "https://github.com/nachopalmeri/agents-system/.agents/workflows/templates/epic_plans/plan-progress.schema.json",
   "title": "Plan progress (epic plans)",
   "description": "Fuente de verdad de docs/plans/<nombre>/progress.json. Ver .agents/workflows/epic_plans.md.",
   "type": "object",

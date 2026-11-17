@@ -49,7 +49,7 @@ No uses modelos gratis que entrenan con los datos: Muse Spark, Iceman, Nemotron,
 
 ## Planes por épicas
 
-Para trabajo mediano/grande: `/requirements-interview <nombre>` audita el repo y pregunta de a una hasta dejar `docs/plans/<nombre>/requirements.md` (la spec). Las skills Matt (`matt-prototype`, `matt-grill-with-docs`, `matt-domain-modeling`, `matt-research`) la enriquecen sin duplicarla. `/decompose-plan <nombre>` genera `README.md`, `epics/NN-*.md`, `progress.json` (schema `schemas/plan-progress.schema.json`), `handoff.md` y `hallazgos.md`. `/run-plan <nombre>` ejecuta una épica por sesión en un worktree con rama de integración propia; `/plan-status` y `/list-plans` son de solo lectura. Presupuesto de contexto: orquestador 40/50 %, runners y workers 30/40 %. Detalle: `.agents/workflows/epic_plans.md`.
+Para trabajo mediano/grande: `/requirements-interview <nombre>` audita el repo y pregunta de a una hasta dejar `docs/plans/<nombre>/requirements.md` (la spec). Las skills Matt (`matt-prototype`, `matt-grill-with-docs`, `matt-domain-modeling`, `matt-research`) la enriquecen sin duplicarla. `/decompose-plan <nombre>` genera `README.md`, `epics/NN-*.md`, `progress.json` (schema `.agents/workflows/templates/epic_plans/plan-progress.schema.json`), `handoff.md` y `hallazgos.md`. `/run-plan <nombre>` ejecuta una épica por sesión en un worktree con rama de integración propia; `/plan-status` y `/list-plans` son de solo lectura. Presupuesto de contexto: orquestador 40/50 %, runners y workers 30/40 %. Detalle: `.agents/workflows/epic_plans.md`.
 
 ## Skills de Matt (`matt-*`)
 
