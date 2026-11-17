@@ -7,6 +7,10 @@ try {
     function Route { $request | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $path; & (Join-Path $PSScriptRoot 'select-delegation.ps1') -RequestPath $path | ConvertFrom-Json }
     $route=Route; if($route.executor -ne 'opencode' -or $route.tier -ne 'free-worker'){throw 'Local edits should delegate.'}
     if ($route.maxAttempts -ne 1) { throw 'Selector ignored free-worker policy attempt budget.' }
+    if($route.maxWallSeconds -ne 180){throw 'Default delegation wall-time budget changed unexpectedly.'}
+    $request.maxWallSeconds=600; if((Route).maxWallSeconds -ne 600){throw 'Explicit bounded wall-time budget was ignored.'}
+    $request.maxWallSeconds=901; $rejected=$false; try {Route|Out-Null}catch{$rejected=$true}; if(-not $rejected){throw 'Unbounded delegation wall-time budget accepted.'}
+    $request.Remove('maxWallSeconds')
     $request.sameHarnessAvailable=$true; if((Route).executor -ne 'same-harness'){throw 'Same-harness cheaper worker preferred.'}
     $request.risk='high'; if((Route).delegate){throw 'High risk must stay primary.'}
     $request.risk='low'; $request.trivial=$true; if((Route).delegate){throw 'Trivial task must avoid overhead.'}
@@ -21,6 +25,9 @@ try {
     $fixture=Join-Path (Split-Path $PSScriptRoot -Parent) 'evals/fixtures/delegation-cli.ps1'
     $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
     if($receipt.state -ne 'SUCCESS' -or $receipt.attempts.Count -ne 1){throw 'CLI event aggregation failed.'}
+    $request.objective='Return fixture complete with blockers'; Route|Out-Null
+    $receipt=& (Join-Path $PSScriptRoot 'invoke-delegation.ps1') -RequestPath $path -OpenCodeCommand $fixture | ConvertFrom-Json
+    if($receipt.state -ne 'SUCCESS' -or $receipt.result.state -ne 'SUCCESS' -or $receipt.attempts.Count -ne 1 -or $receipt.result.uncertainty.Count -ne 1){throw 'Completed research with disclosed blockers must be accepted as SUCCESS and keep the blockers in uncertainty.'}
     $request.subtasks=@(@{objective='Read README headings';operation='read';allowedPaths=@()},@{objective='Read delegation guide headings';operation='read';allowedPaths=@()})
     $request.objective='Return fixture multi output'
     Route|Out-Null
