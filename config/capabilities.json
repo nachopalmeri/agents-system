@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T22:05:00.0000000-03:00",
+  "generatedAt": "2026-11-24T10:46:04.4090462-03:00",
   "generatedBy": "bin/generate-capabilities.ps1",
   "agents": [
     {
@@ -248,6 +248,11 @@
       "name": "computer-use",
       "description": ">-   Use Orca's computer-use CLI to inspect and operate local desktop app windows   through accessibility trees, screenshots, and safe UI actions. Use for   desktop app interaction: list apps/windows, get app state, read visible UI,   click controls, type, press keys, scroll, drag, set values, or perform   accessibility actions. Also use for browser windows, webviews, Orca app UI,   or other desktop UI. Triggers include \"computer use\", \"orca computer\", \"read   Spotify\", \"read Slack\", \"control/click/read in a desktop app\", and \"get app   state\".",
       "path": "skills-library/computer-use/SKILL.md"
+    },
+    {
+      "name": "consult-intelligence-core",
+      "description": "\"Usala cuando una tarea necesite investigación, nuevas perspectivas o crítica especializada (diseño, CRO, SEO/GEO, arquitectura de agentes) y haya que consultar Intelligence Core (cuaderno NotebookLM) o registrar un aprendizaje reutilizable. No para tareas locales ni rutinarias.\"",
+      "path": "skills-library/consult-intelligence-core/SKILL.md"
     },
     {
       "name": "content-repurposing",

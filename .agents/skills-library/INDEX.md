@@ -17,6 +17,7 @@ Catálogo Matt: las entradas `matt-*` conservan su estado en la descripción; `m
 - `chat-ui` — Chat UI building blocks for React/Next.js from ui.inference.sh.
 - `competitor-teardown` — Structured competitive analysis with feature matrices, SWOT, positioning maps, and UX review.
 - `computer-use` — Use Orca's computer-use CLI to inspect and operate local desktop app windows through accessibility trees,…
+- `consult-intelligence-core` — Usala cuando una tarea necesite investigación, nuevas perspectivas o crítica especializada (diseño, CRO,…
 - `content-repurposing` — Content atomization — turn one piece of content into many formats.
 - `css-animations` — Genera animaciones CSS 2D para sitios web — keyframes, parallax, hover effects, fade-on-scroll, texto animado
 - `customer-persona` — Research-backed customer persona creation with market data and avatar generation.

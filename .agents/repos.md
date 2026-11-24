@@ -35,6 +35,8 @@ Las rutas de abajo son las de **DESKTOP-7FF9TQ5** (Windows, usuario `Nacho`; WSL
 
 **zentra-estudio** (guías de onboarding / setup de Nacho): `D:\Dev\zentra-estudio`. No es un git repo.
 
+**Aprendizajes de Zentra** (wiki privada de decisiones y resultados propios, no fuentes): carpeta `Efforts/Trabajo/Zentra/08 Aprendizajes/` del vault UADE. Leé solo su `index.md`, y solo cuando una tarea de Zentra lo pida (skill `consult-intelligence-core`). Es privada: no copies su contenido a este repo público.
+
 **Backup del theme Tiendanube** (layouts, snipplets, templates `.tpl`): `C:\Users\Nacho\Documents\zentra-dev-backup-2026-11-13`. Copia local, no un remote.
 
 **Vault de relevamiento** (solo lectura desde Claude Code en WSL): `D:\Facultad\UADE-Vault\Zentra` (en WSL: `/mnt/d/Facultad/UADE-Vault/Zentra`). Entrada: `Benchmark experiencia de venta/Hoja de ruta.md`. El vault lo escribe otro agente.
